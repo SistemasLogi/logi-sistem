@@ -28,6 +28,7 @@ if ($_POST) {
         if (!empty($consulta)) {
             $num_ord_serv = json_decode($consulta);
             $numero_os = $num_ord_serv[0]->os_id;
+            
         }
     }
 } else {

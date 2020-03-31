@@ -20,13 +20,17 @@
                 </div>                                                                                                
             </div>                                           
             <div class="row">
-                <div class="form-group col-lg-6">
+                <div class="form-group col-lg-4">
                     <label for="inputPerContacto">Persona Contacto</label>
                     <input type="text" class="form-control" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto" value="<?php echo $_SESSION["per_contac"]; ?>">
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="inputTele">Teléfono</label>
                     <input type="text" class="form-control" id="inputTele" name="inputTele" placeholder="Teléfono" value="<?php echo $_SESSION["telefono_cli"]; ?>">
+                </div>                
+                <div class="form-group col-lg-2">
+                    <label for="inputCantidadEnv">Cantidad</label>
+                    <input type="text" class="form-control" id="inputCantidadEnv" name="inputCantidadEnv" placeholder="Persona Contacto">
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="selectTipEnvio">Tipo Envio</label>

@@ -33,7 +33,7 @@ class Orden_serv_DAO {
 
     /**
      * Funcion que consulta la informacion del ultimo registro en orden_serv
-     *  
+     * por cliente 
      * @param type $tipoDoc
      * @param type $numDoc
      * @return type
