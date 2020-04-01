@@ -173,6 +173,10 @@ function validarOrdServ() {
         rules: {
             inputDir: {
                 required: true
+            },
+            inputCantidadEnv: {
+                required: true,
+                number: true
             }
         },
         submitHandler: function (form) {

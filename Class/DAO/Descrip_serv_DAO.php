@@ -16,16 +16,13 @@ class Descrip_serv_DAO {
 
     /**
      * Funcion que inserta o actualiza un registro en tabla orden_serv
-     * @param type $ord_ser_vo
+     * @param type $desc_or_vo
      */
-    function insertarOrden_serv($ord_ser_vo) {
-        $sql = "INSERT INTO orden_serv VALUES (" . $ord_ser_vo->getNumero() . ", " . $ord_ser_vo->getCli_id() . ", "
-                . "" . $ord_ser_vo->getCli_docum() . ", " . $ord_ser_vo->getCod_ciudad() . ", "
-                . "'" . $ord_ser_vo->getDireccion() . "', '" . $ord_ser_vo->getPer_contacto() . "', "
-                . "'" . $ord_ser_vo->getTelefono() . "', '" . $ord_ser_vo->getEnvio() . "')"
-                . "ON DUPLICATE KEY UPDATE ciu_id = " . $ord_ser_vo->getCli_id() . ", os_direccion = '" . $ord_ser_vo->getDireccion() . "', "
-                . "os_per_cont = '" . $ord_ser_vo->getPer_contacto() . "', os_tel_cont = '" . $ord_ser_vo->getTelefono() . "', "
-                . "os_tipo_envio = '" . $ord_ser_vo->getEnvio() . "'";
+    function insertarDescrip_serv($desc_or_vo) {
+        $sql = "INSERT INTO descrip_serv VALUES (" . $desc_or_vo->getOs_id() . ", " . $desc_or_vo->getCsc() . ", "
+                . "" . $desc_or_vo->getTs_id() . ", " . $desc_or_vo->getCantidad_env() . ", '" . $desc_or_vo->getContenido() . "')"
+                . "ON DUPLICATE KEY UPDATE ts_id = " .  $desc_or_vo->getTs_id() . ", dos_cant = " . $desc_or_vo->getCantidad_env() . ", "
+                . "dos_contiene = '" . $desc_or_vo->getContenido() . "'";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);

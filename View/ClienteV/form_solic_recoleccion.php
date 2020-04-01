@@ -30,7 +30,7 @@
                 </div>                
                 <div class="form-group col-lg-2">
                     <label for="inputCantidadEnv">Cantidad</label>
-                    <input type="text" class="form-control" id="inputCantidadEnv" name="inputCantidadEnv" placeholder="Persona Contacto">
+                    <input type="text" class="form-control" id="inputCantidadEnv" name="inputCantidadEnv" placeholder="N° Envios">
                 </div>
                 <div class="form-group col-lg-3">
                     <label for="selectTipEnvio">Tipo Envio</label>
