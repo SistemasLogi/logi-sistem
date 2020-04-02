@@ -198,6 +198,7 @@ function insertar_orden_serv() {
             $("#selectCiudad").prop('disabled', true);
             $("#inputPerContacto").prop('disabled', true);
             $("#inputTele").prop('disabled', true);
+            $("#inputCantidadEnv").prop('disabled', true);
             $("#selectTipEnvio").prop('disabled', true);
             $("#btnGenOrdServ").prop('disabled', true);
             $("#btnAgreEnv").prop('disabled', false);
@@ -226,6 +227,7 @@ function resetFormOrdServ() {
     $("#selectCiudad").prop('disabled', false);
     $("#inputPerContacto").prop('disabled', false);
     $("#inputTele").prop('disabled', false);
+    $("#inputCantidadEnv").prop('disabled', false);
     $("#selectTipEnvio").prop('disabled', false);
     $("#btnGenOrdServ").prop('disabled', false);
     $("#btnAgreEnv").prop('disabled', true);
