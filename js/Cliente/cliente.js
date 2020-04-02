@@ -209,7 +209,7 @@ function insertar_orden_serv() {
             $("#btnCancelarOrd").html("Nuevo");
         } else {
             alert(datos);
-            $("#divMensaje").html("<div class='alert alert-dismissible alert-danger col-lg-12'><strong>No Guardado!</strong> " + datos + "</div> ");
+            $("#divMensaje").html("<div class='alert alert-dismissible alert-danger col-lg-12'><strong>No Guardado! </strong> " + datos + "</div> ");
         }
     };
     f_ajax(request, cadena, metodo);

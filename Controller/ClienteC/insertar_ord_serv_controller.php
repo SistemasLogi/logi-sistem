@@ -3,6 +3,10 @@
 if ($_POST) {
     session_start();
     require '../../config.php';
+
+    date_default_timezone_set('America/Bogota');
+    $fecha_hora = date("Y-m-d H:i:s");
+
     $or_servi_vo = new Orden_serv_VO();
     $or_servi_dao = new Orden_serv_DAO();
 
@@ -31,15 +35,30 @@ if ($_POST) {
         if (!empty($consulta)) {
             $num_ord_serv = json_decode($consulta);
             $numero_os = $num_ord_serv[0]->os_id;
+            $csc = 1;
             $des_os_vo->setOs_id($numero_os);
-            $des_os_vo->setCsc(1);
+            $des_os_vo->setCsc($csc);
             $des_os_vo->setTs_id(2);
             $des_os_vo->setContenido("");
             if ($des_os_dao->insertarDescrip_serv($des_os_vo) == 1) {
-                echo 1;
+                $estXserv_vo = new Est_x_serv_VO();
+                $estXserv_dao = new Est_x_serv_DAO();
+
+                $estXserv_vo->setOrden_id($numero_os);
+                $estXserv_vo->setOrd_csc_id($csc);
+                $estXserv_vo->setEstado_id(1);
+                $estXserv_vo->setFecha_hora($fecha_hora);
+                $estXserv_vo->setNovedad("");
+                if ($estXserv_dao->insertarOrden_serv($estXserv_vo) == 1) {
+                    echo 1;
+                } else {
+                    echo "Error al guardar estado de orden";
+                }
             } else {
-                echo 2;
+                echo "error al guardar detalles de orden de servicio";
             }
+        } else {
+            echo "error al guardar orden de servicio";
         }
     }
 } else {
