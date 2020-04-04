@@ -123,6 +123,9 @@ function formulario_recolec() {
             resetFormOrdServ();
             formulario_recolec();
         });
+        $("#btnAgreEnv").click(function () {
+            formularioEnvios();
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -185,6 +188,7 @@ function validarOrdServ() {
         }
     });
 }
+var tipoEnv;
 /**
  * Metodo que llena el combo de seleccion tipo envio
  * @returns {undefined}
@@ -207,6 +211,7 @@ function insertar_orden_serv() {
             $("#btnCancelarOrd").removeClass("btn-dark");
             $("#btnCancelarOrd").addClass("btn-warning");
             $("#btnCancelarOrd").html("Nuevo");
+            tipoEnv = $("#selectTipEnvio").val();
         } else {
             alert(datos);
             $("#divMensaje").html("<div class='alert alert-dismissible alert-danger col-lg-12'><strong>No Guardado! </strong> " + datos + "</div> ");
@@ -231,4 +236,45 @@ function resetFormOrdServ() {
     $("#selectTipEnvio").prop('disabled', false);
     $("#btnGenOrdServ").prop('disabled', false);
     $("#btnAgreEnv").prop('disabled', true);
+}
+
+function formularioEnvios() {
+    request = "View/ClienteV/FormulariosEnvios/form_env_" + tipoEnv + ".php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#formEnvios").html(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo de validacion Carga masiva de empleados txt
+ * @returns {undefined}
+ */
+function validarMasivoEnvios() {
+    $("#formMasEnvDoc").validate({
+        rules: {
+            txtnameMasivoEmp: {
+                required: true,
+                extension: "xls|xlsx|csv"
+            }
+        },
+        submitHandler: function (form) {
+            cargaArchivo();
+        }
+    });
+}
+
+function cargaArchivo() {
+    var creando = "<div><img src='img/animaciones/creando.gif' alt''/>Creando Usuarios...</div>";
+    $("#pruebas").html(creando);
+    request = "Control/Admin_TI/carga_masivo_emp_control.php";
+    cadena = new FormData($("#formMasivoEmp")[0]);
+    metodo = function (datos) {
+//        arregloemp = $.parseJSON(datos);
+        $("#textTxtMasivoEmp").html("");
+        $("#pruebas").html(datos);
+
+    };
+    f_ajax_files(request, cadena, metodo);
 }
