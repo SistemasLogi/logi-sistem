@@ -46,4 +46,15 @@ class Orden_serv_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que consulta el numero de id del ultimo registro en orden_serv
+     * por cliente 
+     * @return type
+     */
+    function consulta_id_UltimaOS() {
+        $sql = "SELECT MAX(os_id) AS num FROM orden_serv;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

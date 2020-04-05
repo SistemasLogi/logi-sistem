@@ -185,9 +185,30 @@ function validarOrdServ() {
         submitHandler: function (form) {
 
             insertar_orden_serv();
+            numero_orden_serv();
         }
     });
 }
+
+var num_os;
+
+function numero_orden_serv() {
+    request = "Controller/ClienteC/consulta_ultima_os_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        numero = arreglo[0];
+        if (typeof numero === 'undefined') {
+            num_os = 1;
+        } else if (numero.num === null) {
+            num_os = 1;
+        } else {
+            num_os = (numero.num);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
 var tipoEnv;
 /**
  * Metodo que llena el combo de seleccion tipo envio
@@ -206,8 +227,10 @@ function insertar_orden_serv() {
             $("#selectTipEnvio").prop('disabled', true);
             $("#btnGenOrdServ").prop('disabled', true);
             $("#btnAgreEnv").prop('disabled', false);
+            
             alertify.success('Orden Creada!');
-            $("#divMensaje").html("<div class='alert alert-dismissible alert-success col-lg-12'><strong>Orden Creada! </strong> " + $("#inputDir").val() + ".</div> ");
+            $("#divMensaje").html("<div class='alert alert-dismissible alert-warning col-lg-12'>\n\
+                  <strong>Orden Creada! </strong> " + $("#inputDir").val() + " N° " + num_os + ".</div> ");
             $("#btnCancelarOrd").removeClass("btn-dark");
             $("#btnCancelarOrd").addClass("btn-warning");
             $("#btnCancelarOrd").html("Nuevo");
