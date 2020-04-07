@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Descrip_serv_VO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/ClienteV/FormulariosEnvios/form_env_mercancia.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consulta_ultima_os_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Orden_serv_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consulta_ciudades_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Cliente/cliente.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/carga_masiva_env_doc_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Descrip_serv_DAO.php</file>

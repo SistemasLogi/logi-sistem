@@ -126,6 +126,7 @@ function formulario_recolec() {
         $("#btnAgreEnv").click(function () {
             formularioEnvios();
         });
+        $(".ocultar").hide();
     };
     f_ajax(request, cadena, metodo);
 }
@@ -183,15 +184,21 @@ function validarOrdServ() {
             }
         },
         submitHandler: function (form) {
-
-            insertar_orden_serv();
             numero_orden_serv();
+            insertar_orden_serv();
+
         }
     });
 }
-
+/**
+ * variable global de numero de orden
+ * @type Number
+ */
 var num_os;
-
+/**
+ * Metodo que calcula el numero de la siguiente orden de servicio
+ * @returns {Number|num_os}
+ */
 function numero_orden_serv() {
     request = "Controller/ClienteC/consulta_ultima_os_controller.php";
     cadena = "a=1";
@@ -203,10 +210,11 @@ function numero_orden_serv() {
         } else if (numero.num === null) {
             num_os = 1;
         } else {
-            num_os = (numero.num);
+            num_os = (parseInt(numero.num) + 1);
         }
     };
     f_ajax(request, cadena, metodo);
+    return num_os;
 }
 
 var tipoEnv;
@@ -227,12 +235,18 @@ function insertar_orden_serv() {
             $("#selectTipEnvio").prop('disabled', true);
             $("#btnGenOrdServ").prop('disabled', true);
             $("#btnAgreEnv").prop('disabled', false);
-            
+            $(".ocultar").show();
+            $("#controlesInput").hide();
+            $("#divBtnGenOS").hide();
+
             alertify.success('Orden Creada!');
             $("#divMensaje").html("<div class='alert alert-dismissible alert-warning col-lg-12'>\n\
-                  <strong>Orden Creada! </strong> " + $("#inputDir").val() + " N° " + num_os + ".</div> ");
+                  <strong>Orden Creada! <br>N° " + num_os + ".</strong><br>\n\
+                  <strong>Lugar de Recolección: </strong>" + $("#inputDir").val() + " " + $("#selectCiudad option:selected").text() + "<br>\n\
+                  <strong>Tipo Envio: </strong>" + $("#selectTipEnvio").val() + "<br>\n\
+                  <strong>Cantidad : </strong>" + $("#inputCantidadEnv").val() + " Envios.</div> ");
             $("#btnCancelarOrd").removeClass("btn-dark");
-            $("#btnCancelarOrd").addClass("btn-warning");
+            $("#btnCancelarOrd").addClass("btn-secondary");
             $("#btnCancelarOrd").html("Nuevo");
             tipoEnv = $("#selectTipEnvio").val();
         } else {
@@ -248,7 +262,7 @@ function insertar_orden_serv() {
  */
 function resetFormOrdServ() {
     limpiarFormulario("#formOrdenServ");
-    $("#btnCancelarOrd").removeClass("btn-warning");
+    $("#btnCancelarOrd").removeClass("btn-secondary");
     $("#btnCancelarOrd").addClass("btn-dark");
     $("#btnCancelarOrd").html("Cancelar");
     $("#inputDir").prop('disabled', false);
