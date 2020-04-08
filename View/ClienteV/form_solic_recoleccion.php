@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <div class="alert alert-dismissible alert-warning">
-    <legend>Solicitar Recolección</legend>
+    <legend id="legTitulo">Solicitar Recolección</legend>
     <div id="divMensaje" class="col-lg-12">
 
     </div>

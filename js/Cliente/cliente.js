@@ -184,17 +184,12 @@ function validarOrdServ() {
             }
         },
         submitHandler: function (form) {
-            numero_orden_serv();
             insertar_orden_serv();
 
         }
     });
 }
-/**
- * variable global de numero de orden
- * @type Number
- */
-var num_os;
+
 /**
  * Metodo que calcula el numero de la siguiente orden de servicio
  * @returns {Number|num_os}
@@ -210,11 +205,11 @@ function numero_orden_serv() {
         } else if (numero.num === null) {
             num_os = 1;
         } else {
-            num_os = (parseInt(numero.num) + 1);
+            num_os = numero.num;
         }
+        $("#legTitulo").html("Orden N° " + num_os);
     };
     f_ajax(request, cadena, metodo);
-    return num_os;
 }
 
 var tipoEnv;
@@ -227,6 +222,8 @@ function insertar_orden_serv() {
     cadena = $("#formOrdenServ").serialize(); //envio de parametros por POST
     metodo = function (datos) {
         if (datos == 1) {
+            numero_orden_serv();
+
             $("#inputDir").prop('disabled', true);
             $("#selectCiudad").prop('disabled', true);
             $("#inputPerContacto").prop('disabled', true);
@@ -241,7 +238,6 @@ function insertar_orden_serv() {
 
             alertify.success('Orden Creada!');
             $("#divMensaje").html("<div class='alert alert-dismissible alert-warning col-lg-12'>\n\
-                  <strong>Orden Creada! <br>N° " + num_os + ".</strong><br>\n\
                   <strong>Lugar de Recolección: </strong>" + $("#inputDir").val() + " " + $("#selectCiudad option:selected").text() + "<br>\n\
                   <strong>Tipo Envio: </strong>" + $("#selectTipEnvio").val() + "<br>\n\
                   <strong>Cantidad : </strong>" + $("#inputCantidadEnv").val() + " Envios.</div> ");
@@ -280,37 +276,60 @@ function formularioEnvios() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#formEnvios").html(datos);
+
+        $("#btnGMasEnvDoc").click(function () {
+            validarMasivoEnvios();
+        });
+
+        nameFileCargaMasEnvDoc();
     };
     f_ajax(request, cadena, metodo);
 }
 
 /**
- * Metodo de validacion Carga masiva de empleados txt
+ * Metodo de validacion Carga masiva de envios documentos txt
  * @returns {undefined}
  */
 function validarMasivoEnvios() {
     $("#formMasEnvDoc").validate({
         rules: {
-            txtnameMasivoEmp: {
+            inpFileMasEnvDoc: {
                 required: true,
                 extension: "xls|xlsx|csv"
             }
         },
         submitHandler: function (form) {
-            cargaArchivo();
+            cargaArchivoEnvDocum();
         }
     });
 }
 
-function cargaArchivo() {
-    var creando = "<div><img src='img/animaciones/creando.gif' alt''/>Creando Usuarios...</div>";
-    $("#pruebas").html(creando);
-    request = "Control/Admin_TI/carga_masivo_emp_control.php";
-    cadena = new FormData($("#formMasivoEmp")[0]);
+/**
+ * Metodo que plasma nombre archivo en carga masiva envios documentos
+ * @returns {undefined}
+ */
+function nameFileCargaMasEnvDoc() {
+    $("#inpFileMasEnvDoc").change(function () {
+        nombre = $("#inpFileMasEnvDoc").val();
+//        if (nombre.substring(3,11) == 'fakepath') {
+//            nombre = nombre.substring(12);
+//        }
+        $("#textMasEnvDoc").text(nombre);
+    });
+}
+
+function cargaArchivoEnvDocum() {
+    var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
+                    <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+                    <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+    $("#tabEnviosDocum").html(creando);
+    request = "Controller/ClienteC/carga_masiva_env_doc_controller.php";
+    cadena = new FormData($("#formMasEnvDoc")[0]);
     metodo = function (datos) {
 //        arregloemp = $.parseJSON(datos);
-        $("#textTxtMasivoEmp").html("");
-        $("#pruebas").html(datos);
+        $("#textMasEnvDoc").html("");
+        limpiarFormulario("#formMasEnvDoc");
+        $("#tabEnviosDocum").html(datos);
 
     };
     f_ajax_files(request, cadena, metodo);

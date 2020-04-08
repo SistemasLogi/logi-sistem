@@ -18,16 +18,8 @@
             </fieldset>
         </form>  
     </div>
-    <div class="col-lg-12 mx-auto row">
-        <div class="col-lg-3">
-            <span>Loading...</span>
-        </div>
-        <div class="col-lg-4">
-            <img class="img-fluid" src="img/animaciones/masivo_mensajeria3.gif" alt=""/>
-        </div>
-        <div class="col-lg-5">
-            <span>Epere un momento por favor</span>
-        </div>      
+    <div class="col-lg-12 mx-auto row" id="tabEnviosDocum">
+             
     </div> 
 </div>
 

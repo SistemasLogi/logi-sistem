@@ -40,8 +40,8 @@ class Orden_serv_DAO {
      */
     function consultaUltimaOS($tipoDoc, $numDoc) {
         $sql = "SELECT * FROM orden_serv "
-                . "WHERE cli_td_id = " . $tipoDoc . " "
-                . "AND cli_num_doc = " . $numDoc . " AND os_id = (SELECT MAX(os_id) FROM orden_serv);";
+                . "WHERE os_id = (SELECT MAX(os_id) FROM orden_serv "
+                . "WHERE cli_td_id =  " . $tipoDoc . " AND cli_num_doc = " . $numDoc . ");";
         $BD = new MySQL();
         return $BD->query($sql);
     }
