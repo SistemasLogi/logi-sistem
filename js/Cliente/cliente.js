@@ -329,8 +329,22 @@ function cargaArchivoEnvDocum() {
 //        arregloemp = $.parseJSON(datos);
         $("#textMasEnvDoc").html("");
         limpiarFormulario("#formMasEnvDoc");
-        $("#tabEnviosDocum").html(datos);
+        if(datos == 2){
+            lectura_xlsx();
+        }
+//        $("#tabEnviosDocum").html(datos);
 
     };
     f_ajax_files(request, cadena, metodo);
+}
+
+function lectura_xlsx() {
+    request = "Controller/ClienteC/leer_xlsx_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
+
+        $("#tabEnviosDocum").html(datos);
+
+    };
+    f_ajax(request, cadena, metodo);
 }

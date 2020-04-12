@@ -28,6 +28,7 @@ require $r_r . 'Class/VO/Depto_VO.php';
 require $r_r . 'Class/VO/Orden_serv_VO.php';
 require $r_r . 'Class/VO/Descrip_serv_VO.php';
 require $r_r . 'Class/VO/Est_x_serv_VO.php';
+require $r_r . 'Class/VO/Envio_VO.php';
 
 /* * Clases de tipo DAO* */
 require $r_r . 'Class/DAO/Cliente_DAO.php';
@@ -42,6 +43,7 @@ require $r_r . 'Class/DAO/Depto_DAO.php';
 require $r_r . 'Class/DAO/Orden_serv_DAO.php';
 require $r_r . 'Class/DAO/Descrip_serv_DAO.php';
 require $r_r . 'Class/DAO/Est_x_serv_DAO.php';
+require $r_r . 'Class/DAO/Envio_DAO.php';
 
 require $r_r . 'Class/EMAIL/Envio_MAIL.php';
 ?>

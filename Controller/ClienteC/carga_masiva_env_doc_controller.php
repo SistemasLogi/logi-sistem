@@ -8,15 +8,33 @@ if ($_POST) {
     $tipo_fichero = $_FILES["inpFileMasEnvDoc"]["type"];
     $extension = pathinfo($nombre_fichero, PATHINFO_EXTENSION);
     if (move_uploaded_file($_FILES["inpFileMasEnvDoc"]["tmp_name"], "../../Files/Temp/" . $nombre_fichero)) {
-        $orden_servi_dao = new Orden_serv_DAO();
-        $json_ultima_os = json_encode($orden_servi_dao->consultaUltimaOS($_SESSION["tipo_doc"], $_SESSION["numero_doc"]));
-        $array = json_decode($json_ultima_os);
 
-        $id_os_cliente = $array[0]->os_id;
-        rename("../../Files/Temp/" . $nombre_fichero, "../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $id_os_cliente . "." . $extension);
-        echo $extension;
+//        unlink("../../Archivos/Atento/" . $nombre_archivo);
+        $exist_csv = "../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . ".csv";
+        $exist_xls = "../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . ".xls";
+        $exist_xlsx = "../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . ".xlsx";
+        if (file_exists($exist_csv)) {
+            unlink("../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . ".csv");
+        }
+        if (file_exists($exist_xls)) {
+            unlink("../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . ".xls");
+        }
+        if (file_exists($exist_xlsx)) {
+            unlink("../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . ".xlsx");
+        }
+
+        rename("../../Files/Temp/" . $nombre_fichero, "../../Files/Temp/" . $_SESSION["numero_doc"] . "_" . $_SESSION["tipo_doc"] . "." . $extension);
+        if ($extension == "csv") {
+            echo 1;
+        } elseif ($extension == "xls") {
+            echo 2;
+        } elseif ($extension == "xlsx") {
+            echo 2;
+        } else {
+            echo "ARCHIVO NO COMPATIBLE";
+        }
     } else {
-        echo 2;
+        echo 3;
     }
 } else {
     header("location ../");
