@@ -12,5 +12,17 @@
  * @author Andres
  */
 class Envio_DAO {
+
     //put your code here
+    /**
+     * funcion que retorna la informacion de envios por numero de orden de servicio
+     * @param type $num_os
+     * @return type
+     */
+    function consultaEnvIng_x_os($num_os) {
+        $sql = "SELECT * FROM envio WHERE os_id = " . $num_os . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

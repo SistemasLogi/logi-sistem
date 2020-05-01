@@ -7,6 +7,9 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 require '../../config.php';
 
+date_default_timezone_set('America/Bogota');
+$fecha_hora_now = date("Y-m-d H:i:s");
+
 $xls_name = '../../Files/Temp/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '.xlsx';
 
 $spreadsheet = IOFactory::load($xls_name);
@@ -22,6 +25,9 @@ if ($_POST) {
     $sql = "INSERT INTO envio VALUES "; //cabecera del insert
     $id_os_cliente = $array[0]->os_id; //numero de orden de servicio
 
+    $reg_buenos = 0;
+    $reg_error = 0;
+
     for ($i = 2; $i <= count($sheetData); $i++) {
 
         $obj_env_vo->setNum_guia($sheetData[$i]['A']);
@@ -34,6 +40,7 @@ if ($_POST) {
         $obj_env_vo->setContenido($sheetData[$i]['H']);
         $obj_env_vo->setDirec_remite($sheetData[$i]['I']);
         $obj_env_vo->setCiud_remite($sheetData[$i]['J']);
+        $obj_env_vo->setFec_programado($fecha_hora_now);
 
 //        $objDet_rep_vo->setId($id_rep);
 //        $objDet_rep_vo->setNum_doc($sheetData[$i]['A']);
@@ -55,21 +62,32 @@ if ($_POST) {
 //        $fec_fin = $sheetData[$i]['H'];
 //        $descrip = $sheetData[$i]['J'];
 //        $observ = $sheetData[$i]['L'];
-//        if ($objDet_rep_vo->getNum_doc() == NULL || $objDet_rep_vo->getNum_doc() == "") {
-//            $objDet_rep_vo->setNum_doc(0);
-//        }
-//        if ($objDet_rep_vo->getFec_solicitud() == NULL || $objDet_rep_vo->getFec_solicitud() == "") {
-//            $objDet_rep_vo->setFec_solicitud('01-01-1111');
-//        }
-//        if ($objDet_rep_vo->getHora_solic() == NULL || $objDet_rep_vo->getHora_solic() == "") {
-//            $objDet_rep_vo->setHora_solic("00:01:01");
-//        }
 
-        $datos_insert[$i - 2] = "(null,'" . $obj_env_vo->getNum_guia() . "'," . $obj_env_vo->getNum_oeden_serv() . ","
-                . "" . $obj_env_vo->getId_tipo_envio() . ",null,null,null,null,'" . $obj_env_vo->getContenido() . "',"
-                . "null,'" . $obj_env_vo->getDireccion() . "','" . $obj_env_vo->getTelefono() . "',"
-                . "'" . $obj_env_vo->getCiudad_dest() . "','" . $obj_env_vo->getDepto_dest() . "','" . $obj_env_vo->getDirec_remite() . "',"
-                . "'" . $obj_env_vo->getCiud_remite() . "')";
+        if (empty($obj_env_vo->getNum_guia()) || empty($obj_env_vo->getDireccion()) || empty($obj_env_vo->getCiudad_dest()) || empty($obj_env_vo->getDepto_dest())) {
+            if (empty($obj_env_vo->getNum_guia())) {
+                $datos_errados[$reg_error] = "Error en la linea " . $i . " en número de guía";
+            }
+            if (empty($obj_env_vo->getDireccion())) {
+                $datos_errados[$reg_error] = "Error en la linea " . $i . " en dirección destino";
+            }
+            if (empty($obj_env_vo->getCiudad_dest())) {
+                $datos_errados[$reg_error] = "Error en la linea " . $i . " en ciudad destino";
+            }
+            if (empty($obj_env_vo->getDepto_dest())) {
+                $datos_errados[$reg_error] = "Error en la linea " . $i . " en departamento destino";
+            }
+
+            $reg_error++;
+        } else {
+            $datos_insert[$reg_buenos] = "(null,'" . $obj_env_vo->getNum_guia() . "'," . $obj_env_vo->getNum_oeden_serv() . ","
+                    . "" . $obj_env_vo->getId_tipo_envio() . ",null,null,null,null,'" . $obj_env_vo->getContenido() . "',"
+                    . "null,'" . $obj_env_vo->getDireccion() . "','" . $obj_env_vo->getTelefono() . "',"
+                    . "'" . $obj_env_vo->getCiudad_dest() . "','" . $obj_env_vo->getDepto_dest() . "','" . $obj_env_vo->getDirec_remite() . "',"
+                    . "'" . $obj_env_vo->getCiud_remite() . "','" . $obj_env_vo->getFec_programado() . "',null,null,null,"
+                    . "null,null,null,null,null,null)";
+
+            $reg_buenos++;
+        }
     }
     $sentencia = "";
     $miniarray = array_chunk($datos_insert, 500);
@@ -95,13 +113,28 @@ if ($_POST) {
         $BDP = new MySQL();
         $in = $BDP->execute_query($sentencia);
         if ($in == 1) {
-            echo "OK" . " " . $contador;
-            echo '<br>';
+//            echo "OK" . " " . $contador;
+//            echo '<br>';
         } else {
             echo "<div class='text-center' style='color: #990000;'>Error entre las lineas " . ($contador - $num_registros) . " y " . $contador . "</div>";
             echo '<br>';
         }
     }
+
+    if (empty($datos_errados)) {
+        echo '<strong>Sin errores de integridad.</strong>';
+    } else {
+
+        echo'<ul class="list-group">';
+
+        foreach ($datos_errados as &$valor) {
+            echo '<li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: rgba(220, 53, 69, 0.3);">'
+            . '<span>' . $valor . '</span></li>';
+        }
+        echo '</ul>';
+    }
+    echo "<strong>&nbsp;&nbsp;Total lineas " . $contador . "</strong>";
+    require './consulta_env_ingresados_controller.php';
 } else {
     header("location../");
 }

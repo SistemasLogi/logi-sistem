@@ -16,7 +16,15 @@ if (!isset($_SESSION["adminlogi"])) {
         <!--==========================
           Header
         ============================-->
-        <?php include './navbar.php'; ?>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top image-fondo">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img id="inicio" src="img/logos/LOGO-ESTILO-154x61.png" alt=""/>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <?php include './navbar.php'; ?>
+            </div>
+        </nav>
 
         <!--==========================
           Facts Section
@@ -73,9 +81,7 @@ if (!isset($_SESSION["adminlogi"])) {
             </div>
         </section><!-- #facts -->
 
-    </main>
+        <?PHP // require './footer.php'; ?>
 
-    <?PHP // require './footer.php'; ?>
-
-</body>
+    </body>
 </html>

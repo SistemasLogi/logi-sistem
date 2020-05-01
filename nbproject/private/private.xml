@@ -3,27 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Descrip_serv_VO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Envio_VO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/ClienteV/FormulariosEnvios/form_env_mercancia.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consulta_ultima_os_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Orden_serv_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Cliente/cliente.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/leer_xlsx_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/prueba.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Envio_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/carga_masiva_env_doc_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Descrip_serv_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/ClienteV/FormulariosEnvios/form_env_Documentos.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/inicio_sesion.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_serv_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/cliente.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/insertar_ord_serv_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/config.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Est_x_serv_VO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/Login_General/login_control.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/ClienteV/form_solic_recoleccion.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Inicio_Sesion/login.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/lib_css_js.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/admin_cliente.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarCliente/insertar_cliente_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consulta_ciudades_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/admin_estado_env.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/main_dashboard.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_editar.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarCliente/consulta_general_cliente_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Usuario_pass_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_nuevo_editar.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/administrador.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Panel.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/navbar.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/admin_lateral.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Cliente_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/css/simple-sidebar.css</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin.js</file>
         </group>
     </open-files>

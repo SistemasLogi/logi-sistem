@@ -30,6 +30,16 @@ class Envio_VO {
     private $depto_dest;
     private $direc_remite;
     private $ciud_remite;
+    private $fec_programado;
+    private $fec_bodega_orig;
+    private $fec_via_ciu_dest;
+    private $fec_bod_ciu_dest;
+    private $fec_reparto;
+    private $fec_entregado;
+    private $novedad;
+    private $fec_devolucion;
+    private $fec_reenv_rep;
+    private $fec_reenv_entreg;
 
     function getId_envio() {
         return $this->id_envio;
@@ -157,6 +167,86 @@ class Envio_VO {
 
     function setCiud_remite($ciud_remite) {
         $this->ciud_remite = $ciud_remite;
+    }
+
+    function getFec_programado() {
+        return $this->fec_programado;
+    }
+
+    function getFec_via_ciu_dest() {
+        return $this->fec_via_ciu_dest;
+    }
+
+    function getFec_bod_ciu_dest() {
+        return $this->fec_bod_ciu_dest;
+    }
+
+    function getFec_reparto() {
+        return $this->fec_reparto;
+    }
+
+    function getFec_entregado() {
+        return $this->fec_entregado;
+    }
+
+    function getNovedad() {
+        return $this->novedad;
+    }
+
+    function getFec_devolucion() {
+        return $this->fec_devolucion;
+    }
+
+    function getFec_reenv_rep() {
+        return $this->fec_reenv_rep;
+    }
+
+    function getFec_reenv_entreg() {
+        return $this->fec_reenv_entreg;
+    }
+
+    function setFec_programado($fec_programado) {
+        $this->fec_programado = $fec_programado;
+    }
+
+    function setFec_via_ciu_dest($fec_via_ciu_dest) {
+        $this->fec_via_ciu_dest = $fec_via_ciu_dest;
+    }
+
+    function setFec_bod_ciu_dest($fec_bod_ciu_dest) {
+        $this->fec_bod_ciu_dest = $fec_bod_ciu_dest;
+    }
+
+    function setFec_reparto($fec_reparto) {
+        $this->fec_reparto = $fec_reparto;
+    }
+
+    function setFec_entregado($fec_entregado) {
+        $this->fec_entregado = $fec_entregado;
+    }
+
+    function setNovedad($novedad) {
+        $this->novedad = $novedad;
+    }
+
+    function setFec_devolucion($fec_devolucion) {
+        $this->fec_devolucion = $fec_devolucion;
+    }
+
+    function setFec_reenv_rep($fec_reenv_rep) {
+        $this->fec_reenv_rep = $fec_reenv_rep;
+    }
+
+    function setFec_reenv_entreg($fec_reenv_entreg) {
+        $this->fec_reenv_entreg = $fec_reenv_entreg;
+    }
+
+    function getFec_bodega_orig() {
+        return $this->fec_bodega_orig;
+    }
+
+    function setFec_bodega_orig($fec_bodega_orig) {
+        $this->fec_bodega_orig = $fec_bodega_orig;
     }
 
 }

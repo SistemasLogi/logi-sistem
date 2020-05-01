@@ -6,7 +6,7 @@
                     <div class="input-group col-lg-6 margen_top">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="inpFileMasEnvDoc" name="inpFileMasEnvDoc">
-                            <label class="custom-file-label" for="inpFileMasEnvDoc" id="textMasEnvDoc">Archivo plano csv</label>
+                            <label class="custom-file-label" for="inpFileMasEnvDoc" id="textMasEnvDoc">Archivo Excel</label>
                         </div>
                     </div>                                                                
                     <div class="input-group col-lg-6 margen_top">

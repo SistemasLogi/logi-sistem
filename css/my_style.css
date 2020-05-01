@@ -31,7 +31,10 @@ and open the template in the editor.
     margin-right: 0px;
 }
 
-
 .enlace{
     cursor: pointer;
+}
+
+.overflow-auto{
+    overflow-y: scroll;
 }

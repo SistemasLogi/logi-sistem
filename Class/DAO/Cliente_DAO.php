@@ -31,19 +31,43 @@ class Cliente_DAO {
     }
 
     /**
-     * Funcion que inserta o actualiza un registro en tabla clientes
+     * Funcion que inserta un registro en tabla clientes
      * @param type $cliente_vo
      */
     function insertarCliente($cliente_vo) {
         $sql = "INSERT INTO clientes VALUES (" . $cliente_vo->getTipo_doc() . ", " . $cliente_vo->getNum_doc() . ", "
                 . "'" . $cliente_vo->getNombre() . "', '" . $cliente_vo->getTelefono() . "', '" . $cliente_vo->getCelular() . "', "
-                . "'" . $cliente_vo->getDireccion() . "','" . $cliente_vo->getPcontac() . "')"
-                . "ON DUPLICATE KEY UPDATE cli_nombre = '" . $cliente_vo->getNombre() . "', "
+                . "'" . $cliente_vo->getDireccion() . "','" . $cliente_vo->getPcontac() . "')";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que actualiza un registro en tabla clientes
+     * @param type $cliente_vo
+     */
+    function actualizarCliente($cliente_vo) {
+        $sql = "UPDATE cli_nombre = '" . $cliente_vo->getNombre() . "', "
                 . "cli_tel = '" . $cliente_vo->getTelefono() . "', cli_cel = '" . $cliente_vo->getCelular() . "',"
                 . "cli_direccion = '" . $cliente_vo->getDireccion() . "', cli_per_cont = '" . $cliente_vo->getPcontac() . "'";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que consulta los clientes activos
+     * @param type $cliente_vo
+     */
+    function consultarClientesActivos() {
+        $sql = "SELECT c.*, u.tu_id, t.tu_tipo, d.td_sigla "
+                . "FROM clientes AS c, usuario_pass AS u, tipo_doc AS d, tipo_usuario AS t "
+                . "WHERE c.cli_td_id = u.us_td_id AND c.cli_num_doc = u.us_num_doc "
+                . "AND c.cli_td_id = d.td_id AND u.tu_id = t.tu_id AND u.tu_id != 1 AND u.tu_id != 4;";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
     }
 
 }

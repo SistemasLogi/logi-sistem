@@ -5,7 +5,7 @@
  */
 $(document).ready(function () {
 
-    $("#list-formRecolec-list").click(function () {
+    $("#enlFormRecoleccion").click(function () {
         formulario_recolec();
     });
 
@@ -112,7 +112,7 @@ function formulario_recolec() {
     request = "View/ClienteV/form_solic_recoleccion.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
-        $("#list-formRecolec").html(datos);
+        $("#sectionConten").html(datos);
 
         combo_ciudad();
         combo_tipo_envio();
@@ -244,7 +244,11 @@ function insertar_orden_serv() {
             $("#btnCancelarOrd").removeClass("btn-dark");
             $("#btnCancelarOrd").addClass("btn-secondary");
             $("#btnCancelarOrd").html("Nuevo");
-            tipoEnv = $("#selectTipEnvio").val();
+            if ($("#selectTipEnvio").val() === "DOCUMENTOS") {
+                tipoEnv = "Documentos";
+            } else if ($("#selectTipEnvio").val() === "MERCANCÍA" || $("#selectTipEnvio").val() === "PAQUETES") {
+                tipoEnv = "mercancia";
+            }
         } else {
             alert(datos);
             $("#divMensaje").html("<div class='alert alert-dismissible alert-danger col-lg-12'><strong>No Guardado! </strong> " + datos + "</div> ");
@@ -329,11 +333,15 @@ function cargaArchivoEnvDocum() {
 //        arregloemp = $.parseJSON(datos);
         $("#textMasEnvDoc").html("");
         limpiarFormulario("#formMasEnvDoc");
-        if(datos == 2){
+        if (datos == 2) {
             lectura_xlsx();
+        } else if (datos == 1) {
+            lectura_csv();
+        } else {
+            $("#tabEnviosDocum").html(datos);
         }
-//        $("#tabEnviosDocum").html(datos);
 
+//        $("#tabEnviosDocum").html(datos);
     };
     f_ajax_files(request, cadena, metodo);
 }
@@ -344,6 +352,31 @@ function lectura_xlsx() {
     metodo = function (datos) {
 
         $("#tabEnviosDocum").html(datos);
+
+        /**
+         * Evento que pagina una tabla 
+         */
+        $('#tableEnvios').DataTable({
+            'scrollX': true
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+function lectura_csv() {
+    request = "Controller/ClienteC/leer_csv_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
+
+        $("#tabEnviosDocum").html(datos);
+
+        /**
+         * Evento que pagina una tabla 
+         */
+        $('#tableEnvios').DataTable({
+            'scrollX': true
+        });
 
     };
     f_ajax(request, cadena, metodo);

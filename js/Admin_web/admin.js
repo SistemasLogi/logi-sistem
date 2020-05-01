@@ -1305,8 +1305,8 @@ function buscar_cliente() {
             $("#inputCelCli").val(clitm.cli_cel);
             $("#inputDirCli").val(clitm.cli_direccion);
             $("#inputPerCont").val(clitm.cli_per_cont);
-            $( "#selectTipDoc" ).prop( "disabled", true );
-            $( "#inputNumCli" ).prop( "disabled", true );
+            $("#selectTipDoc").prop("disabled", true);
+            $("#inputNumCli").prop("disabled", true);
             if (clitm.tu_tipo === null) {
                 $("#menCliNoAccess").html("<div class='alert alert-dismissible alert-danger'>\n\
                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
@@ -1334,8 +1334,8 @@ function resetFormCliente() {
     combo_tipo_docum();
     $("#selectTipUs").html("");
     combo_tipo_us();
-    $( "#selectTipDoc" ).prop( "disabled", false );
-    $( "#inputNumCli" ).prop( "disabled", false );
+    $("#selectTipDoc").prop("disabled", false);
+    $("#inputNumCli").prop("disabled", false);
     $("#menCliNoAccess").html("");
     $("#btnGuardaCli").removeClass("btn-warning");
     $("#btnGuardaCli").addClass("btn-primary");
