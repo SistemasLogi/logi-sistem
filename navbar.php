@@ -13,7 +13,7 @@
         if (isset($_SESSION["adminlogi"])) {
             ?>  
             <li class = "nav-item">
-                <a class = "nav-link" href = "administrador.php">ADMINISTRADOR</a>
+                <a class = "nav-link" href = "admin_logi.php">ADMINISTRADOR</a>
             </li>
             <?php
         } elseif (isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {

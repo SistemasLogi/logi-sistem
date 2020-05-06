@@ -3,23 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/LogiClientes/lib_css_js.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/admin_cliente.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarCliente/insertar_cliente_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consulta_ciudades_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/admin_estado_env.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/main_dashboard.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_editar.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarCliente/consulta_general_cliente_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Usuario_pass_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_nuevo_editar.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/administrador.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Panel.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/navbar.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/admin_lateral.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Cliente_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/css/simple-sidebar.css</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/administrador.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+session_start();
+if (!isset($_SESSION["adminlogi"])) {
+    header("location:index.php");
+}
+?>
 <html lang="en">
 
     <head>
@@ -42,7 +48,7 @@
         <script src="js/localization/messages_es.js" type="text/javascript"></script>
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="js/main_dashboard.js" type="text/javascript"></script>
+        <script src="js/Admin_web/admin_dashboard.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -64,7 +70,7 @@
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
                 <img src="img/logos/ampliado.png" alt="" title="" />
                 <div class="dropdown-divider"></div>
-                <h4 class="card-title" style="color: #D6D6D6;">GABRIELA</h4>
+                <h4 class="card-title" style="color: #D6D6D6;"><?php echo $_SESSION["nombre_cli"]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
@@ -84,7 +90,7 @@
                         ADMINISTRAR BD
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body alert-primary">
+                        <div class="card card-body alert-primary" id="adminbd">
                             <a class="dropdown-item enlace" bd="admin_ciudades">Ciudades</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" bd="admin_tipo_doc">Tipo Documento</a>
@@ -123,8 +129,8 @@
                 </nav>
 
 
-                <section id="facts" style="padding:0px; height: auto;"  class="wow fadeIn next">
-                    <div class="container margen" style="margin-top: 85px; height: auto;">
+                <section id="facts" style="padding:0px;"  class="wow fadeIn next">
+                    <div class="container" style="margin-top: 85px; height: auto; margin-bottom: 10px;">
 
                         <div id="list-formCliente" data-spy="scroll">                                
 

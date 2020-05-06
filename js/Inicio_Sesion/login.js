@@ -96,7 +96,7 @@ function ejecutarIngreso() {
 function comprobarUsuario(respuesta) {
 //    alert("Usuario o Contraseña incorrectos" + respuesta);
     if (respuesta == 1) {
-        $(location).attr('href', 'administrador.php');
+        $(location).attr('href', 'admin_logi.php');
     } else if (respuesta == 2) {
         $(location).attr('href', 'cliente.php');
     } else if (respuesta == 3) {

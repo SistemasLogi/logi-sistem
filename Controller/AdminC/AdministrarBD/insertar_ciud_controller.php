@@ -12,6 +12,7 @@ if ($_POST) {
     $ciudad_vo = new Ciudad_VO();
     
     $cod_ciud = $_POST["inpCodCiudad"];
+    $depto_id = $_POST["selectDepto"];
     
     if(empty($cod_ciud)){
        $ciudad_vo->setId_ciudad("null"); 
@@ -20,7 +21,7 @@ if ($_POST) {
     }
    
     $ciudad_vo->setNombre_ciu($_POST["inpNomCiudad"]);
-    echo $ciudad_dao->insertarCiudad($ciudad_vo);
+    echo $ciudad_dao->insertarCiudad($ciudad_vo, $depto_id);
 } else {
     header("location../");
 }

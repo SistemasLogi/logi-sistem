@@ -29,9 +29,9 @@ class Ciudad_DAO {
      * Funcion que inserta o actualiza un registro en tabla ciudad
      * @param type $ciudad_vo
      */
-    function insertarCiudad($ciudad_vo) {
-        $sql = "INSERT INTO ciudad (ciu_id, ciu_nombre)VALUES (" . $ciudad_vo->getId_ciudad() . ", '" . $ciudad_vo->getNombre_ciu() . "' )"
-                . "ON DUPLICATE KEY UPDATE ciu_nombre = '" . $ciudad_vo->getNombre_ciu() . "'";
+    function insertarCiudad($ciudad_vo, $dep_id) {
+        $sql = "INSERT INTO ciudad (ciu_id, dep_id, ciu_nombre)VALUES (" . $ciudad_vo->getId_ciudad() . ", " . $dep_id . ", '" . $ciudad_vo->getNombre_ciu() . "' )"
+                . "ON DUPLICATE KEY UPDATE dep_id = " . $dep_id . ", ciu_nombre = '" . $ciudad_vo->getNombre_ciu() . "'";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);

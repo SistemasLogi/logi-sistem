@@ -48,9 +48,10 @@ class Cliente_DAO {
      * @param type $cliente_vo
      */
     function actualizarCliente($cliente_vo) {
-        $sql = "UPDATE cli_nombre = '" . $cliente_vo->getNombre() . "', "
+        $sql = "UPDATE clientes SET cli_nombre = '" . $cliente_vo->getNombre() . "', "
                 . "cli_tel = '" . $cliente_vo->getTelefono() . "', cli_cel = '" . $cliente_vo->getCelular() . "',"
-                . "cli_direccion = '" . $cliente_vo->getDireccion() . "', cli_per_cont = '" . $cliente_vo->getPcontac() . "'";
+                . "cli_direccion = '" . $cliente_vo->getDireccion() . "', cli_per_cont = '" . $cliente_vo->getPcontac() . "' "
+                . "WHERE cli_td_id = " . $cliente_vo->getTipo_doc() . " AND cli_num_doc = " . $cliente_vo->getNum_doc() . ";";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);
