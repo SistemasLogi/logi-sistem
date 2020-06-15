@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<?php
+session_start();
+if (!isset($_SESSION["cliente_a"])) {
+    header("location:index.php");
+}
+?>
+<html lang="es">
 
     <head>
 
@@ -43,7 +48,8 @@
         <script src="js/localization/messages_es.js" type="text/javascript"></script>
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="js/main_dashboard.js" type="text/javascript"></script>
+        <script src="js/Cliente/cliente_dashboard.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -65,24 +71,26 @@
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
                 <img src="img/logos/ampliado.png" alt="" title="" />
                 <div class="dropdown-divider"></div>
-                <h4 class="card-title" style="color: #D6D6D6;">CLIENTE</h4>
+                <h4 class="card-title" style="color: #D6D6D6;"><?php echo $_SESSION["nombre_cli"]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                        <span class="ion-android-contact"></span>
-                        CLIENTE
+                        <span class="ion-android-document"></span>
+                        Ordenes de Recolección
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="card card-body alert-primary">
-                            <a class="dropdown-item enlace" id="link_form_cliente">Nuevo</a>
+                        <div class="card card-body alert-secondary">
+                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_form_editar">Editar</a>
+                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Consultar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_form_editar">Editar / Eliminar</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                        <span class="ion-folder"></span>
-                        ADMINISTRAR BD
+                        <span class="ion-android-mail"></span>
+                        Envios
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
                         <div class="card card-body alert-primary" id="adminbd">
@@ -127,8 +135,14 @@
                 <section id="facts" style="padding:0px;"  class="wow fadeIn next">
                     <div class="container" style="margin-top: 85px; height: auto; margin-bottom: 10px;">
 
-                        <div id="list-formCliente" data-spy="scroll">                                
+                        <div id="sectionConten" data-spy="scroll">                                
 
+                            <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
+                                <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php echo $_SESSION["nombre_cli"]; ?></legend></strong></div>
+                                <div class="card-body">
+                                    <img class="img-fluid" src="img/logos/LOGO-ESTILO-Blanco-1800x600.png" alt=""/>
+                                </div>
+                            </div>
                         </div>
 
                     </div>                        

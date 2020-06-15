@@ -26,9 +26,10 @@ require $r_r . 'Class/VO/Estado_serv_VO.php';
 require $r_r . 'Class/VO/Estado_env_VO.php';
 require $r_r . 'Class/VO/Depto_VO.php';
 require $r_r . 'Class/VO/Orden_serv_VO.php';
-require $r_r . 'Class/VO/Descrip_serv_VO.php';
 require $r_r . 'Class/VO/Est_x_serv_VO.php';
 require $r_r . 'Class/VO/Envio_VO.php';
+require $r_r . 'Class/VO/Estado_x_env_VO.php';
+require $r_r . 'Class/VO/Empleado_VO.php';
 
 /* * Clases de tipo DAO* */
 require $r_r . 'Class/DAO/Cliente_DAO.php';
@@ -41,9 +42,15 @@ require $r_r . 'Class/DAO/Estado_serv_DAO.php';
 require $r_r . 'Class/DAO/Estado_env_DAO.php';
 require $r_r . 'Class/DAO/Depto_DAO.php';
 require $r_r . 'Class/DAO/Orden_serv_DAO.php';
-require $r_r . 'Class/DAO/Descrip_serv_DAO.php';
 require $r_r . 'Class/DAO/Est_x_serv_DAO.php';
 require $r_r . 'Class/DAO/Envio_DAO.php';
+require $r_r . 'Class/DAO/Estado_x_env_DAO.php';
+require $r_r . 'Class/DAO/Empleado_DAO.php';
 
+/* * Clase PDF * */
+require $r_r . 'Class/PDF/fpdf/fpdf.php';
+/**Clase Email**/
 require $r_r . 'Class/EMAIL/Envio_MAIL.php';
+/**Clase QR**/
+require $r_r . 'Class/QR/phpqrcode/qrlib.php';
 ?>

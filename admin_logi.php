@@ -5,7 +5,7 @@ if (!isset($_SESSION["adminlogi"])) {
     header("location:index.php");
 }
 ?>
-<html lang="en">
+<html lang="es">
 
     <head>
 
@@ -49,6 +49,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/Admin_web/admin_dashboard.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -74,6 +75,19 @@ if (!isset($_SESSION["adminlogi"])) {
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseOS" role="button" aria-expanded="false" aria-controls="multiCollapseOS">
+                        <span class="ion-android-map"></span>
+                        ORDENES SERVICIO
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseOS">
+                        <div class="card card-body alert-primary">
+                            <a class="dropdown-item enlace" id="link_vista_gest">Gestionar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_serv">DashBoard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_hist">Historial</a>
+                        </div>
+                    </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-contact"></span>
                         CLIENTE
@@ -144,6 +158,22 @@ if (!isset($_SESSION["adminlogi"])) {
             <!-- /#page-content-wrapper -->
 
         </div>
+        <div class="modal fade" id="ModalActuEstOS" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalEstOSTitle">ASIGNAR VEHICULO</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnCloseModal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="body_mod_os">
+                        
+                    </div> 
+                </div>
+            </div>
+        </div>
+
     </body>
 
 </html>

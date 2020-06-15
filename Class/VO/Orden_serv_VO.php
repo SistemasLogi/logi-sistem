@@ -21,14 +21,32 @@ class Orden_serv_VO {
     private $direccion;
     private $per_contacto;
     private $telefono;
-    private $envio;
+    private $tipo_serv_id;
+    private $tipo_env_id;
+    private $observacion;
 
-    function getEnvio() {
-        return $this->envio;
+    function getObservacion() {
+        return $this->observacion;
     }
 
-    function setEnvio($envio) {
-        $this->envio = $envio;
+    function setObservacion($observacion) {
+        $this->observacion = $observacion;
+    }
+
+    function getTipo_serv_id() {
+        return $this->tipo_serv_id;
+    }
+
+    function getTipo_env_id() {
+        return $this->tipo_env_id;
+    }
+
+    function setTipo_serv_id($tipo_serv_id) {
+        $this->tipo_serv_id = $tipo_serv_id;
+    }
+
+    function setTipo_env_id($tipo_env_id) {
+        $this->tipo_env_id = $tipo_env_id;
     }
 
     function getNumero() {

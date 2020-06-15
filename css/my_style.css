@@ -38,3 +38,16 @@ and open the template in the editor.
 .overflow-auto{
     overflow-y: scroll;
 }
+
+.checkbox-1x {
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+}
+.checkbox-2x {
+    transform: scale(2);
+    -webkit-transform: scale(2);
+}
+
+.colorLogiYA{
+    background-color: #7fe4ff;
+}

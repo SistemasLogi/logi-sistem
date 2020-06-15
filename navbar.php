@@ -19,7 +19,7 @@
         } elseif (isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {
             ?>
             <li class = "nav-item">
-                <a class = "nav-link" href = "cliente.php">AREA CLIENTE</a>
+                <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
             </li>
             <?php
         }

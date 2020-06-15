@@ -15,17 +15,14 @@ class Est_x_serv_VO {
 
     //put your code here
     private $orden_id;
-    private $ord_csc_id;
     private $estado_id;
     private $fecha_hora;
     private $novedad;
+    private $td_mensajero;
+    private $num_doc_mensajero;
 
     function getOrden_id() {
         return $this->orden_id;
-    }
-
-    function getOrd_csc_id() {
-        return $this->ord_csc_id;
     }
 
     function getEstado_id() {
@@ -40,12 +37,16 @@ class Est_x_serv_VO {
         return $this->novedad;
     }
 
-    function setOrden_id($orden_id) {
-        $this->orden_id = $orden_id;
+    function getTd_mensajero() {
+        return $this->td_mensajero;
     }
 
-    function setOrd_csc_id($ord_csc_id) {
-        $this->ord_csc_id = $ord_csc_id;
+    function getNum_doc_mensajero() {
+        return $this->num_doc_mensajero;
+    }
+
+    function setOrden_id($orden_id) {
+        $this->orden_id = $orden_id;
     }
 
     function setEstado_id($estado_id) {
@@ -58,6 +59,14 @@ class Est_x_serv_VO {
 
     function setNovedad($novedad) {
         $this->novedad = $novedad;
+    }
+
+    function setTd_mensajero($td_mensajero) {
+        $this->td_mensajero = $td_mensajero;
+    }
+
+    function setNum_doc_mensajero($num_doc_mensajero) {
+        $this->num_doc_mensajero = $num_doc_mensajero;
     }
 
 }

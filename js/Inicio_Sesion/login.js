@@ -98,7 +98,7 @@ function comprobarUsuario(respuesta) {
     if (respuesta == 1) {
         $(location).attr('href', 'admin_logi.php');
     } else if (respuesta == 2) {
-        $(location).attr('href', 'cliente.php');
+        $(location).attr('href', 'cliente_logi.php');
     } else if (respuesta == 3) {
         $(location).attr('href', 'cliente.php');
     }else{

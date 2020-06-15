@@ -10,7 +10,7 @@ session_start();
 if (isset($_SESSION["adminlogi"])) {
     header("location:admin_logi.php");
 } elseif (isset($_SESSION["cliente_a"])) {
-    header("location:cliente.php");
+    header("location:cliente_logi.php");
 } elseif (isset($_SESSION["cliente_b"])) {
     header("location:cliente.php");
 } 

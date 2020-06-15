@@ -9,10 +9,20 @@ $(document).ready(function () {
     $("#link_form_editar").click(function () {
         vista_form_Edit();
     });
+    $("#link_vista_gest").click(function () {
+        vista_gestionar_os();
+    });
+    $("#link_vista_dashboard_serv").click(function () {
+        vista_dashboard();
+    });
 
     $("#adminbd a").click(function () {
         vista_tabla_bd(this);
     });
+
+    vista_dashboard();
+
+    consulta_os_program_ini();
 
 });
 
@@ -711,6 +721,7 @@ function clickActualiza() {
         $("#inpNomCiudad").val(tm.ciu_nombre);
         $('#selectDepto option[value="' + tm.dep_id + '"]').attr('selected', true);
 
+        //En esta linea me redirije al formulario con una velocodad establecida
         $([document.documentElement, document.body]).animate({
             scrollTop: $("#page-content-wrapper").offset().top
         }, 300);
@@ -1515,6 +1526,889 @@ function elimina_est_env() {
         } else {
             mensaje_No_Eliminado();
             resetFormEe();
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+
+/****************************************************************
+ * Metodos de ordenes de servicio
+ * 
+ ****************************************************************/
+
+/**
+ * Metodo que carga el form para guardar clientes
+ * @returns {undefined}
+ */
+function vista_gestionar_os() {
+    request = "View/AdministradorV/OrdenesServicio/gestion_os.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html(datos);
+
+        formulario_oreden_serv();
+
+        $("#enlFormOrdenServ").click(function () {
+            formulario_oreden_serv();
+            $("#items li").removeClass("active");
+            $("#itemenlFormOrdenServ").addClass("active");
+        });
+        $("#enlSeguimiento").click(function () {
+            $("#items li").removeClass("active");
+            $("#itemenlSeguimiento").addClass("active");
+            seguimiento_estado();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga el dashboard principal
+ * @returns {undefined}
+ */
+function vista_dashboard() {
+    request = "View/AdministradorV/Dashboard/dashboard.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        exist = false;
+        $("#list-formCliente").html(datos);
+        consulta_dashboard_serv_card();
+        consulta_dashboard_serv();
+        setInterval(consulta_os_program, 20000);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+var serv_program;
+var serv_asignado;
+var serv_exitoso;
+var serv_novedad;
+var arregloEstOS;
+var arregloEstOScard;
+var tablaEst_x_OS;
+var arregloEstOSfil;
+
+/**
+ * Metodo que carga el dashboard principal
+ * @returns {undefined}
+ */
+function consulta_dashboard_serv() {
+    request = "Controller/AdminC/AdministrarOS/consulta_ult_est_os_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        serv_program = 0;
+        serv_asignado = 0;
+        serv_exitoso = 0;
+        serv_novedad = 0;
+        arregloEstOS = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstOS !== 0) {
+            datosEstOS = "<div class='table-responsive text-nowrap' id='tablaEstadoOS'><table class='table table-striped table-sm table-bordered' id='tableEstOS'>\n\
+                             <thead><tr style='background-color: #13b955'>\n\
+                             <th scope='col'></th>\n\
+                             <th scope='col'>N° ORDEN</th>\n\
+                             <th scope='col'>FECHA</th>\n\
+                             <th scope='col'>ESTADO</th>\n\
+                             <th scope='col'>DOC CLIENTE</th>\n\
+                             <th scope='col'>NOM CLIENTE</th>\n\
+                             <th scope='col'>DIRECCION</th>\n\
+                             <th scope='col'>CIUDAD</th>\n\
+                             <th scope='col'>TIPO SERV</th>\n\
+                             <th scope='col'>TIPO ENV</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloEstOS.length; i++) {
+                tmp = arregloEstOS[i];
+                if (tmp.es_id == 1) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-android-contact" style="color: #fb972e;"></span></td>';
+                } else if (tmp.es_id == 2) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-android-car" style="color: #0d40ff;"></span></td>';
+                } else if (tmp.es_id == 3) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-checkmark-circled" style="color: #13b955;"></span></td>';
+                } else if (tmp.es_id == 4) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-close-circled" style="color: #ff5757;"></span></td>';
+                }
+                datosEstOS += '<td>' + tmp.os_id + "</td>";
+                datosEstOS += '<td>' + tmp.exs_fecha_hora + '</td>';
+                if (tmp.es_id == 1) {
+                    datosEstOS += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
+//                    serv_program++;
+                } else if (tmp.es_id == 2) {
+                    datosEstOS += '<td style="background-color: #82dcff;">' + tmp.es_desc + '</td>';
+//                    serv_asignado++;
+                } else if (tmp.es_id == 3) {
+                    datosEstOS += '<td style="background-color: #b0ffc5;">' + tmp.es_desc + '</td>';
+//                    serv_exitoso++;
+                } else if (tmp.es_id == 4) {
+                    datosEstOS += '<td style="background-color: #ffcfcf;">' + tmp.es_desc + '</td>';
+//                    serv_novedad++;
+                }
+                datosEstOS += '<td>' + tmp.cli_num_doc + '</td>';
+                datosEstOS += '<td>' + tmp.cli_nombre + '</td>';
+                datosEstOS += '<td>' + tmp.os_direccion + '</td>';
+                datosEstOS += '<td>' + tmp.ciu_nombre + '</td>';
+                datosEstOS += '<td>' + tmp.ts_desc + '</td>';
+                datosEstOS += '<td>' + tmp.te_desc + '</td></tr>';
+            }
+            datosEstOS += "</tbody></table></div>";
+            $("#tbInfoEstOS").html(datosEstOS);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            tablaEst_x_OS = $('#tableEstOS').DataTable({
+                'scrollX': true
+            });
+
+            clickActuEstado_OS();
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna la cantidad de servicios segun su estado a la vista de los paneles
+ * @returns {undefined}
+ */
+function control_dash_serv() {
+    $("#cantServExitosos").html(serv_exitoso);
+    $("#cantServConNov").html(serv_novedad);
+    $("#cantServProgram").html(serv_program);
+    $("#cantServAsignados").html(serv_asignado);
+}
+
+/**
+ * Metodo que devuelve el formulario para actualizar el estado
+ * formulario ciudad
+ * @returns {undefined}
+ */
+function clickActuEstado_OS() {
+    $("#tableEstOS").on("click", ".actuestos", function () {
+//    $(".actuestos").click(function () {
+        actu_es_os = $(this).attr("act");
+        $('#ModalActuEstOS').modal('toggle');
+
+        form_act_est_os(arregloEstOS, actu_es_os);
+    });
+}
+
+function form_act_est_os(array, position) {
+    tm = array[position];
+
+    var fech = tm.exs_fecha_hora;
+    var element = fech.split(' ');
+    var fecha = element[0].split('-');
+    formato_fec = fecha[2] + '/' + fecha[1] + '/' + fecha[0];
+    var tiempo = element[1].split(':');
+    formato_hor = tiempo[0] + ':' + tiempo[1] + ':' + tiempo[2];
+
+    if (tm.es_id == 1) {
+        $('#ModalEstOSTitle').html('ASIGNAR VEHICULO');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-warning">\n\
+            <form id="formEstOS">\n\
+                <fieldset>\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-8">\n\
+                        <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
+                    </div>\n\
+                    <div class="form-group form-group-sm col-lg-4">\n\
+                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #ffeccafc; display:none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
+                <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
+                <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
+                <b>FECHA: </b>' + formato_fec + '<br>\n\
+                <b>FECHA: </b>' + formato_hor + '<br>\n\
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>\n\
+                    <div class="form-group">\n\
+                        <label for="selectEmpleado">Mensajero</label>\n\
+                        <select class="form-control" id="selectEmpleado" name="selectEmpleado">\n\
+                        </select>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <label for="txaNovedad">Novedad</label>\n\
+                        <textarea class="form-control" id="txaNovedad" name="txaNovedad" rows="2"></textarea>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <button type="submit" class="btn btn-info" id="btnGuardaEstOS" name="btnGuardaEstOS">Asignar Vehiculo <span class="ion-android-car" style="font-size: x-large;"></span></button>\n\
+                    </div>\n\
+                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="2" style="display: none;" readonly>\n\
+                </fieldset>\n\
+            </form>');
+        combo_emp();
+    } else if (tm.es_id == 2) {
+        $('#ModalEstOSTitle').html('FINALIZAR RECOLECCIÓN');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-info">\n\
+            <form id="formEstOS">\n\
+                <fieldset>\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-8">\n\
+                        <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
+                    </div>\n\
+                    <div class="form-group form-group-sm col-lg-4">\n\
+                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #bcecff; display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
+                <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
+                <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
+                <b>FECHA: </b>' + formato_fec + '<br>\n\
+                <b>HORA: </b>' + formato_hor + '<br>\n\
+                <b>MENSAJERO: </b>' + tm.emp_nombre + '<br>\n\
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>\n\
+                    <div class="form-group" style="display: none;">\n\
+                        <label for="selectEmpleado">Mensajero</label>\n\
+                        <select class="form-control" id="selectEmpleado" name="selectEmpleado">\n\
+                        <option value="' + tm.td_id_men + '|' + tm.num_doc_men + '">' + tm.emp_nombre + '</option>\n\
+                        </select>\n\
+                    </div>\n\
+                    <div id="divRadios">\n\
+                    <div class="custom-control custom-radio">\n\
+                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1" checked="">\n\
+                      <label class="custom-control-label" for="customRadio1">Realizada con Exito</label>\n\
+                    </div>\n\
+                    <div class="custom-control custom-radio">\n\
+                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="2">\n\
+                      <label class="custom-control-label" for="customRadio2">No se pudo Realizar</label>\n\
+                    </div>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <label for="txaNovedad">Novedad</label>\n\
+                        <textarea class="form-control" id="txaNovedad" name="txaNovedad" rows="2"></textarea>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <button type="submit" class="btn btn-success" id="btnGuardaEstOS" name="btnGuardaEstOS">Finalizar Recolección <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
+                    </div>\n\
+                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="3" style="display: none;" none;" readonly>\n\
+                </fieldset>\n\
+            </form>');
+        $("#divRadios input[name='customRadio']").click(function () {
+            est = $("input:radio[name=customRadio]:checked").val();
+            if (est === "1") {
+                $("#inpEstado").val("3");
+                $("#btnGuardaEstOS").removeClass("btn-danger");
+                $("#btnGuardaEstOS").addClass("btn-success");
+            } else if (est === "2") {
+                $("#inpEstado").val("4");
+                $("#btnGuardaEstOS").removeClass("btn-success");
+                $("#btnGuardaEstOS").addClass("btn-danger");
+            }
+        });
+
+    } else if (tm.es_id == 3) {
+
+        $('#ModalEstOSTitle').html('REALIZADA');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-success">\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-8">\n\
+                        <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
+                    </div>\n\
+                    <div class="form-group form-group-sm col-lg-4">\n\
+                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #84dba7; display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
+                <b>FECHA: </b>' + formato_fec + '<br>\n\
+                <b>HORA: </b>' + formato_hor + '<br>\n\
+                <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
+                <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>');
+
+    } else if (tm.es_id == 4) {
+
+        $('#ModalEstOSTitle').html('CANCELADA');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-danger">\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-8">\n\
+                        <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
+                    </div>\n\
+                    <div class="form-group form-group-sm col-lg-4">\n\
+                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #84dba7; display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
+                <b>FECHA: </b>' + formato_fec + '<br>\n\
+                <b>HORA: </b>' + formato_hor + '<br>\n\
+                <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
+                <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>');
+    }
+    $("#inpEstOrdServ").val(tm.os_id);
+    $("#btnGuardaEstOS").click(function () {
+        validarInsert_est_x_os();
+    });
+}
+/**
+ * Metodo que llena el combo de seleccion empleado
+ * @returns {undefined}
+ */
+function combo_emp() {
+    request = "Controller/AdminC/AdministrarEmpleados/consulta_emp_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.emp_td_id + '|' + temp.emp_num_doc + '">' + temp.emp_nombre + "</option>";
+        }
+        $("#selectEmpleado").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Funcion de validacion para envio de est_x_os
+ * @returns {undefined}
+ */
+function validarInsert_est_x_os() {
+    $("#formEstOS").validate({
+        rules: {
+            inpEstOrdServ: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            inserta_est_x_ordServ();
+        }
+    });
+}
+/**
+ * Funcion que inserta un registro en tabla est_x_os
+ * @returns {undefined}
+ */
+function inserta_est_x_ordServ() {
+    request = "Controller/AdminC/AdministrarOS/insertar_es_x_os_controller.php";
+    cadena = $("#formEstOS").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Registro actualizado!');
+//            $("#link_vista_dashboard_serv").trigger("click");
+            consulta_dashboard_serv();
+            consulta_dashboard_serv_card();
+            seguimiento_estado();
+            $("#btnCloseModal").trigger("click");
+        } else {
+//            alert(datos);
+            alertify.error('No actualizado!');
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Funcion que carga las acciones en los card
+ * @returns {undefined}
+ */
+function consulta_dashboard_serv_card() {
+    request = "Controller/AdminC/AdministrarOS/consulta_ult_est_os_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        serv_program = 0;
+        serv_asignado = 0;
+        serv_exitoso = 0;
+        serv_novedad = 0;
+        arregloEstOScard = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstOScard !== 0) {
+
+            for (i = 0; i < arregloEstOScard.length; i++) {
+                tmp = arregloEstOScard[i];
+
+                if (tmp.es_id == 1) {
+                    serv_program++;
+                } else if (tmp.es_id == 2) {
+                    serv_asignado++;
+                } else if (tmp.es_id == 3) {
+                    serv_exitoso++;
+                } else if (tmp.es_id == 4) {
+                    serv_novedad++;
+                }
+            }
+
+            control_dash_serv();
+            $("#cardRealizadas").click(function () {
+                if (exist == true) {
+                    consulta_dashb_serv_fil(3);
+//                    exist = false;
+                }
+                tablaEst_x_OS
+                        .column(3)
+                        .search('')
+                        .search('REALIZADA')
+                        .draw();
+                //En esta linea me redirije al formulario con una velocodad establecida
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#tablaEstadoOS").offset().top
+                }, 900);
+            });
+            $("#cardAsignadas").click(function () {
+                if (exist == true) {
+                    consulta_dashb_serv_fil(2);
+//                    exist = false;
+                } else {
+                    tablaEst_x_OS
+                            .column(3)
+                            .search('')
+                            .search('ASIGNADA')
+                            .draw();
+                }
+
+                //En esta linea me redirije al formulario con una velocodad establecida
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#tablaEstadoOS").offset().top
+                }, 900);
+            });
+            $("#cardNovedad").click(function () {
+                if (exist == true) {
+                    consulta_dashb_serv_fil(4);
+//                    exist = false;
+                } else {
+                    tablaEst_x_OS
+                            .column(3)
+                            .search('')
+                            .search('CANCELADA')
+                            .draw();
+                }
+
+                //En esta linea me redirije al formulario con una velocodad establecida
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#tablaEstadoOS").offset().top
+                }, 900);
+            });
+            $("#cardProgramadas").click(function () {
+                if (exist == true) {
+                    consulta_dashb_serv_fil(1);
+//                    exist = false;
+                } else {
+                    tablaEst_x_OS
+                            .column(3)
+                            .search('')
+                            .search('PROGRAMADA')
+                            .draw();
+                }
+
+                //En esta linea me redirije al formulario con una velocodad establecida
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#tablaEstadoOS").offset().top
+                }, 900);
+            });
+//            $("#cardProgramadas").click(function () {
+//                $('#MyModalCenter').modal('toggle');
+//            });
+
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+var fech_old = '1001,01,01';
+var fech_new;
+var exist = false;
+/**
+ * Funcion que consulta cambios de fecha en los estados
+ * @returns {undefined}
+ */
+function consulta_os_program() {
+    request = "Controller/AdminC/AdministrarOS/cons_os_x-est_reciente_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(fech_old);
+        arreglo = $.parseJSON(datos);
+        tmp_f = arreglo[0];
+        fech_new = tmp_f.fecha;
+        if (fech_new > fech_old) {
+            fech_old = fech_new;
+            consulta_dashboard_serv_card();
+            exist = true;
+
+            var delay = alertify.get('notifier', 'delay');
+            alertify.set('notifier', 'delay', 15);
+            alertify.warning('Nueva Orden de servicio Programada!');
+            alertify.set('notifier', 'delay', delay);
+        } else {
+
+        }
+//        alert(fech_old);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Funcion que consulta cambios de fecha en los estados
+ * @returns {undefined}
+ */
+function consulta_os_program_ini() {
+    request = "Controller/AdminC/AdministrarOS/cons_os_x-est_reciente_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(fech_old);
+        arreglo = $.parseJSON(datos);
+        tmp_f = arreglo[0];
+        fech_old = tmp_f.fecha;
+//        alert(fech_old);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga tabla de dashboard segun filtro
+ * @param {type} fil
+ * @returns {undefined}
+ */
+function consulta_dashb_serv_fil(fil) {
+    request = "Controller/AdminC/AdministrarOS/cons_est_os_filtro_controller.php";
+    cadena = "fil=" + fil; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloEstOS = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstOS !== 0) {
+            datosEstOS = "<div class='table-responsive text-nowrap' id='tablaEstadoOS'><table class='table table-striped table-sm table-bordered' id='tableEstOS'>\n\
+                             <thead><tr style='background-color: #13b955'>\n\
+                             <th scope='col'></th>\n\
+                             <th scope='col'>N° ORDEN</th>\n\
+                             <th scope='col'>FECHA</th>\n\
+                             <th scope='col'>ESTADO</th>\n\
+                             <th scope='col'>DOC CLIENTE</th>\n\
+                             <th scope='col'>NOM CLIENTE</th>\n\
+                             <th scope='col'>DIRECCION</th>\n\
+                             <th scope='col'>CIUDAD</th>\n\
+                             <th scope='col'>TIPO SERV</th>\n\
+                             <th scope='col'>TIPO ENV</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloEstOS.length; i++) {
+                tmp = arregloEstOS[i];
+                if (tmp.es_id == 1) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-android-contact" style="color: #fb972e;"></span></td>';
+                } else if (tmp.es_id == 2) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-android-car" style="color: #0d40ff;"></span></td>';
+                } else if (tmp.es_id == 3) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-checkmark-circled" style="color: #13b955;"></span></td>';
+                } else if (tmp.es_id == 4) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-close-circled" style="color: #ff5757;"></span></td>';
+                }
+                datosEstOS += '<td>' + tmp.os_id + "</td>";
+                datosEstOS += '<td>' + tmp.exs_fecha_hora + '</td>';
+                if (tmp.es_id == 1) {
+                    datosEstOS += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
+//                    serv_program++;
+                } else if (tmp.es_id == 2) {
+                    datosEstOS += '<td style="background-color: #82dcff;">' + tmp.es_desc + '</td>';
+//                    serv_asignado++;
+                } else if (tmp.es_id == 3) {
+                    datosEstOS += '<td style="background-color: #b0ffc5;">' + tmp.es_desc + '</td>';
+//                    serv_exitoso++;
+                } else if (tmp.es_id == 4) {
+                    datosEstOS += '<td style="background-color: #ffcfcf;">' + tmp.es_desc + '</td>';
+//                    serv_novedad++;
+                }
+                datosEstOS += '<td>' + tmp.cli_num_doc + '</td>';
+                datosEstOS += '<td>' + tmp.cli_nombre + '</td>';
+                datosEstOS += '<td>' + tmp.os_direccion + '</td>';
+                datosEstOS += '<td>' + tmp.ciu_nombre + '</td>';
+                datosEstOS += '<td>' + tmp.ts_desc + '</td>';
+                datosEstOS += '<td>' + tmp.te_desc + '</td></tr>';
+            }
+            datosEstOS += "</tbody></table></div>";
+            $("#tbInfoEstOS").html(datosEstOS);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            tablaEst_x_OS = $('#tableEstOS').DataTable({
+                'scrollX': true
+            });
+
+            clickActuEstado_OS();
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que llena el combo de seleccion tipo ciudad
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_ciudad(select) {
+    request = "Controller/ClienteC/consulta_ciudades_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.ciu_id + '">' + temp.ciu_nombre + "</option>";
+        }
+        $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+
+/**
+ * Metodo que llena el combo de seleccion tipo envio
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_tipo_envio(select) {
+    request = "Controller/AdminC/AdministrarBD/consulta_tipo_env_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.te_id + '">' + temp.te_desc + "</option>";
+        }
+        $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que llena el combo de seleccion tipo servicio
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_tipo_serv(select) {
+    request = "Controller/AdminC/AdministrarBD/consulta_tipo_serv_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.ts_id + '">' + temp.ts_desc + "</option>";
+        }
+        $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que permite validar campos en formulario orden servicio
+ * @returns {undefined}
+ */
+function validarOrdServ() {
+    $("#formOrdenServ").validate({
+        rules: {
+            inputDir: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            insertar_orden_serv();
+        }
+    });
+}
+
+
+/**
+ * Metodo que permite resetear el formulario solicitar orden de servicio
+ * @returns {undefined}
+ */
+function resetFormOrdServ() {
+    limpiarFormulario("#formOrdenServ");
+    $("#btnCancelarOrd").removeClass("btn-secondary");
+    $("#btnCancelarOrd").addClass("btn-dark");
+    $("#btnCancelarOrd").html("Cancelar");
+    contador = 0;
+}
+
+/**
+ * Metodo que trae a la vista el formulario de recoleccion
+ * @returns {undefined}
+ */
+function formulario_oreden_serv() {
+    request = "View/AdministradorV/OrdenesServicio/form_os_admin.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenGestOs").html(datos);
+        combo_ciudad("#selectCiudad");
+        combo_tipo_envio("#selectTipEnvio");
+        combo_tipo_serv("#selectTipoServi");
+        $("#btnGenOrdServ").click(function () {
+            validarOrdServ();
+        });
+        $("#btnCancelarOrd").click(function () {
+            resetFormOrdServ();
+            formulario_recolec();
+        });
+        $("#btnBuscaOS").click(function () {
+            validarBuscarNumOS(datos_orden_serv);
+        });
+        $("#btnActuOS").click(function () {
+            validarActuOrdServ();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que trae a la vista el formulario de recoleccion
+ * @returns {undefined}
+ */
+function seguimiento_estado() {
+    request = "View/AdministradorV/OrdenesServicio/seguimiento_estados.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenGestOs").html(datos);
+        $("#btnBuscaOS").click(function () {
+            validarBuscarNumOS(datos_orden_serv_seg);
+        });
+        botones_seg_os();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que trae a la vista el contenido de botones de actualizacion de estados os
+ * @returns {undefined}
+ */
+function botones_seg_os() {
+    request = "View/AdministradorV/OrdenesServicio/con_bot_actu_est_os.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contAux").html(datos);
+        $("#btnActuOS_prog").prop("disabled", true);
+        $("#btnActuOS_asig").prop("disabled", true);
+        $("#btnActuOS_prog").click(function () {
+            $('#ModalActuEstOS').modal('toggle');
+            form_act_est_os(arregloSegOS, 0);
+        });
+        $("#btnActuOS_asig").click(function () {
+            $('#ModalActuEstOS').modal('toggle');
+            form_act_est_os(arregloSegOS, 1);
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+
+
+/**
+ * Metodo que realiza la busqueda de una orden de servicio
+ * @returns {undefined}
+ */
+function datos_orden_serv() {
+    request = "Controller/AdminC/AdministrarOS/cons_os_x_num_controller.php";
+    cadena = $("#formBuscarOS").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arregloOS = $.parseJSON(datos);
+        os_num = arregloOS[0];
+        if (typeof os_num === 'undefined') {
+            limpiarFormulario("#formBuscarOS");
+            limpiarFormulario("#formOrdenServAdm");
+            alertify.alert('No se encuentra en Base de Datos').setHeader('<em> Cuidado! </em> ');
+        } else {
+            limpiarFormulario("#formOrdenServAdm");
+            $("#selectTipEnvio").find('option').removeAttr("selected");
+            $("#selectCiudad").find('option').removeAttr("selected");
+            $("#selectTipoServi").find('option').removeAttr("selected");
+            $("#inputDir").val(os_num.os_direccion);
+//            $('#selectTipDocAc option[value="' + clitm.cli_td_id + '"]').attr('selected', true);
+//            $('#selectCiudad').val(os_num.ciu_id);
+            $('#selectCiudad option[value="' + os_num.ciu_id + '"]').attr('selected', true);
+            $("#selectCiudad").val(os_num.ciu_id);
+            $("#inputTele").val(os_num.os_tel_cont);
+            $("#inputPerContacto").val(os_num.os_per_cont);
+            $('#selectTipEnvio option[value="' + os_num.te_id + '"]').attr('selected', true);
+            $("#selectTipEnvio").val(os_num.te_id);
+            $("#inputObservServ").val(os_num.os_observacion);
+            $("#inputNovedServ").val(os_num.exs_novedad);
+            $("#inputNumOSAd").val(os_num.os_id);
+            $("#inputTdCli").val(os_num.cli_td_id);
+            $("#inputNumDocCli").val(os_num.cli_num_doc);
+            if (os_num.ts_id == 1) {
+//                $("#inpCheckLogiYa").prop("checked", true);
+                $("#selectTipoServi").addClass('colorLogiYA');
+            } else {
+//                $("#inpCheckLogiYa").prop("checked", false);
+                $("#selectTipoServi").removeClass('colorLogiYA');
+            }
+            $('#selectTipoServi option[value="' + os_num.ts_id + '"]').attr('selected', true);
+            $("#selectTipoServi").val(os_num.ts_id);
+            var fecha_hora = new Date(os_num.exs_fecha_hora);
+            var options = {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            };
+            var timeString = fecha_hora.toLocaleString('en-US', options);
+//            dia = os_num.exs_fecha_hora.substr(8, 2);
+            f = new Date(os_num.exs_fecha_hora.replace(/-/g, '\/'));
+            $("#lbTitleSection").html('Orden N° <samp>' + os_num.os_id + '</samp> ' + os_num.cli_nombre + '<br> Última modificación ' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + ' ' + timeString + ' ' + os_num.es_desc);
+            if (os_num.es_id == 3 || os_num.es_id == 4) {
+                $("#inputDir").attr('disabled', 'disabled');
+                $("#selectCiudad").attr('disabled', 'disabled');
+                $("#inputTele").attr('disabled', 'disabled');
+                $("#inputPerContacto").attr('disabled', 'disabled');
+                $("#selectTipEnvio").attr('disabled', 'disabled');
+                $("#inputObservServ").attr('disabled', 'disabled');
+                $("#inputNovedServ").attr('disabled', 'disabled');
+                $("#selectTipoServi").attr('disabled', 'disabled');
+                $("#btnActuOS").attr('disabled', 'disabled');
+                $("#btnEliOSs").attr('disabled', 'disabled');
+            } else {
+                $("#inputDir").removeAttr('disabled');
+                $("#selectCiudad").removeAttr('disabled');
+                $("#inputTele").removeAttr('disabled');
+                $("#inputPerContacto").removeAttr('disabled');
+                $("#selectTipEnvio").removeAttr('disabled');
+                $("#inputObservServ").removeAttr('disabled');
+                $("#inputNovedServ").removeAttr('disabled');
+                $("#selectTipoServi").removeAttr('disabled');
+                $("#btnActuOS").removeAttr('disabled');
+                $("#btnEliOSs").removeAttr('disabled');
+            }
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que permite validar campos en formulario orden servicio actualizar
+ * @returns {undefined}
+ */
+function validarActuOrdServ() {
+    $("#formOrdenServAdm").validate({
+        rules: {
+            inputDir: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            actualizarOS();
+        }
+    });
+}
+/**
+ * Metodo que actualiza datos de una orden de servicio
+ * @returns {undefined}
+ */
+function actualizarOS() {
+    request = "Controller/AdminC/AdministrarOS/actualizar_os_controller.php";
+    cadena = $("#formOrdenServAdm").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Orden de Servicio Actualizada!');
+            limpiarFormulario("#formOrdenServAdm");
+            $("#selectTipoServi").removeClass('colorLogiYA');
+        } else {
+            alertify.error('No se pudo realizar la Actualización!');
+//            alert(datos);
         }
     };
     f_ajax(request, cadena, metodo);

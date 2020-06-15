@@ -20,7 +20,7 @@ class Usuario_pass_DAO {
      * @return type
      */
     function consultaAdmin($num_usu) {
-        $sql = "SELECT * FROM usuario_pass WHERE us_num_doc = " . $num_usu . ";";
+        $sql = "SELECT * FROM usuario_emp_pass WHERE ue_num_doc = " . $num_usu . ";";
         $BD = new MySQL();
         return $BD->query($sql);
     }
@@ -31,8 +31,8 @@ class Usuario_pass_DAO {
      * @param type $usu_pass_vo
      */
     function actualizarClaveAdmin($usu_pass_vo) {
-        $sql = "UPDATE usuario_pass SET us_password = '" . $usu_pass_vo->getPassword() . "' "
-                . "WHERE us_num_doc = " . $usu_pass_vo->getNum_doc() . ";";
+        $sql = "UPDATE usuario_emp_pass SET ue_password = '" . $usu_pass_vo->getPassword() . "' "
+                . "WHERE ue_num_doc = " . $usu_pass_vo->getNum_doc() . ";";
         $BD = new MySQL();
         echo $BD->execute_query($sql);
     }
@@ -48,6 +48,21 @@ class Usuario_pass_DAO {
                 . "WHERE c.cli_td_id = u.us_td_id  AND c.cli_num_doc = u.us_num_doc "
                 . "AND c.cli_td_id = d.td_id AND u.tu_id = t.tu_id "
                 . "AND u.us_usuario = '" . $usuario . "';";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna los datos de un usuario_pass en el login
+     * @param type $usuario
+     * @return type
+     */
+    function consultaLoginEmp($usuario) {
+        $sql = "SELECT e.*, ue.car_id, ue.ue_usuario, ue.ue_password, d.td_sigla, c.car_nombre "
+                . "FROM empleados AS e, usuario_emp_pass AS ue, tipo_doc AS d, cargo AS c "
+                . "WHERE e.emp_td_id = ue.ue_td_id  AND e.emp_num_doc = ue.ue_num_doc "
+                . "AND e.emp_td_id = d.td_id AND ue.car_id = c.car_id "
+                . "AND ue.ue_usuario =  '" . $usuario . "';";
         $BD = new MySQL();
         return $BD->query($sql);
     }

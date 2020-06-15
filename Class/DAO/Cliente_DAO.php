@@ -65,7 +65,7 @@ class Cliente_DAO {
         $sql = "SELECT c.*, u.tu_id, t.tu_tipo, d.td_sigla "
                 . "FROM clientes AS c, usuario_pass AS u, tipo_doc AS d, tipo_usuario AS t "
                 . "WHERE c.cli_td_id = u.us_td_id AND c.cli_num_doc = u.us_num_doc "
-                . "AND c.cli_td_id = d.td_id AND u.tu_id = t.tu_id AND u.tu_id != 1 AND u.tu_id != 4;";
+                . "AND c.cli_td_id = d.td_id AND u.tu_id = t.tu_id AND u.tu_id != 3;";
         $BD = new MySQL();
 //        return $sql;
         return $BD->query($sql);

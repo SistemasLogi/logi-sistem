@@ -30,7 +30,7 @@ class Tipo_envio_DAO {
      */
     function insertarTipoEnv($tipo_env_vo) {
         $sql = "INSERT INTO tipo_envio (te_id, te_desc)VALUES (" . $tipo_env_vo->getCod_env() . ", "
-                . "'" . $tipo_env_vo->getEnv_desc() . "')"
+                . "'" . $tipo_env_vo->getEnv_desc() . "') "
                 . "ON DUPLICATE KEY UPDATE te_desc = '" . $tipo_env_vo->getEnv_desc() . "'";
         $BD = new MySQL();
 //        return $sql;

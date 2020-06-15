@@ -24,4 +24,11 @@ class Depto_DAO {
         return $BD->query($sql);
     }
 
+    function consultaDepto_x_ciu($cod_ciu) {
+        $sql = "SELECT c.ciu_id, c.ciu_nombre, d.* FROM ciudad AS c, departamento AS d "
+                . "WHERE c.dep_id = d.dep_id AND c.ciu_id = " . $cod_ciu . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

@@ -10,55 +10,57 @@ if ($_POST) {
     $or_servi_vo = new Orden_serv_VO();
     $or_servi_dao = new Orden_serv_DAO();
 
-    $des_os_vo = new Descrip_serv_VO();
-    $des_os_dao = new Descrip_serv_DAO();
-
-    $numero_ord = $_POST["inputNumOrd"];
-
-    if (empty($numero_ord)) {
-        $or_servi_vo->setNumero("null");
-    } else {
-        $or_servi_vo->setNumero($_POST["inputNumOrd"]);
-    }
+//    $numero_ord = $_POST["inputNumOrd"];
+//
+//    if (empty($numero_ord)) {
+//        $or_servi_vo->setNumero("null");
+//    } else {
+//        $or_servi_vo->setNumero($_POST["inputNumOrd"]);
+//    }
 
     $or_servi_vo->setCod_ciudad($_POST["selectCiudad"]);
     $or_servi_vo->setDireccion($_POST["inputDir"]);
     $or_servi_vo->setPer_contacto($_POST["inputPerContacto"]);
     $or_servi_vo->setTelefono($_POST["inputTele"]);
-    $or_servi_vo->setEnvio($_POST["selectTipEnvio"]);
+    $or_servi_vo->setTipo_env_id($_POST["selectTipEnvio"]);
     $or_servi_vo->setCli_docum($_SESSION["numero_doc"]);
     $or_servi_vo->setCli_id($_SESSION["tipo_doc"]);
-    $des_os_vo->setCantidad_env($_POST["inputCantidadEnv"]);
+    if (isset($_POST["inpCheckLogiYa"])) {
+        $or_servi_vo->setTipo_serv_id($_POST["inpCheckLogiYa"]);
+    } else {
+        $or_servi_vo->setTipo_serv_id(2); //Predifinido Mensajeria, modificable por Administrador
+    }
+
+    $or_servi_vo->setObservacion($_POST["inputObservServ"]);
+//    $des_os_vo->setCantidad_env($_POST["inputCantidadEnv"]);
+//    echo $or_servi_dao->insertarOrden_serv($or_servi_vo);
 
     if ($or_servi_dao->insertarOrden_serv($or_servi_vo) == 1) {
-        $consulta = json_encode($or_servi_dao->consultaUltimaOS($_SESSION["tipo_doc"], $_SESSION["numero_doc"]));
-        if (!empty($consulta)) {
-            $num_ord_serv = json_decode($consulta);
-            $numero_os = $num_ord_serv[0]->os_id;
-            $csc = 1;
-            $des_os_vo->setOs_id($numero_os);
-            $des_os_vo->setCsc($csc);
-            $des_os_vo->setTs_id(2);
-            $des_os_vo->setContenido("");
-            if ($des_os_dao->insertarDescrip_serv($des_os_vo) == 1) {
-                $estXserv_vo = new Est_x_serv_VO();
-                $estXserv_dao = new Est_x_serv_DAO();
 
-                $estXserv_vo->setOrden_id($numero_os);
-                $estXserv_vo->setOrd_csc_id($csc);
-                $estXserv_vo->setEstado_id(1);
-                $estXserv_vo->setFecha_hora($fecha_hora);
-                $estXserv_vo->setNovedad("");
-                if ($estXserv_dao->insertarOrden_serv($estXserv_vo) == 1) {
-                    echo 1;
-                } else {
-                    echo "Error al guardar estado de orden";
-                }
+        $es_x_serv_dao = new Est_x_serv_DAO();
+        $es_x_serv_vo = new Est_x_serv_VO();
+//        $os_dao = new Orden_serv_DAO();
+
+        $json_id_os = json_encode($or_servi_dao->consultaUltimaOS($_SESSION["tipo_doc"], $_SESSION["numero_doc"]));
+
+        if (!empty($json_id_os)) {
+            $os_id = json_decode($json_id_os);
+
+            $es_x_serv_vo->setOrden_id($os_id[0]->os_id);
+            $es_x_serv_vo->setEstado_id(1); //predefinido 1 programada
+            $es_x_serv_vo->setFecha_hora($fecha_hora);
+            $es_x_serv_vo->setNovedad("");
+            $es_x_serv_vo->setTd_mensajero(1); //cc usuario global LOGI
+            $es_x_serv_vo->setNum_doc_mensajero(162534495867); //num predefinido usuario global LOGI
+
+            if ($es_x_serv_dao->insertar_est_x_os($es_x_serv_vo) == 1) {
+
+                echo 1;
             } else {
-                echo "error al guardar detalles de orden de servicio";
+                echo 2;
             }
         } else {
-            echo "error al guardar orden de servicio";
+            echo 3;
         }
     }
 } else {
