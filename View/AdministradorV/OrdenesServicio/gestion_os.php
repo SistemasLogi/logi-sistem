@@ -12,6 +12,9 @@
             <li class="nav-item" id="itemenlSeguimiento">
                 <a class="nav-link enlace" id="enlSeguimiento">Seguimiento</a>
             </li>
+            <li class="nav-item" id="itemenlCrearOs">
+                <a class="nav-link enlace" id="enlCrearOs">Crear</a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -101,6 +101,8 @@ function comprobarUsuario(respuesta) {
         $(location).attr('href', 'cliente_logi.php');
     } else if (respuesta == 3) {
         $(location).attr('href', 'cliente.php');
+    } else if (respuesta == 4) {
+        $(location).attr('href', 'area_control_clientes.php');
     }else{
         alert("Usuario o Contraseña Incorrectos");
     }

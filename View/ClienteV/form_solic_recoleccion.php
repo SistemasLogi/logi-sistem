@@ -8,11 +8,32 @@
         <div class="alert alert-dismissible alert-primary col-lg-12">
             <form id="formOrdenServ">
                 <fieldset>
-                    <legend id="lbTitleSection">Solicitar Recolección</legend> 
+                    <?php if (isset($_SESSION["cliente_a"])) {
+                        ?>
+                        <legend id="lbTitleSection">Solicitar Recolección</legend>
+                        <?php
+                    } elseif (isset($_SESSION["adminlogi"])) {
+                        ?>
+                        <legend id="nombreCliSuc"></legend>
+                        <?php
+                    }
+                    ?>
                     <div class="row">
                         <div class="form-group form-group-sm col-lg-5" id="blqinputDir">
                             <label for="inputDir">Dirección</label>
-                            <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_cli"]; ?>">
+                            <?php if (isset($_SESSION["cliente_a"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_cli"]; ?>">
+                                <?php
+                            } elseif (isset($_SESSION["adminlogi"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección">  
+                                <input type="text" class="form-control form-control-sm" id="inputNumDocCl" name="inputNumDocCl">  
+                                <input type="text" class="form-control form-control-sm" id="inputTDocCli" name="inputTDocCli">                                                                 
+                                <?php
+                            }
+                            ?>
+                            <input type="text" class="form-control form-control-sm" id="inputNumSucu" name="inputNumSucu">
                         </div>
                         <div class="form-group form-group-sm col-lg-2" id="blqselectCiudad">
                             <label for="selectCiudad">Ciudad</label>
@@ -22,11 +43,29 @@
                         </div>
                         <div class="form-group form-group-sm col-lg-2" id="blqinputTele">
                             <label for="inputTele">Teléfono</label>
-                            <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono" value="<?php echo $_SESSION["telefono_cli"]; ?>">
+                            <?php if (isset($_SESSION["cliente_a"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono" value="<?php echo $_SESSION["telefono_cli"]; ?>">
+                                <?php
+                            } elseif (isset($_SESSION["adminlogi"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono">
+                                <?php
+                            }
+                            ?>
                         </div>
                         <div class="form-group form-group-sm col-lg-3" id="blqinputPerContacto">
                             <label for="inputPerContacto">Persona Contacto</label>
-                            <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto" value="<?php echo $_SESSION["per_contac"]; ?>">
+                            <?php if (isset($_SESSION["cliente_a"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto" value="<?php echo $_SESSION["per_contac"]; ?>">
+                                <?php
+                            } elseif (isset($_SESSION["adminlogi"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto">
+                                <?php
+                            }
+                            ?>
                         </div>
                         <div class="form-group form-group-sm col-lg-3">
                             <label for="selectTipEnvio">Tipo Envio</label>

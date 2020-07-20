@@ -15,6 +15,12 @@ $(document).ready(function () {
     $("#link_vista_dashboard_serv").click(function () {
         vista_dashboard();
     });
+    $("#link_vista_hist").click(function () {
+        vista_historial_os();
+    });
+    $("#link_sucursales").click(function () {
+        vista_admin_sucursal();
+    });
 
     $("#adminbd a").click(function () {
         vista_tabla_bd(this);
@@ -152,20 +158,20 @@ function vista_form_Nuevo_Edit() {
  * @returns {undefined}
  */
 function vista_form_Edit() {
-    request = "View/AdministradorV/Adcliente/form_editar.php";
+    request = "View/AdministradorV/AdCliente/form_editar.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#list-formCliente").html(datos);
         tablaGeneralClientesActivos();
-        combo_tipo_us();
+
         $("#btnBuscaCli").click(function () {
             validarBuscarCli();
         });
-        $("#btnCancelarCli").click(function () {
-            resetFormClienteEditar();
+        $("#vistaFormEditCli").click(function () {
+            vista_form_editar_cli();
         });
-        $("#btnGuardaAct").click(function () {
-            validarActCli();
+        $("#vistaFormCrearSuc").click(function () {
+            vista_form_crear_suc();
         });
 
     };
@@ -225,7 +231,7 @@ function validarBuscarCli() {
         }
     });
 }
-
+var arregloCli;
 /**
  * Metodo que retorna la informacion de un cliente para editar los datos
  * plasma la informacion en los campos de texto del formulario clientes
@@ -239,8 +245,14 @@ function buscar_cliente() {
         clitm = arregloCli[0];
         if (typeof clitm === 'undefined') {
             limpiarFormulario("#formBuscarCli");
+            limpiarFormulario("#formClienteAct");
+            limpiarFormulario("#formCrearSuc");
+            $("#labelNombreCli").html("");
+            $("#labelNumeroCli").html("");
             alertify.alert('No se encuentra en Base de Datos').setHeader('<em> Cuidado! </em> ');
         } else {
+            $("#labelNombreCli").html(clitm.cli_nombre);
+            $("#labelNumeroCli").html(clitm.cli_num_doc);
             $("#inputNomCliAc").val(clitm.cli_nombre);
 //            $('#selectTipDocAc option[value="' + clitm.cli_td_id + '"]').attr('selected', true);
             $('#selectTipDocAc').val(clitm.cli_td_id);
@@ -260,6 +272,96 @@ function buscar_cliente() {
             }
         }
 
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga la vista de formulario modificar cliente
+ * @returns {undefined}
+ */
+function vista_form_editar_cli() {
+    request = "View/AdministradorV/AdCliente/form_midificar.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenFormEdit").html(datos);
+        combo_tipo_us();
+        $("#btnCancelarCli").click(function () {
+            resetFormClienteEditar();
+        });
+        $("#btnGuardaAct").click(function () {
+            validarActCli();
+        });
+        if (typeof arregloCli === 'undefined') {
+            limpiarFormulario("#formBuscarCli");
+            limpiarFormulario("#formClienteAct");
+            $("#labelNombreCli").html("");
+            $("#labelNumeroCli").html("");
+        } else {
+            clitemp = arregloCli[0];
+            if (typeof clitemp === 'undefined') {
+                limpiarFormulario("#formBuscarCli");
+                limpiarFormulario("#formClienteAct");
+            } else {
+                $("#inputNomCliAc").val(clitemp.cli_nombre);
+//            $('#selectTipDocAc option[value="' + clitm.cli_td_id + '"]').attr('selected', true);
+                $('#selectTipDocAc').val(clitemp.cli_td_id);
+                $("#inputNumCliAc").val(clitemp.cli_num_doc);
+                $("#inputTelCliAc").val(clitemp.cli_tel);
+                $("#inputCelCliAc").val(clitemp.cli_cel);
+                $("#inputDirCliAc").val(clitemp.cli_direccion);
+                $("#inputPerContAc").val(clitemp.cli_per_cont);
+//            $("#selectTipDoc").prop("disabled", true);
+//            $("#inputNumCli").prop("disabled", true);
+                if (clitemp.tu_tipo === null) {
+                    $("#menCliNoAccess").html("<div class='alert alert-dismissible alert-danger'>\n\
+                <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                <strong>CLIENTE SIN ACCESO AL SISTEMA</strong></div> ");
+                } else {
+                    $('#selectTipUsAc option[value="' + clitemp.tu_id + '"]').attr('selected', true);
+                }
+            }
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga la vista de formulario crear sucursal
+ * @returns {undefined}
+ */
+function vista_form_crear_suc() {
+    request = "View/AdministradorV/AdCliente/form_crear_sucursal.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenFormEdit").html(datos);
+        combo_ciudad("#selectCiudad");
+        $("#btnCancelarSuc").click(function () {
+            limpiarFormulario("#formCrearSuc");
+        });
+        $("#btnGuardaSuc").click(function () {
+            validarCrearSuc();
+        });
+        if (typeof arregloCli === 'undefined') {
+            limpiarFormulario("#formBuscarCli");
+            limpiarFormulario("#formCrearSuc");
+            $("#labelNombreCli").html("");
+            $("#labelNumeroCli").html("");
+        } else {
+            clitemp = arregloCli[0];
+            if (typeof clitemp === 'undefined') {
+                limpiarFormulario("#formBuscarCli");
+                limpiarFormulario("#formCrearSuc");
+            } else {
+                $('#selectTipDocAc').val(clitemp.cli_td_id);
+                $("#inputNumCliAc").val(clitemp.cli_num_doc);
+                if (clitemp.tu_tipo === null) {
+                    $("#menCliNoAccess").html("<div class='alert alert-dismissible alert-danger'>\n\
+                <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                <strong>CLIENTE SIN ACCESO AL SISTEMA</strong></div> ");
+                } else {
+                    $('#selectTipUsAc option[value="' + clitemp.tu_id + '"]').attr('selected', true);
+                }
+            }
+        }
     };
     f_ajax(request, cadena, metodo);
 }
@@ -289,6 +391,17 @@ function resetFormClienteEditar() {
     combo_tipo_us();
     $("#selectTipDoc").prop("disabled", false);
     $("#inputNumCli").prop("disabled", false);
+    $("#menCliNoAccess").html("");
+}
+/**
+ * Metodo que permite resetear el formulario crear sucursal
+ * @returns {undefined}
+ */
+function resetFormCrearSucursal() {
+    limpiarFormulario("#formCrearSuc");
+    limpiarFormulario("#formBuscarCli");
+    $("#selectCiudad").html("");
+    combo_ciudad('selectCiudad');
     $("#menCliNoAccess").html("");
 }
 /**
@@ -338,7 +451,29 @@ function validarActCli() {
     });
 }
 /**
- * Metodo que guarda o actualiza un registro en la tabla cliente
+ * Metodo que permite validar formulario crear sucursal
+ * @returns {undefined}
+ */
+function validarCrearSuc() {
+    $("#formCrearSuc").validate({
+        rules: {
+            inputNumCliAc: {
+                required: true
+            },
+            inputNomSucursal: {
+                required: true
+            },
+            inputDirSuc: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            inserta_sucursal();
+        }
+    });
+}
+/**
+ * Metodo que guarda un registro en la tabla cliente
  * @returns {undefined}
  */
 function inserta_actualiza_cliente() {
@@ -348,9 +483,11 @@ function inserta_actualiza_cliente() {
         if (datos == 1) {
             alertify.success('Registro Guardado, Usuario Autorizado!');
             resetFormCliente();
+            arregloCli.length = 0;
         } else if (datos == 3) {
             alertify.warning('Registro Guardado pero el usuario NO fue Autorizado!');
             resetFormCliente();
+            arregloCli.length = 0;
         } else {
             alert(datos);
             alertify.error('NO Guardado!');
@@ -359,7 +496,7 @@ function inserta_actualiza_cliente() {
     f_ajax(request, cadena, metodo);
 }
 /**
- * Metodo que guarda o actualiza un registro en la tabla cliente
+ * Metodo que actualiza un registro en la tabla cliente
  * @returns {undefined}
  */
 function actualiza_cliente() {
@@ -370,6 +507,7 @@ function actualiza_cliente() {
             alertify.success('Registro Guardado, Usuario Autorizado!');
             resetFormClienteEditar();
             tablaGeneralClientesActivos();
+            arregloCli.length = 0;
         } else {
             alert(datos);
             alertify.error('NO Guardado!');
@@ -377,6 +515,26 @@ function actualiza_cliente() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que inserta un registro en la tabla sucursal
+ * @returns {undefined}
+ */
+function inserta_sucursal() {
+    request = "Controller/AdminC/AdministrarSucursal/insertar_sucursal_controller.php";
+    cadena = $("#formCrearSuc").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Registro Guardado, Usuario Autorizado!');
+            resetFormCrearSucursal();
+            arregloCli.length = 0;
+        } else {
+            alert(datos);
+            alertify.error('NO Guardado!');
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
 /**
  * Metodo que retorna el listado de clientes activos registrados en BD
  * @returns {undefined}
@@ -412,13 +570,11 @@ function tablaGeneralClientesActivos() {
             }
             datosCliente += "</tbody></table>";
             $("#tablaCliAct").html(datosCliente);
-
             /**
              * Evento que pagina una tabla 
              */
 
             $('#tableClientesAct').DataTable();
-
         } else {
             $("#tablaEstEnv").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
@@ -531,6 +687,40 @@ function validarInsertEe() {
         submitHandler: function (form) {
 
             inserta_actualiza_estadoEnv();
+        }
+    });
+}
+/**
+ * Metodo que permite validar campos en formulario operadores
+ * @returns {undefined}
+ */
+function validarInsertOpera() {
+    $("#formOperador").validate({
+        rules: {
+            inpNomOpera: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            inserta_actualiza_operadores();
+        }
+    });
+}
+/**
+ * Metodo que permite validar campos en formulario estado envio alistamiento 
+ * @returns {undefined}
+ */
+function validarInsertEsae() {
+    $("#formEstadoAEnv").validate({
+        rules: {
+            inpDescEstAEnv: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            inserta_actualiza_estadoAEnv();
         }
     });
 }
@@ -651,6 +841,22 @@ function vista_tabla_bd(ruta) {
         });
         $("#btnCancelarEstEnv").click(function () {
             resetFormEe();
+        });
+
+        tablaGeneralOperadores();
+        $("#btnGuardaOperador").click(function () {
+            validarInsertOpera();
+        });
+        $("#btnCancelarOperador").click(function () {
+            resetFormOpera();
+        });
+
+        tablaGeneralEstadoAEnv();
+        $("#btnGuardaEstAEnv").click(function () {
+            validarInsertEsae();
+        });
+        $("#btnCancelarEstAEnv").click(function () {
+            resetFormEsae();
         });
     };
     f_ajax(request, cadena, metodo);
@@ -1531,12 +1737,213 @@ function elimina_est_env() {
     f_ajax(request, cadena, metodo);
 }
 
+/****************************************************************
+ * Metodos de tabla operadores
+ * 
+ ****************************************************************/
+
+/**
+ * variable global del arreglo operadores
+ * @type Object
+ */
+var arregloOperadores;
+/**
+ * Metodo que retorna el listado de operadores registrados en BD
+ * @returns {undefined}
+ */
+function tablaGeneralOperadores() {
+    request = "Controller/AdminC/AdministrarBD/consulta_operadores_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloOperadores = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloOperadores !== 0) {
+            datosOperadores = "<legend>Tabla General</legend><table class='table table-responsive-sm table-hover table-bordered table-fixed' id='tableOperadores'>\n\
+                             <thead><tr class='thead-light'>\n\
+                             <th scope='col'>COD.</th>\n\
+                             <th scope='col'>OPERADOR</th>\n\
+                             <th scope='col'>ACT.</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloOperadores.length; i++) {
+                tmp = arregloOperadores[i];
+                datosOperadores += '<tr class="table-warning" id="fila' + i + '"><td>' + tmp.ope_id + "</td>";
+                datosOperadores += '<td>' + tmp.ope_nombre + '</td>';
+                datosOperadores += '<td><img src="img/iconos/editar_46x46.png" alt=""/ class="enlace img-responsive actualizaop" actuop="' + i + '"></td></tr>';
+            }
+            datosOperadores += "</tbody></table>";
+            $("#tablaOperadores").html(datosOperadores);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+
+            $('#tableOperadores').DataTable();
+            clickActualizaOp();
+        } else {
+            $("#tablaOperadores").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma los datos del elemento seleccionado en los campos de texto
+ * formulario tipo servicio
+ * @returns {undefined}
+ */
+function clickActualizaOp() {
+    $(".actualizaop").click(function () {
+        actualizar = $(this).attr("actuop");
+        $("#btnGuardaOperador").removeClass("btn-primary");
+        $("#btnGuardaOperador").addClass("btn-warning");
+        $("#btnGuardaOperador").html("Actualizar");
+        tm = arregloOperadores[actualizar];
+        $("#inpCodOpera").val(tm.ope_id);
+        $("#inpNomOpera").val(tm.ope_nombre);
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#page-content-wrapper").offset().top
+        }, 300);
+    });
+}
+
+/**
+ * Metodo que inserta o actualiza un registro en la tabla operadores
+ * @returns {undefined}
+ */
+function inserta_actualiza_operadores() {
+    request = "Controller/AdminC/AdministrarBD/insertar_operador_controller.php";
+    cadena = $("#formOperador").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            mensajeGuardadoExitoso();
+            resetFormOpera();
+            tablaGeneralOperadores();
+        } else {
+            mensaje_No_Guardado();
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que permite resetear el formulario operadores
+ * @returns {undefined}
+ */
+function resetFormOpera() {
+    limpiarFormulario("#formOperador");
+    $("#btnGuardaOperador").removeClass("btn-warning");
+    $("#btnGuardaOperador").addClass("btn-primary");
+    $("#btnGuardaOperador").html("Guardar");
+}
+
+
+/****************************************************************
+ * Metodos de tabla estado_aenv
+ * 
+ ****************************************************************/
+
+/**
+ * variable global del arreglo estado_aenv
+ * @type Object
+ */
+var arregloEstadoAEnv;
+/**
+ * Metodo que retorna el listado de estados de envio alistamiento registrados en BD
+ * @returns {undefined}
+ */
+function tablaGeneralEstadoAEnv() {
+    request = "Controller/AdminC/AdministrarBD/consulta_estado_aenv_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloEstadoAEnv = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstadoAEnv !== 0) {
+            datosEstAEnv = "<table class='table table-responsive-sm table-hover table-bordered table-fixed' id='tableAEstEnv'>\n\
+                             <thead><tr class='thead-light'>\n\
+                             <th scope='col'>COD.</th>\n\
+                             <th scope='col'>EST ENVIO</th>\n\
+                             <th scope='col'>ACT.</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloEstadoAEnv.length; i++) {
+                tmp = arregloEstadoAEnv[i];
+                datosEstAEnv += '<tr class="table-warning" id="fila' + i + '"><td>' + tmp.esae_id + "</td>";
+                datosEstAEnv += '<td>' + tmp.esae_desc + '</td>';
+                datosEstAEnv += '<td><img src="img/iconos/editar_46x46.png" alt=""/ class="enlace img-responsive actualizaesae" actuesae="' + i + '"></td></tr>';
+            }
+            datosEstAEnv += "</tbody></table>";
+            $("#tablaEstAEnv").html(datosEstAEnv);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+
+            $('#tableEstAEnv').DataTable();
+            clickActualizaEsae();
+        } else {
+            $("#tablaEstAEnv").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma los datos del elemento seleccionado en los campos de texto
+ * formulario estado envio alistamiento
+ * @returns {undefined}
+ */
+function clickActualizaEsae() {
+    $(".actualizaesae").click(function () {
+        actualizar = $(this).attr("actuesae");
+        $("#btnGuardaEstAEnv").removeClass("btn-primary");
+        $("#btnGuardaEstAEnv").addClass("btn-warning");
+        $("#btnGuardaEstAEnv").html("Actualizar");
+        tm = arregloEstadoAEnv[actualizar];
+        $("#inpCodEstAEnv").val(tm.esae_id);
+        $("#inpDescEstAEnv").val(tm.esae_desc);
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#page-content-wrapper").offset().top
+        }, 300);
+    });
+}
+
+/**
+ * Metodo que guarda o actualiza un registro en la tabla estado_aenv
+ * @returns {undefined}
+ */
+function inserta_actualiza_estadoAEnv() {
+    request = "Controller/AdminC/AdministrarBD/insertar_est_aenv_controller.php";
+    cadena = $("#formEstadoAEnv").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            mensajeGuardadoExitoso();
+            resetFormEsae();
+            tablaGeneralEstadoAEnv();
+        } else {
+            mensaje_No_Guardado();
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que permite resetear el formulario estado envio alistamiento
+ * @returns {undefined}
+ */
+function resetFormEsae() {
+    limpiarFormulario("#formEstadoAEnv");
+    $("#btnGuardaEstAEnv").removeClass("btn-warning");
+    $("#btnGuardaEstAEnv").addClass("btn-primary");
+    $("#btnGuardaEstAEnv").html("Guardar");
+}
 
 /****************************************************************
  * Metodos de ordenes de servicio
  * 
  ****************************************************************/
-
 /**
  * Metodo que carga el form para guardar clientes
  * @returns {undefined}
@@ -1558,6 +1965,11 @@ function vista_gestionar_os() {
             $("#items li").removeClass("active");
             $("#itemenlSeguimiento").addClass("active");
             seguimiento_estado();
+        });
+        $("#enlCrearOs").click(function () {
+            $("#items li").removeClass("active");
+            $("#itemenlCrearOs").addClass("active");
+            crear_os_por_cliente();
         });
     };
     f_ajax(request, cadena, metodo);
@@ -1583,6 +1995,8 @@ var serv_program;
 var serv_asignado;
 var serv_exitoso;
 var serv_novedad;
+var serv_piking;
+var serv_paking;
 var arregloEstOS;
 var arregloEstOScard;
 var tablaEst_x_OS;
@@ -1600,6 +2014,8 @@ function consulta_dashboard_serv() {
         serv_asignado = 0;
         serv_exitoso = 0;
         serv_novedad = 0;
+        serv_piking = 0;
+        serv_paking = 0;
         arregloEstOS = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstOS !== 0) {
@@ -1626,6 +2042,8 @@ function consulta_dashboard_serv() {
                     datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-checkmark-circled" style="color: #13b955;"></span></td>';
                 } else if (tmp.es_id == 4) {
                     datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-close-circled" style="color: #ff5757;"></span></td>';
+                } else if (tmp.es_id == 5) {
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-social-dropbox" style="color: #ce8300;"></span></td>';
                 }
                 datosEstOS += '<td>' + tmp.os_id + "</td>";
                 datosEstOS += '<td>' + tmp.exs_fecha_hora + '</td>';
@@ -1640,6 +2058,9 @@ function consulta_dashboard_serv() {
 //                    serv_exitoso++;
                 } else if (tmp.es_id == 4) {
                     datosEstOS += '<td style="background-color: #ffcfcf;">' + tmp.es_desc + '</td>';
+//                    serv_novedad++;
+                } else if (tmp.es_id == 5) {
+                    datosEstOS += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
 //                    serv_novedad++;
                 }
                 datosEstOS += '<td>' + tmp.cli_num_doc + '</td>';
@@ -1677,6 +2098,8 @@ function control_dash_serv() {
     $("#cantServConNov").html(serv_novedad);
     $("#cantServProgram").html(serv_program);
     $("#cantServAsignados").html(serv_asignado);
+    $("#cantServPiking").html(serv_piking);
+    $("#cantServPaking").html(serv_paking);
 }
 
 /**
@@ -1912,6 +2335,8 @@ function consulta_dashboard_serv_card() {
         serv_asignado = 0;
         serv_exitoso = 0;
         serv_novedad = 0;
+        serv_piking = 0;
+        serv_paking = 0;
         arregloEstOScard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstOScard !== 0) {
@@ -1927,6 +2352,10 @@ function consulta_dashboard_serv_card() {
                     serv_exitoso++;
                 } else if (tmp.es_id == 4) {
                     serv_novedad++;
+                } else if (tmp.es_id == 5) {
+                    serv_piking++;
+                } else if (tmp.es_id == 6) {
+                    serv_paking++;
                 }
             }
 
@@ -2256,7 +2685,7 @@ function formulario_oreden_serv() {
 }
 
 /**
- * Metodo que trae a la vista el formulario de recoleccion
+ * Metodo que retorna la vista de seguimiento de orden
  * @returns {undefined}
  */
 function seguimiento_estado() {
@@ -2268,6 +2697,64 @@ function seguimiento_estado() {
             validarBuscarNumOS(datos_orden_serv_seg);
         });
         botones_seg_os();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que trae a la vista el entorno de creacion de ordenes de servicio
+ * @returns {undefined}
+ */
+function crear_os_por_cliente() {
+    request = "View/AdministradorV/OrdenesServicio/crear_os_cliente.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenGestOs").html(datos);
+        combo_clientes();
+
+        $('#checkSucur').on('click', function () {
+            if ($(this).is(':checked')) {
+                // Hacer algo si el checkbox ha sido seleccionado
+                $("#blqSucur").show();
+                combo_sucursal_x_cli();
+            } else {
+                // Hacer algo si el checkbox ha sido deseleccionado
+                $("#selectSuc_x_Cli").html("");
+                $("#blqSucur").hide();
+            }
+        });
+
+        $("#selectCliente").change(function () {
+            if ($('#checkSucur').prop('checked')) {
+                combo_sucursal_x_cli();
+            }
+        });
+
+        $("#btnSiguiente").click(function () {
+            if ($("#selectProceso").val() == 1) {
+                formulario_recolec();
+                if ($('#checkSucur').prop('checked')) {
+                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                        datos_cliente_selected();
+                    } else {
+                        datos_sucursal_selected();
+                    }
+                } else {
+                    datos_cliente_selected();
+                }
+            } else if ($("#selectProceso").val() == 2) {
+                formulario_alistamiento_xlsx();
+                if ($('#checkSucur').prop('checked')) {
+                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                        datos_cliente_selected();
+                    } else {
+                        datos_sucursal_selected();
+                    }
+                } else {
+                    datos_cliente_selected();
+                }
+            }
+        });
+
     };
     f_ajax(request, cadena, metodo);
 }
@@ -2410,6 +2897,467 @@ function actualizarOS() {
             alertify.error('No se pudo realizar la Actualización!');
 //            alert(datos);
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga la vista de busqueda historica de os por cliente
+ * @returns {undefined}
+ */
+function vista_historial_os() {
+    request = "View/AdministradorV/OrdenesServicio/tipo_busq_historial_os.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html(datos);
+        combo_clientes();
+
+        $("#selectCliente").change(function () {
+            value = $("#selectCliente").val();
+            consulta_tabla_os_hist(value);
+        });
+
+        $("#btnSelect").click(function () {
+            value = $("#selectCliente").val();
+            consulta_tabla_os_hist(value);
+        });
+
+        $("#btnBuscaCliNum").click(function () {
+            validarBuscarCliNumero();
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que llena el combo de seleccion Clientes
+ * @returns {undefined}
+ */
+function combo_clientes() {
+    request = "Controller/AdminC/AdministrarCliente/consulta_general_cliente_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.cli_td_id + '|' + temp.cli_num_doc + '">' + temp.cli_nombre + "</option>";
+        }
+        $("#selectCliente").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que permite validar campos en formulario orden servicio actualizar
+ * @returns {undefined}
+ */
+function validarBuscarCliNumero() {
+    $("#formBuscarCliNumero").validate({
+        rules: {
+            inpBuscaDocCli: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            consultar_cli_numero_id();
+        }
+    });
+}
+/**
+ * Metodo que retorna los datos de ordenes de servicio por numero de cliente
+ * @returns {undefined}
+ */
+function consultar_cli_numero_id() {
+    request = "Controller/AdminC/AdministrarCliente/consulta_cliente_controller.php";
+    cadena = $("#formBuscarCliNumero").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+
+        temp = arreglo[0];
+        if (typeof temp === 'undefined') {
+            alertify.alert('No se encuentra en Base de Datos').setHeader('<em> Cuidado! </em> ');
+        } else {
+            value = temp.cli_td_id + '|' + temp.cli_num_doc;
+            consulta_tabla_os_hist(value);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/****************************************************************
+ * Metodos de tabla sucursales
+ * 
+ ****************************************************************/
+/**
+ * Metodo que retorna la vista de administracion de sucursales
+ * @returns {undefined}
+ */
+function vista_admin_sucursal() {
+    request = "View/AdministradorV/AdSucursal/contenedor_suc.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html(datos);
+
+        combo_sucursal();
+
+        $("#formIngInvXlsx").click(function () {
+            if (typeof value_suc === 'undefined') {
+                alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
+            } else {
+                form_carga_inventario();
+            }
+
+        });
+
+        $("#selectSucursal").change(function () {
+            value_suc = $("#selectSucursal").val();
+            cargar_suc_selected(value_suc);
+            $("#contenidoInvent").html("");
+        });
+
+        $("#btnSelectSuc").click(function () {
+            value_suc = $("#selectSucursal").val();
+            cargar_suc_selected(value_suc);
+            $("#contenidoInvent").html("");
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+var value_suc;
+var arreglo_suc;
+/**
+ * Metodo que retorna los datos a combo sucursales
+ * @returns {undefined}
+ */
+function combo_sucursal() {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_gen_sucursales_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo_suc.length; i++) {
+            temp = arreglo_suc[i];
+            datouscombo += '<option value="' + i + '">' + temp.suc_nombre + "</option>";
+        }
+        $("#selectSucursal").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga en la vista la informacion de una sucursal seleccionada
+ * @param {type} id
+ * @returns {undefined}
+ */
+function cargar_suc_selected(id) {
+    tempo = arreglo_suc[id];
+    $("#inputNombreCliAc").val(tempo.cli_nombre);
+    $("#inputNumCliAc").val(tempo.cli_num_doc);
+    $("#inputSucId").val(tempo.suc_num_id);
+    $("#inputSucNombre").val(tempo.suc_nombre);
+    $("#imageSucursal").html('<img src="img/sucursales/' + tempo.suc_num_id + '.png" alt=""/>');
+}
+/**
+ * Metodo que carga a la vista el formulario de entradas de inventario
+ * @returns {undefined}
+ */
+function form_carga_inventario() {
+    request = "View/AdministradorV/AdSucursal/form_entradas_inv.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenidoInvent").html(datos);
+
+        nameFileCargaXlsxInv();
+
+        $("#btnGuardarInv").click(function () {
+            validarXlsxInv();
+        });
+        $("#inputSucNumId").val($("#inputSucId").val());
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma nombre archivo en carga masiva envios documentos
+ * @returns {undefined}
+ */
+function nameFileCargaXlsxInv() {
+    $("#inpFileMasInventario").change(function () {
+        nombre = $("#inpFileMasInventario").val();
+//        if (nombre.substring(3,11) == 'fakepath') {
+//            nombre = nombre.substring(12);
+//        }
+        $("#textNameInv").text(nombre);
+    });
+}
+/**
+ * Metodo de validacion de carga entradas inventario xlsx
+ * @returns {undefined}
+ */
+function validarXlsxInv() {
+    $("#formEntInvXlsx").validate({
+        errorLabelContainer: '#errorTxt',
+        rules: {
+            inpFileMasInventario: {
+                required: true,
+                extension: "xlsx"
+            }
+        },
+        messages: {
+            inpFileMasInventario: {
+                extension: "Extensión no valida, debe ser xlsx"
+            }
+        },
+        submitHandler: function (form) {
+            cargaArchivoEntradaInv();
+        }
+    });
+}
+
+/**
+ * Metodo que se encarga de guardar un fichero en la carpeta raiz del servidor
+ * para la carga de entradas de inventario
+ * @returns {undefined}
+ */
+function cargaArchivoEntradaInv() {
+    var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
+                    <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+                    <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+    $("#changeEntradas").html(creando);
+    request = "Controller/AdminC/AdministrarSucursal/carga_ent_inv_controller.php";
+    cadena = new FormData($("#formEntInvXlsx")[0]);
+    metodo = function (datos) {
+        $("#textNameInv").html("");
+        limpiarFormulario("#formEntInvXlsx");
+        if (datos == 1) {
+            lectura_xlsx_entradas();
+//            alert("subio y es excel");
+        } else {
+            $("#changeEntradas").html(datos);
+        }
+
+//        $("#tabEnviosDocum").html(datos);
+    };
+    f_ajax_files(request, cadena, metodo);
+}
+/**
+ * Metodo que lee los datos del archivo excel subido por el usuario
+ * para entradas de inventario
+ * @returns {undefined}
+ */
+function lectura_xlsx_entradas() {
+    sucursal_id = $("#inputSucId").val();
+    request = "Controller/AdminC/AdministrarSucursal/leer_xlsx_ent_inven_controller.php";
+    cadena = "suc=" + sucursal_id;
+    metodo = function (datos) {
+
+        $("#changeEntradas").html(datos);
+        $("#btnActualizaStock").click(function () {
+            actualizar_stck_masivo();
+        });
+        /**
+         * Evento que pagina una tabla 
+         */
+        $('#tableEntInven').DataTable({
+            'scrollX': true
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que actualiza el stock de acuerdo a las entradas masivas
+ * @returns {undefined}
+ */
+function actualizar_stck_masivo() {
+    request = "Controller/AdminC/AdministrarSucursal/actualizar_stock_masivo_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
+
+        alert(datos);
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+
+/****************************************************************
+ * Metodos de Creacion de OS
+ * 
+ ****************************************************************/
+//var arreglo_suc_cli;
+//var arreglo_datos_cli;
+/**
+ * Metodo que retorna los datos a combo sucursales por cliente seleccionado
+ * @returns {undefined}
+ */
+function combo_sucursal_x_cli() {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_cli_controller.php";
+    cadena = "selectCliente=" + $("#selectCliente").val(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc_cli = $.parseJSON(datos);
+        datouscombo = "";
+        if (arreglo_suc_cli == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            for (i = 0; i < arreglo_suc_cli.length; i++) {
+                temp = arreglo_suc_cli[i];
+                datouscombo += '<option value="' + temp.suc_num_id + '">' + temp.suc_nombre + "</option>";
+            }
+        }
+
+        $("#selectSuc_x_Cli").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos de cliente seleccionado
+ * @returns {undefined}
+ */
+function datos_cliente_selected() {
+    request = "Controller/AdminC/AdministrarCliente/consulta_cli_x_num_controller.php";
+    cadena = "selectCliente=" + $("#selectCliente").val(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_cli = $.parseJSON(datos);
+
+        tmp_dat_cli = arreglo_datos_cli[0];
+
+        $("#inputDir").val(tmp_dat_cli.cli_direccion);
+        $("#inputTele").val(tmp_dat_cli.cli_tel);
+        $("#inputPerContacto").val(tmp_dat_cli.cli_per_cont);
+        $("#inputNumDocCl").val(tmp_dat_cli.cli_num_doc);
+        $("#inputTDocCli").val(tmp_dat_cli.cli_td_id);
+        $("#nombreCliSuc").html(tmp_dat_cli.cli_nombre);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos de sucursal seleccionada
+ * @returns {undefined}
+ */
+function datos_sucursal_selected() {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_id_controller.php";
+    cadena = "selectSuc_x_Cli=" + $("#selectSuc_x_Cli").val(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_suc = $.parseJSON(datos);
+
+        tmp_dat_suc = arreglo_datos_suc[0];
+
+        $("#inputDir").val(tmp_dat_suc.suc_direccion);
+        $("#inputTele").val(tmp_dat_suc.suc_telefono);
+        $("#inputPerContacto").val(tmp_dat_suc.suc_nombre);
+        $("#inputNumDocCl").val(tmp_dat_suc.cli_num_doc);
+        $("#inputTDocCli").val(tmp_dat_suc.cli_td_id);
+        $("#inputNumSucu").val(tmp_dat_suc.suc_num_id);
+        $("#nombreCliSuc").html(tmp_dat_suc.suc_nombre);
+        $("#blqFinalizado").html('<img src="img/sucursales/' + tmp_dat_suc.suc_num_id + '.png" alt=""/>');
+    };
+    f_ajax(request, cadena, metodo);
+}
+/*******************************************************************************
+ /*************Metodos de carga masiva por archivo xlsx para alistamiento********
+ /*******************************************************************************
+ /**
+ * Metodo que trae a la vista el formulario de alistamiento xlsx
+ * @returns {undefined}
+ */
+function formulario_alistamiento_xlsx() {
+    request = "View/AdministradorV/OrdenesServicio/form_xlsx_alista.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#sectionConten").html(datos);
+        $("#btnGMasAlist").click(function () {
+            validarMasivoEnviosAlist();
+        });
+        nameFileCargaMasEnvAlist();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo de validacion Carga masiva de envios documentos xlsx
+ * @returns {undefined}
+ */
+function validarMasivoEnviosAlist() {
+    $("#formMasAlistamiento").validate({
+        errorLabelContainer: '#errorTxt',
+        rules: {
+            inpFileMasAlist: {
+                required: true,
+                extension: "xlsx"
+            },
+            inputDateAlist: {
+                required: true,
+                date: true
+            }
+        },
+        messages: {
+            inpFileMasAlist: {
+                extension: "Extensión no valida, debe ser xlsx",
+                required: "El campo Excel es obligatorio"
+            },
+            inputDateAlist: {
+                required: "El campo Fecha es Requerido.. "
+            }
+        },
+        submitHandler: function (form) {
+            cargaArchivo_xlsx_alist();
+//            alert("ok");
+        }
+    });
+}
+/**
+ * Metodo que plasma nombre archivo en carga masiva envios alistamiento
+ * @returns {undefined}
+ */
+function nameFileCargaMasEnvAlist() {
+    $("#inpFileMasAlist").change(function () {
+        nombre = $("#inpFileMasAlist").val();
+//        if (nombre.substring(3,11) == 'fakepath') {
+//            nombre = nombre.substring(12);
+//        }
+        $("#textMasAlist").text(nombre);
+    });
+}
+
+/**
+ * Metodo que se encarga de guardar un fichero en la carpeta temporal de alistamiento
+ * @returns {undefined}
+ */
+function cargaArchivo_xlsx_alist() {
+    var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
+                    <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+                    <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+    $("#changeAlistEnvios").html(creando);
+    request = "Controller/AdminC/AdministrarOS/carga_xlsx_alist_controller.php";
+    cadena = new FormData($("#formMasAlistamiento")[0]);
+    metodo = function (datos) {
+//        arregloemp = $.parseJSON(datos);
+        $("#textMasAlist").html("");
+        limpiarFormulario("#formMasAlistamiento");
+        if (datos == 1) {
+            lectura_xlsx_alist();
+//            $("#changeAlistEnvios").html("FINALIZADO");
+//            alert("subio y es excel");
+        } else {
+            $("#changeAlistEnvios").html(datos);
+        }
+
+//        $("#tabEnviosDocum").html(datos);
+    };
+    f_ajax_files(request, cadena, metodo);
+}
+/**
+ * Metodo que lee los datos del archivo excel subido para alistamiento
+ * @returns {undefined}
+ */
+function lectura_xlsx_alist() {
+    request = "Controller/AdminC/AdministrarOS/leer_xlsx_alist_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
+
+        $("#changeAlistEnvios").html(datos);
+
     };
     f_ajax(request, cadena, metodo);
 }

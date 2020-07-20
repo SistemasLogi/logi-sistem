@@ -13,4 +13,6 @@ if (isset($_SESSION["adminlogi"])) {
     header("location:cliente_logi.php");
 } elseif (isset($_SESSION["cliente_b"])) {
     header("location:cliente.php");
-} 
+} elseif (isset($_SESSION["sucursal"])) {
+    header("location:area_control_clientes.php");
+}

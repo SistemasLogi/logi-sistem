@@ -13,13 +13,15 @@
             </form>
             <div class="row">
                 <div class="alert alert-dismissible alert-warning col-lg-6">
-                    <h4 class="alert-heading">Programada OS N° <b id="os_num_prog"></b></h4>
+                    <h4 class="alert-heading">Orden de Servicio N° <b id="os_num_prog"></b></h4>
+                    <p class="mb-0"><strong>PROGRAMADA: </strong><em id="fec_program"></em></p>
                     <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_prog"></em></p>
                     <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_prog"></em></p>
                     <p class="mb-0"><strong>OBSERVACIONES: </strong><em id="novedad_prog"></em></p>
                 </div>
                 <div class="alert alert-dismissible alert-success col-lg-6" id="blqFinalizado">
-                    <h4 class="alert-heading">Finalizada OS N° <b id="os_num_fin"></b></h4>
+                    <h4 class="alert-heading">Orden de Servicio N° <b id="os_num_fin"></b></h4>
+                    <p class="mb-0"><strong>FINALIZADA: </strong><em id="fec_finaliza"></em></p>
                     <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_fin"></em></p>
                     <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_fin"></em></p>
                     <p class="mb-0"><strong>OBSERVACIONES: </strong><em id="novedad_fin"></em></p> 
@@ -27,10 +29,8 @@
             </div>
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th scope="col">PROGRAMADA</th>
-                        <th class="text-center" scope="col">ASIGNADA A VEHICULO</th>
-                        <th class="text-right" scope="col">REALIZADA</th>
+                    <tr id="titleProcess">
+
                     </tr>
                 </thead>
                 <tbody>
@@ -51,21 +51,18 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="table-secondary">
-                        <td><span class="ion-android-home" style="font-size: xxx-large; color: #d68800;"></span></td>
-                        <td class="text-center"><span class="ion-android-car" style="font-size: xxx-large; color: #0062dc;"></span></td>
-                        <td><span class="ion-android-happy float-right" style="font-size: xxx-large; color: #007930;"></span></td>
+                    <tr class="table-secondary" id="icon_x_proceso">
+
                     </tr>                    
                 </tbody>
             </table>
 
 
             <div class="row" id="contAux">
-                 
+
             </div>
 
         </div>
     </div>
 
 </div>
-

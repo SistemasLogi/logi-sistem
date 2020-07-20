@@ -1,28 +1,56 @@
 <?php
 
-//Crear carpeta por usuario para imagenes QR
-$directorioQR = '../../img/tmp_qr/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '/';
-if (!file_exists($directorioQR)) {
-    mkdir($directorioQR, 0777, true);
-}
-//elimina el contenido en carpeta imagenes QR existente
-$filesQR = glob($directorioQR . '*'); //obtenemos todos los nombres de los ficheros
-foreach ($filesQR as $file) {
-    if (is_file($file)) {
-        unlink($file); //elimino el fichero
+if (isset($_SESSION["adminlogi"])) {
+    //Crear carpeta por usuario para imagenes QR
+    $directorioQR = '../../img/tmp_qr_adm/' . $_SESSION["num_doc_cli_adm"] . '_' . $_SESSION["td_cli_adm"] . '/';
+    if (!file_exists($directorioQR)) {
+        mkdir($directorioQR, 0777, true);
     }
-}
+//elimina el contenido en carpeta imagenes QR existente
+    $filesQR = glob($directorioQR . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesQR as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
 
 //Crear carpeta por usuario para imagenes Barras
-$directorioBar = '../../img/tmp_barras/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '/';
-if (!file_exists($directorioBar)) {
-    mkdir($directorioBar, 0777, true);
-}
+    $directorioBar = '../../img/tmp_barras_adm/' . $_SESSION["num_doc_cli_adm"] . '_' . $_SESSION["td_cli_adm"] . '/';
+    if (!file_exists($directorioBar)) {
+        mkdir($directorioBar, 0777, true);
+    }
 //elimina el contenido en carpeta imagenes Barras existente
-$filesBar = glob($directorioBar . '*'); //obtenemos todos los nombres de los ficheros
-foreach ($filesBar as $file) {
-    if (is_file($file)) {
-        unlink($file); //elimino el fichero
+    $filesBar = glob($directorioBar . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesBar as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
+} else {
+    //Crear carpeta por usuario para imagenes QR
+    $directorioQR = '../../img/tmp_qr/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '/';
+    if (!file_exists($directorioQR)) {
+        mkdir($directorioQR, 0777, true);
+    }
+//elimina el contenido en carpeta imagenes QR existente
+    $filesQR = glob($directorioQR . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesQR as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
+
+//Crear carpeta por usuario para imagenes Barras
+    $directorioBar = '../../img/tmp_barras/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '/';
+    if (!file_exists($directorioBar)) {
+        mkdir($directorioBar, 0777, true);
+    }
+//elimina el contenido en carpeta imagenes Barras existente
+    $filesBar = glob($directorioBar . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesBar as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
     }
 }
 
@@ -32,6 +60,9 @@ $pdf = new FPDF();
 
 for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
+    $separar = (explode(" ", $array[$i]->exe_fec_hora));
+    $fecha = $separar[0];
+    $hora = $separar[1];
     $code = $array[$i]->en_id;
     $file_qr_name = $directorioQR . $code . '.png';
     $file_bar_name = $directorioBar . $code . '.png';
@@ -234,7 +265,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 5, utf8_decode('Descripción Envio'), 0, 1, 'C');
     $pdf->SetX(70);
     $pdf->SetFont('Arial', 'I', 5);
-    $pdf->Cell(40, 5, 'Fecha: ', 0, 1, 'L');
+    $pdf->Cell(40, 5, 'Fecha: ' . $fecha, 0, 1, 'L');
     $pdf->SetX(70);
     $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(40, 5, 'Unidades: ' . $array[$i]->en_cantidad, 0, 1, 'L');
@@ -413,7 +444,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 5, utf8_decode('Descripción Envio'), 0, 1, 'C');
     $pdf->SetX(70);
     $pdf->SetFont('Arial', 'I', 5);
-    $pdf->Cell(40, 5, 'Fecha: ', 0, 1, 'L');
+    $pdf->Cell(40, 5, 'Fecha: ' . $fecha, 0, 1, 'L');
     $pdf->SetX(70);
     $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(40, 5, 'Unidades: ' . $array[$i]->en_cantidad, 0, 1, 'L');
@@ -592,7 +623,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 5, utf8_decode('Descripción Envio'), 0, 1, 'C');
     $pdf->SetX(70);
     $pdf->SetFont('Arial', 'I', 5);
-    $pdf->Cell(40, 5, 'Fecha: ', 0, 1, 'L');
+    $pdf->Cell(40, 5, 'Fecha: ' . $fecha, 0, 1, 'L');
     $pdf->SetX(70);
     $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(40, 5, 'Unidades: ' . $array[$i]->en_cantidad, 0, 1, 'L');
@@ -619,36 +650,71 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetX(110);
     $pdf->Cell(50, 5, utf8_decode('Nombre legible, sello y D.I'), 0, 1, 'C');
 }
-
-//Crear carpeta por usuario para Guias en pdf
-$directorioGuias_pdf = '../../Files/GuiasPDF_temp/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '/';
-if (!file_exists($directorioGuias_pdf)) {
-    mkdir($directorioGuias_pdf, 0777, true);
-}
-//elimina el contenido en carpeta imagenes QR existente
-$filesGuias = glob($directorioGuias_pdf . '*'); //obtenemos todos los nombres de los ficheros
-foreach ($filesGuias as $file) {
-    if (is_file($file)) {
-        unlink($file); //elimino el fichero
+if (isset($_SESSION["adminlogi"])) {
+    //Crear carpeta por usuario para Guias en pdf
+    $directorioGuias_pdf = '../../Files/GuiasPDF_temp_adm/' . $_SESSION["num_doc_cli_adm"] . '_' . $_SESSION["td_cli_adm"] . '/';
+    if (!file_exists($directorioGuias_pdf)) {
+        mkdir($directorioGuias_pdf, 0777, true);
     }
-}
+//elimina el contenido en carpeta imagenes QR existente
+    $filesGuias = glob($directorioGuias_pdf . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesGuias as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
 
 //elimina el contenido en carpeta imagenes QR existente
-$filesQR_Del = glob($directorioQR . '*'); //obtenemos todos los nombres de los ficheros
-foreach ($filesQR_Del as $file) {
-    if (is_file($file)) {
-        unlink($file); //elimino el fichero
+    $filesQR_Del = glob($directorioQR . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesQR_Del as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
     }
-}
 
 //elimina el contenido en carpeta imagenes Barras existente
-$filesBar_Del = glob($directorioBar . '*'); //obtenemos todos los nombres de los ficheros
-foreach ($filesBar_Del as $file) {
-    if (is_file($file)) {
-        unlink($file); //elimino el fichero
+    $filesBar_Del = glob($directorioBar . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesBar_Del as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
     }
+
+    $file_pdf_name = $directorioGuias_pdf . $_SESSION["num_doc_cli_adm"] . '.pdf';
+
+    $pdf->Output($file_pdf_name, 'F');
+} else {
+    //Crear carpeta por usuario para Guias en pdf
+    $directorioGuias_pdf = '../../Files/GuiasPDF_temp/' . $_SESSION["numero_doc"] . '_' . $_SESSION["tipo_doc"] . '/';
+    if (!file_exists($directorioGuias_pdf)) {
+        mkdir($directorioGuias_pdf, 0777, true);
+    }
+//elimina el contenido en carpeta imagenes QR existente
+    $filesGuias = glob($directorioGuias_pdf . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesGuias as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
+
+//elimina el contenido en carpeta imagenes QR existente
+    $filesQR_Del = glob($directorioQR . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesQR_Del as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
+
+//elimina el contenido en carpeta imagenes Barras existente
+    $filesBar_Del = glob($directorioBar . '*'); //obtenemos todos los nombres de los ficheros
+    foreach ($filesBar_Del as $file) {
+        if (is_file($file)) {
+            unlink($file); //elimino el fichero
+        }
+    }
+
+    $file_pdf_name = $directorioGuias_pdf . $_SESSION["numero_doc"] . '.pdf';
+
+    $pdf->Output($file_pdf_name, 'F');
 }
 
-$file_pdf_name = $directorioGuias_pdf . $_SESSION["numero_doc"] . '.pdf';
-
-$pdf->Output($file_pdf_name, 'F');

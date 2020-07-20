@@ -49,6 +49,7 @@ if (!isset($_SESSION["cliente_a"])) {
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/Cliente/cliente_dashboard.js" type="text/javascript"></script>
+        <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -77,15 +78,15 @@ if (!isset($_SESSION["cliente_a"])) {
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-document"></span>
-                        Ordenes de Recolección
+                        Ordenes de Servicio
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Consultar</a>
+                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_form_editar">Editar / Eliminar</a>
+                            <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">

@@ -68,6 +68,18 @@ class Usuario_pass_DAO {
     }
 
     /**
+     * Funcion que retorna los datos de una sucursal log
+     * @param type $usuario
+     * @return type
+     */
+    function consultaSucLogin($usuario) {
+        $sql = "SELECT su.*, cl.cli_nombre FROM sucursales AS su, clientes AS cl "
+                . "WHERE su.cli_td_id = cl.cli_td_id AND su.cli_num_doc = cl.cli_num_doc AND su.suc_usuario = '" . $usuario . "';";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que retorna los datos de tipos de usuario del sistema
      * @return type
      */

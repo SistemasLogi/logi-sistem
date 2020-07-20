@@ -13,6 +13,8 @@ if (!isset($_SESSION["adminlogi"])) {
     header("location:../../index.php");
 } elseif (!isset($_SESSION["cliente_b"])) {
     header("location:../../index.php");
+}elseif (!isset($_SESSION["sucursal"])) {
+    header("location:../../ingreso_clientes.php");
 }
 
 session_unset();

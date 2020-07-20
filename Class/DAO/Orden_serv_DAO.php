@@ -88,4 +88,17 @@ class Orden_serv_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que inserta un registro en tabla os_x_suc
+     * @param type $num_os
+     * @param type $num_suc
+     * @return type
+     */
+    function insertarOS_x_SUC($num_os, $num_suc) {
+        $sql = "INSERT INTO os_x_suc VALUES (" . $num_os . ", " . $num_suc . ");";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
 }

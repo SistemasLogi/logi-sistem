@@ -60,6 +60,23 @@ function datos_orden_serv_seg() {
             $("#btnActuOS_asig").prop("disabled", true);
         } else {
 
+            if (est_uno.es_id == 1) {
+                $("#icon_x_proceso").html("<td><span class='ion-android-home' style='font-size: xxx-large; color: #d68800;'></span></td>\n\
+                        <td class='text-center'><span class='ion-android-car' style='font-size: xxx-large; color: #0062dc;'></span></td>\n\
+                        <td><span class='ion-android-happy float-right' style='font-size: xxx-large; color: #007930;'></span></td>");
+                $("#titleProcess").html("<th scope='col'>PROGRAMADA</th>\n\
+                        <th class='text-center' scope='col'>ASIGNADA A VEHICULO</th>\n\
+                        <th class='text-right' scope='col'>REALIZADA</th>");
+            } else if (est_uno.es_id == 5) {
+                $("#icon_x_proceso").html("<td><span class='ion-social-dropbox' style='font-size: xxx-large; color: #d68800;'></span></td>\n\
+                        <td class='text-center'><span class='ion-cube' style='font-size: xxx-large; color: #0062dc;'></span></td>\n\
+                        <td><span class='ion-android-car float-right' style='font-size: xxx-large; color: #007930;'></span></td>");
+                $("#titleProcess").html("<th scope='col'>PIKING</th>\n\
+                        <th class='text-center' scope='col'>PAKING</th>\n\
+                        <th class='text-right' scope='col'>ENTREGADO OPERADOR</th>");
+            }
+
+
             var fecha_hora_uno = new Date(est_uno.exs_fecha_hora);
             var options = {
                 hour: 'numeric',
@@ -78,6 +95,7 @@ function datos_orden_serv_seg() {
             $("#novedad_prog").html(est_uno.exs_novedad);
             $("#nameCli").html(est_uno.cli_nombre);
             $("#fec_prog").html(fu.getDate() + " de " + meses[fu.getMonth()] + " de " + fu.getFullYear() + ' ' + timeString_uno);
+            $("#fec_program").html(fu.getDate() + " de " + meses[fu.getMonth()] + " de " + fu.getFullYear() + ' ' + timeString_uno);
             $("#progress_bar").css('width', '5%');
             $("#progress_bar").html('');
 
@@ -151,6 +169,7 @@ function datos_orden_serv_seg() {
                 $("#ciudad_fin").html(est_tres.ciu_nombre);
                 $("#novedad_fin").html(est_tres.exs_novedad);
                 $("#fec_fin").html(ft.getDate() + " de " + meses[ft.getMonth()] + " de " + ft.getFullYear() + ' ' + timeString_tres);
+                $("#fec_finaliza").html(ft.getDate() + " de " + meses[ft.getMonth()] + " de " + ft.getFullYear() + ' ' + timeString_tres);
                 $("#progress_bar").css('width', '100%');
                 $("#progress_bar").html('Realizada Exitosamente');
                 $("#men_fin").html(est_tres.emp_nombre);
@@ -182,6 +201,93 @@ function datos_orden_serv_seg() {
 
         }
 
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga la tabla historica de os por cliente
+ * @param {type} value
+ * @returns {undefined}
+ */
+function consulta_tabla_os_hist(value) {
+    request = "Controller/AdminC/AdministrarOS/cons_os_est_x_cli_controller.php";
+    cadena = "fil=" + value; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloOS_cli = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloOS_cli !== 0) {
+            datosOS_cli = "<div class='table-responsive text-nowrap' id='tablaEstadoOS'><table class='table table-striped table-sm table-bordered' id='tableEstOS'>\n\
+                             <thead><tr style='background-color: #9bb5ff'>\n\
+                             <th scope='col'></th>\n\
+                             <th scope='col'>N° ORDEN</th>\n\
+                             <th scope='col'>FECHA</th>\n\
+                             <th scope='col'>ESTADO</th>\n\
+                             <th scope='col'>DOC CLIENTE</th>\n\
+                             <th scope='col'>NOM CLIENTE</th>\n\
+                             <th scope='col'>DIRECCION</th>\n\
+                             <th scope='col'>CIUDAD</th>\n\
+                             <th scope='col'>TIPO SERV</th>\n\
+                             <th scope='col'>TIPO ENV</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloOS_cli.length; i++) {
+                tmp = arregloOS_cli[i];
+                if (tmp.es_id == 1) {
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="actuestos" act="' + i + '"><span class="ion-android-contact" style="color: #fb972e;"></span></td>';
+                } else if (tmp.es_id == 2) {
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="actuestos" act="' + i + '"><span class="ion-android-car" style="color: #0d40ff;"></span></td>';
+                } else if (tmp.es_id == 3) {
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="actuestos" act="' + i + '"><span class="ion-checkmark-circled" style="color: #13b955;"></span></td>';
+                } else if (tmp.es_id == 4) {
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="actuestos" act="' + i + '"><span class="ion-close-circled" style="color: #ff5757;"></span></td>';
+                } else if (tmp.es_id == 5) {
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="actuestos" act="' + i + '"><span class="ion-social-dropbox" style="color: #fb972e;"></span></td>';
+                } else if (tmp.es_id == 6) {
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="actuestos" act="' + i + '"><span class="ion-cube" style="color: #0d40ff;"></span></td>';
+                }
+                datosOS_cli += '<td>' + tmp.os_id + "</td>";
+                datosOS_cli += '<td>' + tmp.exs_fecha_hora + '</td>';
+                if (tmp.es_id == 1) {
+                    datosOS_cli += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
+//                    serv_program++;
+                } else if (tmp.es_id == 2) {
+                    datosOS_cli += '<td style="background-color: #82dcff;">' + tmp.es_desc + '</td>';
+//                    serv_asignado++;
+                } else if (tmp.es_id == 3) {
+                    datosOS_cli += '<td style="background-color: #b0ffc5;">' + tmp.es_desc + '</td>';
+//                    serv_exitoso++;
+                } else if (tmp.es_id == 4) {
+                    datosOS_cli += '<td style="background-color: #ffcfcf;">' + tmp.es_desc + '</td>';
+//                    serv_novedad++;
+                } else if (tmp.es_id == 5) {
+                    datosOS_cli += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
+//                    serv_novedad++;
+                } else if (tmp.es_id == 6) {
+                    datosOS_cli += '<td style="background-color: #82dcff;">' + tmp.es_desc + '</td>';
+//                    serv_novedad++;
+                }
+                datosOS_cli += '<td>' + tmp.cli_num_doc + '</td>';
+                datosOS_cli += '<td>' + tmp.cli_nombre + '</td>';
+                datosOS_cli += '<td>' + tmp.os_direccion + '</td>';
+                datosOS_cli += '<td>' + tmp.ciu_nombre + '</td>';
+                datosOS_cli += '<td>' + tmp.ts_desc + '</td>';
+                datosOS_cli += '<td>' + tmp.te_desc + '</td></tr>';
+            }
+            datosOS_cli += "</tbody></table></div>";
+            $("#tablaOS_cli").html(datosOS_cli);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            $('#tableEstOS').DataTable({
+                'scrollX': true
+            });
+
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
     };
     f_ajax(request, cadena, metodo);
 }

@@ -65,7 +65,21 @@ class Cliente_DAO {
         $sql = "SELECT c.*, u.tu_id, t.tu_tipo, d.td_sigla "
                 . "FROM clientes AS c, usuario_pass AS u, tipo_doc AS d, tipo_usuario AS t "
                 . "WHERE c.cli_td_id = u.us_td_id AND c.cli_num_doc = u.us_num_doc "
-                . "AND c.cli_td_id = d.td_id AND u.tu_id = t.tu_id AND u.tu_id != 3;";
+                . "AND c.cli_td_id = d.td_id AND u.tu_id = t.tu_id AND u.tu_id != 3 "
+                . "ORDER BY c.cli_nombre ASC;";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que consulta datos de cliente por parametro
+     * @param type $td_id
+     * @param type $num_doc
+     * @return type
+     */
+    function consultarCliente_x_ident($td_id, $num_doc) {
+        $sql = "SELECT * FROM clientes WHERE cli_td_id = " . $td_id . " AND cli_num_doc = " . $num_doc . ";";
         $BD = new MySQL();
 //        return $sql;
         return $BD->query($sql);

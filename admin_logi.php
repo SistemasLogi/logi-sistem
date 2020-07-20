@@ -50,6 +50,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/Admin_web/admin_dashboard.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
+        <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -97,6 +98,8 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_form_cliente">Nuevo</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_form_editar">Editar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_sucursales">Sucursales</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
@@ -116,6 +119,10 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" bd="admin_estado_serv">Estado Servicio</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" bd="admin_estado_env">Estado Envio</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" bd="admin_operadores">Op. Logisticos</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" bd="admin_estado_aenv">Estado Alist. Envios</a>
                         </div>
                     </div>
                 </div>

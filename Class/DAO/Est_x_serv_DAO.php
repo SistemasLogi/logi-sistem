@@ -46,7 +46,7 @@ class Est_x_serv_DAO {
     }
 
     /**
-     * Funcion que retorna numero de orden estado y fecha hora de el registro mas reciente
+     * Funcion que retorna numero de orden estado y fecha hora del registro mas reciente
      * @return type
      */
     function consultaUltimaOS_x_estado() {
@@ -56,7 +56,7 @@ class Est_x_serv_DAO {
     }
 
     /**
-     * Funcion que consulta la informacion de ordenes segun su ultimo estado
+     * Funcion que consulta la informacion de seguimiento de estados por num de orden
      * @param type $param
      * @return type
      */
