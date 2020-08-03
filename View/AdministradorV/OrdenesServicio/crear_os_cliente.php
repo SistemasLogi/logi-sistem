@@ -8,7 +8,7 @@
         <div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">
 
             <div class="row">
-                <div class="alert alert-dismissible alert-success col-lg-8">
+                <div class="alert alert-dismissible alert-warning col-lg-8  border-warning">
                     <form id="formBuscarCli_crear_OS">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -43,8 +43,13 @@
                                 </select>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-primary btn-sm" id="btnSiguiente" name="btnSiguiente">SIGUIENTE</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" id="btnSiguiente" name="btnSiguiente">SIGUIENTE</button>                        
                     </form>
+                    <div class="alert alert-dismissible alert-light" id="infoCliente" style="border-radius: 0.5rem; display: none;">
+                        <strong id="nomCli"></strong><br>
+                        <strong id="infoOrd"></strong>
+                    </div>
+
                 </div>
                 <div class="alert alert-dismissible alert-light col-lg-4" id="blqFinalizado">
 

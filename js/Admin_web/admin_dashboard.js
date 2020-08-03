@@ -12,6 +12,9 @@ $(document).ready(function () {
     $("#link_vista_gest").click(function () {
         vista_gestionar_os();
     });
+    $("#link_vista_gest_env").click(function () {
+        vista_gestionar_envios();
+    });
     $("#link_vista_dashboard_serv").click(function () {
         vista_dashboard();
     });
@@ -1954,7 +1957,8 @@ function vista_gestionar_os() {
     metodo = function (datos) {
         $("#list-formCliente").html(datos);
 
-        formulario_oreden_serv();
+//        formulario_oreden_serv();//ejecuta por defecto
+        crear_os_por_cliente();
 
         $("#enlFormOrdenServ").click(function () {
             formulario_oreden_serv();
@@ -2735,26 +2739,39 @@ function crear_os_por_cliente() {
                 if ($('#checkSucur').prop('checked')) {
                     if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
                         datos_cliente_selected();
+                        $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     } else {
                         datos_sucursal_selected();
+                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     }
                 } else {
                     datos_cliente_selected();
+                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                 }
             } else if ($("#selectProceso").val() == 2) {
                 formulario_alistamiento_xlsx();
                 if ($('#checkSucur').prop('checked')) {
                     if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
                         datos_cliente_selected();
+                        $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     } else {
                         datos_sucursal_selected();
+                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     }
                 } else {
                     datos_cliente_selected();
+                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                 }
             }
+            $("#formBuscarCli_crear_OS").hide();
+            $("#infoCliente").show();
         });
-
     };
     f_ajax(request, cadena, metodo);
 }
@@ -3251,7 +3268,7 @@ function datos_sucursal_selected() {
         $("#inputTDocCli").val(tmp_dat_suc.cli_td_id);
         $("#inputNumSucu").val(tmp_dat_suc.suc_num_id);
         $("#nombreCliSuc").html(tmp_dat_suc.suc_nombre);
-        $("#blqFinalizado").html('<img src="img/sucursales/' + tmp_dat_suc.suc_num_id + '.png" alt=""/>');
+        $("#blqFinalizado").html('<img src="img/sucursales/' + tmp_dat_suc.suc_num_id + '.png" class="rounded mx-auto d-block" alt=""/>');
     };
     f_ajax(request, cadena, metodo);
 }
@@ -3355,9 +3372,353 @@ function lectura_xlsx_alist() {
     request = "Controller/AdminC/AdministrarOS/leer_xlsx_alist_controller.php";
     cadena = "a=1";
     metodo = function (datos) {
-
         $("#changeAlistEnvios").html(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+var pag;
+/*
+ * Metodo que carga la vista de las ventas para alistamiento
+ * se ejecuta desde php al recibir la carga correcta de archivo xlsx
+ * @returns {undefined}
+ */
+function cargaProdAlistamiento() {
+    request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_stock_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
 
+//        $("#blqPagina1").html(datos);
+
+        arregloAlista = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloAlista !== 0) {
+
+            venta = 0;
+            blq = 0;
+            pag = 1;
+            datosAlist = "";
+
+            for (i = 0; i < arregloAlista.length; i++) {
+                tmp = arregloAlista[i];
+
+                if (tmp.estimado == 0) {
+                    tema = 'danger';
+                    icon = '<span class="ion-android-settings text-danger"></span>';
+                } else {
+                    tema = 'warning';
+                    icon = '<span class="ion-android-cloud-done text-success"></span>';
+                }
+
+                if (i === 0) {
+                    //******primera fila****//
+                    datosAlist += '<div class="bloque" id="blqPagina' + pag + '">';
+                    datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                        <div class="row">\n\
+                        <div class="col-5"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                        <div class="col-5"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
+                        <div class="form-group col-2">\n\
+                          <div class="custom-control custom-switch">\n\
+                          <input type="checkbox" class="custom-control-input" id="customSwitch' + i + '" checked="">\n\
+                          <label class="custom-control-label" for="customSwitch' + i + '">OK</label>\n\
+                        </div></div></div>';
+                    datosAlist += '<div class="dropdown-divider"></div>\n\
+                        <div class="table-responsive">\n\
+                        <table class="table table-hover table-sm table-fixed">\n\
+                        <thead><tr class="table-primary">\n\
+                        <th scope="col">SKU</th>\n\
+                            <th scope="col">PRODUCTO</th>\n\
+                            <th scope="col">UBICACIÓN</th>\n\
+                            <th scope="col">CANTIDAD</th>\n\
+                            <th scope="col">STOCK</th>\n\
+                            <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
+                        </tr></thead><tbody>';
+
+                    blq++;
+
+                    datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                    datosAlist += '<td>' + tmp.pro_desc + '</td>';
+                    datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                    datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
+                    datosAlist += '<td>' + tmp.estimado + '</td>';
+                    datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+
+                    if (i === arregloAlista[arregloAlista.length - 1]) {
+
+                        datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                        datosAlist += '</div>';//fin de la pag
+
+                    } else {
+                        venta = tmp.t_sal_num_venta;
+                    }
+
+                } else {
+                    //***suiguientes filas del arreglo**//
+
+                    if (i === arregloAlista[arregloAlista.length - 1]) {
+                        //***si es la ultima fila del arreglo**//
+                        if (tmp.t_sal_num_venta == venta) {
+                            //***si es la misma venta de la fila anterior**//
+                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+
+                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                            datosAlist += '</div>';//fin de la pag
+                        } else {
+                            //***NO es la misma venta de la fila anterior**//
+                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+
+                            if (blq % 20 == 0) {
+                                datosAlist += '</div>';//fin de la pag
+                                pag++;
+                                datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;">';
+                            }
+
+                            datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                                <div class="row">\n\
+                                <div class="col-5"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                                <div class="col-5"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
+                                <div class="form-group col-2">\n\
+                                  <div class="custom-control custom-switch">\n\
+                                  <input type="checkbox" class="custom-control-input" id="customSwitch' + i + '" checked="">\n\
+                                  <label class="custom-control-label" for="customSwitch' + i + '">OK</label>\n\
+                                </div></div></div>';
+                            datosAlist += '<div class="dropdown-divider"></div>\n\
+                                <div class="table-responsive">\n\
+                                <table class="table table-hover table-sm table-fixed">\n\
+                                <thead><tr class="table-primary">\n\
+                                <th scope="col">SKU</th>\n\
+                                    <th scope="col">PRODUCTO</th>\n\
+                                    <th scope="col">UBICACIÓN</th>\n\
+                                    <th scope="col">CANTIDAD</th>\n\
+                                    <th scope="col">STOCK</th>\n\
+                                    <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
+                                </tr></thead><tbody>';
+
+                            blq++;
+
+                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+
+                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                            datosAlist += '</div>';//fin de la pag
+                        }
+
+                    } else {
+                        //***NO es la ultima fila del arreglo**//
+
+                        if (tmp.t_sal_num_venta == venta) {
+                            //***si es la misma venta de la fila anterior**//
+                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+
+                        } else {
+                            //***NO es la misma venta de la fila anterior**//
+                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+
+                            if (blq % 20 == 0) {
+                                datosAlist += '</div>';//fin de la pag
+                                pag++;
+                                datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;">';
+                            }
+
+                            datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                                <div class="row">\n\
+                                <div class="col-5"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                                <div class="col-5"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
+                                <div class="form-group col-2">\n\
+                                  <div class="custom-control custom-switch">\n\
+                                  <input type="checkbox" class="custom-control-input" id="customSwitch' + i + '" checked="">\n\
+                                  <label class="custom-control-label" for="customSwitch' + i + '">OK</label>\n\
+                                </div></div></div>';
+                            datosAlist += '<div class="dropdown-divider"></div>\n\
+                                <div class="table-responsive">\n\
+                                <table class="table table-hover table-sm table-fixed">\n\
+                                <thead><tr class="table-primary">\n\
+                                <th scope="col">SKU</th>\n\
+                                    <th scope="col">PRODUCTO</th>\n\
+                                    <th scope="col">UBICACIÓN</th>\n\
+                                    <th scope="col">CANTIDAD</th>\n\
+                                    <th scope="col">STOCK</th>\n\
+                                    <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
+                                </tr></thead><tbody>';
+
+                            blq++;
+
+                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+
+                            venta = tmp.t_sal_num_venta;
+                        }
+                    }
+                }
+
+            }
+            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+            datosAlist += '</div>';//fin de la pag
+
+            if (pag > 1) {
+                datosAlist += '<nav aria-label="Page navigation example">\n\
+                                 <ul class="pagination justify-content-center">';
+                datosAlist += '<li class="page-item disabled" id="bPrev">\n\
+                                 <a class="page-link enlace" id="btnPrev">Previous</a>\n\
+                               </li>';
+
+                for (i = 1; i <= pag; i++) {
+                    if (i == 1) {
+                        datosAlist += '<li class="page-item btnPagina active" id="btnPag' + i + '"><a class="page-link enlace paginado" id="b' + i + '" pag="' + i + '">' + i + '</a></li>';
+                    } else {
+                        datosAlist += '<li class="page-item btnPagina" id="btnPag' + i + '"><a class="page-link enlace paginado" id="b' + i + '" pag="' + i + '">' + i + '</a></li>';
+                    }
+                }
+
+                datosAlist += '<li class="page-item" id="bNext">\n\
+                                 <a class="page-link enlace" id="btnNext">Next</a>\n\
+                               </li>';
+                datosAlist += '</ul></nav>';
+            }
+
+            $("#bloques").html(datosAlist);
+
+            clickPaginasAlist();
+            clickPaginasAlistPrev();
+            clickPaginasAlistNext();
+
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+var pagina = 1;
+/**
+ * Metodo que cambia de pagina
+ * @returns {undefined}
+ */
+function clickPaginasAlist() {
+    $(".paginado").click(function () {
+        pagina = $(this).attr("pag");
+
+        $(".bloque").hide();
+        $(".btnPagina").removeClass("active");
+        $("#btnPag" + pagina + "").addClass("active");
+        $("#blqPagina" + pagina + "").show();
+
+        if (pagina != 1) {
+            $("#bPrev").removeClass("disabled");
+        } else {
+            $("#bPrev").addClass("disabled");
+        }
+
+        if (pagina != pag) {
+            $("#bNext").removeClass("disabled");
+
+        } else {
+            $("#bNext").addClass("disabled");
+        }
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#changeAlistEnvios").offset().top
+        }, 1200);
+    });
+}
+/**
+ * Metodo que cambia de pagina boton previous
+ * @returns {undefined}
+ */
+function clickPaginasAlistPrev() {
+    $("#btnPrev").click(function () {
+//        alert(parseInt(pagina - 1));
+
+        pagina = parseInt(pagina - 1);
+
+        $(".bloque").hide();
+        $(".btnPagina").removeClass("active");
+        $("#btnPag" + pagina + "").addClass("active");
+        $("#blqPagina" + pagina + "").show();
+
+        if (pagina != 1) {
+            $("#bPrev").removeClass("disabled");
+        } else {
+            $("#bPrev").addClass("disabled");
+        }
+
+        if (pagina != pag) {
+            $("#bNext").removeClass("disabled");
+
+        } else {
+            $("#bNext").addClass("disabled");
+        }
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#changeAlistEnvios").offset().top
+        }, 1200);
+    });
+}
+/**
+ * Metodo que cambia de pagina boton next
+ * @returns {undefined}
+ */
+function clickPaginasAlistNext() {
+    $("#btnNext").click(function () {
+//        alert(pagina++);
+
+        pagina = pagina++;
+
+        $(".bloque").hide();
+        $(".btnPagina").removeClass("active");
+        $("#btnPag" + pagina + "").addClass("active");
+        $("#blqPagina" + pagina + "").show();
+
+        if (pagina != 1) {
+            $("#bPrev").removeClass("disabled");
+        } else {
+            $("#bPrev").addClass("disabled");
+        }
+
+        if (pagina != pag) {
+            $("#bNext").removeClass("disabled");
+
+        } else {
+            $("#bNext").addClass("disabled");
+        }
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#changeAlistEnvios").offset().top
+        }, 1200);
+    });
+}
+/****************************************************************
+ * Metodos de gestion envios
+ * 
+ ****************************************************************/
+/**
+ * Metodo que carga menu y formulario para gestion de envios
+ * @returns {undefined}
+ */
+function vista_gestionar_envios() {
+    request = "View/AdministradorV/AdEnvios/gestion_envios.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html(datos);
     };
     f_ajax(request, cadena, metodo);
 }

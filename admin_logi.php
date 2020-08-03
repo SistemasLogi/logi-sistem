@@ -89,6 +89,17 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_vista_hist">Historial</a>
                         </div>
                     </div>
+                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseENV" role="button" aria-expanded="false" aria-controls="multiCollapseENV">
+                        <span class="ion-android-mail"></span>
+                        ENVIOS
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseENV">
+                        <div class="card card-body alert-primary">
+                            <a class="dropdown-item enlace" id="link_vista_gest_env">Gestionar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_serv">DashBoard</a>
+                        </div>
+                    </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-contact"></span>
                         CLIENTE

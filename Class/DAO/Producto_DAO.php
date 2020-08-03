@@ -92,4 +92,16 @@ class Producto_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna registro en tabla salidas prod por num de venta y sucursal
+     * @param type $num_venta
+     * @param type $suc_id
+     * @return type
+     */
+    function consultaSalidaNumVenta($num_venta, $suc_id) {
+        $sql = "SELECT * FROM salida_prod WHERE sal_num_venta = " . $num_venta . " AND suc_num_id = " . $suc_id . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

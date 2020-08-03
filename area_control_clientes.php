@@ -49,6 +49,7 @@ if (!isset($_SESSION["sucursal"])) {
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/Cliente/cliente_dashboard.js" type="text/javascript"></script>
+        <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>

@@ -35,7 +35,7 @@
                     </div>               
                     <div class="input-group col-lg-2 margen_top">
                         <div class="custom-file">
-                            <a id="enlPlantillaAlist">Descargue <strong>Aqui </strong> la plantilla Excel</a>
+                            <a id="enlPlantillaAlist" href="Files/Plantillas/Plantilla_Alistamiento.xlsx">Descargue <strong>Aqui </strong> la plantilla Excel</a>
                         </div>
                     </div>
                 </div>
@@ -43,6 +43,9 @@
         </form>
         <div id="changeAlistEnvios">
 
-        </div>
+        </div>        
+    </div>
+    <div id="bloques">
+
     </div>
 </div>

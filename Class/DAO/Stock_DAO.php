@@ -60,8 +60,11 @@ class Stock_DAO {
     }
 
     /**
-     * Funcion que retorna el stock de un producto por codigo
+     * Funcion que retorna el stock de un producto
      * @param type $cod_prod
+     * @param type $num_suc
+     * @param type $fech_stock
+     * @param type $fech_actual
      * @return type
      */
     function consultaStockActual($cod_prod, $num_suc, $fech_stock, $fech_actual) {
@@ -73,6 +76,32 @@ class Stock_DAO {
                 . "FROM salida_prod WHERE suc_num_id = " . $num_suc . " AND sal_fecha > '" . $fech_stock . "' AND sal_fecha < '" . $fech_actual . "' "
                 . "GROUP BY pro_cod) AS T2 "
                 . "ON T1.pro_cod = T2.pro_cod;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna el stock de un producto por codigo para alistamiento
+     * @param type $fech_actual
+     * @param type $num_suc
+     * @return type
+     */
+    function consultaAlistaStock($fech_actual, $num_suc) {
+        $sql = "SELECT TM1.*, TM2.*, (TM2.total - TM1.t_sal_cantidad)AS estimado FROM "
+                . "(SELECT st.*, p.pro_ubicacion, p.pro_sku, p.pro_desc "
+                . "FROM salidas_prod_temp AS st, productos AS p "
+                . "WHERE st.t_suc_num_id = " . $num_suc . " AND st.t_suc_num_id = p.suc_num_id AND st.t_pro_cod = p.pro_cod)AS TM1 "
+                . "LEFT JOIN "
+                . "(SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, (T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
+                . "FROM "
+                . "(SELECT * FROM stock)AS T1 "
+                . "LEFT JOIN "
+                . "(SELECT pro_cod, SUM(sal_cantidad) AS salidas "
+                . "FROM salida_prod AS sa WHERE suc_num_id = " . $num_suc . " "
+                . "AND sal_fecha > (SELECT stk_fecha FROM stock AS sk WHERE sa.pro_cod = sk.pro_cod) AND sal_fecha < '" . $fech_actual . "' "
+                . "GROUP BY pro_cod) AS T2 "
+                . "ON T1.pro_cod = T2.pro_cod)AS TM2 "
+                . "ON TM1.t_pro_cod = TM2.pro_cod ORDER BY TM1.t_sal_num_venta;";
         $BD = new MySQL();
         return $BD->query($sql);
     }

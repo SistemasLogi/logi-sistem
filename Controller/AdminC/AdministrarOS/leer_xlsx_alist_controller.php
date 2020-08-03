@@ -65,8 +65,7 @@ if ($_POST) {
                     $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
                     $aenvio_vo->setAenv_operador_id($sheetData[2]['H']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
-
-                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);
+//                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);
 
                     $guia_num = $sheetData[2]['A'];
 
@@ -80,30 +79,28 @@ if ($_POST) {
                         $dato_prod = json_encode($prod_dao->consultaProd_x_sku($sheetData[$i]['C']));
 
                         if (!empty($dato_prod)) {
-                            
+                            $dato_prod_dec = json_decode($dato_prod);
+                            $observ = "";
+                            $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $numero_suc . ", "
+                                    . "'" . $dato_prod_dec[0]->pro_cod . "', " . $sheetData[$i]['A'] . ", "
+                                    . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "'),";
+
+                            if ($guia_num == $sheetData[$i]['A']) {
+                                
+                            } else {
+                                $guia_num = $sheetData[$i]['A'];
+
+                                $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
+                                $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
+                                $aenvio_vo->setAenv_operador_id($sheetData[$i]['H']);
+                                $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
+
+                                $aenvio_dao->insertarAlistEnvio($aenvio_vo);
+                            }
                         } else {
                             $no_venta[$no_existe] = $sheetData[$i]['B'];
                             $no_sku[$no_existe] = $sheetData[$i]['C'];
                             $no_existe++;
-                        }
-
-                        $dato_prod_dec = json_decode($dato_prod);
-                        $observ = "";
-                        $reg_tsalidas_temp .= "('" . $fecha_hora_now . "', " . $numero_suc . ", "
-                                . "'" . $dato_prod_dec[0]->pro_cod . "', " . $sheetData[$i]['D'] . ", "
-                                . "" . $sheetData[$i]['A'] . ", " . $sheetData[$i]['B'] . ", '" . $observ . "'),";
-
-                        if ($guia_num == $sheetData[$i]['A']) {
-                            
-                        } else {
-                            $guia_num = $sheetData[$i]['A'];
-
-                            $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
-                            $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
-                            $aenvio_vo->setAenv_operador_id($sheetData[$i]['H']);
-                            $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
-
-                            $aenvio_dao->insertarAlistEnvio($aenvio_vo);
                         }
                     }
                     //***consultar e insertar estados en est_aenv****
@@ -118,15 +115,53 @@ if ($_POST) {
                     $prod_dao->insertarBloqueEnTabla($sql_salidas_temp . $reg_tsal_temp);
                 } else {
                     //*****Accion si no guarda estado por orden***
+                    echo "<div class='alert alert-dismissible alert-danger'>"
+                    . "<strong>Error 4, No se pudo guardar el estado de la orden!</strong>"
+                    . "</div>";
                 }
             } else {
                 //*********Accion si no devuelve la consulta de ultima orden de servicio*******
+                echo "<div class='alert alert-dismissible alert-danger'>"
+                . "<strong>Error 3, La consulta devolvio un valor nulo!</strong>"
+                . "</div>";
             }
         } else {
             //*******Accion si no guarda orden de servicio******
+            echo "<div class='alert alert-dismissible alert-danger'>"
+            . "<strong>Error 2, No se pudo guardar la orden de servicio!</strong>"
+            . "</div>";
         }
-        echo 1;
+        //***Accion exitosa de ejecucion***
+
+        if (!empty($no_venta)) {
+            echo'<div class="alert alert-dismissible alert-danger border-danger" style="border-radius: 0.5rem;">';
+            echo'<div class="table-responsive">'
+            . '<table class="table table-hover table-sm table-fixed">'
+            . '<thead><tr class="table-warning">'
+            . '<th scope="col">Nº VENTA</th>'
+            . '<th scope="col">SKU</th>'
+            . '<th scope="col">NOVEDAD</th>'
+            . '</tr></thead><tbody>';
+
+            for ($i = 0; $i < count($no_venta); $i++) {
+                echo '<tr class="table-danger"><td>' . $no_venta[$i] . '</td>';
+                echo '<td>' . $no_sku[$i] . '</td>';
+                echo '<td class="enlace actuestos">SKU No Existe en la BD</td></tr>';
+            }
+            echo '</tbody></table></div>Las ventas registradas en esta tabla no fueron ingresadas a la BD, para realizar correcciones deben ser ingresadas en una orden nueva</div>';
+        }
+
+        echo "Carga exitosa!!<div class='alert alert-dismissible alert-primary'>"
+        . "<strong>Descargue </strong> <a class='alert-link enlace'>Aqui documento en PDF</a>"
+        . "</div>";
+        echo'<script> $("#formMasAlistamiento").hide(); </script>';
+        echo'<script> cargaProdAlistamiento(); </script>';
         //****************************************///***************///*************************///*************
+    } else {
+        //***Accion si plantilla no coincide**//
+        echo "<div class='alert alert-dismissible alert-danger'>"
+        . "<strong>Error 5, La plantilla xlsx no es la correcta!</strong>"
+        . "</div>";
     }
 //    
 } else {
