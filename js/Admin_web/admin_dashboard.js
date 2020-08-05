@@ -3719,6 +3719,47 @@ function vista_gestionar_envios() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#list-formCliente").html(datos);
+
+        $("#enlAsigMens").click(function () {
+            formulario_asig_mens();
+            $("#items-env li").removeClass("active");
+            $("#itemenlAsigMens").addClass("active");
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que retorna la vista de asignacion de mensajero a envios
+ * @returns {undefined}
+ */
+function formulario_asig_mens() {
+    request = "View/AdministradorV/AdEnvios/asignar_mens.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenGestEnvios").html(datos);
+
+        combo_empleados("#selectMensajero");
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que llena el combo de seleccion empleado
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_empleados(select) {
+    request = "Controller/AdminC/AdministrarEmpleados/consulta_mens_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.emp_td_id + '|' + temp.emp_num_doc + '">' + temp.emp_nombre + "</option>";
+        }
+        $(select).html(datouscombo);
     };
     f_ajax(request, cadena, metodo);
 }

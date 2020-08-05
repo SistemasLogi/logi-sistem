@@ -25,4 +25,18 @@ class Empleado_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna los datos de todos los empleados activos
+     * con filtro de seleccion
+     * @param type $filtro
+     * @return type
+     */
+    function consultaEmpleadosParam($filtro) {
+        $sql = "SELECT ue.car_id, c.car_nombre, e.* "
+                . "FROM usuario_emp_pass AS ue, cargo AS c, empleados AS e "
+                . "WHERE ue.ue_td_id = e.emp_td_id AND ue.ue_num_doc = e.emp_num_doc AND ue.car_id = c.car_id " . $filtro . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

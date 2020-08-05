@@ -4,9 +4,9 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav mr-auto" id="items">
+        <ul class="navbar-nav mr-auto" id="items-env">
             <li class="nav-item active" id="itemenlAsigMens">
-                <a class="nav-link enlace" id="enlCrearOs">Asignar Mensajero</a>
+                <a class="nav-link enlace" id="enlAsigMens">Asignar Mensajero</a>
             </li>
             <li class="nav-item" id="itemenlFormOrdenServ">
                 <a class="nav-link enlace" id="enlFormOrdenServ">Editar<span class="sr-only">(current)</span></a>
@@ -17,6 +17,6 @@
         </ul>
     </div>
 </nav>
-<div id="contenGestOs" class="mt-2">
+<div id="contenGestEnvios" class="mt-2">
 
 </div>
