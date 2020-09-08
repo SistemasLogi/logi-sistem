@@ -19,7 +19,7 @@ class AEnvio_DAO {
      * @param type $obj_aenv_vo
      */
     function insertarAlistEnvio($obj_aenv_vo) {
-        $sql = "INSERT INTO a_envio VALUES (null,'" . $obj_aenv_vo->getAenv_guia() . "', " . $obj_aenv_vo->getAenv_os_id() . ", "
+        $sql = "INSERT INTO a_envio VALUES (null,'" . $obj_aenv_vo->getAenv_guia() . "', " . $obj_aenv_vo->getAenv_venta() . ", " . $obj_aenv_vo->getAenv_os_id() . ", "
                 . "" . $obj_aenv_vo->getAenv_operador_id() . ", " . $obj_aenv_vo->getAenv_cantidad() . ");";
         $BD = new MySQL();
 //        return $sql;

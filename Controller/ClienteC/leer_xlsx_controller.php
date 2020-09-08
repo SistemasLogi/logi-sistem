@@ -119,7 +119,7 @@ if (isset($_SESSION["adminlogi"])) {
                 $est_x_env->insertarEstado_x_envio($id_os_cliente);
 
                 $envio_dao = new Envio_DAO();
-                $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 9));
+                $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 1));
                 $array = json_decode($env_ing);
                 require './consulta_env_ingresados_controller.php';
             } else {

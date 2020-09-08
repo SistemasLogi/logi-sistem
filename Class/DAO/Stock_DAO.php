@@ -81,7 +81,7 @@ class Stock_DAO {
     }
 
     /**
-     * Funcion que retorna el stock de un producto por codigo para alistamiento
+     * Funcion que retorna el stock de productos por numero de sucursal para alistamiento
      * @param type $fech_actual
      * @param type $num_suc
      * @return type

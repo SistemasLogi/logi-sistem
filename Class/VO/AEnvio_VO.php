@@ -17,9 +17,18 @@ class AEnvio_VO {
 
     private $aenv_id;
     private $aenv_guia;
+    private $aenv_venta;
     private $aenv_os_id;
     private $aenv_operador_id;
     private $aenv_cantidad;
+
+    function getAenv_venta() {
+        return $this->aenv_venta;
+    }
+
+    function setAenv_venta($aenv_venta) {
+        $this->aenv_venta = $aenv_venta;
+    }
 
     function getAenv_id() {
         return $this->aenv_id;

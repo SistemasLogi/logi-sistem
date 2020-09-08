@@ -121,22 +121,22 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetFont('Arial', 'BI', 9);
     $pdf->Cell(50, 5, utf8_decode('Remitente'), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, '', 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->cli_nombre), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, 'Tel. ' . $array[$i]->os_tel_cont, 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->os_direccion), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->ciu_nombre), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->dep_desc), 0, 1, 'L');
 
 
@@ -146,19 +146,19 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetX(110);
 //    $pdf->Cell(60, 5, '', 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_nombre), 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, 'Tel. ' . $array[$i]->en_telefono, 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->MultiCell(60, 3, utf8_decode($array[$i]->en_direccion), 0, 'L', 0);
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_ciudad), 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_departamento), 0, 1, 'L');
 
 
@@ -300,22 +300,22 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetFont('Arial', 'BI', 9);
     $pdf->Cell(50, 5, 'Remitente', 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, '', 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->cli_nombre), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, 'Tel. ' . $array[$i]->os_tel_cont, 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->os_direccion), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->ciu_nombre), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->dep_desc), 0, 1, 'L');
 
 
@@ -325,19 +325,19 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetX(110);
 //    $pdf->Cell(60, 5, '', 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_nombre), 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, 'Tel. ' . $array[$i]->en_telefono, 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->MultiCell(60, 3, utf8_decode($array[$i]->en_direccion), 0, 'L', 0);
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_ciudad), 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_departamento), 0, 1, 'L');
 
 
@@ -479,22 +479,22 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetFont('Arial', 'BI', 9);
     $pdf->Cell(50, 5, 'Remitente', 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, '', 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->cli_nombre), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, 'Tel. ' . $array[$i]->os_tel_cont, 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->os_direccion), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->ciu_nombre), 0, 1, 'L');
     $pdf->SetX(50);
-    $pdf->SetFont('Arial', 'I', 7);
+    $pdf->SetFont('Arial', 'I', 5);
     $pdf->Cell(50, 5, utf8_decode($array[$i]->dep_desc), 0, 1, 'L');
 
 
@@ -504,19 +504,19 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->SetX(110);
 //    $pdf->Cell(60, 5, '', 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_nombre), 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, 'Tel. ' . $array[$i]->en_telefono, 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->MultiCell(60, 3, utf8_decode($array[$i]->en_direccion), 0, 'L', 0);
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_ciudad), 0, 1, 'L');
     $pdf->SetX(110);
-    $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, utf8_decode($array[$i]->en_departamento), 0, 1, 'L');
 
 

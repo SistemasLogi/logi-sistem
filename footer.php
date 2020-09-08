@@ -7,7 +7,7 @@
             <div class="row">
 
                 <div class="col-lg-4 col-md-6 footer-links">
-                    <h4>ENLASES</h4>
+                    <h4>ENLACES</h4>
                     <ul>
                         <li><i class="ion-ios-arrow-right"></i> <a class="ancla" href="index.php" id="footvolver">Inicio</a></li>
                         <li><i class="ion-ios-arrow-right"></i> <a class="ancla" href="index.php #services" data-ancla="services">Servicios</a></li>

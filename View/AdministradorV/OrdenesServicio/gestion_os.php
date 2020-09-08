@@ -14,6 +14,9 @@
             <li class="nav-item" id="itemenlSeguimiento">
                 <a class="nav-link enlace" id="enlSeguimiento">Seguimiento</a>
             </li>
+            <li class="nav-item" id="itemenlEnProceso">
+                <a class="nav-link enlace" id="enlEnProceso">En proceso</a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -104,4 +104,49 @@ class Producto_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna producto registrado en salidas temp y calcula el stock
+     * requiere el csc de la tabla salidas temp
+     * @param type $suc_id
+     * @param type $csc_salida_tmp
+     * @param type $fec_hor_actual
+     * @return type
+     */
+    function consultaProdStockAlist($suc_id, $csc_salida_tmp, $fec_hor_actual) {
+        $sql = "SELECT TM1.*, TM2.*, (TM2.total - TM1.t_sal_cantidad)AS estimado FROM "
+                . "(SELECT st.*, p.pro_ubicacion, p.pro_sku, p.pro_desc "
+                . "FROM salidas_prod_temp AS st, productos AS p "
+                . "WHERE st.t_suc_num_id = " . $suc_id . " AND st.t_suc_num_id = p.suc_num_id AND st.t_pro_cod = p.pro_cod "
+                . "AND st.t_csc = " . $csc_salida_tmp . ")AS TM1 LEFT JOIN "
+                . "(SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, "
+                . "(T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
+                . "FROM (SELECT * FROM stock)AS T1 "
+                . "LEFT JOIN (SELECT pro_cod, SUM(sal_cantidad) AS salidas "
+                . "FROM salida_prod AS sa WHERE suc_num_id = " . $suc_id . " "
+                . "AND sal_fecha > (SELECT stk_fecha FROM stock AS sk WHERE sa.pro_cod = sk.pro_cod) "
+                . "AND sal_fecha < '" . $fec_hor_actual . "' GROUP BY pro_cod) AS T2 "
+                . "ON T1.pro_cod = T2.pro_cod)AS TM2 ON TM1.t_pro_cod = TM2.pro_cod;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna producto consultado por sku calcula el stock
+     * @param type $suc_id
+     * @param type $sku
+     * @param type $fec_hor_actual
+     * @return type
+     */
+    function consultaProdStockAlistSku($suc_id, $sku, $fec_hor_actual) {
+        $sql = "SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, (T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
+                . "FROM (SELECT st.*, p.pro_ubicacion, p.pro_sku, p.pro_desc "
+                . "FROM stock AS st, productos AS p "
+                . "WHERE st.pro_cod = p.pro_cod AND st.suc_num_id = p.suc_num_id AND p.pro_sku = '" . $sku . "')AS T1 "
+                . "LEFT JOIN (SELECT pro_cod, SUM(sal_cantidad) AS salidas FROM salida_prod AS sa "
+                . "WHERE suc_num_id = " . $suc_id . " AND sal_fecha > (SELECT stk_fecha FROM stock AS sk "
+                . "WHERE sa.pro_cod = sk.pro_cod) AND sal_fecha < '" . $fec_hor_actual . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

@@ -27,7 +27,7 @@ if ($_POST) {
         $or_servi_vo->setDireccion($_SESSION["direccion_adm_alst"]);
         $or_servi_vo->setPer_contacto('');
         $or_servi_vo->setTelefono($_SESSION["tel_adm_alst"]);
-        $or_servi_vo->setTipo_env_id(1);
+        $or_servi_vo->setTipo_env_id(1); //predeterminado 1 mensajeria
         $or_servi_vo->setCli_docum($_SESSION["num_doc_cli_adm_alst"]);
         $or_servi_vo->setCli_id($_SESSION["td_cli_adm_alst"]);
 
@@ -83,7 +83,8 @@ if ($_POST) {
                             $observ = "";
                             $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $numero_suc . ", "
                                     . "'" . $dato_prod_dec[0]->pro_cod . "', " . $sheetData[$i]['A'] . ", "
-                                    . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "'),";
+                                    . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
+                                    . "'" . $sheetData[$i]['F'] . "', '" . $sheetData[$i]['G'] . "'),";
 
                             if ($guia_num == $sheetData[$i]['A']) {
                                 
@@ -91,6 +92,7 @@ if ($_POST) {
                                 $guia_num = $sheetData[$i]['A'];
 
                                 $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
+                                $aenvio_vo->setAenv_venta($sheetData[$i]['B']);
                                 $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
                                 $aenvio_vo->setAenv_operador_id($sheetData[$i]['H']);
                                 $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia

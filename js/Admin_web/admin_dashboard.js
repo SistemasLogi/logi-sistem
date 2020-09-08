@@ -24,7 +24,6 @@ $(document).ready(function () {
     $("#link_sucursales").click(function () {
         vista_admin_sucursal();
     });
-
     $("#adminbd a").click(function () {
         vista_tabla_bd(this);
     });
@@ -32,7 +31,6 @@ $(document).ready(function () {
     vista_dashboard();
 
     consulta_os_program_ini();
-
 });
 
 /**
@@ -920,7 +918,8 @@ function tablaGeneralCiudades() {
  * @returns {undefined}
  */
 function clickActualiza() {
-    $(".actualiza").click(function () {
+    $("#tableCiudad").on("click", ".actualiza", function () {
+//    $(".actualiza").click(function () {
         actualizar = $(this).attr("actu");
         $("#btnGuardaCiu").removeClass("btn-primary");
         $("#btnGuardaCiu").addClass("btn-warning");
@@ -949,7 +948,8 @@ var eliminar;
  * @returns {undefined}
  */
 function clickElimina() {
-    $(".elimina").click(function () {
+    $("#tableCiudad").on("click", ".elimina", function () {
+//    $(".elimina").click(function () {
         eliminar = $(this).attr("elimi");
         tm = arregloCiudad[eliminar];
         $("#inpCodCiudad").val(tm.ciu_id);
@@ -1084,7 +1084,8 @@ function tablaGeneralTipoDoc() {
  * @returns {undefined}
  */
 function clickActualizaTd() {
-    $(".actualizatd").click(function () {
+    $('#tableTipoDoc').on('click', '.actualizatd', function () {
+//    $(".actualizatd").click(function () {
         actualizar = $(this).attr("actutd");
         $("#btnGuardaTipoDoc").removeClass("btn-primary");
         $("#btnGuardaTipoDoc").addClass("btn-warning");
@@ -1140,7 +1141,8 @@ var eliminartd;
  * @returns {undefined}
  */
 function clickEliminaTd() {
-    $(".eliminatd").click(function () {
+    $('#tableTipoDoc').on('click', '.eliminatd', function () {
+//    $(".eliminatd").click(function () {
         eliminartd = $(this).attr("elimitd");
         tm = arregloTipoDoc[eliminartd];
         $("#inpCodTipoDoc").val(tm.td_id);
@@ -1227,7 +1229,8 @@ function tablaGeneralTipoServ() {
  * @returns {undefined}
  */
 function clickActualizaTs() {
-    $(".actualizats").click(function () {
+    $("#tableTipoServ").on("click", ".actualizats", function () {
+//    $(".actualizats").click(function () {
         actualizar = $(this).attr("actuts");
         $("#btnGuardaTipoServ").removeClass("btn-primary");
         $("#btnGuardaTipoServ").addClass("btn-warning");
@@ -1283,7 +1286,8 @@ var eliminarts;
  * @returns {undefined}
  */
 function clickEliminaTs() {
-    $(".eliminats").click(function () {
+    $("#tableTipoServ").on("click", ".eliminats", function () {
+//    $(".eliminats").click(function () {
         eliminarts = $(this).attr("elimits");
         tm = arregloTipoServ[eliminarts];
         $("#inpCodTipoServ").val(tm.ts_id);
@@ -1371,7 +1375,8 @@ function tablaGeneralTipoEnv() {
  * @returns {undefined}
  */
 function clickActualizaTe() {
-    $(".actualizate").click(function () {
+    $("#tableTipoEnv").on("click", ".actualizate", function () {
+//    $(".actualizate").click(function () {
         actualizar = $(this).attr("actute");
         $("#btnGuardaTipoEnv").removeClass("btn-primary");
         $("#btnGuardaTipoEnv").addClass("btn-warning");
@@ -1426,7 +1431,8 @@ var eliminarte;
  * @returns {undefined}
  */
 function clickEliminaTe() {
-    $(".eliminate").click(function () {
+    $("#tableTipoEnv").on("click", ".eliminate", function () {
+//    $(".eliminate").click(function () {
         eliminarte = $(this).attr("elimite");
         tm = arregloTipoEnv[eliminarte];
         $("#inpCodTipoEnv").val(tm.te_id);
@@ -1513,7 +1519,8 @@ function tablaGeneralEstadoServ() {
  * @returns {undefined}
  */
 function clickActualizaEs() {
-    $(".actualizaes").click(function () {
+    $("#tableEstServ").on("click", ".actualizaes", function () {
+//    $(".actualizaes").click(function () {
         actualizar = $(this).attr("actues");
         $("#btnGuardaEstServ").removeClass("btn-primary");
         $("#btnGuardaEstServ").addClass("btn-warning");
@@ -1569,7 +1576,8 @@ var eliminares;
  * @returns {undefined}
  */
 function clickEliminaEs() {
-    $(".eliminaes").click(function () {
+    $("#tableEstServ").on("click", ".eliminaes", function () {
+//    $(".eliminaes").click(function () {
         eliminares = $(this).attr("elimies");
         tm = arregloEstadoServ[eliminares];
         $("#inpCodEstServ").val(tm.es_id);
@@ -1656,7 +1664,8 @@ function tablaGeneralEstadoEnv() {
  * @returns {undefined}
  */
 function clickActualizaEe() {
-    $(".actualizaee").click(function () {
+    $("#tableEstEnv").on("click", ".actualizaee", function () {
+//    $(".actualizaee").click(function () {
         actualizar = $(this).attr("actuee");
         $("#btnGuardaEstEnv").removeClass("btn-primary");
         $("#btnGuardaEstEnv").addClass("btn-warning");
@@ -1712,7 +1721,8 @@ var eliminaree;
  * @returns {undefined}
  */
 function clickEliminaEe() {
-    $(".eliminaee").click(function () {
+    $("#tableEstEnv").on("click", ".eliminaee", function () {
+//    $(".eliminaee").click(function () {
         eliminaree = $(this).attr("elimiee");
         tm = arregloEstadoEnv[eliminaree];
         $("#inpCodEstEnv").val(tm.ee_id);
@@ -1797,7 +1807,8 @@ function tablaGeneralOperadores() {
  * @returns {undefined}
  */
 function clickActualizaOp() {
-    $(".actualizaop").click(function () {
+    $("#tableOperadores").on("click", ".actualizaop", function () {
+//    $(".actualizaop").click(function () {
         actualizar = $(this).attr("actuop");
         $("#btnGuardaOperador").removeClass("btn-primary");
         $("#btnGuardaOperador").addClass("btn-warning");
@@ -1899,7 +1910,8 @@ function tablaGeneralEstadoAEnv() {
  * @returns {undefined}
  */
 function clickActualizaEsae() {
-    $(".actualizaesae").click(function () {
+    $("#tableAEstEnv").on("click", ".actualizaesae", function () {
+//    $(".actualizaesae").click(function () {
         actualizar = $(this).attr("actuesae");
         $("#btnGuardaEstAEnv").removeClass("btn-primary");
         $("#btnGuardaEstAEnv").addClass("btn-warning");
@@ -1974,6 +1986,11 @@ function vista_gestionar_os() {
             $("#items li").removeClass("active");
             $("#itemenlCrearOs").addClass("active");
             crear_os_por_cliente();
+        });
+        $("#enlEnProceso").click(function () {
+            $("#items li").removeClass("active");
+            $("#itemenlEnProceso").addClass("active");
+            en_proceso_os_por_cliente();
         });
     };
     f_ajax(request, cadena, metodo);
@@ -2776,6 +2793,83 @@ function crear_os_por_cliente() {
     f_ajax(request, cadena, metodo);
 }
 /**
+ * Metodo que trae a la vista el formulario de seleccion cliente sucursal para os en procso
+ * @returns {undefined}
+ */
+function en_proceso_os_por_cliente() {
+    request = "View/AdministradorV/OrdenesServicio/form_os_en_proceso.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenGestOs").html(datos);
+        combo_clientes();
+
+        $('#checkSucur').on('click', function () {
+            if ($(this).is(':checked')) {
+                // Hacer algo si el checkbox ha sido seleccionado
+                $("#blqSucur").show();
+                combo_sucursal_x_cli();
+            } else {
+                // Hacer algo si el checkbox ha sido deseleccionado
+                $("#selectSuc_x_Cli").html("");
+                $("#blqSucur").hide();
+            }
+        });
+
+        $("#selectCliente").change(function () {
+            if ($('#checkSucur').prop('checked')) {
+                combo_sucursal_x_cli();
+            }
+        });
+
+        $("#btnBuscarProc").click(function () {
+            if ($("#selectProceso").val() == 1) {
+                alert("proceso no definido aun!!");
+//                formulario_recolec();
+//                if ($('#checkSucur').prop('checked')) {
+//                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+//                        datos_cliente_selected();
+//                        $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+//                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+//                    } else {
+//                        datos_sucursal_selected();
+//                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+//                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+//                    }
+//                } else {
+//                    datos_cliente_selected();
+//                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+//                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+//                }
+            } else if ($("#selectProceso").val() == 2) {
+//                formulario_alistamiento_xlsx();
+                if ($('#checkSucur').prop('checked')) {
+                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                        alert("proceso no definido aun!!");
+//                        datos_cliente_selected();
+//                        cargaProdAlistamiento();
+//                        $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+//                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                    } else {
+                        datos_suc_selected_en_proceso();
+                        cargaProdAlistamiento();
+                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                    }
+                } else {
+                    alert("proceso no definido aun!!");
+//                    datos_cliente_selected();
+//                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+//                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                }
+            }
+            $("#formBuscarCli_crear_OS").hide();
+            $("#infoCliente").show();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
  * Metodo que trae a la vista el contenido de botones de actualizacion de estados os
  * @returns {undefined}
  */
@@ -3272,6 +3366,67 @@ function datos_sucursal_selected() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que retorna los datos de cliente seleccionado para os en proceso
+ * @returns {undefined}
+ */
+function datos_cli_selected_en_proceso() {
+    request = "Controller/AdminC/AdministrarCliente/consulta_cli_x_num_controller.php";
+    cadena = "selectCliente=" + $("#selectCliente").val(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_cli = $.parseJSON(datos);
+
+//        tmp_dat_cli = arreglo_datos_cli[0];
+//
+//        $("#inputDir").val(tmp_dat_cli.cli_direccion);
+//        $("#inputTele").val(tmp_dat_cli.cli_tel);
+//        $("#inputPerContacto").val(tmp_dat_cli.cli_per_cont);
+//        $("#inputNumDocCl").val(tmp_dat_cli.cli_num_doc);
+//        $("#inputTDocCli").val(tmp_dat_cli.cli_td_id);
+//        $("#nombreCliSuc").html(tmp_dat_cli.cli_nombre);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos de sucursal seleccionada para os en proceso
+ * @returns {undefined}
+ */
+function datos_suc_selected_en_proceso() {
+    request = "Controller/AdminC/AdministrarSucursal/cons_suc_x_id_os_proceso_controller.php";
+    cadena = "selectSuc_x_Cli=" + $("#selectSuc_x_Cli").val(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_suc = $.parseJSON(datos);
+
+        tmp_dat_suc = arreglo_datos_suc[0];
+
+//        $("#inputDir").val(tmp_dat_suc.suc_direccion);
+//        $("#inputTele").val(tmp_dat_suc.suc_telefono);
+//        $("#inputPerContacto").val(tmp_dat_suc.suc_nombre);
+//        $("#inputNumDocCl").val(tmp_dat_suc.cli_num_doc);
+//        $("#inputTDocCli").val(tmp_dat_suc.cli_td_id);
+//        $("#inputNumSucu").val(tmp_dat_suc.suc_num_id);
+//        $("#nombreCliSuc").html(tmp_dat_suc.suc_nombre);
+        $("#blqFinalizado").html('<img src="img/sucursales/' + tmp_dat_suc.suc_num_id + '.png" class="rounded mx-auto d-block" alt=""/>');
+        datos_os_picking_en_proceso();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos de os en proceso picking
+ * @returns {undefined}
+ */
+function datos_os_picking_en_proceso() {
+    request = "Controller/AdminC/AdministrarOS/consulta_ult_os_picking_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_os = $.parseJSON(datos);
+
+        tmp_dat_os = arreglo_datos_os[0];
+
+        $("#numOrden").html("N° OS : " + tmp_dat_os.os_id + "");
+    };
+    f_ajax(request, cadena, metodo);
+}
 /*******************************************************************************
  /*************Metodos de carga masiva por archivo xlsx para alistamiento********
  /*******************************************************************************
@@ -3396,40 +3551,43 @@ function cargaProdAlistamiento() {
             venta = 0;
             blq = 0;
             pag = 1;
-            datosAlist = "";
+            datosAlist = '<div><button type="button" class="btn btn-success float-right">Guaradar Todo</button></div>';
 
             for (i = 0; i < arregloAlista.length; i++) {
                 tmp = arregloAlista[i];
 
-                if (tmp.estimado == 0) {
+                if (tmp.total <= 0 || tmp.estimado <= 0) {
                     tema = 'danger';
                     icon = '<span class="ion-android-settings text-danger"></span>';
+                    checked = '';
                 } else {
                     tema = 'warning';
                     icon = '<span class="ion-android-cloud-done text-success"></span>';
+                    checked = 'checked = ""';
                 }
 
                 if (i === 0) {
                     //******primera fila****//
-                    datosAlist += '<div class="bloque" id="blqPagina' + pag + '">';
+                    datosAlist += '<div class="bloque" id="blqPagina' + pag + '"><h4>HOJA ' + pag + '</h4>';
                     datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                         <div class="row">\n\
-                        <div class="col-5"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
-                        <div class="col-5"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
-                        <div class="form-group col-2">\n\
+                        <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                        <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
+                        <div class="form-group col-3">\n\
                           <div class="custom-control custom-switch">\n\
-                          <input type="checkbox" class="custom-control-input" id="customSwitch' + i + '" checked="">\n\
-                          <label class="custom-control-label" for="customSwitch' + i + '">OK</label>\n\
+                          <input type="checkbox" class="custom-control-input cheBlq" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
+                          <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                         </div></div></div>';
                     datosAlist += '<div class="dropdown-divider"></div>\n\
-                        <div class="table-responsive">\n\
+                        <div class="table-responsive text-nowrap">\n\
                         <table class="table table-hover table-sm table-fixed">\n\
                         <thead><tr class="table-primary">\n\
                         <th scope="col">SKU</th>\n\
                             <th scope="col">PRODUCTO</th>\n\
-                            <th scope="col">UBICACIÓN</th>\n\
-                            <th scope="col">CANTIDAD</th>\n\
+                            <th scope="col">UB</th>\n\
                             <th scope="col">STOCK</th>\n\
+                            <th scope="col">UNS</th>\n\
+                            <th scope="col">TEÓRICO</th>\n\
                             <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                         </tr></thead><tbody>';
 
@@ -3438,13 +3596,18 @@ function cargaProdAlistamiento() {
                     datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
                     datosAlist += '<td>' + tmp.pro_desc + '</td>';
                     datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                    datosAlist += '<td>' + tmp.total + '</td>';
                     datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
                     datosAlist += '<td>' + tmp.estimado + '</td>';
-                    datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+                    datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                     if (i === arregloAlista[arregloAlista.length - 1]) {
 
-                        datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                        datosAlist += '</tbody></table></div>\n\
+                          <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
+                            <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                          </span></div>\n\
+                        </div></div>';//fin de la tabla
                         datosAlist += '</div>';//fin de la pag
 
                     } else {
@@ -3461,40 +3624,50 @@ function cargaProdAlistamiento() {
                             datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.total + '</td>';
                             datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
                             datosAlist += '<td>' + tmp.estimado + '</td>';
-                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+                            datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
-                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                            datosAlist += '</tbody></table></div>\n\
+                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
+                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                            </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
                         } else {
                             //***NO es la misma venta de la fila anterior**//
-                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                            datosAlist += '</tbody></table></div>\n\
+                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
+                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                            </div></div>';//fin de la tabla
 
                             if (blq % 20 == 0) {
                                 datosAlist += '</div>';//fin de la pag
                                 pag++;
-                                datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;">';
+                                datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
                             datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
-                                <div class="col-5"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
-                                <div class="col-5"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
-                                <div class="form-group col-2">\n\
+                                <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                                <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
+                                <div class="form-group col-3">\n\
                                   <div class="custom-control custom-switch">\n\
-                                  <input type="checkbox" class="custom-control-input" id="customSwitch' + i + '" checked="">\n\
-                                  <label class="custom-control-label" for="customSwitch' + i + '">OK</label>\n\
+                                  <input type="checkbox" class="custom-control-input cheBlq" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
+                                  <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                                 </div></div></div>';
                             datosAlist += '<div class="dropdown-divider"></div>\n\
-                                <div class="table-responsive">\n\
+                                <div class="table-responsive text-nowrap">\n\
                                 <table class="table table-hover table-sm table-fixed">\n\
                                 <thead><tr class="table-primary">\n\
                                 <th scope="col">SKU</th>\n\
                                     <th scope="col">PRODUCTO</th>\n\
-                                    <th scope="col">UBICACIÓN</th>\n\
-                                    <th scope="col">CANTIDAD</th>\n\
+                                    <th scope="col">UB</th>\n\
                                     <th scope="col">STOCK</th>\n\
+                                    <th scope="col">UNS</th>\n\
+                                    <th scope="col">TEÓRICO</th>\n\
                                     <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
 
@@ -3503,11 +3676,16 @@ function cargaProdAlistamiento() {
                             datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.total + '</td>';
                             datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
                             datosAlist += '<td>' + tmp.estimado + '</td>';
-                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+                            datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
-                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                            datosAlist += '</tbody></table></div>\n\
+                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
+                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                            </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
                         }
 
@@ -3519,38 +3697,44 @@ function cargaProdAlistamiento() {
                             datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.total + '</td>';
                             datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
                             datosAlist += '<td>' + tmp.estimado + '</td>';
-                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+                            datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                         } else {
                             //***NO es la misma venta de la fila anterior**//
-                            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+                            datosAlist += '</tbody></table></div>\n\
+                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
+                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                            </div></div>';//fin de la tabla
 
                             if (blq % 20 == 0) {
                                 datosAlist += '</div>';//fin de la pag
                                 pag++;
-                                datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;">';
+                                datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
                             datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
-                                <div class="col-5"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
-                                <div class="col-5"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
-                                <div class="form-group col-2">\n\
+                                <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                                <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
+                                <div class="form-group col-3">\n\
                                   <div class="custom-control custom-switch">\n\
-                                  <input type="checkbox" class="custom-control-input" id="customSwitch' + i + '" checked="">\n\
-                                  <label class="custom-control-label" for="customSwitch' + i + '">OK</label>\n\
+                                  <input type="checkbox" class="custom-control-input cheBlq" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
+                                  <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                                 </div></div></div>';
                             datosAlist += '<div class="dropdown-divider"></div>\n\
-                                <div class="table-responsive">\n\
+                                <div class="table-responsive text-nowrap">\n\
                                 <table class="table table-hover table-sm table-fixed">\n\
                                 <thead><tr class="table-primary">\n\
                                 <th scope="col">SKU</th>\n\
                                     <th scope="col">PRODUCTO</th>\n\
-                                    <th scope="col">UBICACIÓN</th>\n\
-                                    <th scope="col">CANTIDAD</th>\n\
+                                    <th scope="col">UB</th>\n\
                                     <th scope="col">STOCK</th>\n\
+                                    <th scope="col">UNS</th>\n\
+                                    <th scope="col">TEÓRICO</th>\n\
                                     <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
 
@@ -3559,9 +3743,10 @@ function cargaProdAlistamiento() {
                             datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td>' + tmp.total + '</td>';
                             datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
                             datosAlist += '<td>' + tmp.estimado + '</td>';
-                            datosAlist += '<td class="enlace actuestos">' + icon + '</td></tr>';
+                            datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             venta = tmp.t_sal_num_venta;
                         }
@@ -3569,7 +3754,11 @@ function cargaProdAlistamiento() {
                 }
 
             }
-            datosAlist += '</tbody></table></div></div>';//fin de la tabla
+            datosAlist += '</tbody></table></div>\n\
+              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
+                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+              </span></div>\n\
+            </div></div>';//fin de la tabla
             datosAlist += '</div>';//fin de la pag
 
             if (pag > 1) {
@@ -3598,9 +3787,11 @@ function cargaProdAlistamiento() {
             clickPaginasAlist();
             clickPaginasAlistPrev();
             clickPaginasAlistNext();
+            clickEditProd();
+            checkedVenta();
 
         } else {
-            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+            $("#bloques").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }
@@ -3706,6 +3897,166 @@ function clickPaginasAlistNext() {
         }, 1200);
     });
 }
+/**
+ * Metodo que carga el modal con formulario para seleccion de producto en alistamiento 
+ * @returns {undefined}
+ */
+function clickEditProd() {
+//    $("#tableEstOS").on("click", ".actuestos", function () {
+    $(".editProduc").click(function () {
+        edit_prod = $(this).attr("edPro");
+        consulta_prod_alist(edit_prod);
+//        edit_prod = $(this).attr("id");
+        $('#ModalActuEstOS').modal('toggle');
+        $('#ModalEstOSTitle').html('PRODUCTO');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-primary">\n\
+                    <div class="row">\n\
+                        <div class="col-6"><strong>N° VENTA: <b class="text-primary" id="numVenta"></b></strong></div>\n\
+                        <div class="col-6"><strong>N° GUIA: <b class="text-success" id="numGuiaOP"></b></strong></div>\n\
+                    </div>\n\
+            <form class="mt-3" id="formModalProd" name="formModalProd">\n\
+              <div class="form-row">\n\
+                <div class="form-group input-group col-md-6">\n\
+                  <label for="inputSkuAls">SKU</label>\n\
+                  <div class="input-group">\n\
+                  <input type="text" class="form-control" id="inputSkuAls" name="inputSkuAls" placeholder="sku">\n\
+                  <span class="input-group-btn">\n\
+                    <button class="btn btn-success" type="button" id="btnBusSkuAlst" name="btnBusSkuAlst">Go!</button>\n\
+                  </span>\n\
+                </div>\n\
+                </div>\n\
+                <div class="form-group col-md-6">\n\
+                  <label for="inputCodAls">Código</label>\n\
+                  <input type="text" class="form-control" id="inputCodAls" name="inputCodAls" placeholder="Codigo" readonly>\n\
+                </div>\n\
+              </div>\n\
+              <div class="form-group">\n\
+                <label for="inputDescAls">Descripción</label>\n\
+                <input type="text" class="form-control" id="inputDescAls" name="inputDescAls" placeholder="producto" readonly>\n\
+              </div>\n\
+              <div class="form-row">\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputUbicAls">Ubicación</label>\n\
+                  <input type="text" class="form-control" id="inputUbicAls" name="inputUbicAls" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputStockAls">Stock</label>\n\
+                  <input type="text" class="form-control" id="inputStockAls" name="inputStockAls" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputCantiAls">Cantidad</label>\n\
+                  <input type="text" class="form-control" id="inputCantiAls" name="inputCantiAls">\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputTeoAls">Teórico</label>\n\
+                  <input type="text" class="form-control" id="inputTeoAls" name="inputTeoAls" readonly>\n\
+                </div>\n\
+              </div>\n\
+              <button type="submit" class="btn btn-primary" id="btnGuarProdActAlist" name="btnGuarProdActAlist">Guardar</button>\n\
+            </form>');
+//        alert("click en " + edit_prod);
+//        form_act_est_os(arregloEstOS, actu_es_os);
+        $("#btnBusSkuAlst").click(function () {
+            if ($("#inputSkuAls").val().length == 0) {
+                alert("Faltan datos");
+            } else {
+                consulta_prod_alist_sku($("#inputSkuAls").val());
+            }
+        });
+        $("#inputCantiAls").bind('input propertychange', function () {
+//            alert($("#inputCantiAls").val());
+            total = $("#inputStockAls").val();
+            cantidad = $("#inputCantiAls").val();
+            teorico = parseInt(total) - parseInt(cantidad);
+            $("#inputTeoAls").val(teorico);
+            if (teorico < 0) {
+                $("#inputTeoAls").addClass("text-danger");
+                $("#inputTeoAls").addClass("is-invalid");
+            } else {
+                $("#inputTeoAls").removeClass("text-danger");
+                $("#inputTeoAls").removeClass("is-invalid");
+            }
+        });
+    });
+}
+/**
+ * 
+ * @returns {undefined}
+ */
+function checkedVenta() {
+//    $('.cheBlq').on('click', function () {
+    $('.cheBlq').click(function () {
+        checket = $(this).attr("id");
+        if ($("#" + checket + "").is(':checked')) {
+            // Hacer algo si el checkbox ha sido seleccionado
+            $("#blqAlist" + checket + "").removeClass("alert-danger");
+            $("#blqAlist" + checket + "").addClass("alert-warning");
+            $("#divBtn" + checket + "").show();
+
+//            alert("activado " + checket);
+        } else {
+            // Hacer algo si el checkbox ha sido deseleccionado
+            $("#blqAlist" + checket + "").removeClass("alert-warning");
+            $("#blqAlist" + checket + "").addClass("alert-danger");
+            $("#divBtn" + checket + "").hide();
+
+//            alert("No activo el " + checket);
+        }
+    });
+}
+/**
+ * Metodo que carga en el form del modal datos para editar producto alistamiento
+ * @param {type} csc
+ * @returns {undefined}
+ */
+function consulta_prod_alist(csc) {
+    request = "Controller/AdminC/AdministrarProd/consulta_prod_alist_controller.php";
+    cadena = "csc=" + csc;
+    metodo = function (datos) {
+        arreglo_datos_prod = $.parseJSON(datos);
+
+        tmp_dat_prod = arreglo_datos_prod[0];
+
+        $("#numVenta").html(tmp_dat_prod.t_sal_num_venta);
+        $("#numGuiaOP").html(tmp_dat_prod.t_sal_guia_num);
+        $("#inputSkuAls").val(tmp_dat_prod.pro_sku);
+        $("#inputCodAls").val(tmp_dat_prod.t_pro_cod);
+        $("#inputDescAls").val(tmp_dat_prod.pro_desc);
+        $("#inputUbicAls").val(tmp_dat_prod.pro_ubicacion);
+        $("#inputStockAls").val(tmp_dat_prod.total);
+        $("#inputCantiAls").val(tmp_dat_prod.t_sal_cantidad);
+        $("#inputTeoAls").val(tmp_dat_prod.estimado);
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga en el form del modal datos de producto consultado
+ * @param {type} sku
+ * @returns {undefined}
+ */
+function consulta_prod_alist_sku(sku) {
+    request = "Controller/AdminC/AdministrarProd/consulta_sku_alist_controller.php";
+    cadena = "sku=" + sku;
+    metodo = function (datos) {
+//        alert(datos);
+        arreglo_datos_prod_sku = $.parseJSON(datos);
+
+        tmp_dat_prod_sku = arreglo_datos_prod_sku[0];
+
+        $("#inputCodAls").val(tmp_dat_prod_sku.pro_cod);
+        $("#inputDescAls").val(tmp_dat_prod_sku.pro_desc);
+        $("#inputUbicAls").val(tmp_dat_prod_sku.pro_ubicacion);
+        $("#inputStockAls").val(tmp_dat_prod_sku.total);
+        $("#inputCantiAls").val(1);
+
+        total = $("#inputStockAls").val();
+        cantidad = $("#inputCantiAls").val();
+        teorico = parseInt(total) - parseInt(cantidad);
+        $("#inputTeoAls").val(teorico);
+    };
+    f_ajax(request, cadena, metodo);
+}
 /****************************************************************
  * Metodos de gestion envios
  * 
@@ -3729,6 +4080,7 @@ function vista_gestionar_envios() {
     f_ajax(request, cadena, metodo);
 }
 
+var mensajero;
 /**
  * Metodo que retorna la vista de asignacion de mensajero a envios
  * @returns {undefined}
@@ -3740,6 +4092,17 @@ function formulario_asig_mens() {
         $("#contenGestEnvios").html(datos);
 
         combo_empleados("#selectMensajero");
+
+        $("#selectMensajero").change(function () {
+            mensajero = $("#selectMensajero").val();
+            consulta_tabla_env_mens(mensajero);
+        });
+
+        $("#btnSelectMens").click(function () {
+            mensajero = $("#selectMensajero").val();
+            consulta_tabla_env_mens(mensajero);
+        });
+        consulta_tabla_env_programados();
     };
     f_ajax(request, cadena, metodo);
 }
@@ -3754,12 +4117,209 @@ function combo_empleados(select) {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         arreglo = $.parseJSON(datos);
-        datouscombo = "";
+        datouscombo = '<option value="0|0">Seleccione</option>';
         for (i = 0; i < arreglo.length; i++) {
             temp = arreglo[i];
             datouscombo += '<option value="' + temp.emp_td_id + '|' + temp.emp_num_doc + '">' + temp.emp_nombre + "</option>";
         }
         $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga la tabla de envios cargados a mensajero
+ * @param {type} value
+ * @returns {undefined}
+ */
+function consulta_tabla_env_mens(value) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_env_x_est_controller.php";
+    cadena = "fil=" + value; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_env_est = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_env_est !== 0) {
+            datos_env_est = "<div class='table-responsive text-nowrap' id='tablaEstadoEnv'><table class='table table-striped table-sm table-bordered' id='tableEstEnvio'>\n\
+                             <thead><tr style='background-color: #9bb5ff'>\n\
+                             <th scope='col'>GUIA LOGI</th>\n\
+                             <th scope='col'>GUIA OP</th>\n\
+                             <th scope='col'>OS</th>\n\
+                             <th scope='col'>DIR. DESTINO</th>\n\
+                             <th scope='col'>CIUDAD</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arreglo_env_est.length; i++) {
+                tmp = arreglo_env_est[i];
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td>' + tmp.exe_en_id + '</td>';
+                datos_env_est += '<td>' + tmp.en_guia + '</td>';
+                datos_env_est += '<td>' + tmp.os_id + '</td>';
+                datos_env_est += '<td>' + tmp.en_direccion + '</td>';
+                datos_env_est += '<td>' + tmp.en_ciudad + '</td></tr>';
+            }
+            datos_env_est += "</tbody></table></div>";
+            $("#tab_envios").html(datos_env_est);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            $('#tableEstEnvio').DataTable({
+                'scrollX': true
+            });
+
+        } else {
+            $("#tab_envios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+var arreglo_env_prog;
+/**
+ * Metodo que carga la tabla de envios programados
+ * @returns {undefined}
+ */
+function consulta_tabla_env_programados() {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_env_prog_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_env_prog = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_env_prog !== 0) {
+            datos_env_prog = "<div class='table-responsive text-nowrap'><table class='table table-striped table-sm table-bordered' id='tableEnvProgram'>\n\
+                             <thead><tr style='background-color: #9bb5ff'>\n\
+                             <th scope='col'></th>\n\
+                             <th scope='col'>GUIA LOGI</th>\n\
+                             <th scope='col'>GUIA OP</th>\n\
+                             <th scope='col'>OS</th>\n\
+                             <th scope='col'>DIR. DESTINO</th>\n\
+                             <th scope='col'>CIUDAD</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arreglo_env_prog.length; i++) {
+                temp = arreglo_env_prog[i];
+                datos_env_prog += '<tr class="table-sm DelFil" id="fila_pro' + temp.exe_en_id + '" fil="' + temp.exe_en_id + '"><td class="enlace addEnvio" addEnv="' + temp.exe_en_id + '"><span class="ion-android-add-circle" style="color: #18d26e;"></span></td>';
+                datos_env_prog += '<td>' + temp.exe_en_id + '</td>';
+                datos_env_prog += '<td>' + temp.en_guia + '</td>';
+                datos_env_prog += '<td>' + temp.os_id + '</td>';
+                datos_env_prog += '<td>' + temp.en_direccion + '</td>';
+                datos_env_prog += '<td>' + temp.en_ciudad + '</td></tr>';
+            }
+            datos_env_prog += "</tbody></table></div>";
+            $("#tab_envios_prog").html(datos_env_prog);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            table_env_prog = $('#tableEnvProgram').DataTable({
+                'scrollX': true,
+                'pageLength': 50
+            });
+
+//            table_env_prog.on('search.dt', function () {
+//                num_filas = table_env_prog.rows().count();
+//                alert(num_filas);
+//            });
+
+            $("div#tableEnvProgram_filter input").keyup(function (e) {
+                if (e.keyCode == 13) {
+
+                    filtro_in = $('#tableEnvProgram_filter input').val();
+//                    alert(filtro_in);
+                    if (filtro_in === "" || filtro_in === null) {
+                        alert("No ha seleccionado un filtro valido");
+//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+                    } else {
+
+                        num_filas = $("#tableEnvProgram").dataTable()._('tr', {"filter": "applied"});
+                        id = "'" + num_filas[0] + "'";//cadena de texto con la información de la fila separado por comas
+                        faccion = id.split(',');
+                        guia_enter = faccion[1];
+
+                        if (guia_enter === undefined) {
+                            alert("No se encontraron resultados");
+                        } else {
+                            //reset del campo de busqueda y despliegue de tabla
+                            table_env_prog.search("").draw();
+                            $("div#tableEnvProgram_filter input").val("");
+//                            alert(guia_enter);
+
+                            if (mensajero === undefined || mensajero === '0|0') {
+                                alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
+                            } else {
+                                insertar_env_prog(guia_enter, mensajero);
+                                consulta_tabla_env_mens(mensajero);
+                                $('#fila_pro' + guia_enter + '').remove();
+                                alertify.success('Envio Guia Logi N° ' + guia_enter + ' cargado');
+                            }
+                        }
+
+                    }
+
+                }
+            });
+
+            clickAdd_env_mensajero();
+            clickElim_fila();
+        } else {
+            $("#tab_envios_prog").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga envio a mensajero
+ * @returns {undefined}
+ */
+function clickAdd_env_mensajero() {
+    $("#tableEnvProgram").on("click", ".addEnvio", function () {
+//    $(".actuestos").click(function () {
+        add_envio = $(this).attr("addEnv");
+        if (mensajero === undefined || mensajero === '0|0') {
+            alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
+        } else {
+            insertar_env_prog(add_envio, mensajero);
+//        $('#ModalActuEstOS').modal('toggle');
+            alertify.success('Envio Guia Logi N° ' + add_envio + ' cargado');
+            //reset del campo de busqueda y despliegue de tabla
+            table_env_prog.search("").draw();
+            $("div#tableEnvProgram_filter input").val("");
+        }
+//        form_act_est_os(arreglo_env_prog, add_envio);
+    });
+}
+var fil_delete;
+/**
+ * Metodo que elimina en la vista la fila cargada a mensajero
+ * @returns {undefined}
+ */
+function clickElim_fila() {
+    $("#tableEnvProgram").on("click", ".DelFil", function () {
+//    $(".actuestos").click(function () {
+        fil_delete = $(this).attr("fil");
+    });
+}
+
+
+/**
+ * Metodo que guarda asignacion de envio programado a mensajero
+ * @param {type} guia
+ * @param {type} mensajero
+ * @returns {undefined}
+ */
+function insertar_env_prog(guia, mensajero) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_est_prog_controller.php";
+    cadena = {"guia": guia, "mensajero": mensajero}; //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (mensajero === undefined || mensajero === '0|0') {
+
+        } else {
+            consulta_tabla_env_mens(mensajero);
+            $('#fila_pro' + fil_delete + '').remove();
+        }
     };
     f_ajax(request, cadena, metodo);
 }
