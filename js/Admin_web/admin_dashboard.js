@@ -31,6 +31,7 @@ $(document).ready(function () {
     vista_dashboard();
 
     consulta_os_program_ini();
+    
 });
 
 /**
