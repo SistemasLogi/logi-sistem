@@ -31,7 +31,7 @@ $(document).ready(function () {
     vista_dashboard();
 
     consulta_os_program_ini();
-    
+
 });
 
 /**
@@ -3594,7 +3594,7 @@ function cargaProdAlistamiento() {
 
                     blq++;
 
-                    datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                    datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
                     datosAlist += '<td>' + tmp.pro_desc + '</td>';
                     datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
                     datosAlist += '<td>' + tmp.total + '</td>';
@@ -3622,7 +3622,7 @@ function cargaProdAlistamiento() {
                         //***si es la ultima fila del arreglo**//
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td>' + tmp.total + '</td>';
@@ -3674,7 +3674,7 @@ function cargaProdAlistamiento() {
 
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td>' + tmp.total + '</td>';
@@ -3695,7 +3695,7 @@ function cargaProdAlistamiento() {
 
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td>' + tmp.total + '</td>';
@@ -3741,7 +3741,7 @@ function cargaProdAlistamiento() {
 
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '"><td>' + tmp.pro_sku + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
                             datosAlist += '<td>' + tmp.pro_desc + '</td>';
                             datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td>' + tmp.total + '</td>';
@@ -3898,6 +3898,8 @@ function clickPaginasAlistNext() {
         }, 1200);
     });
 }
+
+var edit_prod;
 /**
  * Metodo que carga el modal con formulario para seleccion de producto en alistamiento 
  * @returns {undefined}
@@ -3920,6 +3922,7 @@ function clickEditProd() {
                 <div class="form-group input-group col-md-6">\n\
                   <label for="inputSkuAls">SKU</label>\n\
                   <div class="input-group">\n\
+                  <input type="text" class="form-control" id="inputFila" name="inputFila" style="display: none;">\n\
                   <input type="text" class="form-control" id="inputSkuAls" name="inputSkuAls" placeholder="sku">\n\
                   <span class="input-group-btn">\n\
                     <button class="btn btn-success" type="button" id="btnBusSkuAlst" name="btnBusSkuAlst">Go!</button>\n\
@@ -3954,6 +3957,7 @@ function clickEditProd() {
                 </div>\n\
               </div>\n\
               <button type="submit" class="btn btn-primary" id="btnGuarProdActAlist" name="btnGuarProdActAlist">Guardar</button>\n\
+              <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\
             </form>');
 //        alert("click en " + edit_prod);
 //        form_act_est_os(arregloEstOS, actu_es_os);
@@ -3964,6 +3968,12 @@ function clickEditProd() {
                 consulta_prod_alist_sku($("#inputSkuAls").val());
             }
         });
+        $("#btnGuarProdActAlist").click(function () {
+            validarActuProdItem();
+        });
+
+        click_btnElim_item_alist();
+
         $("#inputCantiAls").bind('input propertychange', function () {
 //            alert($("#inputCantiAls").val());
             total = $("#inputStockAls").val();
@@ -4020,6 +4030,7 @@ function consulta_prod_alist(csc) {
 
         $("#numVenta").html(tmp_dat_prod.t_sal_num_venta);
         $("#numGuiaOP").html(tmp_dat_prod.t_sal_guia_num);
+        $("#inputFila").val(edit_prod);
         $("#inputSkuAls").val(tmp_dat_prod.pro_sku);
         $("#inputCodAls").val(tmp_dat_prod.t_pro_cod);
         $("#inputDescAls").val(tmp_dat_prod.pro_desc);
@@ -4055,6 +4066,75 @@ function consulta_prod_alist_sku(sku) {
         cantidad = $("#inputCantiAls").val();
         teorico = parseInt(total) - parseInt(cantidad);
         $("#inputTeoAls").val(teorico);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que genera mensaje de confirmacion para eliminar item de producto en alistamiento
+ * @returns {undefined}
+ */
+function click_btnElim_item_alist() {
+//    $("#tableEstEnv").on("click", ".eliminaee", function () {
+    $("#btnElimProdActAlist").click(function () {
+//        alert("elimina " + edit_prod);
+        mensajeConfirmarElim(elimina_item_alist);
+    });
+}
+
+/**
+ * Metodo que elimina un registro en la tabla salidas_prod_temp
+ * @returns {undefined}
+ */
+function elimina_item_alist() {
+    request = "Controller/AdminC/AdministrarEnvios/eliminar_item_alist_controller.php";
+    cadena = "csc=" + edit_prod; //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            mensajeEliminadoExitoso();
+            $('#ModalActuEstOS').modal('hide');
+            $('#fila' + edit_prod + '').remove();
+        } else {
+            mensaje_No_Eliminado();
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que permite validar campos en formulario orden servicio actualizar
+ * @returns {undefined}
+ */
+function validarActuProdItem() {
+    $("#formModalProd").validate({
+        rules: {
+            inputSkuAls: {
+                required: true
+            },
+            inputCantiAls: {
+                required: true,
+                number: true
+            }
+        },
+        submitHandler: function (form) {
+            actualizarProdItemAlist();
+        }
+    });
+}
+/**
+ * Metodo que actualiza datos de un producto en una venta de alistamiento
+ * @returns {undefined}
+ */
+function actualizarProdItemAlist() {
+    request = "Controller/AdminC/AdministrarEnvios/actualizar_prod_item_alist_controller.php";
+    cadena = $("#formModalProd").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Producto Actualizado!');
+            $('#ModalActuEstOS').modal('hide');
+//            $('#fila' + edit_prod + '').remove();
+        } else {
+            alertify.error('No se pudo realizar la Actualización!');
+//            alert(datos);
+        }
     };
     f_ajax(request, cadena, metodo);
 }

@@ -149,4 +149,33 @@ class Producto_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * funcion que permite eliminar un registro en tabla salidas_prod_temp
+     * @param type $csc
+     */
+    function elimProdTemp($csc) {
+        $sql = "DELETE FROM salidas_prod_temp "
+                . "WHERE t_csc = " . $csc . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que actualiza un item en tabla salidas_prod_temp para alistamiento
+     * @param type $cod_prod
+     * @param type $cantidad
+     * @param type $csc
+     * @return type
+     */
+    function actualizarItemProdAlist($cod_prod, $cantidad, $csc) {
+        $sql = "UPDATE salidas_prod_temp SET "
+                . "t_pro_cod = '" . $cod_prod . "', "
+                . "t_sal_cantidad = " . $cantidad . " "
+                . "WHERE t_csc = " . $csc . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
 }
