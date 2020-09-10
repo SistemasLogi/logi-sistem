@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/crear_os_cliente.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/eliminar_item_alist_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarProd/consulta_sku_alist_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Orden_serv_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/form_xlsx_alista.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Producto_DAO.php</file>
