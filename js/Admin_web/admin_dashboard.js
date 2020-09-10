@@ -3594,12 +3594,12 @@ function cargaProdAlistamiento() {
 
                     blq++;
 
-                    datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
-                    datosAlist += '<td>' + tmp.pro_desc + '</td>';
-                    datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
-                    datosAlist += '<td>' + tmp.total + '</td>';
-                    datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
-                    datosAlist += '<td>' + tmp.estimado + '</td>';
+                    datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                    datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                    datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                    datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                    datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                    datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                     datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                     if (i === arregloAlista[arregloAlista.length - 1]) {
@@ -3622,12 +3622,12 @@ function cargaProdAlistamiento() {
                         //***si es la ultima fila del arreglo**//
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
-                            datosAlist += '<td>' + tmp.total + '</td>';
-                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
-                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
@@ -3674,12 +3674,12 @@ function cargaProdAlistamiento() {
 
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
-                            datosAlist += '<td>' + tmp.total + '</td>';
-                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
-                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
@@ -3695,12 +3695,12 @@ function cargaProdAlistamiento() {
 
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
-                            datosAlist += '<td>' + tmp.total + '</td>';
-                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
-                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                         } else {
@@ -3741,12 +3741,12 @@ function cargaProdAlistamiento() {
 
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td>' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td>' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td>' + tmp.pro_ubicacion + '</td>';
-                            datosAlist += '<td>' + tmp.total + '</td>';
-                            datosAlist += '<td>' + tmp.t_sal_cantidad + '</td>';
-                            datosAlist += '<td>' + tmp.estimado + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             venta = tmp.t_sal_num_venta;
@@ -4024,9 +4024,9 @@ function consulta_prod_alist(csc) {
     request = "Controller/AdminC/AdministrarProd/consulta_prod_alist_controller.php";
     cadena = "csc=" + csc;
     metodo = function (datos) {
-        arreglo_datos_prod = $.parseJSON(datos);
+        arreglo_datos_prod_sku = $.parseJSON(datos);
 
-        tmp_dat_prod = arreglo_datos_prod[0];
+        tmp_dat_prod = arreglo_datos_prod_sku[0];
 
         $("#numVenta").html(tmp_dat_prod.t_sal_num_venta);
         $("#numGuiaOP").html(tmp_dat_prod.t_sal_guia_num);
@@ -4042,6 +4042,10 @@ function consulta_prod_alist(csc) {
     };
     f_ajax(request, cadena, metodo);
 }
+
+var arreglo_datos_prod_sku;
+var cantidad;
+var teorico;
 /**
  * Metodo que carga en el form del modal datos de producto consultado
  * @param {type} sku
@@ -4130,7 +4134,21 @@ function actualizarProdItemAlist() {
         if (datos == 1) {
             alertify.success('Producto Actualizado!');
             $('#ModalActuEstOS').modal('hide');
-//            $('#fila' + edit_prod + '').remove();
+            $('#td1' + edit_prod + '').html("");
+            $('#td2' + edit_prod + '').html("");
+            $('#td3' + edit_prod + '').html("");
+            $('#td4' + edit_prod + '').html("");
+            $('#td5' + edit_prod + '').html("");
+            $('#td6' + edit_prod + '').html("");
+            
+            tmp_prod_item = arreglo_datos_prod_sku[0];
+
+            $('#td1' + edit_prod + '').html(tmp_prod_item.pro_sku);
+            $('#td2' + edit_prod + '').html(tmp_prod_item.pro_desc);
+            $('#td3' + edit_prod + '').html(tmp_prod_item.pro_ubicacion);
+            $('#td4' + edit_prod + '').html(tmp_prod_item.total);
+            $('#td5' + edit_prod + '').html(cantidad);
+            $('#td6' + edit_prod + '').html(teorico);
         } else {
             alertify.error('No se pudo realizar la Actualización!');
 //            alert(datos);
