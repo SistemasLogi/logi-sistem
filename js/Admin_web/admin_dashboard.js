@@ -4160,6 +4160,10 @@ function actualizarProdItemAlist() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que determina los check no seleccionados
+ * @returns {undefined}
+ */
 function ventasSelected() {
     $("input:checkbox:not(:checked)").each(function () {
 
