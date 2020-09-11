@@ -3552,7 +3552,7 @@ function cargaProdAlistamiento() {
             venta = 0;
             blq = 0;
             pag = 1;
-            datosAlist = '<div><button type="button" class="btn btn-success float-right">Guaradar Todo</button></div>';
+            datosAlist = '<div><button type="button" class="btn btn-success float-right" id="btnSaveAllVentas" name="btnSaveAllVentas">Guaradar Todo</button></div>';
 
             for (i = 0; i < arregloAlista.length; i++) {
                 tmp = arregloAlista[i];
@@ -3576,7 +3576,7 @@ function cargaProdAlistamiento() {
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                         <div class="form-group col-3">\n\
                           <div class="custom-control custom-switch">\n\
-                          <input type="checkbox" class="custom-control-input cheBlq" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
+                          <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
                           <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                         </div></div></div>';
                     datosAlist += '<div class="dropdown-divider"></div>\n\
@@ -3656,7 +3656,7 @@ function cargaProdAlistamiento() {
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                                 <div class="form-group col-3">\n\
                                   <div class="custom-control custom-switch">\n\
-                                  <input type="checkbox" class="custom-control-input cheBlq" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
+                                  <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
                                   <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                                 </div></div></div>';
                             datosAlist += '<div class="dropdown-divider"></div>\n\
@@ -3723,7 +3723,7 @@ function cargaProdAlistamiento() {
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                                 <div class="form-group col-3">\n\
                                   <div class="custom-control custom-switch">\n\
-                                  <input type="checkbox" class="custom-control-input cheBlq" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
+                                  <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
                                   <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                                 </div></div></div>';
                             datosAlist += '<div class="dropdown-divider"></div>\n\
@@ -3790,6 +3790,10 @@ function cargaProdAlistamiento() {
             clickPaginasAlistNext();
             clickEditProd();
             checkedVenta();
+
+            $("#btnSaveAllVentas").click(function () {
+                ventasSelected();
+            });
 
         } else {
             $("#bloques").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -4140,7 +4144,7 @@ function actualizarProdItemAlist() {
             $('#td4' + edit_prod + '').html("");
             $('#td5' + edit_prod + '').html("");
             $('#td6' + edit_prod + '').html("");
-            
+
             tmp_prod_item = arreglo_datos_prod_sku[0];
 
             $('#td1' + edit_prod + '').html(tmp_prod_item.pro_sku);
@@ -4155,6 +4159,14 @@ function actualizarProdItemAlist() {
         }
     };
     f_ajax(request, cadena, metodo);
+}
+function ventasSelected() {
+    $("input:checkbox:not(:checked)").each(function () {
+
+        checket = $(this).attr("vent");
+
+        alert(checket);
+    });
 }
 /****************************************************************
  * Metodos de gestion envios
