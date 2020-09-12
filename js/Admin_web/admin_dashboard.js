@@ -3570,7 +3570,7 @@ function cargaProdAlistamiento() {
                 if (i === 0) {
                     //******primera fila****//
                     datosAlist += '<div class="bloque" id="blqPagina' + pag + '"><h4>HOJA ' + pag + '</h4>';
-                    datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                    datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                         <div class="row">\n\
                         <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
@@ -3606,8 +3606,17 @@ function cargaProdAlistamiento() {
 
                         datosAlist += '</tbody></table></div>\n\
                           <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                            <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                            <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                           </span></div>\n\
+                          </div>\n\
+                          <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                          <div class="col-8">\n\
+                            <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                          </div>\n\
+                          <div class="col-3">\n\
+                            <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                          </span></div>\n\
+                          </div>\n\
                         </div></div>';//fin de la tabla
                         datosAlist += '</div>';//fin de la pag
 
@@ -3632,16 +3641,31 @@ function cargaProdAlistamiento() {
 
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
+                              </div>\n\
+                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;"><div class="col-3">\n\
+                                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                              </div>\n\
                             </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
                         } else {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
+                              </div>\n\
+                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="col-8">\n\
+                                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                              </div>\n\
+                              <div class="col-3">\n\
+                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                              </div>\n\
                             </div></div>';//fin de la tabla
 
                             if (blq % 20 == 0) {
@@ -3650,7 +3674,7 @@ function cargaProdAlistamiento() {
                                 datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
-                            datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
                                 <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
@@ -3684,8 +3708,17 @@ function cargaProdAlistamiento() {
 
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
+                              </div>\n\
+                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="col-8">\n\
+                                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                              </div>\n\
+                              <div class="col-3">\n\
+                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                              </div>\n\
                             </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
                         }
@@ -3707,8 +3740,17 @@ function cargaProdAlistamiento() {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
+                              </div>\n\
+                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="col-8">\n\
+                                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                              </div>\n\
+                              <div class="col-3">\n\
+                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </span></div>\n\
+                              </div>\n\
                             </div></div>';//fin de la tabla
 
                             if (blq % 20 == 0) {
@@ -3717,7 +3759,7 @@ function cargaProdAlistamiento() {
                                 datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
-                            datosAlist += '<div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
                                 <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
@@ -3757,8 +3799,17 @@ function cargaProdAlistamiento() {
             }
             datosAlist += '</tbody></table></div>\n\
               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                <button class="btn btn-light" type="button" id="btnGuardar' + venta + '" name="btnGuardar' + venta + '">Go!</button>\n\
+                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
               </span></div>\n\
+              </div>\n\
+              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+              <div class="col-8">\n\
+                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+              </div>\n\
+              <div class="col-3">\n\
+                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+              </span></div>\n\
+              </div>\n\
             </div></div>';//fin de la tabla
             datosAlist += '</div>';//fin de la pag
 
@@ -4007,6 +4058,7 @@ function checkedVenta() {
             $("#blqAlist" + checket + "").removeClass("alert-danger");
             $("#blqAlist" + checket + "").addClass("alert-warning");
             $("#divBtn" + checket + "").show();
+            $("#divBtnCan" + checket + "").hide();
 
 //            alert("activado " + checket);
         } else {
@@ -4014,6 +4066,7 @@ function checkedVenta() {
             $("#blqAlist" + checket + "").removeClass("alert-warning");
             $("#blqAlist" + checket + "").addClass("alert-danger");
             $("#divBtn" + checket + "").hide();
+            $("#divBtnCan" + checket + "").show();
 
 //            alert("No activo el " + checket);
         }
@@ -4169,8 +4222,28 @@ function ventasSelected() {
 
         checket = $(this).attr("vent");
 
-        alert(checket);
+        elimina_item_alist_venta(checket);
     });
+}
+/**
+ * Metodo que elimina un registro en la tabla salidas_prod_temp por numero de venta
+ * @param {type} venta
+ * @returns {elimina_item_alist_venta}
+ */
+function elimina_item_alist_venta(venta) {
+    request = "Controller/AdminC/AdministrarEnvios/eliminar_venta_alist_controller.php";
+    cadena = "venta=" + venta; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        if (datos == 1) {
+            alertify.message('Venta ' + venta + ' cancelada', 2);
+//            $("#sec" + venta + "").remove();
+            cargaProdAlistamiento();
+        } else {
+            alertify.error('Error al cancelar venta N° ' + venta + ' en tabla salidas temp.', 5);
+        }
+    };
+    f_ajax(request, cadena, metodo);
 }
 /****************************************************************
  * Metodos de gestion envios

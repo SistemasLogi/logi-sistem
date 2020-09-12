@@ -150,7 +150,7 @@ class Producto_DAO {
     }
 
     /**
-     * funcion que permite eliminar un registro en tabla salidas_prod_temp
+     * funcion que permite eliminar un registro en tabla salidas_prod_temp sugun su consecutivo
      * @param type $csc
      */
     function elimProdTemp($csc) {
@@ -173,6 +173,19 @@ class Producto_DAO {
                 . "t_pro_cod = '" . $cod_prod . "', "
                 . "t_sal_cantidad = " . $cantidad . " "
                 . "WHERE t_csc = " . $csc . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * funcion que permite eliminar registros en tabla salidas_prod_temp
+     * sugun un numero de venta
+     * @param type $venta
+     */
+    function elimProdTempVent($venta) {
+        $sql = "DELETE FROM salidas_prod_temp "
+                . "WHERE t_sal_num_venta = " . $venta . ";";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);
