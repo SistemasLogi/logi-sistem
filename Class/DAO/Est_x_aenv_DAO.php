@@ -31,4 +31,22 @@ class Est_x_aenv_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que inserta registro en tabla estados x aenvio segun una venta
+     * @param type $est_id
+     * @param type $fech_hora
+     * @param type $novedad
+     * @param type $venta
+     * @param type $os_id
+     * @return type
+     */
+    function insertarEstado_x_AEnvio_Venta($est_id, $fech_hora, $novedad, $venta, $os_id) {
+        $sql = "INSERT INTO est_x_aenv "
+                . "SELECT ae.aen_id, " . $est_id . " AS estado, '" . $fech_hora . "' AS fecha, '" . $novedad . "' AS novedad "
+                . "FROM a_envio AS ae WHERE ae.aen_venta = " . $venta . " AND ae.os_id = " . $os_id . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
 }

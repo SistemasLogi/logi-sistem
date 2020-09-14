@@ -4,14 +4,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/crear_os_cliente.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Orden_serv_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/insertar_ord_serv_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarCliente/consulta_cli_x_num_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/leer_xlsx_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Producto_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarSucursal/consulta_suc_x_id_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/AEnvio_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/gestion_os.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/asignar_mens.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_aenv_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Cliente/cliente_dashboard.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/leer_xlsx_alist_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/gestion_envios.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Estado_x_env_VO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_serv_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/carga_xlsx_alist_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Stock_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/form_xlsx_alista.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/consulta_alist_prod_stock_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_os.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/AEnvio_VO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/actualizar_os_controller.php</file>
         </group>
     </open-files>
 </project-private>

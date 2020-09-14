@@ -3412,6 +3412,7 @@ function datos_suc_selected_en_proceso() {
     };
     f_ajax(request, cadena, metodo);
 }
+var orden_serv;
 /**
  * Metodo que retorna los datos de os en proceso picking
  * @returns {undefined}
@@ -3423,7 +3424,7 @@ function datos_os_picking_en_proceso() {
         arreglo_datos_os = $.parseJSON(datos);
 
         tmp_dat_os = arreglo_datos_os[0];
-
+        orden_serv = tmp_dat_os.os_id;
         $("#numOrden").html("N° OS : " + tmp_dat_os.os_id + "");
     };
     f_ajax(request, cadena, metodo);
@@ -4220,9 +4221,10 @@ function actualizarProdItemAlist() {
 function ventasSelected() {
     $("input:checkbox:not(:checked)").each(function () {
 
-        checket = $(this).attr("vent");
+        checket_venta = $(this).attr("vent");
 
-        elimina_item_alist_venta(checket);
+        elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
+        insertar_est_x_aenv(4, $("#inputNovedad" + checket_venta + "").val(), checket_venta, orden_serv);
     });
 }
 /**
@@ -4241,6 +4243,27 @@ function elimina_item_alist_venta(venta) {
             cargaProdAlistamiento();
         } else {
             alertify.error('Error al cancelar venta N° ' + venta + ' en tabla salidas temp.', 5);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que inserta un registro en la tabla est_x_aenv
+ * @param {type} estado
+ * @param {type} novedad
+ * @param {type} venta
+ * @param {type} os_num
+ * @returns {undefined}
+ */
+function insertar_est_x_aenv(estado, novedad, venta, os_num) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_est_aenv_controller.php";
+    cadena = {"estado": estado, "novedad": novedad, "venta": venta, "os_num": os_num}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        if (datos == 1) {
+            alertify.success('Estado Acualizado venta N° ' + venta, 2);
+        } else {
+            alertify.error('Error al actualizar estado venta N° ' + venta, 5);
         }
     };
     f_ajax(request, cadena, metodo);

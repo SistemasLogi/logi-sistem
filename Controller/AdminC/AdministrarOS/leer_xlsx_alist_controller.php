@@ -62,10 +62,11 @@ if ($_POST) {
                     $aenvio_dao = new AEnvio_DAO();
 
                     $aenvio_vo->setAenv_guia($sheetData[2]['A']);
+                    $aenvio_vo->setAenv_venta($sheetData[2]['B']);
                     $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
                     $aenvio_vo->setAenv_operador_id($sheetData[2]['H']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
-//                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);
+                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);//guarda la p´rimara fila del xlsx
 
                     $guia_num = $sheetData[2]['A'];
 
