@@ -3615,7 +3615,7 @@ function cargaProdAlistamiento() {
                             <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                           </div>\n\
                           <div class="col-3">\n\
-                            <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                            <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                           </span></div>\n\
                           </div>\n\
                         </div></div>';//fin de la tabla
@@ -3645,9 +3645,12 @@ function cargaProdAlistamiento() {
                                 <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
-                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;"><div class="col-3">\n\
+                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="col-8">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
-                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-3">\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -3664,7 +3667,7 @@ function cargaProdAlistamiento() {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                               <div class="col-3">\n\
-                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -3717,7 +3720,7 @@ function cargaProdAlistamiento() {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                               <div class="col-3">\n\
-                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -3749,7 +3752,7 @@ function cargaProdAlistamiento() {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                               <div class="col-3">\n\
-                                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -3808,7 +3811,7 @@ function cargaProdAlistamiento() {
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
               <div class="col-3">\n\
-                <button class="btn btn-danger" type="button" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
               </span></div>\n\
               </div>\n\
             </div></div>';//fin de la tabla
@@ -3842,9 +3845,11 @@ function cargaProdAlistamiento() {
             clickPaginasAlistNext();
             clickEditProd();
             checkedVenta();
+            click_No_gestionarVenta();
 
             $("#btnSaveAllVentas").click(function () {
                 ventasSelected();
+                cargaProdAlistamiento();
             });
 
         } else {
@@ -4047,7 +4052,7 @@ function clickEditProd() {
     });
 }
 /**
- * 
+ * Metodo que se encarga de cambiar color al desactivar un check
  * @returns {undefined}
  */
 function checkedVenta() {
@@ -4215,6 +4220,20 @@ function actualizarProdItemAlist() {
     f_ajax(request, cadena, metodo);
 }
 /**
+ * Metodo que elimina venta de tabla salidas temp y actualiza estado en tabla est_x_aenv
+ * @returns {undefined}
+ */
+function click_No_gestionarVenta() {
+//    $('.cheBlq').on('click', function () {
+    $('.ventcancel').click(function () {
+        esta_venta = $(this).attr("btCanVe");
+
+        elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
+        insertar_est_x_aenv(4, $("#inputNovedad" + esta_venta + "").val(), esta_venta, orden_serv);
+
+    });
+}
+/**
  * Metodo que determina los check no seleccionados
  * @returns {undefined}
  */
@@ -4239,8 +4258,8 @@ function elimina_item_alist_venta(venta) {
 //        alert(datos);
         if (datos == 1) {
             alertify.message('Venta ' + venta + ' cancelada', 2);
-//            $("#sec" + venta + "").remove();
-            cargaProdAlistamiento();
+            $("#sec" + venta + "").remove();
+
         } else {
             alertify.error('Error al cancelar venta N° ' + venta + ' en tabla salidas temp.', 5);
         }
