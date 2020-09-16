@@ -83,7 +83,7 @@ if ($_POST) {
                             $dato_prod_dec = json_decode($dato_prod);
                             $observ = "";
                             $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $numero_suc . ", "
-                                    . "'" . $dato_prod_dec[0]->pro_cod . "', " . $sheetData[$i]['A'] . ", "
+                                    . "'" . $dato_prod_dec[0]->pro_cod . "', '" . $sheetData[$i]['A'] . "', "
                                     . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
                                     . "'" . $sheetData[$i]['G'] . "', '" . $sheetData[$i]['H'] . "', '" . $sheetData[$i]['I'] . "', "
                                     . "'" . $sheetData[$i]['E'] . "', " . $sheetData[$i]['U'] . ", " . $sheetData[$i]['J'] . ", "
