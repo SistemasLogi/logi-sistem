@@ -64,7 +64,7 @@ if ($_POST) {
                     $aenvio_vo->setAenv_guia($sheetData[2]['A']);
                     $aenvio_vo->setAenv_venta($sheetData[2]['B']);
                     $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
-                    $aenvio_vo->setAenv_operador_id($sheetData[2]['H']);
+                    $aenvio_vo->setAenv_operador_id($sheetData[2]['T']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
                     $aenvio_dao->insertarAlistEnvio($aenvio_vo);//guarda la p´rimara fila del xlsx
 
@@ -85,7 +85,11 @@ if ($_POST) {
                             $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $numero_suc . ", "
                                     . "'" . $dato_prod_dec[0]->pro_cod . "', " . $sheetData[$i]['A'] . ", "
                                     . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
-                                    . "'" . $sheetData[$i]['F'] . "', '" . $sheetData[$i]['G'] . "'),";
+                                    . "'" . $sheetData[$i]['G'] . "', '" . $sheetData[$i]['H'] . "', '" . $sheetData[$i]['I'] . "', "
+                                    . "'" . $sheetData[$i]['E'] . "', " . $sheetData[$i]['U'] . ", " . $sheetData[$i]['J'] . ", "
+                                    . "" . $sheetData[$i]['K'] . ", " . $sheetData[$i]['L'] . ", " . $sheetData[$i]['M'] . ", "
+                                    . "" . $sheetData[$i]['N'] . ", '" . $sheetData[$i]['O'] . "', '" . $sheetData[$i]['P'] . "', "
+                                    . "'" . $sheetData[$i]['Q'] . "', " . $sheetData[$i]['R'] . ", '" . $sheetData[$i]['S'] . "'),";
 
                             if ($guia_num == $sheetData[$i]['A']) {
                                 
@@ -95,7 +99,7 @@ if ($_POST) {
                                 $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
                                 $aenvio_vo->setAenv_venta($sheetData[$i]['B']);
                                 $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
-                                $aenvio_vo->setAenv_operador_id($sheetData[$i]['H']);
+                                $aenvio_vo->setAenv_operador_id($sheetData[$i]['T']);
                                 $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
 
                                 $aenvio_dao->insertarAlistEnvio($aenvio_vo);
@@ -110,7 +114,7 @@ if ($_POST) {
                     $obj_est_x_aenvio_dao = new Est_x_aenv_DAO();
                     $novedad = "";
 
-                    $obj_est_x_aenvio_dao->insertarEstados_x_AEnvio(1, $_SESSION["fecha_adm_alst"], $novedad, $os_id[0]->os_id);
+                    $obj_est_x_aenvio_dao->insertarEstados_x_AEnvio(1, $_SESSION["fecha_adm_alst"], $novedad, $os_id[0]->os_id);//El primer parametro es el codigo del estado
 
                     //***insertar datos en salidas temp****
                     $reg_tsal_temp = trim($reg_tsalidas_temp, ",");
