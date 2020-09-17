@@ -43,7 +43,7 @@ class Producto_DAO {
     function insertarProductoNuevo($producto_vo) {
         $sql = "INSERT INTO productos VALUES (" . $producto_vo->getSuc_numero() . ", "
                 . "'" . $producto_vo->getCod_prod() . "', '" . $producto_vo->getSku_prod() . "', '" . $producto_vo->getDescripcion() . "', "
-                . "'" . $producto_vo->getUbicacion() . "', '" . $producto_vo->getFecha_reg() . "')";
+                . "'" . $producto_vo->getUbicacion() . "', '" . $producto_vo->getFecha_reg() . "', " . $producto_vo->getCosto_unit() . ")";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);

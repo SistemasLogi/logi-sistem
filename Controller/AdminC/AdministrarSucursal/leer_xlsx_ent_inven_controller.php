@@ -70,6 +70,11 @@ if ($_POST) {
             $producto_vo->setCant_ent($sheetData[$i]['D']);
             $producto_vo->setFecha($fecha_hora_now);
             $producto_vo->setFecha_reg($fecha_hora_now);
+            if(empty($sheetData[$i]['F'])){
+                $producto_vo->setCosto_unit(0);
+            }  else {
+                $producto_vo->setCosto_unit($sheetData[$i]['F']);
+            }
             $producto_vo->setDetalle("");
 
             $cod = $sheetData[$i]['A'];
@@ -83,7 +88,7 @@ if ($_POST) {
             if (empty($existe)) {
                 $reg_new .= "(" . $producto_vo->getSuc_numero() . ", "
                         . "'" . $producto_vo->getCod_prod() . "', '" . $producto_vo->getSku_prod() . "', '" . $producto_vo->getDescripcion() . "', "
-                        . "'" . $producto_vo->getUbicacion() . "', '" . $producto_vo->getFecha_reg() . "'),";
+                        . "'" . $producto_vo->getUbicacion() . "', '" . $producto_vo->getFecha_reg() . "', " . $producto_vo->getCosto_unit() . "),";
 
                 $stock_vo->setNum_sucursal($suc);
                 $stock_vo->setCod_producto($sheetData[$i]['A']);
@@ -96,12 +101,12 @@ if ($_POST) {
                 //*******actualizar stock con funcion estructurada*****//
             } else {
                 $stk_prod = json_encode($stock_dao->consultaStockProd($producto_vo->getCod_prod()));
-                $stk_prod_dec = json_decode($stk_prod);                
-                $stk_fecha_old= $stk_prod_dec[0]->stk_fecha;
+                $stk_prod_dec = json_decode($stk_prod);
+                $stk_fecha_old = $stk_prod_dec[0]->stk_fecha;
                 $stk_actual = json_encode($stock_dao->consultaStockActual($producto_vo->getCod_prod(), $suc, $stk_fecha_old, $fecha_hora_now));
                 $stk_actual_dec = json_decode($stk_actual);
                 $nueva_cantidad = ($stk_actual_dec[0]->total + $sheetData[$i]['D']);
-                
+
                 $stock_dao->actualizarStock($fecha_hora_now, $nueva_cantidad, $suc, $producto_vo->getCod_prod());
             }
             $reg_todos .= "('" . $producto_vo->getFecha() . "', " . $producto_vo->getSuc_numero() . ", "

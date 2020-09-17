@@ -23,6 +23,15 @@ class Producto_VO {
     private $detalle;
     private $fecha;
     private $fecha_reg;
+    private $costo_unit;
+
+    function getCosto_unit() {
+        return $this->costo_unit;
+    }
+
+    function setCosto_unit($costo_unit) {
+        $this->costo_unit = $costo_unit;
+    }
 
     function getFecha_reg() {
         return $this->fecha_reg;
