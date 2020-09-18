@@ -4257,7 +4257,7 @@ function elimina_item_alist_venta(venta) {
     metodo = function (datos) {
 //        alert(datos);
         if (datos == 1) {
-            alertify.message('Venta ' + venta + ' cancelada', 2);
+            alertify.message('Venta ' + venta + ' procesada', 2);
             $("#sec" + venta + "").remove();
 
         } else {
