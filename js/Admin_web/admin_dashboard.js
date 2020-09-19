@@ -3607,7 +3607,7 @@ function cargaProdAlistamiento() {
 
                         datosAlist += '</tbody></table></div>\n\
                           <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                            <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                           </span></div>\n\
                           </div>\n\
                           <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -3642,7 +3642,7 @@ function cargaProdAlistamiento() {
 
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                               <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -3659,7 +3659,7 @@ function cargaProdAlistamiento() {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                               <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -3712,7 +3712,7 @@ function cargaProdAlistamiento() {
 
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                               <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -3744,7 +3744,7 @@ function cargaProdAlistamiento() {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </span></div>\n\
                               </div>\n\
                               <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -3803,7 +3803,7 @@ function cargaProdAlistamiento() {
             }
             datosAlist += '</tbody></table></div>\n\
               <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                <button class="btn btn-light" type="button" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
               </span></div>\n\
               </div>\n\
               <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -3846,6 +3846,7 @@ function cargaProdAlistamiento() {
             clickEditProd();
             checkedVenta();
             click_No_gestionarVenta();
+            click_gestionar_Venta();
 
             $("#btnSaveAllVentas").click(function () {
                 ventasSelected();
@@ -4220,6 +4221,30 @@ function actualizarProdItemAlist() {
     f_ajax(request, cadena, metodo);
 }
 /**
+ * Metodo que guarda y gestiona venta de tabla salidas temp y actualiza estado en tabla est_x_aenv
+ * @returns {undefined}
+ */
+function click_gestionar_Venta() {
+//    $('.cheBlq').on('click', function () {
+    $('.ventguardar').click(function () {
+        esta_venta = $(this).attr("btAddVe");
+
+//        elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
+//        insertar_est_x_aenv(4, $("#inputNovedad" + esta_venta + "").val(), esta_venta, orden_serv);
+        comprobar_os_creada();
+
+    });
+}
+function comprobar_os_creada() {
+    request = "Controller/AdminC/AdministrarOS/validar_sesion_os_controller.php";
+    cadena = "venta=" + venta; //envio de parametros por POST
+    metodo = function (datos) {
+        alert(datos);
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
  * Metodo que elimina venta de tabla salidas temp y actualiza estado en tabla est_x_aenv
  * @returns {undefined}
  */
@@ -4240,7 +4265,7 @@ function click_No_gestionarVenta() {
 function ventasSelected() {
     $("input:checkbox:not(:checked)").each(function () {
 
-        checket_venta = $(this).attr("vent");
+        checket_venta = $(this).attr("vent");//numeo de venta
 
         elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
         insertar_est_x_aenv(4, $("#inputNovedad" + checket_venta + "").val(), checket_venta, orden_serv);

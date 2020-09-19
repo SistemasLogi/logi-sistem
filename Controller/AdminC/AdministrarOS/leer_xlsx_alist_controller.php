@@ -86,7 +86,7 @@ if ($_POST) {
                                     . "'" . $dato_prod_dec[0]->pro_cod . "', '" . $sheetData[$i]['A'] . "', "
                                     . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
                                     . "'" . $sheetData[$i]['H'] . "', '" . $sheetData[$i]['I'] . "', '" . $sheetData[$i]['J'] . "', "
-                                    . "'" . $sheetData[$i]['E'] . "', " . $sheetData[$i]['V'] . ", " . $sheetData[$i]['K'] . ", "
+                                    . "" . $sheetData[$i]['F'] . ", " . $sheetData[$i]['V'] . ", " . $sheetData[$i]['K'] . ", "
                                     . "" . $sheetData[$i]['L'] . ", " . $sheetData[$i]['M'] . ", " . $sheetData[$i]['N'] . ", "
                                     . "" . $sheetData[$i]['O'] . ", '" . $sheetData[$i]['P'] . "', '" . $sheetData[$i]['Q'] . "', "
                                     . "'" . $sheetData[$i]['R'] . "', " . $sheetData[$i]['S'] . ", '" . $sheetData[$i]['T'] . "'),";
