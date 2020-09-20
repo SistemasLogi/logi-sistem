@@ -101,4 +101,19 @@ class Orden_serv_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que consulta el numero de id del ultimo registro en orden_serv
+     * por cliente y por tipo de servicio
+     * @param type $tipo_doc
+     * @param type $num_doc
+     * @param type $tipo_serv
+     * @return type
+     */
+    function consulta_id_UltimaOS_x_cli($tipo_doc, $num_doc, $tipo_serv) {
+        $sql = "SELECT MAX(os_id) AS num FROM orden_serv "
+                . "WHERE cli_td_id = " . $tipo_doc . " AND cli_num_doc = " . $num_doc . " AND ts_id = " . $tipo_serv . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

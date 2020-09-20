@@ -191,4 +191,15 @@ class Producto_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que retorna los productos por venta en salidas temp
+     * @param type $num_venta
+     * @return type
+     */
+    function consultaProductos_x_venta_salTemp($num_venta) {
+        $sql = "SELECT * FROM salidas_prod_temp WHERE t_sal_num_venta = " . $num_venta . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }
