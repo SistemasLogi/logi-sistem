@@ -202,4 +202,18 @@ class Producto_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que inserta un conjunto de datos a partir de una consulta en tabla salida_prod
+     * @param type $num_venta
+     * @return type
+     */
+    function insertarSalidaProd($num_venta) {
+        $sql = "INSERT INTO salida_prod "
+                . "SELECT NOW() AS fecha, st.t_suc_num_id, st.t_pro_cod, st.t_sal_num_venta, st.t_sal_cantidad, st.t_sal_observaciones "
+                . "FROM salidas_prod_temp AS st WHERE st.t_sal_num_venta = " . $num_venta . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
 }

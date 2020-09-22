@@ -66,7 +66,7 @@ if ($_POST) {
                     $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
                     $aenvio_vo->setAenv_operador_id($sheetData[2]['U']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
-                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);//guarda la p´rimara fila del xlsx
+                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);//guarda la primera fila del xlsx
 
                     $guia_num = $sheetData[2]['A'];
 
