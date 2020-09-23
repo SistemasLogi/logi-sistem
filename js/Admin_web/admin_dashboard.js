@@ -4239,10 +4239,11 @@ function comprobar_os_creada(venta) {
     request = "Controller/AdminC/AdministrarEnvios/gestionar_venta_salid_temp_controller.php";
     cadena = "venta=" + venta; //envio de parametros por POST
     metodo = function (datos) {
+        venta_sale = venta;
         if (datos == 1) {
-            insertar_est_x_aenv(2, $("#inputNovedad" + venta + "").val(), venta, orden_serv);
-            insertar_est_x_aenv(3, $("#inputNovedad" + venta + "").val(), venta, orden_serv);
-            elimina_item_alist_venta(venta);//elimina la seccion de una venta
+            insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
+            insertar_est_x_aenv(3, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
+            elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
         } else {
             alert(datos);
         }
