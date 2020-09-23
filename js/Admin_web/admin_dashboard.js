@@ -4231,15 +4231,21 @@ function click_gestionar_Venta() {
 
 //        elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
 //        insertar_est_x_aenv(4, $("#inputNovedad" + esta_venta + "").val(), esta_venta, orden_serv);
-        comprobar_os_creada();
+        comprobar_os_creada(esta_venta);
 
     });
 }
-function comprobar_os_creada() {
-    request = "Controller/AdminC/AdministrarOS/validar_sesion_os_controller.php";
+function comprobar_os_creada(venta) {
+    request = "Controller/AdminC/AdministrarEnvios/gestionar_venta_salid_temp_controller.php";
     cadena = "venta=" + venta; //envio de parametros por POST
     metodo = function (datos) {
-        alert(datos);
+        if (datos == 1) {
+            insertar_est_x_aenv(2, $("#inputNovedad" + venta + "").val(), venta, orden_serv);
+            insertar_est_x_aenv(3, $("#inputNovedad" + venta + "").val(), venta, orden_serv);
+            elimina_item_alist_venta(venta);//elimina la seccion de una venta
+        } else {
+            alert(datos);
+        }
 
     };
     f_ajax(request, cadena, metodo);

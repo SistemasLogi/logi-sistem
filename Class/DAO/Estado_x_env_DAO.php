@@ -16,6 +16,7 @@ class Estado_x_env_DAO {
 
     /**
      * Funcion que inserta datos en tabla est_x_envio por consulta de orden de servocio
+     * para estado programado
      * @param type $ord_ser_vo
      */
     function insertarEstado_x_envio($ord_ser_vo) {

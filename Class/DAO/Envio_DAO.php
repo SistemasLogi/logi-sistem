@@ -50,4 +50,32 @@ class Envio_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que inserta un registro en tabla envio a partir de una consulta
+     * @param type $num_os
+     * @param type $num_venta
+     * @return type
+     */
+    function insertarEnvio_from_select($num_os, $num_venta) {
+        $sql = "INSERT INTO envio "
+                . "SELECT null AS id, t_sal_guia_num, " . $num_os . " AS os, t_sal_cant_env, t_sal_peso, t_sal_alto, t_sal_ancho, "
+                . "t_sal_largo, 'URBANO' AS trayecto, t_sal_nom_dest, t_sal_direc_dest, t_sal_tel_destino, "
+                . "t_sal_ciudad, t_sal_depto, t_sal_observ_env, t_sal_contiene, t_sal_val_decl "
+                . "FROM salidas_prod_temp  WHERE t_sal_num_venta = " . $num_venta . " GROUP BY t_sal_num_venta;";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que retorna el ultimo id generado en envio por os
+     * @param type $os
+     * @return type
+     */
+    function consulta_max_id_x_os($os) {
+        $sql = "SELECT MAX(en_id) AS id_env FROM envio WHERE os_id = " . $os . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }
