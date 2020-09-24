@@ -4240,9 +4240,12 @@ function comprobar_os_creada(venta) {
     cadena = "venta=" + venta; //envio de parametros por POST
     metodo = function (datos) {
         venta_sale = venta;
-        if (datos == 1) {
+        if (datos == 1 || datos == 2) {
             insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
             insertar_est_x_aenv(3, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
+            elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
+        } else if (datos == 3) {
+            insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
             elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
         } else {
             alert(datos);
@@ -4546,7 +4549,8 @@ function clickAdd_env_mensajero() {
 //        $('#ModalActuEstOS').modal('toggle');
             alertify.success('Envio Guia Logi N° ' + add_envio + ' cargado');
             //reset del campo de busqueda y despliegue de tabla
-            table_env_prog.search("").draw();
+//            table_env_prog.search("").draw();
+            consulta_tabla_env_programados();
             $("div#tableEnvProgram_filter input").val("");
         }
 //        form_act_est_os(arreglo_env_prog, add_envio);
