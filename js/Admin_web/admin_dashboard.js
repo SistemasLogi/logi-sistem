@@ -3849,6 +3849,7 @@ function cargaProdAlistamiento() {
             click_gestionar_Venta();
 
             $("#btnSaveAllVentas").click(function () {
+                ventasNoSelected();
                 ventasSelected();
                 cargaProdAlistamiento();
             });
@@ -4235,6 +4236,11 @@ function click_gestionar_Venta() {
 
     });
 }
+/**
+ * Metodo que comprueba existencia de os para recoleccion y distribucion 
+ * @param {type} venta
+ * @returns {comprobar_os_creada}
+ */
 function comprobar_os_creada(venta) {
     request = "Controller/AdminC/AdministrarEnvios/gestionar_venta_salid_temp_controller.php";
     cadena = "venta=" + venta; //envio de parametros por POST
@@ -4269,16 +4275,34 @@ function click_No_gestionarVenta() {
     });
 }
 /**
- * Metodo que determina los check no seleccionados
+ * Metodo que determina los check no seleccionados para procesar eliminar ventas en tabla temp
  * @returns {undefined}
  */
-function ventasSelected() {
+function ventasNoSelected() {
     $("input:checkbox:not(:checked)").each(function () {
 
         checket_venta = $(this).attr("vent");//numeo de venta
 
         elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
         insertar_est_x_aenv(4, $("#inputNovedad" + checket_venta + "").val(), checket_venta, orden_serv);
+    });
+}
+/**
+ * Metodo que determina los check seleccionados para creacion y actualizacion de estados
+ * @returns {undefined}
+ */
+function ventasSelected() {
+    $("input:checkbox:checked").each(function () {
+
+        checket_venta = $(this).attr("vent");//numeo de venta
+
+        if (typeof (checket_venta) === 'undefined') {
+
+        } else {
+            comprobar_os_creada(checket_venta);
+        }
+
+
     });
 }
 /**
@@ -4406,6 +4430,7 @@ function consulta_tabla_env_mens(value) {
         if (arreglo_env_est !== 0) {
             datos_env_est = "<div class='table-responsive text-nowrap' id='tablaEstadoEnv'><table class='table table-striped table-sm table-bordered' id='tableEstEnvio'>\n\
                              <thead><tr style='background-color: #9bb5ff'>\n\
+                             <th scope='col'></th>\n\
                              <th scope='col'>GUIA LOGI</th>\n\
                              <th scope='col'>GUIA OP</th>\n\
                              <th scope='col'>OS</th>\n\
@@ -4414,7 +4439,15 @@ function consulta_tabla_env_mens(value) {
                              </tr></thead><tbody>";
             for (i = 0; i < arreglo_env_est.length; i++) {
                 tmp = arreglo_env_est[i];
-                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td>' + tmp.exe_en_id + '</td>';
+
+                if (tmp.ts_id == 1) {
+                    color_serv = ' #593196;';
+                } else if (tmp.ts_id == 2) {
+                    color_serv = ' #18d26e;';
+                }
+
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td><span class="ion-android-mail" style="color: ' + color_serv + '"></span></td>';
+                datos_env_est += '<td>' + tmp.exe_en_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_guia + '</td>';
                 datos_env_est += '<td>' + tmp.os_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_direccion + '</td>';
@@ -4451,6 +4484,7 @@ function consulta_tabla_env_programados() {
         arreglo_env_prog = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arreglo_env_prog !== 0) {
+
             datos_env_prog = "<div class='table-responsive text-nowrap'><table class='table table-striped table-sm table-bordered' id='tableEnvProgram'>\n\
                              <thead><tr style='background-color: #9bb5ff'>\n\
                              <th scope='col'></th>\n\
@@ -4462,7 +4496,14 @@ function consulta_tabla_env_programados() {
                              </tr></thead><tbody>";
             for (i = 0; i < arreglo_env_prog.length; i++) {
                 temp = arreglo_env_prog[i];
-                datos_env_prog += '<tr class="table-sm DelFil" id="fila_pro' + temp.exe_en_id + '" fil="' + temp.exe_en_id + '"><td class="enlace addEnvio" addEnv="' + temp.exe_en_id + '"><span class="ion-android-add-circle" style="color: #18d26e;"></span></td>';
+
+                if (temp.ts_id == 1) {
+                    color_serv = ' #593196;';
+                } else if (temp.ts_id == 2) {
+                    color_serv = ' #18d26e;';
+                }
+
+                datos_env_prog += '<tr class="table-sm DelFil" id="fila_pro' + temp.exe_en_id + '" fil="' + temp.exe_en_id + '"><td class="enlace addEnvio" addEnv="' + temp.exe_en_id + '"><span class="ion-android-add-circle" style="color: ' + color_serv + '"></span></td>';
                 datos_env_prog += '<td>' + temp.exe_en_id + '</td>';
                 datos_env_prog += '<td>' + temp.en_guia + '</td>';
                 datos_env_prog += '<td>' + temp.os_id + '</td>';

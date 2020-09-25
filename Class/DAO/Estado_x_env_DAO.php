@@ -34,11 +34,11 @@ class Estado_x_env_DAO {
      * @return type
      */
     function consultaEnv_x_Estado($parametros) {
-        $sql = "SELECT TM.*, e.en_guia, e.os_id, e.en_nombre, e.en_direccion, e.en_ciudad, ee.ee_desc "
+        $sql = "SELECT TM.*, e.en_guia, e.os_id, e.en_nombre, e.en_direccion, e.en_ciudad, ee.ee_desc, os.ts_id "
                 . "FROM (SELECT T1.* FROM est_x_envio AS T1 "
                 . "WHERE T1.exe_fec_hora = (SELECT MAX(T2.exe_fec_hora) FROM est_x_envio AS T2 WHERE T1.exe_en_id = T2.exe_en_id) ORDER BY T1.exe_fec_hora DESC)AS TM, "
-                . "envio AS e, estado_env AS ee "
-                . "WHERE TM.exe_en_id = e.en_id AND TM.exe_ee_id = ee.ee_id " . $parametros . "";
+                . "envio AS e, estado_env AS ee, orden_serv AS os "
+                . "WHERE TM.exe_en_id = e.en_id AND TM.exe_ee_id = ee.ee_id AND e.os_id = os.os_id " . $parametros . "";
         $BD = new MySQL();
         return $BD->query($sql);
     }
