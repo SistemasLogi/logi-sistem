@@ -14,13 +14,16 @@
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Envio_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Sucursales_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/generar_guias_pdf_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/leer_xlsx_alist_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consulta_env_ingresados_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/carga_xlsx_alist_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_prog_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/insertar_ord_serv_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/validar_sesion_os_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/eliminar_venta_alist_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_env_x_est_controller.php</file>
         </group>
     </open-files>
 </project-private>
