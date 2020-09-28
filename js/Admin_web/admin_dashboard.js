@@ -4446,7 +4446,7 @@ function consulta_tabla_env_mens(value) {
                     color_serv = ' #18d26e;';
                 }
 
-                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td><span class="ion-android-mail" style="color: ' + color_serv + '"></span></td>';
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td class="enlace gesEnvio"><span class="ion-android-mail" envMens="' + tmp.en_guia + '" style="color: ' + color_serv + '"></span></td>';
                 datos_env_est += '<td>' + tmp.exe_en_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_guia + '</td>';
                 datos_env_est += '<td>' + tmp.os_id + '</td>';
@@ -4462,6 +4462,8 @@ function consulta_tabla_env_mens(value) {
             $('#tableEstEnvio').DataTable({
                 'scrollX': true
             });
+
+            clickGestEnv();
 
         } else {
             $("#tab_envios").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -4627,6 +4629,124 @@ function insertar_env_prog(guia, mensajero) {
             consulta_tabla_env_mens(mensajero);
             $('#fila_pro' + fil_delete + '').remove();
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga el modal con formulario para seleccion de producto en alistamiento 
+ * @returns {undefined}
+ */
+function clickGestEnv() {
+//    $("#tableEstOS").on("click", ".actuestos", function () {
+    $(".gesEnvio").click(function () {
+        ges_envio = $(this).attr("envMens");
+//        consulta_prod_alist(edit_prod);
+//        edit_prod = $(this).attr("id");
+        $('#ModalActuEstOS').modal('toggle');
+        $('#ModalEstOSTitle').html('ENVIO');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-secondary">\n\
+                    <div class="row">\n\
+                        <div class="col-6"><strong>N° VENTA: <b class="text-primary" id="numVenta"></b></strong></div>\n\
+                        <div class="col-6"><strong>N° GUIA: <b class="text-success" id="numGuiaOP"></b></strong></div>\n\
+                    </div>\n\
+            <form class="mt-3" id="formModalProd" name="formModalProd">\n\
+              <div class="form-row">\n\
+                <div class="form-group input-group col-md-6">\n\
+                  <label for="inputSkuAls">SKU</label>\n\
+                  <div class="input-group">\n\
+                  <input type="text" class="form-control" id="inputFila" name="inputFila" style="display: none;">\n\
+                  <input type="text" class="form-control" id="inputSkuAls" name="inputSkuAls" placeholder="sku">\n\
+                  <span class="input-group-btn">\n\
+                    <button class="btn btn-success" type="button" id="btnBusSkuAlst" name="btnBusSkuAlst">Go!</button>\n\
+                  </span>\n\
+                </div>\n\
+                </div>\n\
+                <div class="form-group col-md-6">\n\
+                  <label for="inputCodAls">Código</label>\n\
+                  <input type="text" class="form-control" id="inputCodAls" name="inputCodAls" placeholder="Codigo" readonly>\n\
+                </div>\n\
+              </div>\n\
+              <div class="form-group">\n\
+                <label for="inputDescAls">Descripción</label>\n\
+                <input type="text" class="form-control" id="inputDescAls" name="inputDescAls" placeholder="producto" readonly>\n\
+              </div>\n\
+              <div class="form-row">\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputUbicAls">Ubicación</label>\n\
+                  <input type="text" class="form-control" id="inputUbicAls" name="inputUbicAls" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputStockAls">Stock</label>\n\
+                  <input type="text" class="form-control" id="inputStockAls" name="inputStockAls" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputCantiAls">Cantidad</label>\n\
+                  <input type="text" class="form-control" id="inputCantiAls" name="inputCantiAls">\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputTeoAls">Teórico</label>\n\
+                  <input type="text" class="form-control" id="inputTeoAls" name="inputTeoAls" readonly>\n\
+                </div>\n\
+              </div>\n\
+              <button type="submit" class="btn btn-primary" id="btnGuarProdActAlist" name="btnGuarProdActAlist">Guardar</button>\n\
+              <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\
+            </form>');
+//        alert("click en " + edit_prod);
+//        form_act_est_os(arregloEstOS, actu_es_os);
+        $("#btnBusSkuAlst").click(function () {
+            if ($("#inputSkuAls").val().length == 0) {
+                alert("Faltan datos");
+            } else {
+                consulta_prod_alist_sku($("#inputSkuAls").val());
+            }
+        });
+        $("#btnGuarProdActAlist").click(function () {
+            validarActuProdItem();
+        });
+
+        click_btnElim_item_alist();
+
+        $("#inputCantiAls").bind('input propertychange', function () {
+//            alert($("#inputCantiAls").val());
+            total = $("#inputStockAls").val();
+            cantidad = $("#inputCantiAls").val();
+            teorico = parseInt(total) - parseInt(cantidad);
+            $("#inputTeoAls").val(teorico);
+            if (teorico < 0) {
+                $("#inputTeoAls").addClass("text-danger");
+                $("#inputTeoAls").addClass("is-invalid");
+            } else {
+                $("#inputTeoAls").removeClass("text-danger");
+                $("#inputTeoAls").removeClass("is-invalid");
+            }
+        });
+    });
+}
+
+/**
+ * Metodo que retorna a la vista los datos de un envio especifico
+ * @param {type} envio_id
+ * @returns {undefined}
+ */
+function viasta_envio_modal(envio_id) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_env_x_id_controller.php";
+    cadena = "env_id=" + envio_id; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        temp_env = arreglo[0];
+
+//        $("#numVenta").html(tmp_dat_prod.t_sal_num_venta);
+//        $("#numGuiaOP").html(tmp_dat_prod.t_sal_guia_num);
+//        $("#inputFila").val(edit_prod);
+//        $("#inputSkuAls").val(tmp_dat_prod.pro_sku);
+//        $("#inputCodAls").val(tmp_dat_prod.t_pro_cod);
+//        $("#inputDescAls").val(tmp_dat_prod.pro_desc);
+//        $("#inputUbicAls").val(tmp_dat_prod.pro_ubicacion);
+//        $("#inputStockAls").val(tmp_dat_prod.total);
+//        $("#inputCantiAls").val(tmp_dat_prod.t_sal_cantidad);
+//        $("#inputTeoAls").val(tmp_dat_prod.estimado);
+
     };
     f_ajax(request, cadena, metodo);
 }

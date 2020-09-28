@@ -56,4 +56,21 @@ class Estado_x_env_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que retorna datos de envio por numero guia logi
+     * @param type $env_id
+     * @return type
+     */
+    function consultaEnv_x_id($env_id) {
+        $sql = "SELECT e.*, o.*, c.*, es.exe_fec_hora, ee.ee_desc, ee.ee_id, cd.ciu_nombre, d.* "
+                . "FROM envio AS e, orden_serv AS o, clientes AS c, est_x_envio AS es, estado_env AS ee, "
+                . "ciudad AS cd, departamento AS d "
+                . "WHERE e.os_id = o.os_id AND o.cli_td_id = c.cli_td_id AND o.cli_num_doc = c.cli_num_doc "
+                . "AND es.exe_en_id = e.en_id AND es.exe_ee_id = ee.ee_id "
+                . "AND es.exe_ee_id = (SELECT MAX(exe_ee_id) FROM est_x_envio) "
+                . "AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id AND e.en_id = " . $env_id . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }
