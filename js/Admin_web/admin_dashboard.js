@@ -4652,7 +4652,7 @@ function clickGestEnv() {
                         <div class="col-6"><strong>N° ENVIO: <b class="text-primary" id="numEnvio"></b></strong></div>\n\
                         <div class="col-6"><strong>N° GUIA OP: <b class="text-success" id="numGuiaOP"></b></strong></div>\n\
                     </div>\n\
-            <form class="mt-3" id="formModalProd" name="formModalProd">\n\
+            <form class="mt-3" id="formModalEnvAsig" name="formModalEnvAsig">\n\
               <div class="form-row">\n\
                 <div class="form-group input-group col-md-12">\n\
                   <div class="input-group">\n\
@@ -4664,70 +4664,49 @@ function clickGestEnv() {
               </div>\n\
               <div class="form-group">\n\
                 <label for="inputNomDestin">Destinatario</label>\n\
-                <input type="text" class="form-control" id="inputNomDestin" name="inputNomDestin" readonly>\n\
+                <input type="text" class="form-control form-control-sm" id="inputNomDestin" name="inputNomDestin" readonly>\n\
               </div>\n\
               <div class="form-row">\n\
                 <div class="form-group input-group col-md-7">\n\
                   <label for="inputDirecDestin">Dirección Destino</label>\n\
                   <div class="input-group">\n\
-                   <input type="text" class="form-control" id="inputDirecDestin" name="inputDirecDestin" readonly>\n\
+                   <input type="text" class="form-control form-control-sm" id="inputDirecDestin" name="inputDirecDestin" readonly>\n\
                 </div>\n\
                 </div>\n\
                 <div class="form-group col-md-5">\n\
                   <label for="inputTelDestin">Tel.</label>\n\
-                  <input type="text" class="form-control" id="inputTelDestin" name="inputTelDestin" readonly>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputTelDestin" name="inputTelDestin" readonly>\n\
                 </div>\n\
               </div>\n\
               <div class="form-row">\n\
                 <div class="form-group col-md-3">\n\
                   <label for="inputPesoEnv">Peso</label>\n\
-                  <input type="text" class="form-control" id="inputPesoEnv" name="inputPesoEnv" readonly>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputPesoEnv" name="inputPesoEnv" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
                   <label for="inputAltoEnv">Alto</label>\n\
-                  <input type="text" class="form-control" id="inputAltoEnv" name="inputAltoEnv" readonly>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputAltoEnv" name="inputAltoEnv" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
                   <label for="inputAnchoEnv">Ancho</label>\n\
-                  <input type="text" class="form-control" id="inputAnchoEnv" name="inputAnchoEnv" readonly>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputAnchoEnv" name="inputAnchoEnv" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
                   <label for="inputLargoEnv">Largo</label>\n\
-                  <input type="text" class="form-control" id="inputLargoEnv" name="inputLargoEnv" readonly>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputLargoEnv" name="inputLargoEnv" readonly>\n\
                 </div>\n\
               </div>\n\
-              <button type="button" class="btn btn-success" id="btnImpRemesa" name="btnImpRemesa">Imprimir Guia</button>\n\
+              <button type="submit" class="btn btn-success" id="btnImpRemesa" name="btnImpRemesa">Imprimir Guia</button>\n\
               <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\
-            </form>');
-//        alert("click en " + edit_prod);
-//        form_act_est_os(arregloEstOS, actu_es_os);
-        $("#btnBusSkuAlst").click(function () {
-            if ($("#inputSkuAls").val().length == 0) {
-                alert("Faltan datos");
-            } else {
-                consulta_prod_alist_sku($("#inputSkuAls").val());
-            }
-        });
-        $("#btnGuarProdActAlist").click(function () {
-            validarActuProdItem();
+            </form>\n\
+            <div id="enlaceGuia"></div>');
+
+        $("#btnImpRemesa").click(function () {
+            validarEnvioAsignado();
         });
 
         click_btnElim_item_alist();
 
-        $("#inputCantiAls").bind('input propertychange', function () {
-//            alert($("#inputCantiAls").val());
-            total = $("#inputStockAls").val();
-            cantidad = $("#inputCantiAls").val();
-            teorico = parseInt(total) - parseInt(cantidad);
-            $("#inputTeoAls").val(teorico);
-            if (teorico < 0) {
-                $("#inputTeoAls").addClass("text-danger");
-                $("#inputTeoAls").addClass("is-invalid");
-            } else {
-                $("#inputTeoAls").removeClass("text-danger");
-                $("#inputTeoAls").removeClass("is-invalid");
-            }
-        });
     });
 }
 
