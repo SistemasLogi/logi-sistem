@@ -4,10 +4,9 @@ if ($_POST) {
     require '../../../config.php';
     $est_env = new Estado_x_env_DAO();
 
+    $env_id = $_POST["env_id"];
 
-
-    echo json_encode($est_env->consultaEnv_x_Estado(" AND TM.exe_ee_id = " . $est_id . " AND TM.td_id_men = " . $tipo_d . " "
-                    . "AND TM.num_doc_men = " . $num_d . ";"));
+    echo json_encode($est_env->consultaEnv_x_id($env_id));
 } else {
     header("location../");
 }

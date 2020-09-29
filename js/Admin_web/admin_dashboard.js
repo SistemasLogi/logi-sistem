@@ -4446,7 +4446,7 @@ function consulta_tabla_env_mens(value) {
                     color_serv = ' #18d26e;';
                 }
 
-                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td class="enlace gesEnvio"><span class="ion-android-mail" envMens="' + tmp.en_guia + '" style="color: ' + color_serv + '"></span></td>';
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td class="enlace"><span class="ion-android-mail gesEnvio" envMens="' + tmp.exe_en_id + '" style="color: ' + color_serv + '"></span></td>';
                 datos_env_est += '<td>' + tmp.exe_en_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_guia + '</td>';
                 datos_env_est += '<td>' + tmp.os_id + '</td>';
@@ -4643,53 +4643,60 @@ function clickGestEnv() {
         ges_envio = $(this).attr("envMens");
 //        consulta_prod_alist(edit_prod);
 //        edit_prod = $(this).attr("id");
+        viasta_envio_modal(ges_envio);
+//        alert(ges_envio);
         $('#ModalActuEstOS').modal('toggle');
         $('#ModalEstOSTitle').html('ENVIO');
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-secondary">\n\
                     <div class="row">\n\
-                        <div class="col-6"><strong>N° VENTA: <b class="text-primary" id="numVenta"></b></strong></div>\n\
-                        <div class="col-6"><strong>N° GUIA: <b class="text-success" id="numGuiaOP"></b></strong></div>\n\
+                        <div class="col-6"><strong>N° ENVIO: <b class="text-primary" id="numEnvio"></b></strong></div>\n\
+                        <div class="col-6"><strong>N° GUIA OP: <b class="text-success" id="numGuiaOP"></b></strong></div>\n\
                     </div>\n\
             <form class="mt-3" id="formModalProd" name="formModalProd">\n\
               <div class="form-row">\n\
-                <div class="form-group input-group col-md-6">\n\
-                  <label for="inputSkuAls">SKU</label>\n\
+                <div class="form-group input-group col-md-12">\n\
                   <div class="input-group">\n\
-                  <input type="text" class="form-control" id="inputFila" name="inputFila" style="display: none;">\n\
-                  <input type="text" class="form-control" id="inputSkuAls" name="inputSkuAls" placeholder="sku">\n\
-                  <span class="input-group-btn">\n\
-                    <button class="btn btn-success" type="button" id="btnBusSkuAlst" name="btnBusSkuAlst">Go!</button>\n\
-                  </span>\n\
+                  <input type="text" class="form-control" id="inputNumEnvi" name="inputNumEnvi" style="display: none;">\n\
+                  <input type="text" class="form-control" id="inputEst_x_env" name="inputEst_x_env" style="display: none;">\n\
+                  <input type="datetime" class="form-control" id="inputFechaEstEnv" name="inputFechaEstEnv" style="display: none;">\n\
                 </div>\n\
-                </div>\n\
-                <div class="form-group col-md-6">\n\
-                  <label for="inputCodAls">Código</label>\n\
-                  <input type="text" class="form-control" id="inputCodAls" name="inputCodAls" placeholder="Codigo" readonly>\n\
                 </div>\n\
               </div>\n\
               <div class="form-group">\n\
-                <label for="inputDescAls">Descripción</label>\n\
-                <input type="text" class="form-control" id="inputDescAls" name="inputDescAls" placeholder="producto" readonly>\n\
+                <label for="inputNomDestin">Destinatario</label>\n\
+                <input type="text" class="form-control" id="inputNomDestin" name="inputNomDestin" readonly>\n\
+              </div>\n\
+              <div class="form-row">\n\
+                <div class="form-group input-group col-md-7">\n\
+                  <label for="inputDirecDestin">Dirección Destino</label>\n\
+                  <div class="input-group">\n\
+                   <input type="text" class="form-control" id="inputDirecDestin" name="inputDirecDestin" readonly>\n\
+                </div>\n\
+                </div>\n\
+                <div class="form-group col-md-5">\n\
+                  <label for="inputTelDestin">Tel.</label>\n\
+                  <input type="text" class="form-control" id="inputTelDestin" name="inputTelDestin" readonly>\n\
+                </div>\n\
               </div>\n\
               <div class="form-row">\n\
                 <div class="form-group col-md-3">\n\
-                  <label for="inputUbicAls">Ubicación</label>\n\
-                  <input type="text" class="form-control" id="inputUbicAls" name="inputUbicAls" readonly>\n\
+                  <label for="inputPesoEnv">Peso</label>\n\
+                  <input type="text" class="form-control" id="inputPesoEnv" name="inputPesoEnv" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
-                  <label for="inputStockAls">Stock</label>\n\
-                  <input type="text" class="form-control" id="inputStockAls" name="inputStockAls" readonly>\n\
+                  <label for="inputAltoEnv">Alto</label>\n\
+                  <input type="text" class="form-control" id="inputAltoEnv" name="inputAltoEnv" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
-                  <label for="inputCantiAls">Cantidad</label>\n\
-                  <input type="text" class="form-control" id="inputCantiAls" name="inputCantiAls">\n\
+                  <label for="inputAnchoEnv">Ancho</label>\n\
+                  <input type="text" class="form-control" id="inputAnchoEnv" name="inputAnchoEnv" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
-                  <label for="inputTeoAls">Teórico</label>\n\
-                  <input type="text" class="form-control" id="inputTeoAls" name="inputTeoAls" readonly>\n\
+                  <label for="inputLargoEnv">Largo</label>\n\
+                  <input type="text" class="form-control" id="inputLargoEnv" name="inputLargoEnv" readonly>\n\
                 </div>\n\
               </div>\n\
-              <button type="submit" class="btn btn-primary" id="btnGuarProdActAlist" name="btnGuarProdActAlist">Guardar</button>\n\
+              <button type="button" class="btn btn-success" id="btnImpRemesa" name="btnImpRemesa">Imprimir Guia</button>\n\
               <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\
             </form>');
 //        alert("click en " + edit_prod);
@@ -4736,16 +4743,20 @@ function viasta_envio_modal(envio_id) {
         arreglo = $.parseJSON(datos);
         temp_env = arreglo[0];
 
-//        $("#numVenta").html(tmp_dat_prod.t_sal_num_venta);
-//        $("#numGuiaOP").html(tmp_dat_prod.t_sal_guia_num);
-//        $("#inputFila").val(edit_prod);
-//        $("#inputSkuAls").val(tmp_dat_prod.pro_sku);
-//        $("#inputCodAls").val(tmp_dat_prod.t_pro_cod);
-//        $("#inputDescAls").val(tmp_dat_prod.pro_desc);
-//        $("#inputUbicAls").val(tmp_dat_prod.pro_ubicacion);
-//        $("#inputStockAls").val(tmp_dat_prod.total);
-//        $("#inputCantiAls").val(tmp_dat_prod.t_sal_cantidad);
-//        $("#inputTeoAls").val(tmp_dat_prod.estimado);
+//        alert(datos);
+
+        $("#numEnvio").html(temp_env.en_id);
+        $("#numGuiaOP").html(temp_env.en_guia);
+        $("#inputNumEnvi").val(temp_env.en_id);
+        $("#inputEst_x_env").val(temp_env.ee_id);
+        $("#inputFechaEstEnv").val(temp_env.exe_fec_hora);
+        $("#inputNomDestin").val(temp_env.en_nombre);
+        $("#inputDirecDestin").val(temp_env.en_direccion);
+        $("#inputTelDestin").val(temp_env.en_telefono);
+        $("#inputPesoEnv").val(temp_env.en_peso);
+        $("#inputAltoEnv").val(temp_env.en_alto);
+        $("#inputAnchoEnv").val(temp_env.en_ancho);
+        $("#inputLargoEnv").val(temp_env.en_largo);
 
     };
     f_ajax(request, cadena, metodo);
