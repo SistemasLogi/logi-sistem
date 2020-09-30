@@ -4638,8 +4638,8 @@ function insertar_env_prog(guia, mensajero) {
  * @returns {undefined}
  */
 function clickGestEnv() {
-//    $("#tableEstOS").on("click", ".actuestos", function () {
-    $(".gesEnvio").click(function () {
+    $("#tablaEstadoEnv").on("click", ".gesEnvio", function () {
+//    $(".gesEnvio").click(function () {
         ges_envio = $(this).attr("envMens");
 //        consulta_prod_alist(edit_prod);
 //        edit_prod = $(this).attr("id");
@@ -4697,18 +4697,22 @@ function clickGestEnv() {
                 </div>\n\
               </div>\n\
               <button type="submit" class="btn btn-success" id="btnImpRemesa" name="btnImpRemesa">Imprimir Guia</button>\n\
-              <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\
+              <button type="button" class="btn btn-danger float-right" id="btnQuitarAsig" name="btnQuitarAsig">Devolver a Bodega</button>\n\
             </form>\n\
             <div id="enlaceGuia"></div>');
 
         $("#btnImpRemesa").click(function () {
             validarEnvioAsignado();
         });
-
-        click_btnElim_item_alist();
-
+        $("#btnQuitarAsig").click(function () {
+            eliminar_env_asignado(id_est_asig, num_env_asig, fech_env_asig);
+        });
     });
 }
+
+var num_env_asig;
+var id_est_asig;
+var fech_env_asig;
 
 /**
  * Metodo que retorna a la vista los datos de un envio especifico
@@ -4736,6 +4740,35 @@ function viasta_envio_modal(envio_id) {
         $("#inputAltoEnv").val(temp_env.en_alto);
         $("#inputAnchoEnv").val(temp_env.en_ancho);
         $("#inputLargoEnv").val(temp_env.en_largo);
+
+        num_env_asig = $("#inputNumEnvi").val();
+        id_est_asig = $("#inputEst_x_env").val();
+        fech_env_asig = $("#inputFechaEstEnv").val();
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que elimina envio asignado a mensajero
+ * @param {type} estado
+ * @param {type} num_envio
+ * @param {type} fecha
+ * @returns {eliminar_env_asignado}
+ */
+function eliminar_env_asignado(estado, num_envio, fecha) {
+    request = "Controller/AdminC/AdministrarEnvios/eliminar_est_envio_controller.php";
+    cadena = {"inputEstId": estado, "inputEnvId": num_envio, "inputFechaEst": fecha}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        if (datos == 1) {
+            $('#ModalActuEstOS').modal('hide');
+            consulta_tabla_env_mens(mensajero);
+            consulta_tabla_env_programados();
+            alertify.warning('Envio eliminado en la lista del mensajero!');
+        } else {
+            alertify.error('Error al regresar envio a Bodega!');
+        }
 
     };
     f_ajax(request, cadena, metodo);

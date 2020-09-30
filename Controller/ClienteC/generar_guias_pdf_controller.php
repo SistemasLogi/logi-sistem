@@ -20,8 +20,8 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
     $pdf->AddPage(); //agregar pagina
     $pdf->SetFont('Arial', 'B', 15);
-    $pdf->Image('../../img/logos/LOGO-ESTILO-1500x500.png', 15, 12, 30);
-    barcode($file_bar_name, $code, 30, 'horizontal', 'code39', true, 1);
+    $pdf->Image('../../img/logos/LOGO_LOGI_2020_FODOS_CLAROS_2100.png', 15, 12, 30);
+    barcode($file_bar_name, $code, 23, 'horizontal', 'code39', false, 1);
     $pdf->Image($file_bar_name, 12, 30, 35);
     QRcode::png($contenido, $file_qr_name, $lavel, $tamanio, $framesize);
     $pdf->Image($file_qr_name, 165, 47, 30);
@@ -36,7 +36,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
     $pdf->Cell(40, 24, '', 0, 1, 'C');
 
-    $pdf->Image('../../img/logos/LOGO-ESTILO-1500x500.png', 15, 106, 30);
+    $pdf->Image('../../img/logos/LOGO_LOGI_2020_FODOS_CLAROS_2100.png', 15, 106, 30);
     $pdf->Image($file_bar_name, 12, 124, 35);
     $pdf->Image($file_qr_name, 165, 141, 30);
     $pdf->Cell(40, 35, '', 1, 0, 'C');
@@ -50,7 +50,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
     $pdf->Cell(40, 24, '', 0, 1, 'C');
 
-    $pdf->Image('../../img/logos/LOGO-ESTILO-1500x500.png', 15, 200, 30);
+    $pdf->Image('../../img/logos/LOGO_LOGI_2020_FODOS_CLAROS_2100.png', 15, 200, 30);
     $pdf->Image($file_bar_name, 12, 218, 35);
     $pdf->Image($file_qr_name, 165, 235, 30);
     $pdf->Cell(40, 35, '', 1, 0, 'C');
@@ -61,6 +61,18 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 35, '', 1, 0, 'C');
     $pdf->Cell(50, 35, '', 1, 0, 'C');
     $pdf->Cell(40, 35, '', 1, 1, 'C');
+
+    $pdf->SetXY(10, 40);
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(40, 5, utf8_decode('ENVIO N° '.$code), 0, 1, 'C');
+
+    $pdf->SetXY(10, 134);
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(40, 5, utf8_decode('ENVIO N° '.$code), 0, 1, 'C');
+
+    $pdf->SetXY(10, 228);
+    $pdf->SetFont('Arial', 'B', 9);
+    $pdf->Cell(40, 5, utf8_decode('ENVIO N° '.$code), 0, 1, 'C');
 
 
     $pdf->SetXY(50, 10);

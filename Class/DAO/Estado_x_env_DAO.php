@@ -73,4 +73,19 @@ class Estado_x_env_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * funcion que permite eliminar un registro en tabla est_x_envio
+     * @param type $envio_id
+     * @param type $estado_id
+     * @param type $fecha_est
+     * @return type
+     */
+    function eliminar_est_env($envio_id, $estado_id, $fecha_est) {
+        $sql = "DELETE FROM est_x_envio "
+                . "WHERE exe_en_id = " . $envio_id . " AND exe_ee_id = " . $estado_id . " AND exe_fec_hora = '" . $fecha_est . "';";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
 }
