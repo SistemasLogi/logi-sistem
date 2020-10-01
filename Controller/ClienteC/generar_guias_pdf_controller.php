@@ -248,7 +248,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 25, utf8_decode(''), 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 7);
     $pdf->SetX(110);
-    $pdf->Cell(50, 5, utf8_decode('Nombre legible, sello y D.I'), 0, 1, 'C');
+    $pdf->Cell(50, 5, utf8_decode('Nombre legible, D.I y Fecha de Entrega'), 0, 1, 'C');
 
 
 
@@ -427,7 +427,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 25, utf8_decode(''), 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 7);
     $pdf->SetX(110);
-    $pdf->Cell(50, 5, utf8_decode('Nombre legible, sello y D.I'), 0, 1, 'C');
+    $pdf->Cell(50, 5, utf8_decode('Nombre legible, D.I y Fecha de Entrega'), 0, 1, 'C');
 
 
 
@@ -606,5 +606,5 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->Cell(40, 25, utf8_decode(''), 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 7);
     $pdf->SetX(110);
-    $pdf->Cell(50, 5, utf8_decode('Nombre legible, sello y D.I'), 0, 1, 'C');
+    $pdf->Cell(50, 5, utf8_decode('Nombre legible, D.I y Fecha de Entrega'), 0, 1, 'C');
 }

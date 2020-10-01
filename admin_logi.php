@@ -52,6 +52,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
         <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
         <script src="js/Comunes/guias_logi.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_envio.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>

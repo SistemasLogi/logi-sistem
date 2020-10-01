@@ -12,7 +12,7 @@
                 <a class="nav-link enlace" id="enlFormOrdenServ">Editar<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" id="itemenlSeguimiento">
-                <a class="nav-link enlace" id="enlSeguimiento">Seguimiento</a>
+                <a class="nav-link enlace" id="enlSeguimientoEnv">Seguimiento</a>
             </li>
         </ul>
     </div>

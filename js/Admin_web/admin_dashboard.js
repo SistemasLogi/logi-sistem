@@ -4365,6 +4365,12 @@ function vista_gestionar_envios() {
             $("#items-env li").removeClass("active");
             $("#itemenlAsigMens").addClass("active");
         });
+
+        $("#enlSeguimientoEnv").click(function () {
+            seguimiento_estado_env();
+            $("#items-env li").removeClass("active");
+            $("#itemenlSeguimiento").addClass("active");
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -4770,6 +4776,22 @@ function eliminar_env_asignado(estado, num_envio, fecha) {
             alertify.error('Error al regresar envio a Bodega!');
         }
 
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna la vista de seguimiento de envios
+ * @returns {undefined}
+ */
+function seguimiento_estado_env() {
+    request = "View/AdministradorV/AdEnvios/seguimiento_estados_env.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenGestEnvios").html(datos);
+        $("#btnBuscaEnv").click(function () {
+            validarBuscarNumEnvio(datos_envio_seg);
+        });
+//        botones_seg_os();
     };
     f_ajax(request, cadena, metodo);
 }
