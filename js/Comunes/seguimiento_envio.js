@@ -31,6 +31,14 @@ function datos_envio_seg() {
         if (arregloSegEnvio !== 0) {
 
             cant_estados = arregloSegEnvio.length;//cantidad de registros que equivalen a los estados por los que pasa el envio
+            cant_teorico = cant_estados;
+            tmp_ult_est = arregloSegEnvio[(parseInt(cant_estados) - parseInt(1))];
+            if (tmp_ult_est.ee_id == 6 || tmp_ult_est.ee_id == 7) {
+
+            } else {
+                cant_teorico = (parseInt(cant_estados) + parseInt(1));//cantidad teorica para visualizacion
+            }
+
 
             temp_env = arregloSegEnvio[0];
 
@@ -44,6 +52,69 @@ function datos_envio_seg() {
             $("#ciudad_destino").html(temp_env.en_ciudad);
             $("#tel_destino").html(temp_env.en_telefono);
 
+            encabezado = "";
+            iconos = "";
+
+            if (cant_teorico < 3) {
+                cant_teorico++;
+            }
+
+            porcentaje = (100 / (cant_teorico) * cant_estados);
+
+            for (i = 0; i < cant_teorico; i++) {
+                encabezado += '<th scope="col"><span class="ion-android-arrow-dropright" style="font-size: xx-large;"></span></th>';
+            }
+            $("#titleEncaTab").html(encabezado);
+            $("#fila_bar").attr("colspan", "" + cant_teorico + "");
+
+            for (i = 0; i < cant_estados; i++) {
+                tmp_est = arregloSegEnvio[i];
+//                alert(tmp_est.ee_id);
+
+                if (tmp_est.ee_id == 1) {
+                    iconos += '<td><span class="ion-android-alarm-clock" style="font-size: xx-large; color: #d68800;"></span></td>';
+                } else if (tmp_est.ee_id == 2) {
+                    iconos += '<td><span class="ion-ios-home" style="font-size: xx-large; color: #d68800;"></span></td>';
+                } else if (tmp_est.ee_id == 3) {
+                    iconos += '<td><span class="ion-jet" style="font-size: xx-large; color: #d68800;"></span></td>';
+                } else if (tmp_est.ee_id == 4) {
+                    iconos += '<td><span class="ion-ios-home-outline" style="font-size: xx-large; color: #d68800;"></span></td>';
+                } else if (tmp_est.ee_id == 5) {
+                    iconos += '<td><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></td>';
+                } else if (tmp_est.ee_id == 6) {
+                    iconos += '<td><span class="ion-checkmark-circled" style="font-size: xx-large; color: #009645;"></span></td>';
+                } else if (tmp_est.ee_id == 7) {
+                    iconos += '<td><span class="ion-arrow-left-a" style="font-size: xx-large; color: #b90808;"></span></td>';
+                } else if (tmp_est.ee_id == 8) {
+                    iconos += '<td><span class="ion-android-warning" style="font-size: xx-large; color: #d68800;"></span></td>';
+                } else if (tmp_est.ee_id == 9) {
+                    iconos += '<td><span class="ion-android-warning" style="font-size: xx-large; color: #b90808;"></span></td>';
+                } else if (tmp_est.ee_id == 10) {
+                    iconos += '<td><span class="ion-android-warning" style="font-size: xx-large; color: #1ea7f7;"></span></td>';
+                }
+            }
+
+            if (cant_estados == 1) {
+
+                $("#progress_bar").css("width", "" + porcentaje + "%");
+
+                iconos += '<td><span class="ion-android-mail" style="font-size: xx-large; color: #77248c;"></span></td>';
+                iconos += '<td><span class="ion-android-mail" style="font-size: xx-large; color: #77248c;"></span></td>';
+                $("#icon_x_est_env").html(iconos);
+            } else {
+                tmp_ult_est = arregloSegEnvio[(parseInt(cant_estados) - parseInt(1))];
+                if (tmp_ult_est.ee_id == 6 || tmp_ult_est.ee_id == 7) {
+                    $("#icon_x_est_env").html(iconos);
+                    $("#progress_bar").css("width", "100%");
+                } else {
+                    iconos += '<td><span class="ion-android-mail" style="font-size: xx-large; color: #77248c;"></span></td>';
+                    $("#icon_x_est_env").html(iconos);
+                    $("#progress_bar").css("width", "" + porcentaje + "%");
+                }
+            }
+
+
+            alert(cant_teorico);
             alert(cant_estados);
 
         } else {

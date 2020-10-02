@@ -29,41 +29,32 @@
                 </div>
             </div>
             <div>  
-                <table class="table table-hover">
+                <table class="table table-hover text-center">
                     <thead>
-                        <tr id="titleProcess">
+                        <tr id="titleEncaTab">
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="table-sm">
                             <td id="fec_prog"></td>
-                            <td class="text-center" id="fec_asig"></td>
-                            <td class="text-right" id="fec_fin"></td>
+                            <td id="fec_asig"></td>
+                            <td id="fec_fin"></td>
                         </tr>
                         <tr class="table-sm">
                             <td id="nameCli">Cliente</td>
-                            <td class="text-center" id="men_asig"></td>
-                            <td class="text-right" id="men_fin"></td>
+                            <td id="men_asig"></td>
+                            <td id="men_fin"></td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td id="fila_bar" colspan="">
                                 <div class="progress" style="height:20px; border-radius: 0.7rem;">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="table-secondary" id="icon_x_proceso">
-                            <td><span class='ion-android-alarm-clock' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-ios-home' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-jet' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-ios-home-outline' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-android-bicycle' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-checkmark-circled' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-arrow-left-a' style='font-size: xxx-large; color: #b90808;'></span></td>
-                            <td><span class='ion-android-warning' style='font-size: xxx-large; color: #d68800;'></span></td>
-                            <td><span class='ion-android-warning' style='font-size: xxx-large; color: #b90808;'></span></td>
-                            <td><span class='ion-android-warning' style='font-size: xxx-large; color: #1ea7f7;'></span></td>
+                        <tr class="table-secondary table-sm" id="icon_x_est_env">                       
+
                         </tr>                    
                     </tbody>
                 </table>
