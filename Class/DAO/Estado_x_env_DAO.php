@@ -95,7 +95,7 @@ class Estado_x_env_DAO {
      * @return type
      */
     function consulta_seguimiento_env_x_id($parametro) {
-        $sql = "SELECT e.*, o.*, c.*, es.exe_fec_hora, es.td_id_men, es.num_doc_men, "
+        $sql = "SELECT e.*, o.*, c.*, es.exe_fec_hora, es.exe_novedad, es.td_id_men, es.num_doc_men, "
                 . "em.emp_nombre, ee.ee_desc, ee.ee_id, cd.ciu_nombre, d.* "
                 . "FROM envio AS e, orden_serv AS o, clientes AS c, est_x_envio AS es, estado_env AS ee, "
                 . "ciudad AS cd, departamento AS d, empleados AS em "

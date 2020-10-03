@@ -26,7 +26,7 @@ $(document).ready(function () {
     });
     $("#adminbd a").click(function () {
         vista_tabla_bd(this);
-    });
+    });    
 
     vista_dashboard();
 

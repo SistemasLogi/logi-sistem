@@ -28,23 +28,19 @@
                     <p class="mb-0"><strong>TEL: </strong><em id="tel_destino"></em></p> 
                 </div>
             </div>
-            <div>  
-                <table class="table table-hover text-center">
+            <div class="col-lg-12 table-responsive">  
+                <table class="table table-hover text-center col-lg-12" id="tableSegEnv">
                     <thead>
-                        <tr id="titleEncaTab">
+                        <tr class="table-sm" id="titleEncaTab">
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="table-sm">
-                            <td id="fec_prog"></td>
-                            <td id="fec_asig"></td>
-                            <td id="fec_fin"></td>
+                        <tr class="table-sm" id="fechEst">
+
                         </tr>
-                        <tr class="table-sm">
-                            <td id="nameCli">Cliente</td>
-                            <td id="men_asig"></td>
-                            <td id="men_fin"></td>
+                        <tr class="table-sm" id="horaEst">
+
                         </tr>
                         <tr>
                             <td id="fila_bar" colspan="">
@@ -55,7 +51,10 @@
                         </tr>
                         <tr class="table-secondary table-sm" id="icon_x_est_env">                       
 
-                        </tr>                    
+                        </tr>
+                        <tr class="table-sm" id="descEst">
+
+                        </tr>
                     </tbody>
                 </table>
             </div>
