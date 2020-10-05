@@ -26,7 +26,7 @@ $(document).ready(function () {
     });
     $("#adminbd a").click(function () {
         vista_tabla_bd(this);
-    });    
+    });
 
     vista_dashboard();
 
@@ -3115,12 +3115,19 @@ function vista_admin_sucursal() {
         combo_sucursal();
 
         $("#formIngInvXlsx").click(function () {
-            if (typeof value_suc === 'undefined') {
+            if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
                 alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
             } else {
                 form_carga_inventario();
             }
+        });
 
+        $("#tabStockSuc").click(function () {
+            if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
+                alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
+            } else {
+                tabla_stock_suc();
+            }
         });
 
         $("#selectSucursal").change(function () {
@@ -3288,6 +3295,65 @@ function actualizar_stck_masivo() {
     metodo = function (datos) {
 
         alert(datos);
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
+ * @returns {undefined}
+ */
+function tabla_stock_suc() {
+    sucursal_id = $("#inputSucId").val();
+    request = "Controller/AdminC/AdministrarProd/consulta_stock_inv_suc_controller.php";
+    cadena = "suc=" + sucursal_id; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_stock_suc = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_stock_suc !== 0) {
+            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+                             <div class="toast-body row"><div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">\n\
+                             <h4>Tabla General de Stock</h4>\n\
+                             <div class="col-lg-12 table-responsive">\n\
+                             <table class="table table-hover col-lg-12" id="tableStockSucursal">\n\
+                             <thead><tr class="table-sm">\n\
+                                 <th scope="col"></th>\n\
+                                 <th scope="col">CODIGO</th>\n\
+                                 <th scope="col">SKU</th>\n\
+                                 <th scope="col">DESCRIPCIÓN</th>\n\
+                                 <th scope="col">UB.</th>\n\
+                                 <th scope="col">TOTAL</th>\n\
+                             </tr></thead><tbody>';
+            for (i = 0; i < arreglo_stock_suc.length; i++) {
+                tmp = arreglo_stock_suc[i];
+
+//                if (tmp.ts_id == 1) {
+//                    color_serv = ' #593196;';
+//                } else if (tmp.ts_id == 2) {
+//                    color_serv = ' #18d26e;';
+//                }
+
+                datos_stock_suc += '<tr class="table-sm" id="fila' + i + '"><td class="enlace"><span class="ion-android-mail"></span></td>';
+                datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
+                datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
+                datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
+                datos_stock_suc += '<td>' + tmp.pro_ubicacion + '</td>';
+                datos_stock_suc += '<td>' + tmp.total + '</td></tr>';
+            }
+            datos_stock_suc += "</tbody></table></div></div></div>";
+            $("#contenidoInvent").html(datos_stock_suc);
+
+//            /**
+//             * Evento que pagina una tabla 
+//             */
+            $('#tableStockSucursal').DataTable();
+
+        } else {
+            $("#contenidoInvent").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
 
     };
     f_ajax(request, cadena, metodo);

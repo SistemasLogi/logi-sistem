@@ -68,8 +68,8 @@ class Estado_x_env_DAO {
                 . "ciudad AS cd, departamento AS d "
                 . "WHERE e.os_id = o.os_id AND o.cli_td_id = c.cli_td_id AND o.cli_num_doc = c.cli_num_doc "
                 . "AND es.exe_en_id = e.en_id AND es.exe_ee_id = ee.ee_id "
-                . "AND es.exe_ee_id = (SELECT MAX(exe_ee_id) FROM est_x_envio) AND cd.ciu_id = o.ciu_id "
-                . "AND cd.dep_id = d.dep_id AND e.en_id = " . $env_id . ";";
+                . "AND cd.ciu_id = o.ciu_id "
+                . "AND cd.dep_id = d.dep_id AND e.en_id = " . $env_id . " ORDER BY es.exe_fec_hora DESC LIMIT 1;";
         $BD = new MySQL();
         return $BD->query($sql);
     }

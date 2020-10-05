@@ -150,6 +150,28 @@ class Producto_DAO {
     }
 
     /**
+     * Funcion que retorna el stock de todos los productos para una sucursal
+     * @param type $suc_id
+     * @param type $fec_hor_actual
+     * @return type
+     */
+    function consultaInventarioStock($suc_id, $fec_hor_actual) {
+        $sql = "SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, (T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
+                . "FROM "
+                . "(SELECT p.pro_sku, p.pro_desc, p.pro_ubicacion, s.* "
+                . "FROM stock AS s, productos AS p WHERE p.pro_cod = s.pro_cod AND p.suc_num_id = s.suc_num_id  AND p.suc_num_id = " . $suc_id . ") "
+                . "AS T1 "
+                . "LEFT JOIN "
+                . "(SELECT pro_cod, SUM(sal_cantidad) AS salidas "
+                . "FROM salida_prod AS sa "
+                . "WHERE suc_num_id = " . $suc_id . " "
+                . "AND sal_fecha > (SELECT stk_fecha FROM stock AS sk WHERE sa.pro_cod = sk.pro_cod) "
+                . "AND sal_fecha < '" . $fec_hor_actual . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * funcion que permite eliminar un registro en tabla salidas_prod_temp sugun su consecutivo
      * @param type $csc
      */
