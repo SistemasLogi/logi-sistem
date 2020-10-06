@@ -3130,6 +3130,14 @@ function vista_admin_sucursal() {
             }
         });
 
+        $("#formAjuste").click(function () {
+            if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
+                alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
+            } else {
+                tabla_kardex_prueba();
+            }
+        });
+
         $("#selectSucursal").change(function () {
             value_suc = $("#selectSucursal").val();
             cargar_suc_selected(value_suc);
@@ -3313,11 +3321,11 @@ function tabla_stock_suc() {
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arreglo_stock_suc !== 0) {
             datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
-                             <div class="toast-body row"><div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">\n\
+                             <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
                              <h4>Tabla General de Stock</h4>\n\
                              <div class="col-lg-12 table-responsive">\n\
-                             <table class="table table-hover col-lg-12" id="tableStockSucursal">\n\
-                             <thead><tr class="table-sm">\n\
+                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableStockSucursal">\n\
+                             <thead><tr class="table-sm table-primary">\n\
                                  <th scope="col"></th>\n\
                                  <th scope="col">CODIGO</th>\n\
                                  <th scope="col">SKU</th>\n\
@@ -3333,13 +3341,21 @@ function tabla_stock_suc() {
 //                } else if (tmp.ts_id == 2) {
 //                    color_serv = ' #18d26e;';
 //                }
-
-                datos_stock_suc += '<tr class="table-sm" id="fila' + i + '"><td class="enlace"><span class="ion-android-mail"></span></td>';
+                if (tmp.total < 3) {
+                    datos_stock_suc += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
+                } else {
+                    datos_stock_suc += '<tr class="table-sm" id="fila' + i + '">';
+                }
+                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard" style="color: #702894; font-size: large;"></span></td>';
                 datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_ubicacion + '</td>';
-                datos_stock_suc += '<td>' + tmp.total + '</td></tr>';
+                if (tmp.total < 3) {
+                    datos_stock_suc += '<td><b style="color: #e40a0a;">' + tmp.total + '</b></td></tr>';
+                } else {
+                    datos_stock_suc += '<td>' + tmp.total + '</td></tr>';
+                }
             }
             datos_stock_suc += "</tbody></table></div></div></div>";
             $("#contenidoInvent").html(datos_stock_suc);
@@ -3355,6 +3371,19 @@ function tabla_stock_suc() {
                  <strong>No existen datos para mostrar.</strong></div>");
         }
 
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
+ * @returns {undefined}
+ */
+function tabla_kardex_prueba() {
+    request = "View/AdministradorV/AdSucursal/tabla_stock_kardex.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+
+        $("#contenidoInvent").html(datos);
     };
     f_ajax(request, cadena, metodo);
 }
