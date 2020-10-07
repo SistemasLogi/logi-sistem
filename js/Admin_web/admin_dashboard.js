@@ -3346,7 +3346,7 @@ function tabla_stock_suc() {
                 } else {
                     datos_stock_suc += '<tr class="table-sm" id="fila' + i + '">';
                 }
-                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard geskardex" style="color: #702894; font-size: large;"></span></td>';
+                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
                 datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
@@ -3367,13 +3367,12 @@ function tabla_stock_suc() {
 
             $("#tableStockSucursal").on("click", ".geskardex", function () {
 
-//                ges_envio = $(this).attr("envMens");
-//                viasta_envio_modal(ges_envio);
+                kdx_pro = $(this).attr("kardexPro");
 
                 $('#ModalActuEstOS').modal('toggle');
-                $('#ModalEstOSTitle').html('ENVIO');
-                $('#body_mod_os').html('<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>');
+                $('#ModalEstOSTitle').html('Kardex');
 
+                tabla_kardex_prod(kdx_pro);
             });
 
         } else {
@@ -3396,6 +3395,66 @@ function tabla_kardex_prueba() {
 
         $("#contenidoInvent").html(datos);
         $('#tableKardex').DataTable();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga a la vista la tabla la tarjeta kardex para el producto seleccionado
+ * @param {type} cod_prod
+ * @returns {undefined}
+ */
+function tabla_kardex_prod(cod_prod) {
+    request = "Controller/AdminC/AdministrarProd/consulta_kardex_prod_controller.php";
+    cadena = "procod=" + cod_prod; //envio de parametros por POST
+    metodo = function (datos) {
+
+        arreglo_kdx_pro = $.parseJSON(datos);
+
+        datos_kdx = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+                             <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
+                             <h4>Tabla General de Stock</h4>\n\
+                             <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
+                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableStockSucursal">\n\
+                             <thead><tr class="table-sm table-primary">\n\
+                                 <th scope="col"></th>\n\
+                                 <th scope="col">CODIGO</th>\n\
+                                 <th scope="col">SKU</th>\n\
+                                 <th scope="col">DESCRIPCIÓN</th>\n\
+                                 <th scope="col">UB.</th>\n\
+                                 <th scope="col">TOTAL</th>\n\
+                             </tr></thead><tbody>';
+        for (i = 0; i < arreglo_kdx_pro.length; i++) {
+            tmp = arreglo_kdx_pro[i];
+
+//                if (tmp.ts_id == 1) {
+//                    color_serv = ' #593196;';
+//                } else if (tmp.ts_id == 2) {
+//                    color_serv = ' #18d26e;';
+//                }
+            if (tmp.total < 3) {
+                datos_kdx += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
+            } else {
+                datos_kdx += '<tr class="table-sm" id="fila' + i + '">';
+            }
+            datos_kdx += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
+            datos_kdx += '<td>' + tmp.pro_cod + '</td>';
+            datos_kdx += '<td>' + tmp.pro_sku + '</td>';
+            datos_kdx += '<td>' + tmp.pro_desc + '</td>';
+            datos_kdx += '<td>' + tmp.pro_ubicacion + '</td>';
+            if (tmp.total < 3) {
+                datos_kdx += '<td><b style="color: #e40a0a;">' + tmp.total + '</b></td></tr>';
+            } else {
+                datos_kdx += '<td>' + tmp.total + '</td></tr>';
+            }
+        }
+        datos_kdx += "</tbody></table></div></div></div>";
+        $('#body_mod_os').html(datos_kdx);
+
+//            /**
+//             * Evento que pagina una tabla 
+//             */
+        $('#tableStockSucursal').DataTable();
+        
     };
     f_ajax(request, cadena, metodo);
 }
