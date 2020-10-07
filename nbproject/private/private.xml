@@ -3,16 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/ruta_guia_pdf_param_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/guias_logi.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_env_x_id_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/consultar_pag_impresion_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/guias_pdf_final_param_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/leer_xlsx_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/guias_pdf_final_sesion_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/ruta_guia_pdf_sesion_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdSucursal/contenedor_suc.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_envio.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdSucursal/tabla_stock_kardex.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/ClienteC/generar_guias_pdf_controller.php</file>
         </group>
     </open-files>
 </project-private>

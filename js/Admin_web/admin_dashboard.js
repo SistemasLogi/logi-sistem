@@ -3323,7 +3323,7 @@ function tabla_stock_suc() {
             datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
                              <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
                              <h4>Tabla General de Stock</h4>\n\
-                             <div class="col-lg-12 table-responsive">\n\
+                             <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
                              <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableStockSucursal">\n\
                              <thead><tr class="table-sm table-primary">\n\
                                  <th scope="col"></th>\n\
@@ -3346,7 +3346,7 @@ function tabla_stock_suc() {
                 } else {
                     datos_stock_suc += '<tr class="table-sm" id="fila' + i + '">';
                 }
-                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard" style="color: #702894; font-size: large;"></span></td>';
+                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard geskardex" style="color: #702894; font-size: large;"></span></td>';
                 datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
@@ -3364,6 +3364,17 @@ function tabla_stock_suc() {
 //             * Evento que pagina una tabla 
 //             */
             $('#tableStockSucursal').DataTable();
+
+            $("#tableStockSucursal").on("click", ".geskardex", function () {
+
+//                ges_envio = $(this).attr("envMens");
+//                viasta_envio_modal(ges_envio);
+
+                $('#ModalActuEstOS').modal('toggle');
+                $('#ModalEstOSTitle').html('ENVIO');
+                $('#body_mod_os').html('<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>');
+
+            });
 
         } else {
             $("#contenidoInvent").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -3384,10 +3395,10 @@ function tabla_kardex_prueba() {
     metodo = function (datos) {
 
         $("#contenidoInvent").html(datos);
+        $('#tableKardex').DataTable();
     };
     f_ajax(request, cadena, metodo);
 }
-
 
 /****************************************************************
  * Metodos de Creacion de OS
