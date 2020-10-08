@@ -1,4 +1,4 @@
-<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>
+<div class="toast-header"><strong class="mr-auto">KARDEX</strong></div>
 <div class="toast-body row">        
     <div class="alert alert-dismissible alert-light col-lg-12 border-primary" style="border-radius: 0.5rem;">
         <div class="col-lg-12 table-responsive">  

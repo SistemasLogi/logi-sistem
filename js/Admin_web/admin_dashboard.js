@@ -3350,11 +3350,11 @@ function tabla_stock_suc() {
                 datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
                 datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
-                datos_stock_suc += '<td>' + tmp.pro_ubicacion + '</td>';
+                datos_stock_suc += '<td id="ub' + tmp.pro_cod + '">' + tmp.pro_ubicacion + '</td>';
                 if (tmp.total < 3) {
-                    datos_stock_suc += '<td><b style="color: #e40a0a;">' + tmp.total + '</b></td></tr>';
+                    datos_stock_suc += '<td><b style="color: #e40a0a;" id="el' + tmp.pro_cod + '">' + tmp.total + '</b></td></tr>';
                 } else {
-                    datos_stock_suc += '<td>' + tmp.total + '</td></tr>';
+                    datos_stock_suc += '<td id="el' + tmp.pro_cod + '">' + tmp.total + '</td></tr>';
                 }
             }
             datos_stock_suc += "</tbody></table></div></div></div>";
@@ -3364,13 +3364,18 @@ function tabla_stock_suc() {
 //             * Evento que pagina una tabla 
 //             */
             $('#tableStockSucursal').DataTable();
-
+            /**
+             * evento de click para llamada de kardex
+             */
             $("#tableStockSucursal").on("click", ".geskardex", function () {
 
                 kdx_pro = $(this).attr("kardexPro");
 
                 $('#ModalActuEstOS').modal('toggle');
+                $('#mod-dalog').addClass('modal-lg');
                 $('#ModalEstOSTitle').html('Kardex');
+                total_stk = $("#el" + kdx_pro).html();
+                ub_prod = $("#ub" + kdx_pro).html();
 
                 tabla_kardex_prod(kdx_pro);
             });
@@ -3384,6 +3389,8 @@ function tabla_stock_suc() {
     };
     f_ajax(request, cadena, metodo);
 }
+var total_stk;
+var ub_prod;
 /**
  * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
  * @returns {undefined}
@@ -3409,20 +3416,34 @@ function tabla_kardex_prod(cod_prod) {
     metodo = function (datos) {
 
         arreglo_kdx_pro = $.parseJSON(datos);
+        tmp_inf = arreglo_kdx_pro[0];
 
-        datos_kdx = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
-                             <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
-                             <h4>Tabla General de Stock</h4>\n\
-                             <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
-                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableStockSucursal">\n\
-                             <thead><tr class="table-sm table-primary">\n\
-                                 <th scope="col"></th>\n\
-                                 <th scope="col">CODIGO</th>\n\
-                                 <th scope="col">SKU</th>\n\
-                                 <th scope="col">DESCRIPCIÓN</th>\n\
-                                 <th scope="col">UB.</th>\n\
-                                 <th scope="col">TOTAL</th>\n\
-                             </tr></thead><tbody>';
+        datos_kdx = '<div class="toast-header"><strong class="mr-auto">KARDEX</strong></div>\n\
+                             <div class="toast-body row"><div class="alert alert-dismissible alert-light col-lg-12 border-primary" style="border-radius: 0.5rem;">\n\
+                             <div class="col-lg-12 table-responsive">\n\
+                             <table class="table table-bordered table-hover text-center col-lg-12" id="tableKardex">\n\
+                             <thead><tr class="table-sm table-warning">\n\
+                                 <th scope="col" colspan="5"><h5>' + tmp_inf.pro_desc + '</h5></th>\n\
+                                 </tr>\n\
+                            <tr class="table-sm">\n\
+                                <th scope="col" class="table-warning">Codigo</th>\n\
+                                <th scope="col">' + tmp_inf.pro_cod + '</th>\n\
+                                <th scope="col" class="table-warning">Ubicación</th>\n\
+                                <th scope="col">' + ub_prod + '</th>\n\
+                            </tr>\n\
+                            <tr class="table-sm">\n\
+                                <th scope="col" class="table-warning">SKU</th>\n\
+                                <th scope="col">' + tmp_inf.pro_sku + '</th>\n\
+                                <th scope="col" class="table-warning">Existencia</th>\n\
+                                <th scope="col">' + total_stk + '</th>\n\
+                            </tr>\n\
+                            <tr class="table-sm table-warning">\n\
+                                <th scope="col">Fecha</th>\n\
+                                <th scope="col">Detalle</th>\n\
+                                <th scope="col">Entradas</th>\n\
+                                <th scope="col">Salidas</th>\n\
+                            </tr>\n\
+                            </thead><tbody>';
         for (i = 0; i < arreglo_kdx_pro.length; i++) {
             tmp = arreglo_kdx_pro[i];
 
@@ -3431,20 +3452,16 @@ function tabla_kardex_prod(cod_prod) {
 //                } else if (tmp.ts_id == 2) {
 //                    color_serv = ' #18d26e;';
 //                }
-            if (tmp.total < 3) {
-                datos_kdx += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
-            } else {
-                datos_kdx += '<tr class="table-sm" id="fila' + i + '">';
-            }
-            datos_kdx += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
-            datos_kdx += '<td>' + tmp.pro_cod + '</td>';
-            datos_kdx += '<td>' + tmp.pro_sku + '</td>';
-            datos_kdx += '<td>' + tmp.pro_desc + '</td>';
-            datos_kdx += '<td>' + tmp.pro_ubicacion + '</td>';
-            if (tmp.total < 3) {
-                datos_kdx += '<td><b style="color: #e40a0a;">' + tmp.total + '</b></td></tr>';
-            } else {
-                datos_kdx += '<td>' + tmp.total + '</td></tr>';
+            datos_kdx += '<tr class="table-sm" id="fila' + i + '">';
+            datos_kdx += '<th scope="row" style="background-color: #fff3e0">' + tmp.ent_fecha + '</th>';
+            datos_kdx += '<td>' + tmp.venta + '</td>';
+
+            if (tmp.movimiento == 1) {
+                datos_kdx += '<td class="table-success">' + tmp.ent_cantidad + '</td>';
+                datos_kdx += '<td class="table-danger"></td></tr>';
+            } else if (tmp.movimiento == 2) {
+                datos_kdx += '<td class="table-success"></td>';
+                datos_kdx += '<td class="table-danger">' + tmp.ent_cantidad + '</td></tr>';
             }
         }
         datos_kdx += "</tbody></table></div></div></div>";
@@ -3454,7 +3471,7 @@ function tabla_kardex_prod(cod_prod) {
 //             * Evento que pagina una tabla 
 //             */
         $('#tableStockSucursal').DataTable();
-        
+
     };
     f_ajax(request, cadena, metodo);
 }
@@ -3699,6 +3716,7 @@ function lectura_xlsx_alist() {
     f_ajax(request, cadena, metodo);
 }
 var pag;
+var can_vent_als;
 /*
  * Metodo que carga la vista de las ventas para alistamiento
  * se ejecuta desde php al recibir la carga correcta de archivo xlsx
@@ -3712,6 +3730,7 @@ function cargaProdAlistamiento() {
 //        $("#blqPagina1").html(datos);
 
         arregloAlista = $.parseJSON(datos);
+
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloAlista !== 0) {
 
@@ -4004,6 +4023,9 @@ function cargaProdAlistamiento() {
             }
 
             $("#bloques").html(datosAlist);
+
+            can_vent_als = blq;
+//            alert(can_vent_als);
 
             clickPaginasAlist();
             clickPaginasAlistPrev();
@@ -4415,9 +4437,21 @@ function comprobar_os_creada(venta) {
             insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
             insertar_est_x_aenv(3, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
             elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
+
+            can_vent_als--;
+
+            if (can_vent_als < 1) {
+                insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+            }
         } else if (datos == 3) {
             insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
             elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
+
+            can_vent_als--;
+
+            if (can_vent_als < 1) {
+                insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+            }
         } else {
             alert(datos);
         }
@@ -4436,6 +4470,11 @@ function click_No_gestionarVenta() {
 
         elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
         insertar_est_x_aenv(4, $("#inputNovedad" + esta_venta + "").val(), esta_venta, orden_serv);
+        can_vent_als--;
+
+        if (can_vent_als < 1) {
+            insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+        }
 
     });
 }
@@ -4450,6 +4489,12 @@ function ventasNoSelected() {
 
         elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
         insertar_est_x_aenv(4, $("#inputNovedad" + checket_venta + "").val(), checket_venta, orden_serv);
+
+        can_vent_als--;
+
+        if (can_vent_als < 1) {
+            insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+        }
     });
 }
 /**
@@ -4507,6 +4552,25 @@ function insertar_est_x_aenv(estado, novedad, venta, os_num) {
             alertify.success('Estado Acualizado venta N° ' + venta, 2);
         } else {
             alertify.error('Error al actualizar estado venta N° ' + venta, 5);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que inserta un registro en la tabla est_x_aenv
+ * @param {type} estado
+ * @param {type} os_num
+ * @returns {undefined}
+ */
+function insertar_est_x_os_alist(os_num, estado) {
+    request = "Controller/AdminC/AdministrarOS/insertar_es_x_os_alist_controller.php";
+    cadena = {"estado": estado, "os_num": os_num}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        if (datos == 1) {
+            alertify.success('Estado Acualizado OS N° ' + os_num, 2);
+        } else {
+            alertify.error('Error al actualizar estado OS N° ' + os_num, 5);
         }
     };
     f_ajax(request, cadena, metodo);
