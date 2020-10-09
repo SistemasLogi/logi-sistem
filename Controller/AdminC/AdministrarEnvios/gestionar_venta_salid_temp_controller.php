@@ -51,12 +51,15 @@ if ($_POST) {
                         echo 1; //si existe una os cargada en la variable de sesion de servicio LOGI YA
                     } else {
                         //error al crear estado de envio
+                        echo 'error al crear estado de envio';
                     }
                 } else {
                     //error al crear envio en tabla envio
+                    echo 'error al crear envio en tabla envio';
                 }
             } else {
-                
+                //error al insertar producto en tabla salidas
+                echo 'error al insertar producto en tabla salidas os LOGI YA creada';
             }
         } else {
             //Si NO existe una os cargada en la variable de sesion LOGI YA
@@ -128,12 +131,15 @@ if ($_POST) {
                         echo 1; //si existe una os cargada en la variable de sesion de servicio LOGI YA
                     } else {
                         //error si la consulta de ultima os devuelve vacia
+                        echo 'error, la consulta de os LogiYA esta vacia';
                     }
                 } else {
                     //error al crear os LOGI YA
+                    echo 'error al crear os LOGI YA';
                 }
             } else {
-                
+                //error al insertar producto en tabla salidas
+                echo 'error al insertar producto en tabla salidas os LOGI YA NO creada';
             }
         }
         //************************************************************* *//
@@ -171,12 +177,15 @@ if ($_POST) {
                         echo 2; //si existe una os cargada en la variable de sesion de servicio NORMAL
                     } else {
                         //error al crear estado de envio
+                        echo 'error al crear estado de envio general';
                     }
                 } else {
                     //error al crear envio en tabla envio
+                    echo 'error al crear envio en tabla envio';
                 }
             } else {
-                
+                //error al insertar producto en tabla salidas
+                echo 'error al insertar producto en tabla salidas os NORMAL creada';
             }
         } else {
             //Si NO existe una os cargada en la variable de sesion os NORMAL
@@ -248,12 +257,15 @@ if ($_POST) {
                         echo 2; //si existe una os cargada en la variable de sesion de servicio NORMAL
                     } else {
                         //error si la consulta de ultima os devuelve vacia
+                        echo 'error, la consulta de os Normal esta vacia';
                     }
                 } else {
                     //error al crear os NORMAL
+                    echo 'error al crear os NORMAL';
                 }
             } else {
-                
+                //error al insertar producto en tabla salidas
+                echo 'error al insertar producto en tabla salidas os NORMAL creada';
             }
         }
     } else {
@@ -261,7 +273,8 @@ if ($_POST) {
         if ($product_dao->insertarSalidaProd($num_venta) == 1) {
             echo 3;
         } else {
-            //error al registrar salida de producto en tabla salidas 
+            //error al registrar salida de producto en tabla salidas
+            echo 'error al registrar salida de producto en tabla salidas sin reparto';
         }
     }
 } else {

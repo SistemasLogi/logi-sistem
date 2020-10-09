@@ -48,6 +48,7 @@
                     <div class="alert alert-dismissible alert-light" id="infoCliente" style="border-radius: 0.5rem; display: none;">
                         <strong id="nomCli"></strong><br>
                         <strong id="infoOrd"></strong>
+                        <strong id="numOrden"></strong>
                     </div>
 
                 </div>

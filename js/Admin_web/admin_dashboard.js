@@ -1973,6 +1973,7 @@ function vista_gestionar_os() {
 //        formulario_oreden_serv();//ejecuta por defecto
         crear_os_por_cliente();
 
+        //*Editar OS*//
         $("#enlFormOrdenServ").click(function () {
             formulario_oreden_serv();
             $("#items li").removeClass("active");
@@ -2138,6 +2139,7 @@ function clickActuEstado_OS() {
     $("#tableEstOS").on("click", ".actuestos", function () {
 //    $(".actuestos").click(function () {
         actu_es_os = $(this).attr("act");
+        $('#mod-dalog').removeClass('modal-lg');
         $('#ModalActuEstOS').modal('toggle');
 
         form_act_est_os(arregloEstOS, actu_es_os);
@@ -3717,6 +3719,8 @@ function lectura_xlsx_alist() {
     cadena = "a=1";
     metodo = function (datos) {
         $("#changeAlistEnvios").html(datos);
+
+        datos_os_picking_en_proceso();
     };
     f_ajax(request, cadena, metodo);
 }
@@ -4885,6 +4889,7 @@ function clickGestEnv() {
 //        edit_prod = $(this).attr("id");
         viasta_envio_modal(ges_envio);
 //        alert(ges_envio);
+        $('#mod-dalog').removeClass('modal-lg');
         $('#ModalActuEstOS').modal('toggle');
         $('#ModalEstOSTitle').html('ENVIO');
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-secondary">\n\
