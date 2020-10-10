@@ -5,13 +5,19 @@
         <group>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/gestionar_venta_salid_temp_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/insertar_es_x_os_alist_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/crear_os_cliente.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/guias_logi.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdSucursal/contenedor_suc.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarProd/consulta_sku_alist_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_envio.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Producto_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/form_os_en_proceso.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_aenv_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Envio_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdSucursal/tabla_stock_kardex.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_aenv_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/leer_xlsx_alist_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarProd/consulta_kardex_prod_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_serv_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarOS/insertar_es_x_os_controller.php</file>

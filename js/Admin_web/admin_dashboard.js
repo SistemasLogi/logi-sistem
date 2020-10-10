@@ -3141,7 +3141,7 @@ function vista_admin_sucursal() {
             if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
                 alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
             } else {
-                tabla_kardex_prueba();
+//                tabla_kardex_prueba();
             }
         });
 
