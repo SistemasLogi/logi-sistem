@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/seguimiento_est_alist_env.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/seguimiento_estados_env.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/gestion_envios.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_estado_x_env_segui_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_envio.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_aenv_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_aenv_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>

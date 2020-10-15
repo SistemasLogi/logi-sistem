@@ -5049,9 +5049,9 @@ function seguimiento_estado_alist_env() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#contenGestEnvios").html(datos);
-//        $("#btnBuscaEnv").click(function () {
-//            validarBuscarNumEnvio(datos_envio_seg);
-//        });
+        $("#btnBuscaEnvAlst").click(function () {
+            validarBuscarNumVenta(datos_seg_alist);
+        });
 //        botones_seg_os();
     };
     f_ajax(request, cadena, metodo);

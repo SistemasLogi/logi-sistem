@@ -255,4 +255,30 @@ class Producto_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna los item de una venta en tabla salidas temp
+     * @param type $num_venta
+     * @return type
+     */
+    function consultaProd_x_venta_sal_temp($num_venta) {
+        $sql = "SELECT ts.t_suc_num_id AS sucursal, ts.t_pro_cod AS codigo, ts.t_sal_guia_num AS guia, ts.t_sal_num_venta AS venta, p.pro_sku AS sku, p.pro_desc AS descripcion, ts.t_sal_cantidad AS unidades "
+                . "FROM salidas_prod_temp AS ts, productos AS p "
+                . "WHERE ts.t_pro_cod = p.pro_cod AND ts.t_sal_num_venta = " . $num_venta . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna los item de una venta en tabla salidas
+     * @param type $num_venta
+     * @return type
+     */
+    function consultaProd_x_venta_sal($num_venta) {
+        $sql = "SELECT s.suc_num_id AS sucursal, s.pro_cod AS codigo, s.sal_num_venta AS venta, p.pro_sku AS sku, p.pro_desc AS descripcion, s.sal_cantidad AS unidades "
+                . "FROM salida_prod AS s, productos AS p "
+                . "WHERE s.pro_cod = p.pro_cod AND s.sal_num_venta = " . $num_venta . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

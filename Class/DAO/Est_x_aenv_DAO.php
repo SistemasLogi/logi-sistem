@@ -49,4 +49,21 @@ class Est_x_aenv_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que retorna datos de seguimiento de envio en alistamiento segun parametro
+     * @param type $parametro
+     * @return type
+     */
+    function consulta_seg_env_alist($parametro) {
+        $sql = "SELECT ae.*, o.*, c.*, es.exae_fecha_hora, es.exae_novedad, ee.esae_desc, ee.esae_id, cd.ciu_nombre, d.*, op.ope_nombre "
+                . "FROM a_envio AS ae, orden_serv AS o, clientes AS c, est_x_aenv AS es, estados_aenv AS ee, "
+                . "ciudad AS cd, departamento AS d, operador AS op "
+                . "WHERE ae.os_id = o.os_id AND o.cli_td_id = c.cli_td_id AND o.cli_num_doc = c.cli_num_doc "
+                . "AND op.ope_id = ae.ope_id AND es.aen_id = ae.aen_id AND es.esae_id = ee.esae_id "
+                . "AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id " . $parametro . " "
+                . "ORDER BY es.esae_id ASC, es.exae_fecha_hora ASC;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

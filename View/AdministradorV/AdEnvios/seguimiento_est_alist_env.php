@@ -9,43 +9,22 @@
             <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvioAlist" name="formBuscarEnvioAlist">                                    
                 <b>Buscar N° Venta :</b>
                 <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaNumVenta" name="inpBuscaNumVenta" placeholder="Buscar N° Venta">
-                <button type="submit" class="btn btn-outline-warning btn-sm" id="btnBuscaEnv" name="btnBuscaEnv">BUSCAR</button>    
-            </form>
-            <h4>Venta N° <em id="etqNumEnvAlist"></em></h4>
-            <div class="row">
-                <div class="alert alert-dismissible alert-primary col-lg-7">
-                    <h5><b>DATOS VENTA</b></h5>
-                    <p class="mb-0"><strong>OPERADOR: </strong><em id="nom_remite"></em></p>
-                    <p class="mb-0"><strong>GUIA OP: </strong><em id="dir_remite"></em></p>
-                    <p class="mb-0"><strong>ITEMS: </strong><em id="ciudad_remite"></em></p>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Type</th>
-                                <th scope="col">Column heading</th>
-                                <th scope="col">Column heading</th>
-                                <th scope="col">Column heading</th>
-                            </tr>
-                        </thead>
-                        <tbody>                           
-                            <tr class="table-warning">
-                                <th scope="row">Warning</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>                            
-                            <tr class="table-warning">
-                                <th scope="row">Warning</th>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                                <td>Column content</td>
-                            </tr>                            
-                        </tbody>
-                    </table> 
+                <button type="submit" class="btn btn-outline-warning btn-sm" id="btnBuscaEnvAlst" name="btnBuscaEnvAlst">BUSCAR</button>    
+            </form>            
+            <div class="row mt-2">
+                <div class="alert alert-dismissible alert-primary col-lg-8">
+                    <p class="mb-0"><strong>VENTA N°: </strong><em id="etqNumVentAlist"></em></p>
+                    <p class="mb-0"><strong>OPERADOR: </strong><em id="nom_oper"></em></p>
+                    <p class="mb-0"><strong>GUIA OP: </strong><em id="guia_op"></em></p>
+                    <div id="tablItemsAlist">
+
+                    </div>                    
                 </div>
-                <div class="alert alert-dismissible alert-primary col-lg-5">
+                <div class="alert alert-dismissible alert-primary col-lg-4">
                     <h5><b>CLIENTE</b></h5>
-                    <img src="img/sucursales/1.png" alt=""/>
+                    <div id="imgSucLogo">
+                        
+                    </div>
                 </div>
             </div>
             <div class="col-lg-12 table-responsive">  
