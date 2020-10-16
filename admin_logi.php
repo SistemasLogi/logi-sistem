@@ -49,6 +49,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="js/Admin_web/admin_dashboard.js" type="text/javascript"></script>
+        <script src="js/Admin_web/admin_dashboard_envios.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
         <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
         <script src="js/Comunes/guias_logi.js" type="text/javascript"></script>
@@ -100,7 +101,7 @@ if (!isset($_SESSION["adminlogi"])) {
                         <div class="card card-body alert-primary">
                             <a class="dropdown-item enlace" id="link_vista_gest_env">Gestionar</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_vista_dashboard_serv">DashBoard</a>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">

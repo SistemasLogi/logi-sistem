@@ -21,6 +21,9 @@ $(document).ready(function () {
     $("#link_vista_hist").click(function () {
         vista_historial_os();
     });
+    $("#link_vista_dashboard_envios").click(function () {
+        vista_dashboard_envios();
+    });
     $("#link_sucursales").click(function () {
         vista_admin_sucursal();
     });
