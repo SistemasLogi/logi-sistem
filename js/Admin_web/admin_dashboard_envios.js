@@ -8,119 +8,82 @@ function vista_dashboard_envios() {
     metodo = function (datos) {
 //        exist = false;
         $("#list-formCliente").html(datos);
-        consulta_dashboard_serv_card();
-        consulta_dashboard_serv();
-        setInterval(consulta_os_program, 20000);
+        consulta_dashboard_envios_card();
+//        consulta_dashboard_serv();
+//        setInterval(consulta_os_program, 20000);
     };
     f_ajax(request, cadena, metodo);
+}
+
+var env_program;
+var env_bodega_or;
+var env_reparto;
+var env_novedad;
+var env_gest_fin;
+var env_solucion;
+var env_viajando_dest;
+var env_bodega_dest;
+
+/**
+ * Metodo que retorna la cantidad de envios segun su estado a la vista de los paneles
+ * @returns {undefined}
+ */
+function control_dash_envios() {
+    $("#cantEnvProgram").html(env_program);
+    $("#cantEnvGestFin").html(env_gest_fin);
+    $("#cantEnvBodegaOr").html(env_bodega_or);
+    $("#cantEnvSolucion").html(env_solucion);
+    $("#cantEnvReparto").html(env_reparto);
+    $("#cantEnvViajDest").html(env_viajando_dest);
+    $("#cantEnvNovedades").html(env_novedad);
+    $("#cantEnvBodegaDest").html(env_bodega_dest);
+
 }
 
 /**
  * Funcion que carga las acciones en los card
  * @returns {undefined}
  */
-function consulta_dashboard_serv_card() {
-    request = "Controller/AdminC/AdministrarOS/consulta_ult_est_os_controller.php";
+function consulta_dashboard_envios_card() {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_envio_controller.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
-        serv_program = 0;
-        serv_asignado = 0;
-        serv_exitoso = 0;
-        serv_novedad = 0;
-        serv_piking = 0;
-        serv_paking = 0;
-        arregloEstOScard = $.parseJSON(datos);
+        env_program = 0;
+        env_bodega_or = 0;
+        env_reparto = 0;
+        env_novedad = 0;
+        env_gest_fin = 0;
+        env_solucion = 0;
+        env_viajando_dest = 0;
+        env_bodega_dest = 0;
+        arregloEstEnvCard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
-        if (arregloEstOScard !== 0) {
+        if (arregloEstEnvCard !== 0) {
 
-            for (i = 0; i < arregloEstOScard.length; i++) {
-                tmp = arregloEstOScard[i];
+            for (i = 0; i < arregloEstEnvCard.length; i++) {
+                tmp = arregloEstEnvCard[i];
 
-                if (tmp.es_id == 1) {
-                    serv_program++;
-                } else if (tmp.es_id == 2) {
-                    serv_asignado++;
-                } else if (tmp.es_id == 3) {
-                    serv_exitoso++;
-                } else if (tmp.es_id == 4) {
-                    serv_novedad++;
-                } else if (tmp.es_id == 5) {
-                    serv_piking++;
-                } else if (tmp.es_id == 6) {
-                    serv_paking++;
+                if (tmp.exe_ee_id == 1) {
+                    env_program++;
+                } else if (tmp.exe_ee_id == 2) {
+                    env_bodega_or++;
+                } else if (tmp.exe_ee_id == 3) {
+                    env_viajando_dest++;
+                } else if (tmp.exe_ee_id == 4) {
+                    env_bodega_dest++;
+                } else if (tmp.exe_ee_id == 5) {
+                    env_reparto++;
+                } else if (tmp.exe_ee_id == 8) {
+                    env_novedad++;
+                } else if (tmp.exe_ee_id == 9) {
+                    env_gest_fin++;
+                } else if (tmp.exe_ee_id == 10) {
+                    env_solucion++;
                 }
             }
 
-            control_dash_serv();
-            $("#cardRealizadas").click(function () {
-                if (exist == true) {
-                    consulta_dashb_serv_fil(3);
-//                    exist = false;
-                }
-                tablaEst_x_OS
-                        .column(3)
-                        .search('')
-                        .search('REALIZADA')
-                        .draw();
-                //En esta linea me redirije al formulario con una velocodad establecida
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $("#tablaEstadoOS").offset().top
-                }, 900);
-            });
-            $("#cardAsignadas").click(function () {
-                if (exist == true) {
-                    consulta_dashb_serv_fil(2);
-//                    exist = false;
-                } else {
-                    tablaEst_x_OS
-                            .column(3)
-                            .search('')
-                            .search('ASIGNADA')
-                            .draw();
-                }
-
-                //En esta linea me redirije al formulario con una velocodad establecida
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $("#tablaEstadoOS").offset().top
-                }, 900);
-            });
-            $("#cardNovedad").click(function () {
-                if (exist == true) {
-                    consulta_dashb_serv_fil(4);
-//                    exist = false;
-                } else {
-                    tablaEst_x_OS
-                            .column(3)
-                            .search('')
-                            .search('CANCELADA')
-                            .draw();
-                }
-
-                //En esta linea me redirije al formulario con una velocodad establecida
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $("#tablaEstadoOS").offset().top
-                }, 900);
-            });
-            $("#cardProgramadas").click(function () {
-                if (exist == true) {
-                    consulta_dashb_serv_fil(1);
-//                    exist = false;
-                } else {
-                    tablaEst_x_OS
-                            .column(3)
-                            .search('')
-                            .search('PROGRAMADA')
-                            .draw();
-                }
-
-                //En esta linea me redirije al formulario con una velocodad establecida
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $("#tablaEstadoOS").offset().top
-                }, 900);
-            });
-//            $("#cardProgramadas").click(function () {
-//                $('#MyModalCenter').modal('toggle');
-//            });
+            control_dash_envios();
+            clickPanelDash();
 
         } else {
             $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -129,4 +92,29 @@ function consulta_dashboard_serv_card() {
         }
     };
     f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma los datos del elemento seleccionado en los campos de texto
+ * formulario ciudad
+ * @returns {undefined}
+ */
+function clickPanelDash() {
+//    $("#tableCiudad").on("click", ".actualiza", function () {
+    $(".est_envio").click(function () {
+        estado_id = $(this).attr("elem");
+        alert(estado_id);
+//        $("#btnGuardaCiu").removeClass("btn-primary");
+//        $("#btnGuardaCiu").addClass("btn-warning");
+//        $("#btnGuardaCiu").html("Actualizar");
+//        tm = arregloCiudad[actualizar];
+//        $("#inpCodCiudad").val(tm.ciu_id);
+//        $("#inpNomCiudad").val(tm.ciu_nombre);
+//        $('#selectDepto option[value="' + tm.dep_id + '"]').attr('selected', true);
+//
+        //En esta linea me redirije al formulario con una velocodad establecida
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#page-content-wrapper").offset().top
+        }, 300);
+    });
 }

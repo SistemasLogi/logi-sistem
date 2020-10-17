@@ -107,4 +107,23 @@ class Estado_x_env_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna datos de el ultimo estado de todos los envios
+     * @param type $param
+     * @return type
+     */
+    function consulta_ultimo_est_envios($param) {
+        $sql = "SELECT TM.*, e.en_guia, e.os_id, e.en_cantidad, e.en_nombre, e.en_direccion, e.en_telefono, "
+                . "e.en_ciudad, e.en_departamento, e.en_contiene, e.en_valor_decl, em.emp_nombre, es.ee_desc "
+                . "FROM "
+                . "(SELECT T1.* FROM est_x_envio AS T1 WHERE T1.exe_fec_hora = (SELECT MAX(T2.exe_fec_hora)"
+                . "FROM est_x_envio AS T2 WHERE T1.exe_en_id = T2.exe_en_id)ORDER BY T1.exe_fec_hora DESC) AS TM, "
+                . "envio AS e, empleados AS em, estado_env AS es "
+                . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
+                . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id "
+                . "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7)" . $param . "";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }
