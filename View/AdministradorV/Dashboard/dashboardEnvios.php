@@ -65,16 +65,7 @@
         </div>
     </div>
     <div class="col-lg-12" id="tab_est_env">
-        <div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
-            <div class="toast-header">
-                <strong class="mr-auto" id="title_env_est">ENVIOS PROGRAMADOS</strong>
-            </div>
-            <div class="toast-body">
-                <div class="col-lg-12" id="tbInfoEstOS">
 
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>
