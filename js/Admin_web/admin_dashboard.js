@@ -1753,6 +1753,25 @@ function elimina_est_env() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que llena el combo de seleccion de estado envio
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_estado_envio(select) {
+    request = "Controller/AdminC/AdministrarBD/consulta_estado_env_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datoescombo = '<option value="0">Seleccione</option>';
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datoescombo += '<option value="' + temp.ee_id + '">' + temp.ee_desc + "</option>";
+        }
+        $(select).html(datoescombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /****************************************************************
  * Metodos de tabla operadores

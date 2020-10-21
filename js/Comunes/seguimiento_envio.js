@@ -85,58 +85,58 @@ function datos_envio_seg() {
                 if (tmp_est.ee_id == 1) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-alarm-clock" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 2) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-ios-home" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 3) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-jet" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 4) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-ios-home-outline" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 5) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 6) {
-                    iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-checkmark-circled" style="font-size: xx-large; color: #009645;"></span></a></td>';
+                    iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="Entrega OK"><span class="ion-checkmark-circled" style="font-size: xx-large; color: #009645;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 7) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-arrow-left-a" style="font-size: xx-large; color: #b90808;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 8) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-warning" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 9) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-warning" style="font-size: xx-large; color: #b90808;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 10) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-warning" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 }else if (tmp_est.ee_id == 11) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-loop" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
-                    hora_est += '<td id="fec_asig">' + timeString + '</td>';
-                    desc_est += '<td id="fec_asig">' + tmp_est.ee_desc + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 }
             }
 

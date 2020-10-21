@@ -124,7 +124,7 @@ class Estado_x_env_DAO {
                 . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
                 . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
                 . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
-                . "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11)" . $param . "";
+                . "" . $param . "";
         $BD = new MySQL();
         return $BD->query($sql);
     }
