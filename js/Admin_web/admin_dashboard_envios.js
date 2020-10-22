@@ -219,6 +219,7 @@ function consulta_tabla_env_x_est(id_est) {
 }
 /**
  * Metodo que carga el modal con formulario para seleccion de producto en alistamiento 
+ * @param {type} color
  * @returns {undefined}
  */
 function clickEdit_est_Env(color) {
@@ -291,29 +292,7 @@ function clickEdit_est_Env(color) {
 //        });
     });
 }
-/**
- * Metodo que carga envio a mensajero
- * @returns {undefined}
- */
-function clickAdd_env_mensajero() {
-    $("#tableEnvProgram").on("click", ".addEnvio", function () {
-//    $(".actuestos").click(function () {
-        add_envio = $(this).attr("addEnv");
 
-        if (mensajero === undefined || mensajero === '0|0') {
-            alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
-        } else {
-            insertar_env_prog(add_envio, mensajero);
-//        $('#ModalActuEstOS').modal('toggle');
-            alertify.success('Envio Guia Logi N° ' + add_envio + ' cargado');
-            //reset del campo de busqueda y despliegue de tabla
-//            table_env_prog.search("").draw();
-            consulta_tabla_env_programados();
-            $("div#tableEnvProgram_filter input").val("");
-        }
-//        form_act_est_os(arreglo_env_prog, add_envio);
-    });
-}
 /**
  * Metodo que retorna a la vista los datos de un envio especifico
  * @param {type} envio_id
@@ -341,6 +320,7 @@ function viasta_envio_modal_dash(envio_id) {
     };
     f_ajax(request, cadena, metodo);
 }
+
 /**
  * Metodo que permite validar campos en formulario al actualizar estado de envios
  * @returns {undefined}
@@ -350,6 +330,20 @@ function validarEstEnvio_dash() {
         rules: {
             inputNumEnvi: {
                 required: true
+            },
+            selectMensajero: {
+                valueNotEquals: "0|0"
+            },
+            selectEstado: {
+                valueNotEquals: "0"
+            }
+        },
+        messages: {
+            selectMensajero: {
+                valueNotEquals: "Seleccione Mensajero!"
+            },
+            selectEstado: {
+                valueNotEquals: "Seleccione Estado!"
             }
         },
         submitHandler: function (form) {
@@ -368,6 +362,9 @@ function insert_estado_envio() {
         if (datos == 1) {
             limpiarFormulario("#formModalEnvEst");
             $('#ModalActuEstOS').modal('hide');
+            consulta_dashboard_envios_card();
+            $("#tab_est_env").html("");
+            alertify.success('Estado actualizado!');
         } else {
             alert("Error al actualizar estado, por favor vuelva a dar click en el envio");
             limpiarFormulario("#formModalEnvEst");

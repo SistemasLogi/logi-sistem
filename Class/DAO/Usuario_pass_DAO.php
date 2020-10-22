@@ -102,4 +102,17 @@ class Usuario_pass_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que realiza un insert o update en tabla usuario_emp_pass
+     * @param type $usu_pass_vo
+     */
+    function insertarActualEmpPass($usu_pass_vo) {
+        $sql = "INSERT INTO usuario_emp_pass VALUES (" . $usu_pass_vo->getTipo_doc() . ", " . $usu_pass_vo->getNum_doc() . ", "
+                . "" . $usu_pass_vo->getTipo_usu() . ", '" . $usu_pass_vo->getUsuario() . "', '" . $usu_pass_vo->getPassword() . "')"
+                . "ON DUPLICATE KEY UPDATE car_id = " . $usu_pass_vo->getTipo_usu() . ", "
+                . "ue_usuario = '" . $usu_pass_vo->getUsuario() . "', ue_password = '" . $usu_pass_vo->getPassword() . "';";
+        $BD = new MySQL();
+        return $BD->execute_query($sql);
+    }
+
 }

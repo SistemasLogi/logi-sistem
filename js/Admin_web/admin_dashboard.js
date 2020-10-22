@@ -27,6 +27,9 @@ $(document).ready(function () {
     $("#link_sucursales").click(function () {
         vista_admin_sucursal();
     });
+    $("#link_form_nuev_emp").click(function () {
+        vista_form_Nuevo_Edit_Emp();
+    });
     $("#adminbd a").click(function () {
         vista_tabla_bd(this);
     });
@@ -99,6 +102,10 @@ function f_ajax_files(request, cadena, metodo) {
         }
     });
 }
+/**Metodo de nueva regla de validacion**/
+$.validator.addMethod("valueNotEquals", function (value, element, arg) {
+    return arg !== value;
+}, "Value must not equal arg.");
 /**
  * Metodo general que limpia campos de un formulario
  * @param {type: form} formulario
@@ -142,7 +149,7 @@ function limpiarFormulario(formulario) {
  * @returns {undefined}
  */
 function vista_form_Nuevo_Edit() {
-    request = "View/AdministradorV/Adcliente/form_nuevo_editar.php";
+    request = "View/AdministradorV/AdCliente/form_nuevo_editar.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#list-formCliente").html(datos);
@@ -191,7 +198,7 @@ function combo_tipo_docum() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         arreglo = $.parseJSON(datos);
-        datodoccombo = "";
+        datodoccombo = '<option value="0">Seleccione</option>';
         for (i = 0; i < arreglo.length; i++) {
             temp = arreglo[i];
             datodoccombo += '<option value="' + temp.td_id + '">' + temp.td_sigla + "</option>";
@@ -425,6 +432,9 @@ function validarGuardaActCli() {
             },
             inputDirCli: {
                 required: true
+            },
+            selectTipDoc: {
+                valueNotEquals: "0"
             }
         },
         submitHandler: function (form) {
@@ -5075,6 +5085,115 @@ function seguimiento_estado_alist_env() {
             validarBuscarNumVenta(datos_seg_alist);
         });
 //        botones_seg_os();
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/****************************************************************
+ * Metodos de tabla empleados
+ * 
+ ****************************************************************/
+
+/**
+ * Metodo que carga el form para guardar clientes
+ * @returns {undefined}
+ */
+function vista_form_Nuevo_Edit_Emp() {
+    request = "View/AdministradorV/AdEmpleados/form_nuevo_emp.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html(datos);
+        combo_tipo_docum();
+        combo_cargo();
+
+        $("#btnCancelarEmp").click(function () {
+            resetFormEmpleado();
+        });
+        $("#btnGuardaEmp").click(function () {
+            validarGuardaEmp();
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que llena el combo de seleccion cargo
+ * @returns {undefined}
+ */
+function combo_cargo() {
+    request = "Controller/AdminC/AdministrarEmpleados/consulta_cargo_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        dato_combo_carg = '<option value="0">Seleccione</option>';
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            dato_combo_carg += '<option value="' + temp.car_id + '">' + temp.car_nombre + "</option>";
+        }
+        $("#selectTipCargo").html(dato_combo_carg);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que permite resetear el formulario Empleado
+ * @returns {undefined}
+ */
+function resetFormEmpleado() {
+    limpiarFormulario("#formEmpleado");
+    $("#selectTipDoc").html("");
+    combo_tipo_docum();
+    $("#selectTipCargo").html("");
+    combo_cargo();
+    $("#selectTipDoc").prop("disabled", false);
+    $("#inputNumEmp").prop("disabled", false);
+    $("#menCliNoAccess").html("");
+}
+/**
+ * Metodo que permite validar formulario de ingreso de Empleado
+ * @returns {undefined}
+ */
+function validarGuardaEmp() {
+    $("#formEmpleado").validate({
+        rules: {
+            inputNomEmp: {
+                required: true
+            },
+            inputNumEmp: {
+                required: true,
+                digits: true
+            },
+            selectTipDoc: {
+                valueNotEquals: "0"
+            },
+            selectTipCargo: {
+                valueNotEquals: "0"
+            }
+        },
+        submitHandler: function (form) {
+            inserta_empleado();
+        }
+    });
+}
+/**
+ * Metodo que guarda un registro en la tabla empleado
+ * @returns {undefined}
+ */
+function inserta_empleado() {
+    request = "Controller/AdminC/AdministrarEmpleados/insertar_empleado_controller.php";
+    cadena = $("#formEmpleado").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Registro Guardado, Usuario Autorizado!');
+            resetFormEmpleado();
+//            arregloCli.length = 0;
+        } else if (datos == 3) {
+            alertify.warning('Registro Guardado pero el usuario NO fue Autorizado!');
+            resetFormEmpleado();
+//            arregloCli.length = 0;
+        } else {
+            alert(datos);
+            alertify.error('NO Guardado!');
+        }
     };
     f_ajax(request, cadena, metodo);
 }

@@ -117,7 +117,7 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_sucursales">Sucursales</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
                         <span class="ion-folder"></span>
                         ADMINISTRAR BD
                     </a>
@@ -138,6 +138,17 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" bd="admin_operadores">Op. Logisticos</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" bd="admin_estado_aenv">Estado Alist. Envios</a>
+                        </div>
+                    </div>
+                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseEmp" role="button" aria-expanded="false" aria-controls="multiCollapseEmp">
+                        <span class="ion-android-person"></span>
+                        EMPLEADOS
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseEmp">
+                        <div class="card card-body alert-primary">
+                            <a class="dropdown-item enlace" id="link_form_nuev_emp">Nuevo</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_form_editar_emp">Editar</a>
                         </div>
                     </div>
                 </div>
