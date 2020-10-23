@@ -3,22 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEmpleados/insertar_empleado_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/seguimiento_estados_env.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/rastreo_envio.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_estado_envio_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_env_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_est_env_get_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard_envios.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/Dashboard/dashboardEnvios.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_aenv_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_estado_envio_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarBD/consulta_estado_env_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_env_x_id_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/gestion_envios.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_prog_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_ult_est_envio_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEmpleados/form_nuevo_emp.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Cargo_VO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Usuario_pass_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Empleado_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Cargo_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/inicio_sesion.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Empleado_VO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/config.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEmpleados/consulta_cargo_controller.php</file>
         </group>
     </open-files>
 </project-private>
