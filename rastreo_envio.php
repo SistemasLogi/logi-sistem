@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+session_start();
+?>
 <html lang="es">
     <head>
         <meta charset="utf-8">
@@ -51,8 +54,8 @@
         <!--<script src="contactform/contactform.js"></script>-->
 
         <!-- Template Main Javascript File -->
-        <!--<script src="js/main.js"></script>-->
-        <script src="js/Inicio_Sesion/login.js" type="text/javascript"></script>
+        <script src="js/main.js"></script>
+        <!--<script src="js/Inicio_Sesion/login.js" type="text/javascript"></script>-->
         <!--<script src="js/principal.js" type="text/javascript"></script>-->
 
         <!-- =======================================================
@@ -90,218 +93,242 @@
                 </header>
 
                 <?php
-                require './config.php';
-                $est_env = new Estado_x_env_DAO();
-                $num_envio = $_GET["EnvNum"];
-                $datosEnvio = json_encode($est_env->consulta_seguimiento_env_x_id("AND e.en_id = " . $num_envio));
-
-                if (!empty($datosEnvio)) {
-                    $id_env_dec = json_decode($datosEnvio);
-
-                    $cant_estados = count($id_env_dec); //cantidad de registros que equivalen a los estados por los que pasa el envio
-                    $cant_teorico = $cant_estados;
-                    $tmp_ult_est = count($id_env_dec) - 1;
+                if (isset($_GET["EnvNum"])) {
 
 
-                    if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
-                        
-                    } else {
-                        $cant_teorico = $cant_estados + 1; //cantidad teorica para visualizacion
-                    }
-                    ?>
+                    require './config.php';
+                    $est_env = new Estado_x_env_DAO();
+                    $num_envio = $_GET["EnvNum"];
+                    $datosEnvio = json_encode($est_env->consulta_seguimiento_env_x_id("AND e.en_id = " . $num_envio));
 
-                    <div class="row col-lg-12">
-                        <div class="toast-body col-lg-12 row">        
-                            <div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">
+                    if (!empty($datosEnvio)) {
+                        $id_env_dec = json_decode($datosEnvio);
 
-                                <h4>Envio N° <em id="etqNumEnv"><?php echo $id_env_dec[0]->en_id ?></em></h4>
-                                <div class="row">
-                                    <div class="alert alert-dismissible alert-warning col-lg-6">
-                                        <h5><b>REMITE</b></h5>
-                                        <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_remite"><?php echo $id_env_dec[0]->cli_nombre ?></em></p>
-                                        <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_remite"><?php echo $id_env_dec[0]->os_direccion ?></em></p>
-                                        <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_remite"><?php echo $id_env_dec[0]->ciu_nombre ?></em></p>
-                                        <p class="mb-0"><strong>TEL: </strong><em id="tel_remite"><?php echo $id_env_dec[0]->os_tel_cont ?></em></p>
+                        $cant_estados = count($id_env_dec); //cantidad de registros que equivalen a los estados por los que pasa el envio
+                        $cant_teorico = $cant_estados;
+                        $tmp_ult_est = count($id_env_dec) - 1;
+
+
+                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                            
+                        } else {
+                            $cant_teorico = $cant_estados + 1; //cantidad teorica para visualizacion
+                        }
+                        ?>
+
+                        <div class="row col-lg-12">
+                            <div class="toast-body col-lg-12 row">        
+                                <div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">
+
+                                    <h4>Envio N° <em id="etqNumEnv"><?php echo $id_env_dec[0]->en_id ?></em></h4>
+                                    <div class="row">
+                                        <div class="alert alert-dismissible alert-warning col-lg-6">
+                                            <h5><b>REMITE</b></h5>
+                                            <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_remite"><?php echo $id_env_dec[0]->cli_nombre ?></em></p>
+                                            <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_remite"><?php echo $id_env_dec[0]->os_direccion ?></em></p>
+                                            <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_remite"><?php echo $id_env_dec[0]->ciu_nombre ?></em></p>
+                                            <p class="mb-0"><strong>TEL: </strong><em id="tel_remite"><?php echo $id_env_dec[0]->os_tel_cont ?></em></p>
+                                        </div>
+                                        <div class="alert alert-dismissible alert-primary col-lg-6">
+                                            <h5><b>DESTINO</b></h5>
+                                            <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_destino"><?php echo $id_env_dec[0]->en_nombre ?></em></p>
+                                            <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_destino"><?php echo $id_env_dec[0]->en_direccion ?></em></p>
+                                            <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_destino"><?php echo $id_env_dec[0]->en_ciudad ?></em></p>
+                                            <p class="mb-0"><strong>TEL: </strong><em id="tel_destino"><?php echo $id_env_dec[0]->en_telefono ?></em></p> 
+                                        </div>
                                     </div>
-                                    <div class="alert alert-dismissible alert-primary col-lg-6">
-                                        <h5><b>DESTINO</b></h5>
-                                        <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_destino"><?php echo $id_env_dec[0]->en_nombre ?></em></p>
-                                        <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_destino"><?php echo $id_env_dec[0]->en_direccion ?></em></p>
-                                        <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_destino"><?php echo $id_env_dec[0]->en_ciudad ?></em></p>
-                                        <p class="mb-0"><strong>TEL: </strong><em id="tel_destino"><?php echo $id_env_dec[0]->en_telefono ?></em></p> 
-                                    </div>
-                                </div>
-                                <?php
-                                $iconos = "";
-                                $fecha_est = "";
-                                $hora_est = "";
-                                $desc_est = "";
+                                    <?php
+                                    $iconos = "";
+                                    $fecha_est = "";
+                                    $hora_est = "";
+                                    $desc_est = "";
 
-                                if ($cant_teorico < 3) {
-                                    $cant_teorico++;
-                                }
+                                    if ($cant_teorico < 3) {
+                                        $cant_teorico++;
+                                    }
 
-                                $porcentaje = (100 / ($cant_teorico) * $cant_estados);
-                                ?>
-                                <div class="col-lg-12 table-responsive">  
-                                    <table class="table table-hover text-center col-lg-12" id="tableSegEnv">
-                                        <thead>
-                                            <tr class="table-sm" id="titleEncaTab">
-                                                <?PHP
-                                                for ($i = 0; $i < $cant_teorico; $i++) {
-                                                    ?>
-                                                    <th scope="col"><span class="ion-android-arrow-dropright" style="font-size: xx-large;"></span></th>
+                                    $porcentaje = (100 / ($cant_teorico) * $cant_estados);
+                                    ?>
+                                    <div class="col-lg-12 table-responsive">  
+                                        <table class="table table-hover text-center col-lg-12" id="tableSegEnv">
+                                            <thead>
+                                                <tr class="table-sm" id="titleEncaTab">
                                                     <?PHP
-                                                }
-                                                ?>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="table-sm" id="fechEst">
-                                                <?PHP
-                                                for ($i = 0; $i < $cant_estados; $i++) {
+                                                    for ($i = 0; $i < $cant_teorico; $i++) {
+                                                        ?>
+                                                        <th scope="col"><span class="ion-android-arrow-dropright" style="font-size: xx-large;"></span></th>
+                                                        <?PHP
+                                                    }
                                                     ?>
-                                                    <td><?php echo $id_env_dec[$i]->exe_fec_hora ?></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-sm" id="fechEst">
                                                     <?PHP
-                                                }
-                                                if ($cant_estados == 1) {
-                                                    ?>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <?php
-                                                } else {
-                                                    if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
-                                                        
-                                                    } else {
+                                                    for ($i = 0; $i < $cant_estados; $i++) {
+                                                        ?>
+                                                        <td><?php echo $id_env_dec[$i]->exe_fec_hora ?></td>
+                                                        <?PHP
+                                                    }
+                                                    if ($cant_estados == 1) {
                                                         ?>
                                                         <td></td>
+                                                        <td></td>
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </tr>
-                                            <tr class="table-sm" id="horaEst">
-
-                                            </tr>
-                                            <tr>                                                
-                                                <td id="fila_bar" colspan="<?php echo $cant_teorico ?>">
-                                                    <div class="progress" style="height:20px; border-radius: 0.7rem;">
-                                                        <?php
-                                                        if ($cant_estados == 1) {
-                                                            ?>
-                                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $porcentaje ?>%"></div>
-                                                            <?php
+                                                    } else {
+                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                            
                                                         } else {
-                                                            if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
-                                                                ?>
-                                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                                                                <?php
-                                                            } else {
+                                                            ?>
+                                                            <td></td>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </tr>
+                                                <tr class="table-sm" id="horaEst">
+
+                                                </tr>
+                                                <tr>                                                
+                                                    <td id="fila_bar" colspan="<?php echo $cant_teorico ?>">
+                                                        <div class="progress" style="height:20px; border-radius: 0.7rem;">
+                                                            <?php
+                                                            if ($cant_estados == 1) {
                                                                 ?>
                                                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $porcentaje ?>%"></div>
                                                                 <?php
+                                                            } else {
+                                                                if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                                    ?>
+                                                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                                                    <?php
+                                                                } else {
+                                                                    ?>
+                                                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $porcentaje ?>%"></div>
+                                                                    <?php
+                                                                }
                                                             }
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-secondary table-sm" id="icon_x_est_env">                       
-                                                <?PHP
-                                                for ($i = 0; $i < $cant_estados; $i++) {
-                                                    ?>
-                                                    <td id="nov_env"><?php echo $id_env_dec[$i]->ee_desc ?></td>
+                                                            ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-secondary table-sm" id="icon_x_est_env">                       
                                                     <?PHP
-                                                }
-                                                if ($cant_estados == 1) {
-                                                    ?>
-                                                    <td id="fec_asig">PENDIENTE</td>
-                                                    <td id="fec_asig">PENDIENTE</td>
-                                                    <?php
-                                                } else {
-                                                    if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
-                                                        
-                                                    } else {
+                                                    for ($i = 0; $i < $cant_estados; $i++) {
+                                                        ?>
+                                                        <td id="nov_env"><?php echo $id_env_dec[$i]->ee_desc ?></td>
+                                                        <?PHP
+                                                    }
+                                                    if ($cant_estados == 1) {
                                                         ?>
                                                         <td id="fec_asig">PENDIENTE</td>
+                                                        <td id="fec_asig">PENDIENTE</td>
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </tr>
-                                            <tr class="table-sm" id="descEst">
-                                                <?PHP
-                                                for ($i = 0; $i < $cant_estados; $i++) {
-                                                    if ($id_env_dec[$i]->ee_id == 1) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-alarm-clock" style="font-size: xx-large; color: #d68800;"></span></a></td>                           
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 2) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-ios-home" style="font-size: xx-large; color: #d68800;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 3) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-jet" style="font-size: xx-large; color: #d68800;"></span></a></td>                                                       
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 4) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-ios-home-outline" style="font-size: xx-large; color: #d68800;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 5) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 6) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="Entraga OK"><span class="ion-checkmark-circled" style="font-size: xx-large; color: #009645;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 7) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-arrow-left-a" style="font-size: xx-large; color: #b90808;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 8) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-warning" style="font-size: xx-large; color: #d68800;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 9) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-warning" style="font-size: xx-large; color: #b90808;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 10) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-warning" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>
-                                                        <?php
-                                                    } else if ($id_env_dec[$i]->ee_id == 11) {
-                                                        ?>
-                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-loop" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                    <?PHP
-                                                }
-                                                if ($cant_estados == 1) {
-                                                    ?>
-                                                    <td><span class="ion-android-bicycle" style="font-size: xx-large; color: #77248c;"></span></td>
-                                                    <td><span class="ion-checkmark-circled" style="font-size: xx-large; color: #77248c;"></span></td>
-                                                    <?php
-                                                } else {
-                                                    if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
-                                                        
                                                     } else {
+                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                            
+                                                        } else {
+                                                            ?>
+                                                            <td id="fec_asig">PENDIENTE</td>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </tr>
+                                                <tr class="table-sm" id="descEst">
+                                                    <?PHP
+                                                    for ($i = 0; $i < $cant_estados; $i++) {
+                                                        if ($id_env_dec[$i]->ee_id == 1) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-alarm-clock" style="font-size: xx-large; color: #d68800;"></span></a></td>                           
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 2) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-ios-home" style="font-size: xx-large; color: #d68800;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 3) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-jet" style="font-size: xx-large; color: #d68800;"></span></a></td>                                                       
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 4) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-ios-home-outline" style="font-size: xx-large; color: #d68800;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 5) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 6) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="Entraga OK"><span class="ion-checkmark-circled" style="font-size: xx-large; color: #009645;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 7) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-arrow-left-a" style="font-size: xx-large; color: #b90808;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 8) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-warning" style="font-size: xx-large; color: #d68800;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 9) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-warning" style="font-size: xx-large; color: #b90808;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 10) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-warning" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>
+                                                            <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 11) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-loop" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>
+                                                            <?php
+                                                        }
                                                         ?>
+                                                        <?PHP
+                                                    }
+                                                    if ($cant_estados == 1) {
+                                                        ?>
+                                                        <td><span class="ion-android-bicycle" style="font-size: xx-large; color: #77248c;"></span></td>
                                                         <td><span class="ion-checkmark-circled" style="font-size: xx-large; color: #77248c;"></span></td>
                                                         <?php
+                                                    } else {
+                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                            
+                                                        } else {
+                                                            ?>
+                                                            <td><span class="ion-checkmark-circled" style="font-size: xx-large; color: #77248c;"></span></td>
+                                                            <?php
+                                                        }
                                                     }
-                                                }
-                                                ?>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    ?>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <h5>NO HAY DATOS</h5>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <div class="row justify-content-center">
+                                    <div class="col-4">
+                                        <form id="formRastreo" name="formRastreo">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="EnvNum" name="EnvNum" placeholder="Numero guia">
+                                                </div>
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn btn-primary">BUSCAR</button>  
+                                                </div>
+                                            </fieldset>
+                                        </form>
+
+                                    </div>
                                 </div>
                                 <?php
-                            } else {
-                                
                             }
                             ?>
                             <div class="row" id="contAux">

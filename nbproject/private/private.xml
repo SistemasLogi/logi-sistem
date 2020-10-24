@@ -9,8 +9,10 @@
             <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_estado_envio_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_est_env_get_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_envio.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard_envios.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/Dashboard/dashboardEnvios.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEmpleados/form_nuevo_emp.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Cargo_VO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Usuario_pass_DAO.php</file>

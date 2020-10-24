@@ -8,6 +8,9 @@
     <li class="nav-item">
         <a class="nav-link ancla" href="index.php #call-to-action" data-ancla="call-to-action">NOSOTROS</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="rastreo_envio.php">RASTREO ENVIO</a>
+    </li>
     <?php
     if (isset($_SESSION["adminlogi"]) || isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {
         if (isset($_SESSION["adminlogi"])) {
