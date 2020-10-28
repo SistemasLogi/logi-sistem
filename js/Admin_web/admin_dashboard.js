@@ -24,7 +24,9 @@ $(document).ready(function () {
     $("#link_vista_dashboard_envios").click(function () {
         vista_dashboard_envios();
     });
-    $("#link_sucursales").click(function () {
+
+    //*Este menu es gestionar del almacen*//
+    $("#link_gest_almacen").click(function () {
         vista_admin_sucursal();
     });
     $("#link_form_nuev_emp").click(function () {
@@ -3153,6 +3155,13 @@ function vista_admin_sucursal() {
 
         combo_sucursal();
 
+        $("#formNuevoProd").click(function () {
+            if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
+                alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
+            } else {
+                form_nuevo_prod();
+            }
+        });
         $("#formIngInvXlsx").click(function () {
             if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
                 alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
@@ -3169,11 +3178,11 @@ function vista_admin_sucursal() {
             }
         });
 
-        $("#formAjuste").click(function () {
+        $("#formEdita").click(function () {
             if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
                 alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
             } else {
-//                tabla_kardex_prueba();
+                tabla_kardex_prueba();
             }
         });
 
@@ -3243,6 +3252,22 @@ function form_carga_inventario() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que carga a la vista el formulario de ingreso nuevos productos
+ * @returns {undefined}
+ */
+function form_nuevo_prod() {
+    request = "View/AdministradorV/AdSucursal/form_prod_nuevo.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenidoInvent").html(datos);
+        $("#btnGuardaProd").click(function () {
+            validarFormNuevoProd();
+        });
+        $("#inputNumSuc").val($("#inputSucId").val());
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /**
  * Metodo que plasma nombre archivo en carga masiva envios documentos
@@ -3280,6 +3305,28 @@ function validarXlsxInv() {
         }
     });
 }
+/**
+ * Metodo de validacion para campos de formulario nuevo producto
+ * @returns {undefined}
+ */
+function validarFormNuevoProd() {
+    $("#formProducto").validate({
+        rules: {
+            inputCodProd: {
+                required: true
+            },
+            inputSku: {
+                required: true
+            },
+            inputNomProd: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            insertarProducto();
+        }
+    });
+}
 
 /**
  * Metodo que se encarga de guardar un fichero en la carpeta raiz del servidor
@@ -3306,6 +3353,25 @@ function cargaArchivoEntradaInv() {
 //        $("#tabEnviosDocum").html(datos);
     };
     f_ajax_files(request, cadena, metodo);
+}
+/**
+ * Metodo que se encarga de guardar un registro en tabla productos
+ * @returns {undefined}
+ */
+function insertarProducto() {
+    request = "Controller/AdminC/AdministrarProd/insertar_nuevo_prod_controller.php";
+    cadena = $("#formProducto").serialize();
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Producto creado en Base de datos OK!');
+            limpiarFormulario("#formProducto");
+        } else {
+            alertify.alert('Error al crear producto, revise los datos y que el codigo de barras no se repita en la base de datos').setHeader('<em> Cuidado! </em> ');
+        }
+
+//        $("#tabEnviosDocum").html(datos);
+    };
+    f_ajax(request, cadena, metodo);
 }
 /**
  * Metodo que lee los datos del archivo excel subido por el usuario
@@ -3351,15 +3417,14 @@ function actualizar_stck_masivo() {
  * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
  * @returns {undefined}
  */
-function tabla_stock_suc() {
-    sucursal_id = $("#inputSucId").val();
-    request = "Controller/AdminC/AdministrarProd/consulta_stock_inv_suc_controller.php";
-    cadena = "suc=" + sucursal_id; //envio de parametros por POST
+function tabla_kardex_prueba() {
+    request = "Controller/AdminC/AdministrarProd/consulta_general_prod_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
-        arreglo_stock_suc = $.parseJSON(datos);
+        arreglo_gen_prod = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
-        if (arreglo_stock_suc !== 0) {
-            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+        if (arreglo_gen_prod !== 0) {
+            datos_prod_gen = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
                              <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
                              <h4>Tabla General de Stock</h4>\n\
                              <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
@@ -3370,10 +3435,10 @@ function tabla_stock_suc() {
                                  <th scope="col">SKU</th>\n\
                                  <th scope="col">DESCRIPCIÓN</th>\n\
                                  <th scope="col">UB.</th>\n\
-                                 <th scope="col">TOTAL</th>\n\
+                                 <th scope="col">COSTO UN</th>\n\
                              </tr></thead><tbody>';
-            for (i = 0; i < arreglo_stock_suc.length; i++) {
-                tmp = arreglo_stock_suc[i];
+            for (i = 0; i < arreglo_gen_prod.length; i++) {
+                tmp = arreglo_gen_prod[i];
 
 //                if (tmp.ts_id == 1) {
 //                    color_serv = ' #593196;';
@@ -3381,28 +3446,53 @@ function tabla_stock_suc() {
 //                    color_serv = ' #18d26e;';
 //                }
                 if (tmp.total < 3) {
-                    datos_stock_suc += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
+                    datos_prod_gen += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
                 } else {
-                    datos_stock_suc += '<tr class="table-sm" id="fila' + i + '">';
+                    datos_prod_gen += '<tr class="table-sm" id="fila' + i + '">';
                 }
-                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
-                datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
-                datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
-                datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
-                datos_stock_suc += '<td id="ub' + tmp.pro_cod + '">' + tmp.pro_ubicacion + '</td>';
-                if (tmp.total < 3) {
-                    datos_stock_suc += '<td><b style="color: #e40a0a;" id="el' + tmp.pro_cod + '">' + tmp.total + '</b></td></tr>';
-                } else {
-                    datos_stock_suc += '<td id="el' + tmp.pro_cod + '">' + tmp.total + '</td></tr>';
-                }
+                datos_prod_gen += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
+                datos_prod_gen += '<td>' + tmp.pro_cod + '</td>';
+                datos_prod_gen += '<td>' + tmp.pro_sku + '</td>';
+                datos_prod_gen += '<td>' + tmp.pro_desc + '</td>';
+                datos_prod_gen += '<td id="ub' + tmp.pro_cod + '">' + tmp.pro_ubicacion + '</td>';
+                datos_prod_gen += '<td id="el' + tmp.pro_cod + '">' + tmp.pro_costo_unitario + '</td></tr>';
             }
-            datos_stock_suc += "</tbody></table></div></div></div>";
-            $("#contenidoInvent").html(datos_stock_suc);
+            datos_prod_gen += "</tbody><tfoot><tr>\n\
+                        <th></th>\n\
+                        <th>codigo</th>\n\
+                        <th>sku</th>\n\
+                        <th>descripción</th>\n\
+                        <th>ub.</th>\n\
+                        <th>costo un</th>\n\
+                    </tr></tfoot></table></div></div></div>";
+            $("#contenidoInvent").html(datos_prod_gen);
 
 //            /**
 //             * Evento que pagina una tabla 
 //             */
-            $('#tableStockSucursal').DataTable();
+//            $('#tableStockSucursal').DataTable();
+
+            $('#tableStockSucursal tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+            });
+
+            var table = $('#tableStockSucursal').DataTable({
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                        .search(this.value)
+                                        .draw();
+                            }
+                        });
+                    });
+                }
+            });
             /**
              * evento de click para llamada de kardex
              */
@@ -3424,93 +3514,6 @@ function tabla_stock_suc() {
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }
-
-    };
-    f_ajax(request, cadena, metodo);
-}
-var total_stk;
-var ub_prod;
-/**
- * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
- * @returns {undefined}
- */
-function tabla_kardex_prueba() {
-    request = "View/AdministradorV/AdSucursal/tabla_stock_kardex.php";
-    cadena = "a=1"; //envio de parametros por POST
-    metodo = function (datos) {
-
-        $("#contenidoInvent").html(datos);
-        $('#tableKardex').DataTable();
-    };
-    f_ajax(request, cadena, metodo);
-}
-/**
- * Metodo que carga a la vista la tabla la tarjeta kardex para el producto seleccionado
- * @param {type} cod_prod
- * @returns {undefined}
- */
-function tabla_kardex_prod(cod_prod) {
-    request = "Controller/AdminC/AdministrarProd/consulta_kardex_prod_controller.php";
-    cadena = "procod=" + cod_prod; //envio de parametros por POST
-    metodo = function (datos) {
-
-        arreglo_kdx_pro = $.parseJSON(datos);
-        tmp_inf = arreglo_kdx_pro[0];
-
-        datos_kdx = '<div class="toast-header"><strong class="mr-auto">KARDEX</strong></div>\n\
-                             <div class="toast-body row"><div class="alert alert-dismissible alert-light col-lg-12 border-primary" style="border-radius: 0.5rem;">\n\
-                             <div class="col-lg-12 table-responsive">\n\
-                             <table class="table table-bordered table-hover text-center col-lg-12" id="tableKardex">\n\
-                             <thead><tr class="table-sm table-warning">\n\
-                                 <th scope="col" colspan="5"><h5>' + tmp_inf.pro_desc + '</h5></th>\n\
-                                 </tr>\n\
-                            <tr class="table-sm">\n\
-                                <th scope="col" class="table-warning">Codigo</th>\n\
-                                <th scope="col">' + tmp_inf.pro_cod + '</th>\n\
-                                <th scope="col" class="table-warning">Ubicación</th>\n\
-                                <th scope="col">' + ub_prod + '</th>\n\
-                            </tr>\n\
-                            <tr class="table-sm">\n\
-                                <th scope="col" class="table-warning">SKU</th>\n\
-                                <th scope="col">' + tmp_inf.pro_sku + '</th>\n\
-                                <th scope="col" class="table-warning">Existencia</th>\n\
-                                <th scope="col">' + total_stk + '</th>\n\
-                            </tr>\n\
-                            <tr class="table-sm table-warning">\n\
-                                <th scope="col">Fecha</th>\n\
-                                <th scope="col">Detalle</th>\n\
-                                <th scope="col">Entradas</th>\n\
-                                <th scope="col">Salidas</th>\n\
-                            </tr>\n\
-                            </thead><tbody>';
-        for (i = 0; i < arreglo_kdx_pro.length; i++) {
-            tmp = arreglo_kdx_pro[i];
-
-//                if (tmp.ts_id == 1) {
-//                    color_serv = ' #593196;';
-//                } else if (tmp.ts_id == 2) {
-//                    color_serv = ' #18d26e;';
-//                }
-            datos_kdx += '<tr class="table-sm" id="fila' + i + '">';
-            datos_kdx += '<th scope="row" style="background-color: #fff3e0">' + tmp.ent_fecha + '</th>';
-            datos_kdx += '<td>' + tmp.venta + '</td>';
-
-            if (tmp.movimiento == 1) {
-                datos_kdx += '<td class="table-success">' + tmp.ent_cantidad + '</td>';
-                datos_kdx += '<td class="table-danger"></td></tr>';
-            } else if (tmp.movimiento == 2) {
-                datos_kdx += '<td class="table-success"></td>';
-                datos_kdx += '<td class="table-danger">' + tmp.ent_cantidad + '</td></tr>';
-            }
-        }
-        datos_kdx += "</tbody></table></div></div></div>";
-        $('#body_mod_os').html(datos_kdx);
-
-//            /**
-//             * Evento que pagina una tabla 
-//             */
-        $('#tableStockSucursal').DataTable();
-
     };
     f_ajax(request, cadena, metodo);
 }

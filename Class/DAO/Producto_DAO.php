@@ -281,4 +281,14 @@ class Producto_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna la consulta general de todos los productos creados
+     * @return type
+     */
+    function consultaGeneralProductosCreados() {
+        $sql = "SELECT * FROM productos;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

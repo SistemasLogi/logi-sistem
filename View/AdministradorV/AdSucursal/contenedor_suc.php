@@ -53,14 +53,11 @@
                         <a class="nav-link enlace" id="tabStockSuc">Stock</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link enlace" id="formAjuste">Ajustes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link enlace" id="formEdita">Editar</a>
                     </li>
                 </ul>
                 <div id="imageSucursal">
-                    
+
                 </div>
             </div>
         </nav>

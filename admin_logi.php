@@ -55,6 +55,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <script src="js/Comunes/guias_logi.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_envio.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_alist.js" type="text/javascript"></script>
+        <script src="js/Comunes/kardex_prod.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -104,6 +105,16 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
                         </div>
                     </div>
+                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseENV">
+                        <span class="ion-ios-home"></span>
+                        ALMACEN
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseALM">
+                        <div class="card card-body alert-primary">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_gest_almacen">Gestionar</a>
+                        </div>
+                    </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-contact"></span>
                         CLIENTE
@@ -113,8 +124,6 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_form_cliente">Nuevo</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_form_editar">Editar</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_sucursales">Sucursales</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
