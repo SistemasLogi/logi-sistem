@@ -3471,28 +3471,26 @@ function tabla_kardex_prueba() {
 //             * Evento que pagina una tabla 
 //             */
 //            $('#tableStockSucursal').DataTable();
-
-            $('#tableStockSucursal tfoot th').each(function () {
+            $('#tableStockSucursal thead tr').clone(true).appendTo('#tableStockSucursal thead');
+            $('#tableStockSucursal thead tr:eq(1) th').each(function (i) {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder="Buscar ' + title + '" />');
+                $(this).html('<input type="text" placeholder=" ' + title + '"/>');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                                .column(i)
+                                .search(this.value)
+                                .draw();
+                    }
+                });
             });
 
             var table = $('#tableStockSucursal').DataTable({
-                initComplete: function () {
-                    // Apply the search
-                    this.api().columns().every(function () {
-                        var that = this;
-
-                        $('input', this.footer()).on('keyup change clear', function () {
-                            if (that.search() !== this.value) {
-                                that
-                                        .search(this.value)
-                                        .draw();
-                            }
-                        });
-                    });
-                }
+                orderCellsTop: true,
+                fixedHeader: true
             });
+            
             /**
              * evento de click para llamada de kardex
              */
