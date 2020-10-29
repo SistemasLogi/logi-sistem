@@ -9,7 +9,9 @@ if ($_POST) {
     require '../../../config.php';
     $product_dao = new Producto_DAO();
 
-    echo json_encode($product_dao->consultaGeneralProductosCreados());
+    $suc_id = $_POST["suc_id"];
+
+    echo json_encode($product_dao->consultaGeneralProductosCreados($suc_id));
 } else {
     header("location../");
 }

@@ -3182,7 +3182,8 @@ function vista_admin_sucursal() {
             if (typeof value_suc === 'undefined' || $("#inputSucId").val() == "") {
                 alertify.alert('Debe seleccionar una sucursal').setHeader('<em> Cuidado! </em> ');
             } else {
-                tabla_kardex_prueba();
+                num_id_sucursal = $("#inputSucId").val();
+                tabla_productos_suc(num_id_sucursal);
             }
         });
 
@@ -3412,14 +3413,15 @@ function actualizar_stck_masivo() {
     };
     f_ajax(request, cadena, metodo);
 }
-
+var arreglo_gen_prod;
 /**
  * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
- * @returns {undefined}
+ * @param {type} suc_id
+ * @returns {tabla_productos_suc}
  */
-function tabla_kardex_prueba() {
+function tabla_productos_suc(suc_id) {
     request = "Controller/AdminC/AdministrarProd/consulta_general_prod_controller.php";
-    cadena = "a=1"; //envio de parametros por POST
+    cadena = "suc_id=" + suc_id; //envio de parametros por POST
     metodo = function (datos) {
         arreglo_gen_prod = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
@@ -3427,10 +3429,11 @@ function tabla_kardex_prueba() {
             datos_prod_gen = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
                              <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
                              <h4>Tabla General de Stock</h4>\n\
-                             <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
-                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableStockSucursal">\n\
+                             <div class="col-lg-12 table-responsive" id="tabProdGen">\n\
+                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableProductoGen">\n\
                              <thead><tr class="table-sm table-primary">\n\
-                                 <th scope="col"></th>\n\
+                                 <th scope="col">INFO</th>\n\
+                                 <th scope="col">AJUSTE</th>\n\
                                  <th scope="col">CODIGO</th>\n\
                                  <th scope="col">SKU</th>\n\
                                  <th scope="col">DESCRIPCIÓN</th>\n\
@@ -3440,41 +3443,49 @@ function tabla_kardex_prueba() {
             for (i = 0; i < arreglo_gen_prod.length; i++) {
                 tmp = arreglo_gen_prod[i];
 
-//                if (tmp.ts_id == 1) {
-//                    color_serv = ' #593196;';
-//                } else if (tmp.ts_id == 2) {
-//                    color_serv = ' #18d26e;';
-//                }
-                if (tmp.total < 3) {
-                    datos_prod_gen += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
-                } else {
-                    datos_prod_gen += '<tr class="table-sm" id="fila' + i + '">';
-                }
-                datos_prod_gen += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
+                datos_prod_gen += '<tr class="table-sm" id="fila' + i + '">';
+                datos_prod_gen += '<td class="enlace text-center text-info"><span class="ion-edit gesProd" GestProd="' + i + '" style="font-size: x-large;"></span></td>';
+                datos_prod_gen += '<td class="enlace text-center text-warning"><span class="ion-ios-calculator gesProdAjust" GestProdAjust="' + tmp.pro_cod + '" style="font-size: x-large;"></span></td>';
                 datos_prod_gen += '<td>' + tmp.pro_cod + '</td>';
                 datos_prod_gen += '<td>' + tmp.pro_sku + '</td>';
                 datos_prod_gen += '<td>' + tmp.pro_desc + '</td>';
                 datos_prod_gen += '<td id="ub' + tmp.pro_cod + '">' + tmp.pro_ubicacion + '</td>';
                 datos_prod_gen += '<td id="el' + tmp.pro_cod + '">' + tmp.pro_costo_unitario + '</td></tr>';
             }
-            datos_prod_gen += "</tbody><tfoot><tr>\n\
-                        <th></th>\n\
-                        <th>codigo</th>\n\
-                        <th>sku</th>\n\
-                        <th>descripción</th>\n\
-                        <th>ub.</th>\n\
-                        <th>costo un</th>\n\
-                    </tr></tfoot></table></div></div></div>";
+            datos_prod_gen += '</tbody><tfoot><tr class="table-primary">\n\
+                        <th>INFO</th>\n\
+                        <th>AJUSTE</th>\n\
+                        <th>CODIGO</th>\n\
+                        <th>SKU</th>\n\
+                        <th>DESCRIPCIÓN</th>\n\
+                        <th>UB</th>\n\
+                        <th>COSTO UN un</th>\n\
+                    </tr></tfoot></table></div></div></div>';
             $("#contenidoInvent").html(datos_prod_gen);
 
 //            /**
 //             * Evento que pagina una tabla 
 //             */
 //            $('#tableStockSucursal').DataTable();
-            $('#tableStockSucursal thead tr').clone(true).appendTo('#tableStockSucursal thead');
-            $('#tableStockSucursal thead tr:eq(1) th').each(function (i) {
+            $('#tableProductoGen thead tr').clone(true).appendTo('#tableProductoGen thead');
+            $('#tableProductoGen thead tr:eq(1) th').each(function (i) {
                 var title = $(this).text();
-                $(this).html('<input type="text" placeholder=" ' + title + '"/>');
+                if (i == 0) {
+                    $(this).html('');
+                } else if (i == 1) {
+                    $(this).html('');
+                } else if (i == 2) {
+                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="10">');
+                } else if (i == 3) {
+                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="15">');
+                } else if (i == 4) {
+                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="35">');
+                } else if (i == 5) {
+                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="2">');
+                } else if (i == 6) {
+                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="8">');
+                }
+//                $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '"/>');
 
                 $('input', this).on('keyup change', function () {
                     if (table.column(i).search() !== this.value) {
@@ -3486,26 +3497,15 @@ function tabla_kardex_prueba() {
                 });
             });
 
-            var table = $('#tableStockSucursal').DataTable({
+            var table = $('#tableProductoGen').DataTable({
                 orderCellsTop: true,
                 fixedHeader: true
             });
-            
+
             /**
-             * evento de click para llamada de kardex
+             * evento de click para llamada de formulario
              */
-            $("#tableStockSucursal").on("click", ".geskardex", function () {
-
-                kdx_pro = $(this).attr("kardexPro");
-
-                $('#ModalActuEstOS').modal('toggle');
-                $('#mod-dalog').addClass('modal-lg');
-                $('#ModalEstOSTitle').html('Kardex');
-                total_stk = $("#el" + kdx_pro).html();
-                ub_prod = $("#ub" + kdx_pro).html();
-
-                tabla_kardex_prod(kdx_pro);
-            });
+            clickGestProducto();
 
         } else {
             $("#contenidoInvent").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -3514,6 +3514,84 @@ function tabla_kardex_prueba() {
         }
     };
     f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga el modal con formulario para editar datos de producto en tabla producto
+ * @returns {undefined}
+ */
+function clickGestProducto() {
+    $("#tableProductoGen").on("click", ".gesProd", function () {
+
+        fila_p = $(this).attr("GestProd");
+
+        tmp_prod = arreglo_gen_prod[fila_p];
+
+        $('#ModalActuEstOS').modal('toggle');
+        $('#mod-dalog').removeClass('modal-lg');
+        $('#ModalEstOSTitle').html('Editar Producto');
+
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-secondary">\n\
+                    <div class="row">\n\
+                        <div class="col-6"><strong>CODIGO: <b class="text-primary" id="numCodigo">' + tmp_prod.pro_cod + '</b></strong></div>\n\
+                        <div id="imageSucursal"><img src="img/sucursales/' + tmp_prod.suc_num_id + '.png" alt=""></div>\n\
+                    </div>\n\
+            <form class="mt-3" id="formModalEnvAsig" name="formModalEnvAsig">\n\
+              <div class="form-row">\n\
+                <div class="form-group input-group col-md-12">\n\
+                  <div class="input-group">\n\
+                  <input type="text" class="form-control" id="inputNumEnvi" name="inputNumEnvi" style="display: none;">\n\
+                  <input type="text" class="form-control" id="inputEst_x_env" name="inputEst_x_env" style="display: none;">\n\
+                  <input type="datetime" class="form-control" id="inputFechaEstEnv" name="inputFechaEstEnv" style="display: none;">\n\
+                </div>\n\
+                </div>\n\
+              </div>\n\
+              <div class="form-group">\n\
+                <label for="inputNomDestin">Destinatario</label>\n\
+                <input type="text" class="form-control form-control-sm" id="inputNomDestin" name="inputNomDestin" readonly>\n\
+              </div>\n\
+              <div class="form-row">\n\
+                <div class="form-group input-group col-md-7">\n\
+                  <label for="inputDirecDestin">Dirección Destino</label>\n\
+                  <div class="input-group">\n\
+                   <input type="text" class="form-control form-control-sm" id="inputDirecDestin" name="inputDirecDestin" readonly>\n\
+                </div>\n\
+                </div>\n\
+                <div class="form-group col-md-5">\n\
+                  <label for="inputTelDestin">Tel.</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputTelDestin" name="inputTelDestin" readonly>\n\
+                </div>\n\
+              </div>\n\
+              <div class="form-row">\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputPesoEnv">Peso</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputPesoEnv" name="inputPesoEnv" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputAltoEnv">Alto</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputAltoEnv" name="inputAltoEnv" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputAnchoEnv">Ancho</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputAnchoEnv" name="inputAnchoEnv" readonly>\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputLargoEnv">Largo</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputLargoEnv" name="inputLargoEnv" readonly>\n\
+                </div>\n\
+              </div>\n\
+              <button type="submit" class="btn btn-success" id="btnImpRemesa" name="btnImpRemesa">Imprimir Guia</button>\n\
+              <button type="button" class="btn btn-danger float-right" id="btnQuitarAsig" name="btnQuitarAsig">Devolver a Bodega</button>\n\
+            </form>\n\
+            <div id="enlaceGuia"></div>');
+
+        $("#btnImpRemesa").click(function () {
+            validarEnvioAsignado();
+        });
+        $("#btnQuitarAsig").click(function () {
+            eliminar_env_asignado(id_est_asig, num_env_asig, fech_env_asig);
+        });
+    });
 }
 
 /****************************************************************

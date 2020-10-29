@@ -285,8 +285,8 @@ class Producto_DAO {
      * Funcion que retorna la consulta general de todos los productos creados
      * @return type
      */
-    function consultaGeneralProductosCreados() {
-        $sql = "SELECT * FROM productos;";
+    function consultaGeneralProductosCreados($num_suc) {
+        $sql = "SELECT * FROM productos WHERE suc_num_id = " . $num_suc . ";";
         $BD = new MySQL();
         return $BD->query($sql);
     }
