@@ -201,6 +201,25 @@ class Producto_DAO {
     }
 
     /**
+     * Funcion que actualiza datos de producto en tabla productos
+     * @param type $sku
+     * @param type $desc
+     * @param type $ubic
+     * @param type $costo
+     * @param type $num_suc
+     * @param type $cod_prod
+     * @return type
+     */
+    function actualizarProducto($sku, $desc, $ubic, $costo, $num_suc, $cod_prod) {
+        $sql = "UPDATE productos SET pro_sku = '" . $sku . "', pro_desc = '" . $desc . "', "
+                . "pro_ubicacion = '" . $ubic . "', pro_costo_unitario = " . $costo . " "
+                . "WHERE suc_num_id = " . $num_suc . " AND pro_cod = '" . $cod_prod . "';";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * funcion que permite eliminar registros en tabla salidas_prod_temp
      * sugun un numero de venta
      * @param type $venta

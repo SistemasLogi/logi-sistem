@@ -3330,6 +3330,33 @@ function validarFormNuevoProd() {
 }
 
 /**
+ * Metodo de validacion para campos de formulario actualizar producto
+ * @returns {undefined}
+ */
+function validarFormActualizaProd() {
+    $("#formModalProd").validate({
+        rules: {
+            inputDescProd: {
+                required: true
+            },
+            inputSkuProd: {
+                required: true
+            },
+            inputUbicacionProd: {
+                required: true
+            },
+            inputCostoUnit: {
+                required: true,
+                digits: true
+            }
+        },
+        submitHandler: function (form) {
+            actualizarProducto();
+        }
+    });
+}
+
+/**
  * Metodo que se encarga de guardar un fichero en la carpeta raiz del servidor
  * para la carga de entradas de inventario
  * @returns {undefined}
@@ -3368,6 +3395,28 @@ function insertarProducto() {
             limpiarFormulario("#formProducto");
         } else {
             alertify.alert('Error al crear producto, revise los datos y que el codigo de barras no se repita en la base de datos').setHeader('<em> Cuidado! </em> ');
+        }
+
+//        $("#tabEnviosDocum").html(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que se encarga de actualizar un registro en tabla productos
+ * @returns {undefined}
+ */
+function actualizarProducto() {
+    request = "Controller/AdminC/AdministrarProd/actualizar_prod_controller.php";
+    cadena = $("#formModalProd").serialize();
+    metodo = function (datos) {
+//        alert(datos);
+        if (datos == 1) {
+            limpiarFormulario("#formModalProd");
+            $('#ModalActuEstOS').modal('hide');
+            alertify.success('Producto Actalizado OK!');
+            tabla_productos_suc($("#inputSucId").val());
+        } else {
+            alertify.alert('Error al actualizar producto').setHeader('<em> Cuidado! </em> ');
         }
 
 //        $("#tabEnviosDocum").html(datos);
@@ -3426,14 +3475,13 @@ function tabla_productos_suc(suc_id) {
         arreglo_gen_prod = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arreglo_gen_prod !== 0) {
-            datos_prod_gen = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+            datos_prod_gen = '<div class="toast-header"><strong class="mr-auto">PRODUCTOS</strong></div>\n\
                              <div class="toast-body row"><div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">\n\
-                             <h4>Tabla General de Stock</h4>\n\
+                             <h4>Tabla General de Productos</h4>\n\
                              <div class="col-lg-12 table-responsive" id="tabProdGen">\n\
                              <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableProductoGen">\n\
                              <thead><tr class="table-sm table-primary">\n\
                                  <th scope="col">INFO</th>\n\
-                                 <th scope="col">AJUSTE</th>\n\
                                  <th scope="col">CODIGO</th>\n\
                                  <th scope="col">SKU</th>\n\
                                  <th scope="col">DESCRIPCIÓN</th>\n\
@@ -3444,8 +3492,7 @@ function tabla_productos_suc(suc_id) {
                 tmp = arreglo_gen_prod[i];
 
                 datos_prod_gen += '<tr class="table-sm" id="fila' + i + '">';
-                datos_prod_gen += '<td class="enlace text-center text-info"><span class="ion-edit gesProd" GestProd="' + i + '" style="font-size: x-large;"></span></td>';
-                datos_prod_gen += '<td class="enlace text-center text-warning"><span class="ion-ios-calculator gesProdAjust" GestProdAjust="' + tmp.pro_cod + '" style="font-size: x-large;"></span></td>';
+                datos_prod_gen += '<td class="enlace text-center text-info"><span class="ion-edit gesProd" GestProd="' + i + '" style="font-size: large;"></span></td>';
                 datos_prod_gen += '<td>' + tmp.pro_cod + '</td>';
                 datos_prod_gen += '<td>' + tmp.pro_sku + '</td>';
                 datos_prod_gen += '<td>' + tmp.pro_desc + '</td>';
@@ -3454,7 +3501,6 @@ function tabla_productos_suc(suc_id) {
             }
             datos_prod_gen += '</tbody><tfoot><tr class="table-primary">\n\
                         <th>INFO</th>\n\
-                        <th>AJUSTE</th>\n\
                         <th>CODIGO</th>\n\
                         <th>SKU</th>\n\
                         <th>DESCRIPCIÓN</th>\n\
@@ -3473,16 +3519,14 @@ function tabla_productos_suc(suc_id) {
                 if (i == 0) {
                     $(this).html('');
                 } else if (i == 1) {
-                    $(this).html('');
-                } else if (i == 2) {
                     $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="10">');
-                } else if (i == 3) {
+                } else if (i == 2) {
                     $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="15">');
-                } else if (i == 4) {
+                } else if (i == 3) {
                     $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="35">');
-                } else if (i == 5) {
+                } else if (i == 4) {
                     $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="2">');
-                } else if (i == 6) {
+                } else if (i == 5) {
                     $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="8">');
                 }
 //                $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '"/>');
@@ -3531,65 +3575,55 @@ function clickGestProducto() {
         $('#mod-dalog').removeClass('modal-lg');
         $('#ModalEstOSTitle').html('Editar Producto');
 
-        $('#body_mod_os').html('<div class="alert alert-dismissible alert-secondary">\n\
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-info">\n\
                     <div class="row">\n\
                         <div class="col-6"><strong>CODIGO: <b class="text-primary" id="numCodigo">' + tmp_prod.pro_cod + '</b></strong></div>\n\
                         <div id="imageSucursal"><img src="img/sucursales/' + tmp_prod.suc_num_id + '.png" alt=""></div>\n\
                     </div>\n\
-            <form class="mt-3" id="formModalEnvAsig" name="formModalEnvAsig">\n\
+            <form class="mt-3" id="formModalProd" name="formModalProd">\n\
               <div class="form-row">\n\
                 <div class="form-group input-group col-md-12">\n\
                   <div class="input-group">\n\
-                  <input type="text" class="form-control" id="inputNumEnvi" name="inputNumEnvi" style="display: none;">\n\
-                  <input type="text" class="form-control" id="inputEst_x_env" name="inputEst_x_env" style="display: none;">\n\
-                  <input type="datetime" class="form-control" id="inputFechaEstEnv" name="inputFechaEstEnv" style="display: none;">\n\
+                  <input type="text" class="form-control" id="inputNumSuc" name="inputNumSuc" style="display: none;">\n\
+                  <input type="text" class="form-control" id="inputCodProd" name="inputCodProd" style="display: none;">\n\
                 </div>\n\
                 </div>\n\
               </div>\n\
               <div class="form-group">\n\
-                <label for="inputNomDestin">Destinatario</label>\n\
-                <input type="text" class="form-control form-control-sm" id="inputNomDestin" name="inputNomDestin" readonly>\n\
+                <label for="inputDescProd">Descripción</label>\n\
+                <input type="text" class="form-control form-control-sm" id="inputDescProd" name="inputDescProd">\n\
               </div>\n\
               <div class="form-row">\n\
-                <div class="form-group input-group col-md-7">\n\
-                  <label for="inputDirecDestin">Dirección Destino</label>\n\
-                  <div class="input-group">\n\
-                   <input type="text" class="form-control form-control-sm" id="inputDirecDestin" name="inputDirecDestin" readonly>\n\
-                </div>\n\
-                </div>\n\
                 <div class="form-group col-md-5">\n\
-                  <label for="inputTelDestin">Tel.</label>\n\
-                  <input type="text" class="form-control form-control-sm" id="inputTelDestin" name="inputTelDestin" readonly>\n\
+                  <label for="inputSkuProd">SKU</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputSkuProd" name="inputSkuProd">\n\
+                </div>\n\
+                <div class="form-group col-md-3">\n\
+                  <label for="inputUbicacionProd">UB.</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputUbicacionProd" name="inputUbicacionProd">\n\
+                </div>\n\
+                <div class="form-group col-md-4">\n\
+                  <label for="inputCostoUnit">Costo UN.</label>\n\
+                  <input type="text" class="form-control form-control-sm" id="inputCostoUnit" name="inputCostoUnit">\n\
                 </div>\n\
               </div>\n\
-              <div class="form-row">\n\
-                <div class="form-group col-md-3">\n\
-                  <label for="inputPesoEnv">Peso</label>\n\
-                  <input type="text" class="form-control form-control-sm" id="inputPesoEnv" name="inputPesoEnv" readonly>\n\
-                </div>\n\
-                <div class="form-group col-md-3">\n\
-                  <label for="inputAltoEnv">Alto</label>\n\
-                  <input type="text" class="form-control form-control-sm" id="inputAltoEnv" name="inputAltoEnv" readonly>\n\
-                </div>\n\
-                <div class="form-group col-md-3">\n\
-                  <label for="inputAnchoEnv">Ancho</label>\n\
-                  <input type="text" class="form-control form-control-sm" id="inputAnchoEnv" name="inputAnchoEnv" readonly>\n\
-                </div>\n\
-                <div class="form-group col-md-3">\n\
-                  <label for="inputLargoEnv">Largo</label>\n\
-                  <input type="text" class="form-control form-control-sm" id="inputLargoEnv" name="inputLargoEnv" readonly>\n\
-                </div>\n\
-              </div>\n\
-              <button type="submit" class="btn btn-success" id="btnImpRemesa" name="btnImpRemesa">Imprimir Guia</button>\n\
-              <button type="button" class="btn btn-danger float-right" id="btnQuitarAsig" name="btnQuitarAsig">Devolver a Bodega</button>\n\
+              <button type="submit" class="btn btn-info" id="btnGuardaProd" name="btnGuardaProd">Guardar</button>\n\
+              <button type="button" class="btn btn-dark float-right" id="btnCancelarProd" name="btnCancelarProd">Cancelar</button>\n\
             </form>\n\
             <div id="enlaceGuia"></div>');
 
-        $("#btnImpRemesa").click(function () {
-            validarEnvioAsignado();
+        $("#inputNumSuc").val(tmp_prod.suc_num_id);
+        $("#inputCodProd").val(tmp_prod.pro_cod);
+        $("#inputDescProd").val(tmp_prod.pro_desc);
+        $("#inputSkuProd").val(tmp_prod.pro_sku);
+        $("#inputUbicacionProd").val(tmp_prod.pro_ubicacion);
+        $("#inputCostoUnit").val(tmp_prod.pro_costo_unitario);
+
+        $("#btnGuardaProd").click(function () {
+            validarFormActualizaProd();
         });
-        $("#btnQuitarAsig").click(function () {
-            eliminar_env_asignado(id_est_asig, num_env_asig, fech_env_asig);
+        $("#btnCancelarProd").click(function () {
+            limpiarFormulario("#formModalProd");
         });
     });
 }

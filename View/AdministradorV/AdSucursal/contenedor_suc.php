@@ -47,7 +47,7 @@
                         <a class="nav-link enlace" id="formNuevoProd">Nuevo Producto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link enlace" id="formIngInvXlsx">Ingreso Inventario</a>
+                        <a class="nav-link enlace" id="formIngInvXlsx">Ingreso xlsx</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link enlace" id="tabStockSuc">Stock</a>

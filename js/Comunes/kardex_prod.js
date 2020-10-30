@@ -100,22 +100,22 @@ function tabla_kardex_prod(cod_prod) {
                              <div class="toast-body row"><div class="alert alert-dismissible alert-light col-lg-12 border-primary" style="border-radius: 0.5rem;">\n\
                              <div class="col-lg-12 table-responsive">\n\
                              <table class="table table-bordered table-hover text-center col-lg-12" id="tableKardex">\n\
-                             <thead><tr class="table-sm table-warning">\n\
+                             <thead><tr class="table-sm table-primary">\n\
                                  <th scope="col" colspan="5"><h5>' + tmp_inf.pro_desc + '</h5></th>\n\
                                  </tr>\n\
                             <tr class="table-sm">\n\
-                                <th scope="col" class="table-warning">Codigo</th>\n\
-                                <th scope="col">' + tmp_inf.pro_cod + '</th>\n\
-                                <th scope="col" class="table-warning">Ubicación</th>\n\
-                                <th scope="col">' + ub_prod + '</th>\n\
+                                <th scope="col" class="table-primary">Codigo</th>\n\
+                                <th scope="col" class="table-secondary">' + tmp_inf.pro_cod + '</th>\n\
+                                <th scope="col" class="table-primary">Ubicación</th>\n\
+                                <th scope="col" class="table-secondary">' + ub_prod + '</th>\n\
                             </tr>\n\
                             <tr class="table-sm">\n\
-                                <th scope="col" class="table-warning">SKU</th>\n\
-                                <th scope="col">' + tmp_inf.pro_sku + '</th>\n\
-                                <th scope="col" class="table-warning">Existencia</th>\n\
-                                <th scope="col">' + total_stk + '</th>\n\
+                                <th scope="col" class="table-primary">SKU</th>\n\
+                                <th scope="col" class="table-secondary">' + tmp_inf.pro_sku + '</th>\n\
+                                <th scope="col" class="table-primary">Existencia</th>\n\
+                                <th scope="col" class="table-secondary">' + total_stk + '</th>\n\
                             </tr>\n\
-                            <tr class="table-sm table-warning">\n\
+                            <tr class="table-sm table-primary">\n\
                                 <th scope="col">Fecha</th>\n\
                                 <th scope="col">Detalle</th>\n\
                                 <th scope="col">Entradas</th>\n\
@@ -131,7 +131,7 @@ function tabla_kardex_prod(cod_prod) {
 //                    color_serv = ' #18d26e;';
 //                }
             datos_kdx += '<tr class="table-sm" id="fila' + i + '">';
-            datos_kdx += '<th scope="row" style="background-color: #fff3e0">' + tmp.ent_fecha + '</th>';
+            datos_kdx += '<th scope="row" class="table-secondary">' + tmp.ent_fecha + '</th>';
             datos_kdx += '<td>' + tmp.venta + '</td>';
 
             if (tmp.movimiento == 1) {
