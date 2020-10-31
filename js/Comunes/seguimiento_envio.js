@@ -102,7 +102,7 @@ function datos_envio_seg() {
                     hora_est += '<td id="hor_asig">' + timeString + '</td>';
                     desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 5) {
-                    iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>';
+                    iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="En Reparto"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
                     hora_est += '<td id="hor_asig">' + timeString + '</td>';
                     desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';

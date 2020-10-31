@@ -4811,6 +4811,8 @@ function combo_empleados(select) {
     f_ajax(request, cadena, metodo);
 }
 
+var arreglo_env_est;
+
 /**
  * Metodo que carga la tabla de envios cargados a mensajero
  * @param {type} value
@@ -4826,11 +4828,13 @@ function consulta_tabla_env_mens(value) {
             datos_env_est = "<div class='table-responsive text-nowrap' id='tablaEstadoEnv'><table class='table table-striped table-sm table-bordered' id='tableEstEnvio'>\n\
                              <thead><tr style='background-color: #9bb5ff'>\n\
                              <th scope='col'></th>\n\
+                             <th scope='col'></th>\n\
                              <th scope='col'>GUIA LOGI</th>\n\
                              <th scope='col'>GUIA OP</th>\n\
-                             <th scope='col'>OS</th>\n\
+                             <th scope='col'>$ VALOR</th>\n\
                              <th scope='col'>DIR. DESTINO</th>\n\
                              <th scope='col'>CIUDAD</th>\n\
+                             <th scope='col'>OS</th>\n\
                              </tr></thead><tbody>";
             for (i = 0; i < arreglo_env_est.length; i++) {
                 tmp = arreglo_env_est[i];
@@ -4841,29 +4845,112 @@ function consulta_tabla_env_mens(value) {
                     color_serv = ' #18d26e;';
                 }
 
-                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td class="enlace"><span class="ion-android-mail gesEnvio" envMens="' + tmp.exe_en_id + '" style="color: ' + color_serv + '"></span></td>';
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '"><td id="' + i + '"></td>';
+                datos_env_est += '<td class="enlace"><span class="ion-android-mail gesEnvio" envMens="' + tmp.exe_en_id + '" style="color: ' + color_serv + '"></span></td>';
                 datos_env_est += '<td>' + tmp.exe_en_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_guia + '</td>';
-                datos_env_est += '<td>' + tmp.os_id + '</td>';
+                datos_env_est += '<td>' + tmp.exe_novedad + '</td>';
                 datos_env_est += '<td>' + tmp.en_direccion + '</td>';
-                datos_env_est += '<td>' + tmp.en_ciudad + '</td></tr>';
+                datos_env_est += '<td>' + tmp.en_ciudad + '</td>';
+                datos_env_est += '<td>' + tmp.os_id + '</td></tr>';
             }
             datos_env_est += "</tbody></table></div>";
+            datos_env_est += '<form class="form-inline my-2 my-lg-0 form-group-sm" id="formFlete" name="formFlete"><b>Valor Flete $:</b><input class="form-control form-control-sm mr-sm-2" type="number" id="inpValorFlet" name="inpValorFlet" placeholder="$"><button type="button" class="btn btn-outline-primary btn-sm" id="btnGuardaSelectEnv" name="btnGuardaSelectEnv">GUARDAR $</button></form>';
             $("#tab_envios").html(datos_env_est);
 
             /**
              * Evento que pagina una tabla 
              */
-            $('#tableEstEnvio').DataTable({
-                'scrollX': true
+            var table = $('#tableEstEnvio').DataTable({
+//                'ajax': '/lab/jquery-datatables-checkboxes/ids-arrays.txt',
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']],
+                'scrollX': true,
+                'pageLength': 50
             });
 
             clickGestEnv();
+
+            $("#btnGuardaSelectEnv").click(function () {
+                enviosSelected();
+                limpiarFormulario("#formFlete");
+
+            });
+
+            /**evento enter desde elemento input**/
+            $("#inpValorFlet").keypress(function (e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 13) {
+                    enviosSelected();
+                    limpiarFormulario("#formFlete");
+                    return false;
+                }
+            });
 
         } else {
             $("#tab_envios").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que determina los check seleccionados para asignacion de valor flete 
+ * @returns {undefined}
+ */
+function enviosSelected() {
+    $("input:checkbox:checked").each(function () {
+
+        checket_envio = $(this).parent().attr('id');//numeo de venta
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+//            comprobar_os_creada(checket_venta);
+//            alert(checket_envio);
+            temp_env = arreglo_env_est[checket_envio];
+
+            guiaLogi = temp_env.exe_en_id;
+            estadoID = temp_env.exe_ee_id;
+            fechaEst = temp_env.exe_fec_hora;
+            novedadValor = $("#inpValorFlet").val();
+            actualiza_env_prog(guiaLogi, estadoID, fechaEst, novedadValor);
+        }
+
+
+    });
+}
+
+/**
+ * Metodo que actualiza novedad de envio en reparto
+ * en el campo novedad para repato se almacena el valor del flete
+ * @param {type} guia
+ * @param {type} estado
+ * @param {type} fecha
+ * @param {type} novedad
+ * @returns {actualiza_env_prog}
+ */
+function actualiza_env_prog(guia, estado, fecha, novedad) {
+    request = "Controller/AdminC/AdministrarEnvios/actualizar_env_prog_val_flete_controller.php";
+    cadena = {"guia": guia, "estado": estado, "fecha": fecha, "novedad": novedad}; //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (datos == 1) {
+            consulta_tabla_env_mens(mensajero);
+        } else {
+            alert(datos);
         }
     };
     f_ajax(request, cadena, metodo);

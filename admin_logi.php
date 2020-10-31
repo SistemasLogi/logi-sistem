@@ -35,6 +35,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <link href="lib/ionicons/css/ionicons.css" rel="stylesheet" type="text/css"/>
         <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/dataTables.checkboxes.css" rel="stylesheet" type="text/css"/>
         <link href="css/my_style.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href="js/css/alertify.css" rel="stylesheet" type="text/css"/>
@@ -61,6 +62,7 @@ if (!isset($_SESSION["adminlogi"])) {
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <script src="js/dataTables.responsive.min.js" type="text/javascript"></script>
         <script src="js/responsive.bootstrap4.min.js" type="text/javascript"></script>
+        <script src="js/dataTables.checkboxes.min.js" type="text/javascript"></script>
         <script src="js/custom.js" type="text/javascript"></script>
         <script src="js/alertify.js" type="text/javascript"></script>
 

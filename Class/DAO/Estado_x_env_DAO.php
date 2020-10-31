@@ -57,6 +57,23 @@ class Estado_x_env_DAO {
     }
 
     /**
+     * Funcion que actualiza estado de un registro en tabla est_x_envio
+     * @param type $guia
+     * @param type $estado
+     * @param type $fecha
+     * @param type $novedad
+     * @return type
+     */
+    function actualizaNovedad_env($guia, $estado, $fecha, $novedad) {
+        $sql = "UPDATE est_x_envio SET exe_novedad = '" . $novedad . "' "
+                . "WHERE exe_en_id = " . $guia . " AND exe_ee_id = " . $estado . " "
+                . "AND exe_fec_hora = '" . $fecha . "';";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que retorna datos del ultimo estado de envio por numero guia logi
      * @param type $env_id
      * @return type

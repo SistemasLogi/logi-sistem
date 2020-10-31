@@ -256,7 +256,7 @@ session_start();
                                                             <?php
                                                         } else if ($id_env_dec[$i]->ee_id == 5) {
                                                             ?>
-                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="En Reparto"><span class="ion-android-bicycle" style="font-size: xx-large; color: #d68800;"></span></a></td>
                                                             <?php
                                                         } else if ($id_env_dec[$i]->ee_id == 6) {
                                                             ?>
