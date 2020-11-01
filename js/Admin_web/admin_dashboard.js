@@ -4855,7 +4855,26 @@ function consulta_tabla_env_mens(value) {
                 datos_env_est += '<td>' + tmp.os_id + '</td></tr>';
             }
             datos_env_est += "</tbody></table></div>";
-            datos_env_est += '<form class="form-inline my-2 my-lg-0 form-group-sm" id="formFlete" name="formFlete"><b>Valor Flete $:</b><input class="form-control form-control-sm mr-sm-2" type="number" id="inpValorFlet" name="inpValorFlet" placeholder="$"><button type="button" class="btn btn-outline-primary btn-sm" id="btnGuardaSelectEnv" name="btnGuardaSelectEnv">GUARDAR $</button></form>';
+            datos_env_est += '<div>\n\
+                                <form class="form-inline form-group-sm mt-2" id="formFlete" name="formFlete"><b>Valor Flete $:</b>\n\
+                                    <input class="form-control form-control-sm mr-sm-2" type="number" id="inpValorFlet" name="inpValorFlet" placeholder="$">\n\
+                                    <button type="button" class="btn btn-outline-primary btn-sm" id="btnGuardaSelectEnv" name="btnGuardaSelectEnv">GUARDAR $</button>\n\
+                                </form></div>';
+            datos_env_est += '<div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                                <form id="formFlete" name="formFlete">\n\
+                                    <div class="form-group row">\n\
+                                        <label class="col-sm-2 col-form-label col-form-label-sm" for="selectMensajero"><b>Estado</b></label>\n\
+                                        <div class="col-sm-10">\n\
+                                            <select class="form-control form-control-sm" id="selectMensajero">\n\
+                                            </select>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                    <div class="form-group">\n\
+                                        <label for="areaNovedad"><b>Novedad</b></label>\n\
+                                        <textarea class="form-control" id="areaNovedad" name="areaNovedad" rows="1"></textarea>\n\
+                                    </div>\n\
+                                    <button type="button" class="btn btn-outline-warning btn-sm" id="btnGuardaEstSelected" name="btnGuardaEstSelected">GUARDAR EST</button>\n\
+                                </form></div>';
             $("#tab_envios").html(datos_env_est);
 
             /**
