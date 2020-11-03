@@ -4861,17 +4861,20 @@ function consulta_tabla_env_mens(value) {
                                     <button type="button" class="btn btn-outline-primary btn-sm" id="btnGuardaSelectEnv" name="btnGuardaSelectEnv">GUARDAR $</button>\n\
                                 </form></div>';
             datos_env_est += '<div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
-                                <form id="formFlete" name="formFlete">\n\
+                              <div class="toast-header"><strong class="mr-auto">Asignación de Estados</strong></div>\n\
+                                <form id="formAsigEstEnv" name="formAsigEstEnv">\n\
                                     <div class="form-group row">\n\
-                                        <label class="col-sm-2 col-form-label col-form-label-sm" for="selectMensajero"><b>Estado</b></label>\n\
+                                        <label class="col-sm-2 col-form-label" for="selectEstadEnvio"><b>Estado</b></label>\n\
                                         <div class="col-sm-10">\n\
-                                            <select class="form-control form-control-sm" id="selectMensajero">\n\
+                                            <select class="form-control form-control-sm" id="selectEstadEnvio" name="selectEstadEnvio">\n\
                                             </select>\n\
                                         </div>\n\
                                     </div>\n\
-                                    <div class="form-group">\n\
-                                        <label for="areaNovedad"><b>Novedad</b></label>\n\
-                                        <textarea class="form-control" id="areaNovedad" name="areaNovedad" rows="1"></textarea>\n\
+                                    <div class="form-group row">\n\
+                                        <label for="areaNovedad" class="col-sm-2 col-form-label"><b>Novedad</b></label>\n\
+                                        <div class="col-sm-10">\n\
+                                            <textarea class="form-control form-control-sm" id="areaNovedad" name="areaNovedad" rows="1"></textarea>\n\
+                                        </div>\n\
                                     </div>\n\
                                     <button type="button" class="btn btn-outline-warning btn-sm" id="btnGuardaEstSelected" name="btnGuardaEstSelected">GUARDAR EST</button>\n\
                                 </form></div>';
@@ -4900,6 +4903,7 @@ function consulta_tabla_env_mens(value) {
 
             clickGestEnv();
 
+            //**Metodos de formulario asignar valor**//
             $("#btnGuardaSelectEnv").click(function () {
                 enviosSelected();
                 limpiarFormulario("#formFlete");
@@ -4913,6 +4917,21 @@ function consulta_tabla_env_mens(value) {
                     enviosSelected();
                     limpiarFormulario("#formFlete");
                     return false;
+                }
+            });
+
+            //**Metodos de formulario asignar estado**//
+            combo_estado_envio("#selectEstadEnvio");
+
+            $("#btnGuardaEstSelected").click(function () {
+
+//                alert($("#selectEstadEnvio").val());
+
+                if ($("#selectEstadEnvio").val() == 0) {
+                    alertify.alert('Debe seleccionar un estado').setHeader('<em> Cuidado! </em> ');
+                } else {
+                    enviosSelectedEst();
+                    limpiarFormulario("#formAsigEstEnv");
                 }
             });
 
@@ -4964,6 +4983,56 @@ function enviosSelected() {
 function actualiza_env_prog(guia, estado, fecha, novedad) {
     request = "Controller/AdminC/AdministrarEnvios/actualizar_env_prog_val_flete_controller.php";
     cadena = {"guia": guia, "estado": estado, "fecha": fecha, "novedad": novedad}; //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (datos == 1) {
+            consulta_tabla_env_mens(mensajero);
+        } else {
+            alert(datos);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que determina los check seleccionados para asignacion de estados 
+ * @returns {undefined}
+ */
+function enviosSelectedEst() {
+    $("input:checkbox:checked").each(function () {
+
+        checket_envio = $(this).parent().attr('id');//numeo de venta
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+//            comprobar_os_creada(checket_venta);
+//            alert(checket_envio);
+            temp_env = arreglo_env_est[checket_envio];
+
+            guiaLogi = temp_env.exe_en_id;
+            estadoID = $("#selectEstadEnvio").val();
+            fechaEst = temp_env.exe_fec_hora;
+            novedadValor = $("#areaNovedad").val();
+            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+        }
+
+
+    });
+}
+
+/**
+ * Metodo que inserta un estado en tabla estados x envio
+ * desde la vista de la tabla envios asignados a mensajero
+ * @param {type} selectMensajero
+ * @param {type} inputNumEnvi
+ * @param {type} selectEstado
+ * @param {type} txaNovedadEstado
+ * @returns {undefined}
+ */
+function insert_estado_envio_asig_men(selectMensajero, inputNumEnvi, selectEstado, txaNovedadEstado) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_controller.php";
+    cadena = {"selectMensajero": selectMensajero, "inputNumEnvi": inputNumEnvi, "selectEstado": selectEstado, "txaNovedadEstado": txaNovedadEstado}; //envio de parametros por POST
     metodo = function (datos) {
 
         if (datos == 1) {

@@ -9,7 +9,7 @@
                 <a class="nav-link enlace" id="enlAsigMens">Asignar Mensajero</a>
             </li>
             <li class="nav-item" id="itemenlFormOrdenServ">
-                <a class="nav-link enlace" id="enlFormOrdenServ">Editar<span class="sr-only">(current)</span></a>
+                <a class="nav-link enlace" id="enlFormEntregaOp">Entregar a Operador<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" id="itemenlSeguimiento">
                 <a class="nav-link enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
