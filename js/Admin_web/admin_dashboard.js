@@ -4703,9 +4703,11 @@ function insertar_est_x_aenv(estado, novedad, venta, os_num) {
     metodo = function (datos) {
 //        alert(datos);
         if (datos == 1) {
-            alertify.success('Estado Acualizado venta N° ' + venta, 2);
+            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
+//            alertify.success('Estado Acualizado venta N° ' + venta, 2);
         } else {
-            alertify.error('Error al actualizar estado venta N° ' + venta, 5);
+            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' NO PROCESADA</strong></div>');
+//            alertify.error('Error al actualizar estado venta N° ' + venta, 5);
         }
     };
     f_ajax(request, cadena, metodo);

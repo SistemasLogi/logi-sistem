@@ -54,6 +54,9 @@
                 <div class="alert alert-dismissible alert-light col-lg-4" id="blqFinalizado">
 
                 </div>
+                <div class="alert alert-dismissible alert-light col-lg-12  border-warning" id="blqProcesadas">
+
+                </div>
             </div>   
         </div>
     </div>
