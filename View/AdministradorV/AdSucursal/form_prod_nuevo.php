@@ -8,21 +8,25 @@
             <fieldset>       
                 <div class="row">
                     <div class="form-group form-group-sm col-lg-2">
-                        <label for="inputNumEmp">Código</label>
+                        <label for="inputCodProd">Código</label>
                         <input type="text" class="form-control form-control-sm" id="inputNumSuc" name="inputNumSuc" readonly="" style="display: none;"> 
                         <input type="text" class="form-control form-control-sm" id="inputCodProd" name="inputCodProd" placeholder="Código"> 
                     </div>
                     <div class="form-group form-group-sm col-lg-2">
-                        <label for="inputTelEmp">SKU</label>
+                        <label for="inputSku">SKU</label>
                         <input type="text" class="form-control form-control-sm" id="inputSku" name="inputSku" placeholder="SKU">
                     </div>
-                    <div class="form-group form-group-sm col-lg-6">
-                        <label for="inputNomEmp">Nombre / Descripción</label>
+                    <div class="form-group form-group-sm col-lg-4">
+                        <label for="inputNomProd">Nombre / Descripción</label>
                         <input type="text" class="form-control form-control-sm" id="inputNomProd" name="inputNomProd" placeholder="Nombre">
                     </div>
                     <div class="form-group form-group-sm col-lg-2">
-                        <label for="inputTelEmp">Ubicación</label>
+                        <label for="inputUbProd">Ubicación</label>
                         <input type="text" class="form-control form-control-sm" id="inputUbProd" name="inputUbProd" placeholder="Ubicación">
+                    </div>
+                    <div class="form-group form-group-sm col-lg-2">
+                        <label for="inputCantProd">Cantidad</label>
+                        <input type="text" class="form-control form-control-sm" id="inputCantProd" name="inputCantProd" placeholder="Cantidad">
                     </div>
                 </div> 
                 <div class="row">

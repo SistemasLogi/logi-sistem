@@ -3321,6 +3321,15 @@ function validarFormNuevoProd() {
             },
             inputNomProd: {
                 required: true
+            },
+            inputCantProd: {
+                required: true,
+                digits: true
+            }
+        },
+        messages: {
+            inputCantProd: {
+                digits: "Si no existe cantidad use '0'"
             }
         },
         submitHandler: function (form) {
@@ -3394,7 +3403,7 @@ function insertarProducto() {
             alertify.success('Producto creado en Base de datos OK!');
             limpiarFormulario("#formProducto");
         } else {
-            alertify.alert('Error al crear producto, revise los datos y que el codigo de barras no se repita en la base de datos').setHeader('<em> Cuidado! </em> ');
+            alertify.alert(datos).setHeader('<em> Cuidado! </em> ');
         }
 
 //        $("#tabEnviosDocum").html(datos);
@@ -4577,6 +4586,15 @@ function click_gestionar_Venta() {
 
     });
 }
+
+function cerrar_sesiones_os() {
+    request = "Controller/AdminC/AdministrarOS/cerrar_sesiones_os_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#blqProcesadas").append('<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>ORDENES DE RECOLECCIÓN FINALIZADAS</strong></div>');
+    };
+    f_ajax(request, cadena, metodo);
+}
 /**
  * Metodo que comprueba existencia de os para recoleccion y distribucion 
  * @param {type} venta
@@ -4596,6 +4614,7 @@ function comprobar_os_creada(venta) {
 
             if (can_vent_als < 1) {
                 insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+                cerrar_sesiones_os();
             }
         } else if (datos == 3) {
             insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
@@ -4605,6 +4624,7 @@ function comprobar_os_creada(venta) {
 
             if (can_vent_als < 1) {
                 insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+                cerrar_sesiones_os();
             }
         } else {
             alert(datos);
@@ -4680,7 +4700,7 @@ function elimina_item_alist_venta(venta) {
     metodo = function (datos) {
 //        alert(datos);
         if (datos == 1) {
-            alertify.message('Venta ' + venta + ' procesada', 2);
+//            alertify.message('Venta ' + venta + ' procesada', 2);
             $("#sec" + venta + "").remove();
 
         } else {
