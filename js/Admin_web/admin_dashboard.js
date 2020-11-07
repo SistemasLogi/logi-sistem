@@ -3528,15 +3528,15 @@ function tabla_productos_suc(suc_id) {
                 if (i == 0) {
                     $(this).html('');
                 } else if (i == 1) {
-                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="10">');
+                    $(this).html('<input type="text" id="inpCod' + i + '" placeholder="' + title + '" size="10">');
                 } else if (i == 2) {
-                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="15">');
+                    $(this).html('<input type="text" id="inpSku' + i + '" placeholder="' + title + '" size="15">');
                 } else if (i == 3) {
-                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="35">');
+                    $(this).html('<input type="text" id="inpDesc' + i + '" placeholder="' + title + '" size="35">');
                 } else if (i == 4) {
-                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="2">');
+                    $(this).html('<input type="text" id="inpUb' + i + '" placeholder="' + title + '" size="2">');
                 } else if (i == 5) {
-                    $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '" size="8">');
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="8">');
                 }
 //                $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '"/>');
 
@@ -4771,10 +4771,16 @@ function vista_gestionar_envios() {
             $("#itemenlAsigMens").addClass("active");
         });
 
+        $("#enlFormEntregaOp").click(function () {
+            tabla_entrega_op();
+            $("#items-env li").removeClass("active");
+            $("#itemenlFormEntregaOp").addClass("active");
+        });
+
         $("#enlSeguimientoEnv").click(function () {
             seguimiento_estado_env();
             $("#items-env li").removeClass("active");
-            $("#itemenlSeguimiento").addClass("active");
+            $("#itemenlSeguimientoEnv").addClass("active");
         });
 
         $("#enlSeguimientoAlist").click(function () {
@@ -4973,7 +4979,7 @@ function consulta_tabla_env_mens(value) {
 function enviosSelected() {
     $("input:checkbox:checked").each(function () {
 
-        checket_envio = $(this).parent().attr('id');//numeo de venta
+        checket_envio = $(this).parent().attr('id');//numeo de fila posicion en el arreglo
 //
         if (typeof (checket_envio) === 'undefined') {
 
@@ -5506,4 +5512,170 @@ function inserta_empleado() {
         }
     };
     f_ajax(request, cadena, metodo);
+}
+
+var arreglo_hist_est_aenv;
+/**
+ * Metodo que carga a la vista la tabla general de los envios pendientes por entregar a operador
+ * en estado 2 paking 
+ * @returns {tabla_productos_suc}
+ */
+function tabla_entrega_op() {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_aenv_paking_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_hist_est_aenv = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_hist_est_aenv !== 0) {
+            datos_aenv_est = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;"><div class="toast-header"><strong class="mr-auto">ENVIOS PARA ENTREGA OP</strong></div>\n\
+                             <div class="toast-body row"><div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">\n\
+                             <h4>Tabla General de Envios Alistamiento</h4>\n\
+                             <div class="col-lg-12 table-responsive" id="tabProdGen">\n\
+                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableEntragaOp">\n\
+                             <thead><tr class="table-sm table-primary">\n\
+                                 <th scope="col"></th>\n\
+                                 <th scope="col">COD ALIST</th>\n\
+                                 <th scope="col">FECHA</th>\n\
+                                 <th scope="col">GUIA</th>\n\
+                                 <th scope="col">VENTA</th>\n\
+                                 <th scope="col">ESTADO</th>\n\
+                                 <th scope="col">OPERADOR</th>\n\
+                                 <th scope="col">CLIENTE</th>\n\
+                                 <th scope="col">SUCURSAL</th>\n\
+                             </tr></thead><tbody>';
+            for (i = 0; i < arreglo_hist_est_aenv.length; i++) {
+                tmp = arreglo_hist_est_aenv[i];
+
+                datos_aenv_est += '<tr class="table-sm" id="fila' + i + '">';
+                datos_aenv_est += '<td id="' + i + '"></td>';
+                datos_aenv_est += '<td>' + tmp.aen_id + '</td>';
+                datos_aenv_est += '<td>' + tmp.exae_fecha_hora + '</td>';
+                datos_aenv_est += '<td>' + tmp.aen_guia_op + '</td>';
+                datos_aenv_est += '<td>' + tmp.aen_venta + '</td>';
+                datos_aenv_est += '<td>' + tmp.esae_desc + '</td>';
+                datos_aenv_est += '<td>' + tmp.ope_nombre + '</td>';
+                datos_aenv_est += '<td>' + tmp.cli_nombre + '</td>';
+                datos_aenv_est += '<td>' + tmp.suc_nombre + '</td></tr>';
+            }
+            datos_aenv_est += '</tbody><tfoot><tr class="table-primary">\n\
+                        <th></th>\n\
+                        <th>COD ALIST</th>\n\
+                        <th>FECHA</th>\n\
+                        <th>GUIA</th>\n\
+                        <th>VENTA</th>\n\
+                        <th>ESTADO</th>\n\
+                        <th>OPERADOR</th>\n\
+                        <th>CLIENTE</th>\n\
+                        <th>SUCURSAL</th>\n\
+                    </tr></tfoot></table></div></div></div>';
+            datos_aenv_est += '<div class="row p-3">\n\
+                                <form class="form-inline form-group-sm mt-2" id="formEntregaAEnv" name="formEntregaAEnv">\n\
+                                    <b>Observación:</b>\n\
+                                    <input class="form-control form-control-sm mr-sm-2" type="text" id="inpObsEstAEnv" name="inpObsEstAEnv" placeholder="Observacion">\n\
+                                    <button type="button" class="btn btn-outline-primary btn-sm" id="btnGuardaEntrega" name="btnGuardaEntrega">ENTREGAR</button>\n\
+                                </form></div></div>';
+            $("#contenGestEnvios").html(datos_aenv_est);
+
+            /**
+             * Evento que pagina muestra cuadro de busqueda para cada colunna 
+             */
+            $('#tableEntragaOp thead tr').clone(true).appendTo('#tableEntragaOp thead');
+            $('#tableEntragaOp thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                if (i == 0) {
+                    $(this).html('');
+                } else if (i == 1) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="6">');
+                } else if (i == 2) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="15">');
+                } else if (i == 3) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="9">');
+                } else if (i == 4) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="9">');
+                } else if (i == 5) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="10">');
+                } else if (i == 6) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="15">');
+                } else if (i == 7) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="20">');
+                } else if (i == 8) {
+                    $(this).html('<input type="text" placeholder="' + title + '" size="20">');
+                }
+//                $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '"/>');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                                .column(i)
+                                .search(this.value)
+                                .draw();
+                    }
+                });
+            });
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            var table = $('#tableEntragaOp').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']],
+                'scrollX': true,
+                'pageLength': 20
+            });
+
+            /**
+             * evento de click para entrega de envios seleccionados
+             */
+            $("#btnGuardaSelectEnv").click(function () {
+                enviosAlistSelected();
+                limpiarFormulario("#formEntregaAEnv");
+
+            });
+
+        } else {
+            $("#contenGestEnvios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que determina los check seleccionados para asignacion de valor flete 
+ * @returns {undefined}
+ */
+function enviosAlistSelected() {
+    $("input:checkbox:checked").each(function () {
+
+        checket_envio = $(this).parent().attr('id');//numeo de fila posicion en el arreglo
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+//            comprobar_os_creada(checket_venta);
+//            alert(checket_envio);
+            temp_env = arreglo_hist_est_aenv[checket_envio];
+
+            guiaLogi = temp_env.exe_en_id;
+            estadoID = temp_env.exe_ee_id;
+            fechaEst = temp_env.exe_fec_hora;
+            novedadValor = $("#inpValorFlet").val();
+            actualiza_env_prog(guiaLogi, estadoID, fechaEst, novedadValor);
+        }
+
+
+    });
 }

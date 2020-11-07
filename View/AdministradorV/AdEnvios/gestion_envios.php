@@ -8,10 +8,10 @@
             <li class="nav-item active" id="itemenlAsigMens">
                 <a class="nav-link enlace" id="enlAsigMens">Asignar Mensajero</a>
             </li>
-            <li class="nav-item" id="itemenlFormOrdenServ">
-                <a class="nav-link enlace" id="enlFormEntregaOp">Entregar a Operador<span class="sr-only">(current)</span></a>
+            <li class="nav-item" id="itemenlFormEntregaOp">
+                <a class="nav-link enlace" id="enlFormEntregaOp">Entregar a Operador</a>
             </li>
-            <li class="nav-item" id="itemenlSeguimiento">
+            <li class="nav-item" id="itemenlSeguimientoEnv">
                 <a class="nav-link enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
             </li>
             <li class="nav-item" id="itemenlSeguimientoAlist">
