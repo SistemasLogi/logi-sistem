@@ -5569,9 +5569,9 @@ function tabla_entrega_op() {
                         <th>SUCURSAL</th>\n\
                     </tr></tfoot></table></div></div></div>';
             datos_aenv_est += '<div class="row p-3">\n\
-                                <form class="form-inline form-group-sm mt-2" id="formEntregaAEnv" name="formEntregaAEnv">\n\
+                                <form class="form-inline form-group mt-2 col-lg-12" id="formEntregaAEnv" name="formEntregaAEnv">\n\
                                     <b>Observación:</b>\n\
-                                    <input class="form-control form-control-sm mr-sm-2" type="text" id="inpObsEstAEnv" name="inpObsEstAEnv" placeholder="Observacion">\n\
+                                    <textarea class="form-control form-control-sm mr-sm-2 col-6" id="inpObsEstAEnv" name="inpObsEstAEnv" rows="1"></textarea>\n\
                                     <button type="button" class="btn btn-outline-primary btn-sm" id="btnGuardaEntrega" name="btnGuardaEntrega">ENTREGAR</button>\n\
                                 </form></div></div>';
             $("#contenGestEnvios").html(datos_aenv_est);
@@ -5638,7 +5638,7 @@ function tabla_entrega_op() {
             /**
              * evento de click para entrega de envios seleccionados
              */
-            $("#btnGuardaSelectEnv").click(function () {
+            $("#btnGuardaEntrega").click(function () {
                 enviosAlistSelected();
                 limpiarFormulario("#formEntregaAEnv");
 
@@ -5667,15 +5667,35 @@ function enviosAlistSelected() {
         } else {
 //            comprobar_os_creada(checket_venta);
 //            alert(checket_envio);
-            temp_env = arreglo_hist_est_aenv[checket_envio];
+            temp_aenv = arreglo_hist_est_aenv[checket_envio];
 
-            guiaLogi = temp_env.exe_en_id;
-            estadoID = temp_env.exe_ee_id;
-            fechaEst = temp_env.exe_fec_hora;
-            novedadValor = $("#inpValorFlet").val();
-            actualiza_env_prog(guiaLogi, estadoID, fechaEst, novedadValor);
+            guiaLogi = temp_aenv.aen_id;
+            estadoID = 3;
+            novedad = $("#inpObsEstAEnv").val();
+            actualiza_est_aenv_entrega(guiaLogi, estadoID, novedad);
         }
 
 
     });
+}
+
+/**
+ * Metodo que actualiza estado de aenvio al entregar a operador
+ * @param {type} guia
+ * @param {type} estado
+ * @param {type} novedad
+ * @returns {undefined}
+ */
+function actualiza_est_aenv_entrega(guia, estado, novedad) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_est_aenv_obj_controller.php";
+    cadena = {"guia": guia, "estado": estado, "novedad": novedad}; //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (datos == 1) {
+            tabla_entrega_op();
+        } else {
+            alert(datos);
+        }
+    };
+    f_ajax(request, cadena, metodo);
 }

@@ -32,6 +32,19 @@ class Est_x_aenv_DAO {
     }
 
     /**
+     * Funcion que inserta estado aenvio
+     * @param type $est_x_aenv_vo
+     * @return type
+     */
+    function insertarEstados_x_AEnv_obj($est_x_aenv_vo) {
+        $sql = "INSERT INTO est_x_aenv VALUES(" . $est_x_aenv_vo->getId_aenv() . ", " . $est_x_aenv_vo->getId_est_aenv() . ", "
+                . "'" . $est_x_aenv_vo->getExae_fecha_hora() . "', '" . $est_x_aenv_vo->getExae_novedad() . "');";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que inserta registro en tabla estados x aenvio segun una venta
      * @param type $est_id
      * @param type $fech_hora

@@ -70,7 +70,7 @@ if (!isset($_SESSION["cliente_a"])) {
 
             <div class="bg-dark border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
-                <img src="img/logos/ampliado.png" alt="" title="" />
+                <img src="img/clients/<?php echo $_SESSION["numero_doc"]; ?>.png" alt="" title="" />
                 <div class="dropdown-divider"></div>
                 <h4 class="card-title" style="color: #D6D6D6;"><?php echo $_SESSION["nombre_cli"]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
@@ -121,7 +121,7 @@ if (!isset($_SESSION["cliente_a"])) {
                     <button id="menu-toggle" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="ion-android-menu"></span>
                     </button>
-
+                    <img id="inicio" src="img/logos/LOGO_CLARO_77x36.png" alt=""/>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

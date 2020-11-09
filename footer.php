@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6 footer-info">
-                    <img src="img/logos/LOGO-ESTILO-Gris-180x60.png" alt="" title="" />
+                    <img src="img/logos/LOGO_BLANCO_154x71.png" alt="" title="" />
                     <!--<h3>BizPage</h3>-->
                     <p>Somos una empresa especializada en el sector de la mensajería y el paqueteo. Buscamos brindar soluciones logísticas para la entrega de sus documentos y mercancías; contamos con la infraestructura física, tecnológica y humana, necesaria para prestar un servicio de óptima calidad.</p>
                 </div>
