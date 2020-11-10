@@ -5691,7 +5691,6 @@ a.badge-dark:focus, a.badge-dark.focus {
     z-index: 2;
     color: #fff;
     background-color: #17141F;
-    border-color: #17141F;
 }
 
 .list-group-item + .list-group-item {

@@ -28,12 +28,16 @@
                             } elseif (isset($_SESSION["adminlogi"])) {
                                 ?>
                                 <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección">  
-                                <input type="text" class="form-control form-control-sm" id="inputNumDocCl" name="inputNumDocCl">  
-                                <input type="text" class="form-control form-control-sm" id="inputTDocCli" name="inputTDocCli">                                                                 
+                                <input type="text" class="form-control form-control-sm" id="inputNumDocCl" name="inputNumDocCl" style="display: none;">  
+                                <input type="text" class="form-control form-control-sm" id="inputTDocCli" name="inputTDocCli" style="display: none;">                                                                 
+                                <?php
+                            } elseif (isset($_SESSION["sucursal"])) {
+                                ?>
+                                <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_suc"]; ?>">                                                                 
                                 <?php
                             }
                             ?>
-                            <input type="text" class="form-control form-control-sm" id="inputNumSucu" name="inputNumSucu">
+                            <input type="text" class="form-control form-control-sm" id="inputNumSucu" name="inputNumSucu" style="display: none;">
                         </div>
                         <div class="form-group form-group-sm col-lg-2" id="blqselectCiudad">
                             <label for="selectCiudad">Ciudad</label>

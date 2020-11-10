@@ -68,15 +68,15 @@ if (!isset($_SESSION["cliente_a"])) {
 
             <!-- Sidebar -->
 
-            <div class="bg-dark border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
+            <div class="bg-light border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
                 <img src="img/clients/<?php echo $_SESSION["numero_doc"]; ?>.png" alt="" title="" />
                 <div class="dropdown-divider"></div>
-                <h4 class="card-title" style="color: #D6D6D6;"><?php echo $_SESSION["nombre_cli"]; ?></h4>
+                <h4 class="card-title"><?php echo $_SESSION["nombre_cli"]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-document"></span>
                         Ordenes de Servicio
                     </a>
@@ -89,12 +89,12 @@ if (!isset($_SESSION["cliente_a"])) {
                             <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-mail"></span>
                         Envios
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body alert-primary" id="adminbd">
+                        <div class="card card-body alert-secondary" id="adminbd">
                             <a class="dropdown-item enlace" bd="admin_ciudades">Ciudades</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" bd="admin_tipo_doc">Tipo Documento</a>
@@ -141,7 +141,7 @@ if (!isset($_SESSION["cliente_a"])) {
                             <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
                                 <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php echo $_SESSION["nombre_cli"]; ?></legend></strong></div>
                                 <div class="card-body">
-                                    <img class="img-fluid" src="img/logos/LOGO-ESTILO-Blanco-1800x600.png" alt=""/>
+                                    <img class="img-fluid" src="img/clients/FONDO/<?php echo $_SESSION["numero_doc"]; ?>.PNG" alt=""/>
                                 </div>
                             </div>
                         </div>

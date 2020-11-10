@@ -25,6 +25,12 @@
                 <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
             </li>
             <?php
+        }elseif (isset($_SESSION["sucursal"])) {
+            ?>
+            <li class = "nav-item">
+                <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
+            </li>
+            <?php
         }
         ?>
         <li class = "nav-item">

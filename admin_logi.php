@@ -75,20 +75,20 @@ if (!isset($_SESSION["adminlogi"])) {
 
             <!-- Sidebar -->
 
-            <div class="bg-dark border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
+            <div class="bg-light border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
-                <img src="img/logos/LOGO_OSCURO_166x77.png" alt="" title="" />
-                <div class="dropdown-divider"></div>
-                <h4 class="card-title" style="color: #D6D6D6;"><?php echo $_SESSION["nombre_cli"]; ?></h4>
+                <img src="img/logos/LOGO_CLARO_157x72.png" alt="" title="" />
+                <div class="dropdown-divider border-primary"></div>
+                <h4 class="card-title"><?php $porciones = explode(" ", $_SESSION["nombre_cli"]); echo $porciones[0]." ".$porciones[2]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseOS" role="button" aria-expanded="false" aria-controls="multiCollapseOS">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseOS" role="button" aria-expanded="false" aria-controls="multiCollapseOS">
                         <span class="ion-android-map"></span>
                         ORDENES SERVICIO
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseOS">
-                        <div class="card card-body alert-primary">
+                        <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="link_vista_gest">Gestionar</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_dashboard_serv">DashBoard</a>
@@ -96,44 +96,46 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_vista_hist">Historial</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseENV" role="button" aria-expanded="false" aria-controls="multiCollapseENV">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseENV" role="button" aria-expanded="false" aria-controls="multiCollapseENV">
                         <span class="ion-android-mail"></span>
                         ENVIOS
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseENV">
-                        <div class="card card-body alert-primary">
+                        <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="link_vista_gest_env">Gestionar</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseENV">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseENV">
                         <span class="ion-ios-home"></span>
                         ALMACEN
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseALM">
-                        <div class="card card-body alert-primary">
+                        <div class="card card-body alert-secondary">
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_gest_almacen">Gestionar</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-contact"></span>
                         CLIENTE
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="card card-body alert-primary">
+                        <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="link_form_cliente">Nuevo</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_form_editar">Editar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_form_utilidades">Utilidades</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
                         <span class="ion-folder"></span>
                         ADMINISTRAR BD
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body alert-primary" id="adminbd">
+                        <div class="card card-body alert-secondary" id="adminbd">
                             <a class="dropdown-item enlace" bd="admin_ciudades">Ciudades</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" bd="admin_tipo_doc">Tipo Documento</a>
@@ -151,12 +153,12 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" bd="admin_estado_aenv">Estado Alist. Envios</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseEmp" role="button" aria-expanded="false" aria-controls="multiCollapseEmp">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseEmp" role="button" aria-expanded="false" aria-controls="multiCollapseEmp">
                         <span class="ion-android-person"></span>
                         EMPLEADOS
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseEmp">
-                        <div class="card card-body alert-primary">
+                        <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="link_form_nuev_emp">Nuevo</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_form_editar_emp">Editar</a>
