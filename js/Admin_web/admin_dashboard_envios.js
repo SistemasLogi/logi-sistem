@@ -89,7 +89,7 @@ function consulta_dashboard_envios_card() {
     };
     f_ajax(request, cadena, metodo);
 }
-
+var estado_id;
 /**
  * Metodo que plasma los datos del elemento seleccionado en los campos de texto
  * formulario ciudad
@@ -226,14 +226,14 @@ function consulta_tabla_env_x_est(id_est) {
             datos_env += "</tbody></table></div></div></div>";
             datos_env += '<div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
                               <div class="toast-header"><strong class="mr-auto">Asignación de Estados</strong></div>\n\
-                                <form class="form-inline" id="formAsigEstEnv" name="formAsigEstEnv">\n\
+                                <form class="form-inline" id="formAsigEstEnvDash" name="formAsigEstEnvDash">\n\
                                       <div class="form-group mb-2">\n\
                                         <label class="col-form-label" for="selectEstadEnvio"><b>Estado</b></label>\n\
                                         <select class="form-control form-control-sm" id="selectEstadEnvio" name="selectEstadEnvio">\n\
                                         </select>\n\
                                       </div>\n\
                                       <div class="form-group mx-sm-3 mb-6">\n\
-                                        <label class="col-form-label" for="selectEstadEnvio"><b>Mensajero</b></label>\n\
+                                        <label class="col-form-label" for="selectMensajero"><b>Mensajero</b></label>\n\
                                         <select class="form-control form-control-sm" id="selectMensajero" name="selectMensajero">\n\
                                         </select>\n\
                                       </div>\n\
@@ -274,13 +274,13 @@ function consulta_tabla_env_x_est(id_est) {
             $("#btnGuardaEstSelected").click(function () {
 
 //                alert($("#selectEstadEnvio").val());
-
-                if ($("#selectEstadEnvio").val() == 0) {
-                    alertify.alert('Debe seleccionar un estado').setHeader('<em> Cuidado! </em> ');
+                if ($("#selectEstadEnvio").val() == "0" || $("#selectMensajero").val() == "0|0") {
+                    alertify.alert('Debe seleccionar un estado y un Mensajero').setHeader('<em> Cuidado! </em> ');
                 } else {
                     envios_Selected_Est_dash();
-                    limpiarFormulario("#formAsigEstEnv");
+                    limpiarFormulario("#formAsigEstEnvDash");
                 }
+                consulta_dashboard_envios_card();
             });
         } else {
             $("#tab_est_env").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -309,11 +309,10 @@ function envios_Selected_Est_dash() {
 
             guiaLogi = temp_env.exe_en_id;
             estadoID = $("#selectEstadEnvio").val();
-            fechaEst = temp_env.exe_fec_hora;
+            mensajero = $("#selectMensajero").val();
             novedadValor = $("#areaNovedad").val();
             insert_estado_envio_dash(mensajero, guiaLogi, estadoID, novedadValor);
         }
-
 
     });
 }
@@ -333,7 +332,8 @@ function insert_estado_envio_dash(selectMensajero, inputNumEnvi, selectEstado, t
     metodo = function (datos) {
 
         if (datos == 1) {
-            consulta_tabla_env_mens(mensajero);
+            consulta_tabla_env_x_est(estado_id);
+            consulta_dashboard_envios_card();
         } else {
             alert(datos);
         }
