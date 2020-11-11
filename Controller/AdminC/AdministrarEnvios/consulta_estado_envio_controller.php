@@ -9,7 +9,7 @@
 if ($_POST) {
     require '../../../config.php';
     $est_env = new Estado_x_env_DAO();
-    echo json_encode($est_env->consulta_ultimo_est_envios("AND TM.exe_en_id = ".$_POST["id_env"].";"));
+    echo json_encode($est_env->consulta_ultimo_est_envios("","AND TM.exe_en_id = ".$_POST["id_env"].""));
 } else {
     header("location../");
 }

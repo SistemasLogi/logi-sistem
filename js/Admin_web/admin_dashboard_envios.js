@@ -115,7 +115,7 @@ function clickPanelDash() {
         }, 300);
     });
 }
-
+var arreglo_env;
 /**
  * Metodo que carga la tabla de envios segun el estado
  * @param {type} id_est
@@ -125,6 +125,8 @@ function consulta_tabla_env_x_est(id_est) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php";
     cadena = "id_est_env=" + id_est; //envio de parametros por POST
     metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
         arreglo_env = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arreglo_env !== 0) {
@@ -174,9 +176,14 @@ function consulta_tabla_env_x_est(id_est) {
                             <table class="table table-striped table-sm table-bordered" id="tableEstadoEnv">\n\
                             <thead><tr ' + colorTab + '>\n\
                                 <th scope="col"></th>\n\
+                                <th scope="col"></th>\n\
                                 <th scope="col">GUIA LOGI</th>\n\
                                 <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
                                 <th scope="col">ESTADO</th>\n\
+                                <th scope="col">CLIENTE</th>\n\
+                                <th scope="col">SUCURSAL</th>\n\
                                 <th scope="col">MENSAJERO</th>\n\
                                 <th scope="col">SERVICIO</th>\n\
                                 <th scope="col">T. ENVIO</th>\n\
@@ -187,11 +194,29 @@ function consulta_tabla_env_x_est(id_est) {
             for (i = 0; i < arreglo_env.length; i++) {
                 temp = arreglo_env[i];
 
+                var fecha_hora = new Date(temp.exe_fec_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp.exe_fec_hora.replace(/-/g, '\/'));
+
                 datos_env += '<tr class="table-sm EnvFil" id="fila_env' + temp.exe_en_id + '" fila="' + temp.exe_en_id + '">';
+                datos_env += '<td id="' + i + '"></td>';
                 datos_env += '<td class="enlace editEnvio" editEstEnv="' + temp.exe_en_id + '"><span class="ion-android-attach ' + colorText + '"></span></td>';
                 datos_env += '<td>' + temp.exe_en_id + '</td>';
                 datos_env += '<td>' + temp.en_guia + '</td>';
+                datos_env += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_env += '<td>' + timeString + '</td>';
                 datos_env += '<td>' + temp.ee_desc + '</td>';
+                datos_env += '<td>' + temp.cli_nombre + '</td>';
+                if (temp.suc_nombre == null) {
+                    datos_env += '<td></td>';
+                } else {
+                    datos_env += '<td>' + temp.suc_nombre + '</td>';
+                }
                 datos_env += '<td>' + temp.emp_nombre + '</td>';
                 datos_env += '<td>' + temp.ts_desc + '</td>';
                 datos_env += '<td>' + temp.te_desc + '</td>';
@@ -199,20 +224,118 @@ function consulta_tabla_env_x_est(id_est) {
                 datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
             }
             datos_env += "</tbody></table></div></div></div>";
+            datos_env += '<div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                              <div class="toast-header"><strong class="mr-auto">Asignación de Estados</strong></div>\n\
+                                <form class="form-inline" id="formAsigEstEnv" name="formAsigEstEnv">\n\
+                                      <div class="form-group mb-2">\n\
+                                        <label class="col-form-label" for="selectEstadEnvio"><b>Estado</b></label>\n\
+                                        <select class="form-control form-control-sm" id="selectEstadEnvio" name="selectEstadEnvio">\n\
+                                        </select>\n\
+                                      </div>\n\
+                                      <div class="form-group mx-sm-3 mb-6">\n\
+                                        <label class="col-form-label" for="selectEstadEnvio"><b>Mensajero</b></label>\n\
+                                        <select class="form-control form-control-sm" id="selectMensajero" name="selectMensajero">\n\
+                                        </select>\n\
+                                      </div>\n\
+                                      <div class="form-group mx-sm-3 mb-6">\n\
+                                        <label for="areaNovedad" class="col-form-label"><b>Novedad</b></label>\n\
+                                        <textarea class="form-control form-control-sm" id="areaNovedad" name="areaNovedad" rows="1"></textarea>\n\
+                                      </div>\n\
+                                      <button type="button" class="btn btn-outline-warning btn-sm" id="btnGuardaEstSelected" name="btnGuardaEstSelected">GUARDAR EST</button>\n\
+                                </form></div>';
+
             $("#tab_est_env").html(datos_env);
             /**
              * Evento que pagina una tabla 
              */
-            $('#tableEstadoEnv').DataTable({
+            var table = $('#tableEstadoEnv').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']],
                 'scrollX': true
             });
 //            clickAdd_env_mensajero();
 //            clickElim_fila();
             clickEdit_est_Env(colorAl);
+            combo_estado_envio("#selectEstadEnvio");
+            combo_empleados("#selectMensajero");
+
+            $("#btnGuardaEstSelected").click(function () {
+
+//                alert($("#selectEstadEnvio").val());
+
+                if ($("#selectEstadEnvio").val() == 0) {
+                    alertify.alert('Debe seleccionar un estado').setHeader('<em> Cuidado! </em> ');
+                } else {
+                    envios_Selected_Est_dash();
+                    limpiarFormulario("#formAsigEstEnv");
+                }
+            });
         } else {
             $("#tab_est_env").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que determina los check seleccionados para asignacion de estados 
+ * @returns {undefined}
+ */
+function envios_Selected_Est_dash() {
+    $("input:checkbox:checked").each(function () {
+
+        checket_envio = $(this).parent().attr('id');//numeo de venta
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+//            comprobar_os_creada(checket_venta);
+//            alert(checket_envio);
+            temp_env = arreglo_env[checket_envio];
+
+            guiaLogi = temp_env.exe_en_id;
+            estadoID = $("#selectEstadEnvio").val();
+            fechaEst = temp_env.exe_fec_hora;
+            novedadValor = $("#areaNovedad").val();
+            insert_estado_envio_dash(mensajero, guiaLogi, estadoID, novedadValor);
+        }
+
+
+    });
+}
+
+/**
+ * Metodo que inserta un estado en tabla estados x envio
+ * desde la vista dashboard
+ * @param {type} selectMensajero
+ * @param {type} inputNumEnvi
+ * @param {type} selectEstado
+ * @param {type} txaNovedadEstado
+ * @returns {undefined}
+ */
+function insert_estado_envio_dash(selectMensajero, inputNumEnvi, selectEstado, txaNovedadEstado) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_controller.php";
+    cadena = {"selectMensajero": selectMensajero, "inputNumEnvi": inputNumEnvi, "selectEstado": selectEstado, "txaNovedadEstado": txaNovedadEstado}; //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (datos == 1) {
+            consulta_tabla_env_mens(mensajero);
+        } else {
+            alert(datos);
         }
     };
     f_ajax(request, cadena, metodo);
