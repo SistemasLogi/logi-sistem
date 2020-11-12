@@ -3,21 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_aenv_obj_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/css/style.css</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/seguimiento_estados_env.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard_envios.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_aenv_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/VO/Est_x_aenv_VO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_aenv_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/index.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/navbar.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_estado_x_env_segui_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/Login_General/login_control.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_ult_est_envio_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_envio.js</file>
             <file>file:/C:/wamp64/www/LogiClientes/cliente_logi.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/footer.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Cliente/cliente_dashboard.js</file>
         </group>
     </open-files>
 </project-private>

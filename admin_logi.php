@@ -105,6 +105,8 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="link_vista_gest_env">Gestionar</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_informes_envios">Informes</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseENV">

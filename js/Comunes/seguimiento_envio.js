@@ -22,7 +22,7 @@ function validarBuscarNumEnvio(metodo) {
  */
 function datos_envio_seg() {
     request = "Controller/AdminC/AdministrarEnvios/cons_estado_x_env_segui_controller.php";
-    cadena = $("#formBuscarEnvio").serialize(); //envio de parametros por POST
+    cadena = $("#formBuscarEnvio").serialize(); //envio de parametros por POST    
     metodo = function (datos) {
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
         diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
@@ -183,11 +183,8 @@ function datos_envio_seg() {
 //            alert(cant_estados);
 
         } else {
-
+            alertify.alert('Numero de envio no encontrado, favor verifique e intente nuevamente').setHeader('<em> Cuidado! </em> ');
         }
-
-
-
     };
     f_ajax(request, cadena, metodo);
 }

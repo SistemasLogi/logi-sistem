@@ -35,6 +35,7 @@ if (!isset($_SESSION["cliente_a"])) {
         <link href="lib/ionicons/css/ionicons.css" rel="stylesheet" type="text/css"/>
         <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/dataTables.checkboxes.css" rel="stylesheet" type="text/css"/>
         <link href="css/my_style.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <link href="js/css/alertify.css" rel="stylesheet" type="text/css"/>
@@ -51,11 +52,16 @@ if (!isset($_SESSION["cliente_a"])) {
         <script src="js/Cliente/cliente_dashboard.js" type="text/javascript"></script>
         <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
+        <script src="js/Comunes/guias_logi.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_envio.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_alist.js" type="text/javascript"></script>
+        <script src="js/Comunes/kardex_prod.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
         <script src="js/dataTables.responsive.min.js" type="text/javascript"></script>
         <script src="js/responsive.bootstrap4.min.js" type="text/javascript"></script>
+        <script src="js/dataTables.checkboxes.min.js" type="text/javascript"></script>
         <script src="js/custom.js" type="text/javascript"></script>
         <script src="js/alertify.js" type="text/javascript"></script>
 
@@ -95,17 +101,9 @@ if (!isset($_SESSION["cliente_a"])) {
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
                         <div class="card card-body alert-secondary" id="adminbd">
-                            <a class="dropdown-item enlace" bd="admin_ciudades">Ciudades</a>
+                            <a class="dropdown-item enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_doc">Tipo Documento</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_serv">Tipo Servicio</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_env">Tipo Envio</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_serv">Estado Servicio</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_env">Estado Envio</a>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
                         </div>
                     </div>
                 </div>
