@@ -95,7 +95,7 @@ if (!isset($_SESSION["cliente_a"])) {
                             <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
                         <span class="ion-android-mail"></span>
                         Envios
                     </a>
@@ -104,6 +104,17 @@ if (!isset($_SESSION["cliente_a"])) {
                             <a class="dropdown-item enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
+                        </div>
+                    </div>
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">
+                        <span class="ion-ios-home"></span>
+                        ALMACEN
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseALM">
+                        <div class="card card-body alert-secondary">
+                            <a class="dropdown-item enlace" id="link_stock_cl">Stock</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_seg_aenv_cl">Seguimiento Alistamiento</a>
                         </div>
                     </div>
                 </div>

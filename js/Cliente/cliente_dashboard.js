@@ -181,7 +181,9 @@ function seguimiento_estado_env() {
         $("#btnBuscaEnv").click(function () {
             validarBuscarNumEnvio(datos_envio_seg);
         });
-//        botones_seg_os();
+        $("#btnBuscaEnvGuiaOp").click(function () {
+            validarBuscarNumEnvioOp(datos_envio_seg_op);
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -196,9 +198,10 @@ function vista_dashboard_envios_cl() {
     metodo = function (datos) {
 //        exist = false;
         $("#sectionConten").html(datos);
-        $("#btnBuscaEnvFech").click(function () {
-            validarFechEnvEst();
-        });
+//        $("#btnBuscaEnvFech").click(function () {
+//            validarFechEnvEst();
+//        });
+        consulta_dashboard_envios_card_cl();
 
     };
     f_ajax(request, cadena, metodo);
@@ -220,7 +223,12 @@ function validarFechEnvEst() {
             }
         },
         submitHandler: function (form) {
-            consulta_dashboard_envios_card_cl();
+            consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, estado_id);
+            $('#ModalActuEstOS').modal('hide');
+            //En esta linea me redirije al formulario con una velocodad establecida
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#tbInfoEstEnv").offset().top
+            }, 300);
         }
     });
 }
@@ -254,10 +262,10 @@ var fech_fin;
  * @returns {undefined}
  */
 function consulta_dashboard_envios_card_cl() {
-    fech_ini = $("#inputFechIni").val();
-    fech_fin = $("#inputFechFin").val();
-    request = "Controller/ClienteC/con_ult_est_env_fech_controller.php";
-    cadena = $("#formBuscarEnvFech").serialize(); //envio de parametros por POST
+//    fech_ini = $("#inputFechIni").val();
+//    fech_fin = $("#inputFechFin").val();
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_envio_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
 //        alert(datos);
         env_program = 0;
@@ -315,7 +323,11 @@ function clickPanelDashCl() {
     $(".est_envio").click(function () {
         estado_id = $(this).attr("elem");
 
-        consulta_tabla_env_x_est_cl(fech_ini, fech_fin, estado_id);
+        if (estado_id == 6 || estado_id == 7 || estado_id == 11) {
+            click_modal_fech();
+        } else {
+            consulta_tabla_env_x_est_cl(estado_id);
+        }
 
         //En esta linea me redirije al formulario con una velocodad establecida
         $([document.documentElement, document.body]).animate({
@@ -325,15 +337,159 @@ function clickPanelDashCl() {
 }
 
 /**
- * Metodo que carga la tabla de envios segun el estado en dashboard cliente
+ * Metodo que carga el modal con formulario para seleccion de rango fechas
+ * @returns {undefined}
+ */
+function click_modal_fech() {
+
+//        alert(ges_envio);
+
+    $('#mod-dalog').removeClass('modal-lg');
+    $('#ModalActuEstOS').modal('toggle');
+    $('#ModalEstOSTitle').html('RANGO FECHAS');
+    $('#body_mod_os').html('<b>Seleccione un rango de fechas para generar la tabla</b>\n\
+            <div class="alert alert-dismissible alert-primary">\n\
+            <form id="formBuscarEnvFech" name="formBuscarEnvFech">\n\
+              <div class="form-row">\n\
+                <div class="form-group col-md-6">\n\
+                  <label class="col-form-label" for="inputFechIni"><b>Fecha Inicial :</b></label>\n\
+                  <input class="form-control form-control-sm" type="date" id="inputFechIni" name="inputFechIni">\n\
+                </div>\n\
+                <div class="form-group col-md-6">\n\
+                  <label class="col-form-label" for="inputFechFin"><b>Fecha Final :</b></label>\n\
+                  <input class="form-control form-control-sm" type="date" id="inputFechFin" name="inputFechFin">\n\
+                </div>\n\
+              </div>\n\
+              <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaEnvFech" name="btnBuscaEnvFech">BUSCAR</button>\n\
+            </form></div>');
+    $("#btnBuscaEnvFech").click(function () {
+        fech_ini = $("#inputFechIni").val();
+        fech_fin = $("#inputFechFin").val();
+        validarFechEnvEst();
+    });
+
+}
+
+
+/**
+ * Metodo que carga la tabla de envios segun el estado y un rango de fechas en dashboard cliente
  * @param {type} fech_ini
  * @param {type} fech_fin
  * @param {type} est_env
- * @returns {consulta_tabla_env_x_est_cl}
+ * @returns {consulta_tabla_env_x_est_fech_cl}
  */
-function consulta_tabla_env_x_est_cl(fech_ini, fech_fin, est_env) {
+function consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, est_env) {
     request = "Controller/ClienteC/cons_ult_est_id_env_cl_controller.php";
     cadena = {"fech_ini": fech_ini, "fech_fin": fech_fin, "est_env": est_env}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arreglo_env = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_env !== 0) {
+            temp_es = arreglo_env[0];
+            var colorTab;
+            var colorText;
+            var colorAl;
+            if (est_env == 6) {
+                colorTab = 'class="table-success"';
+                colorText = 'text-success';
+                colorAl = 'success';
+            } else if (est_env == 7) {
+                colorTab = 'class="table-danger"';
+                colorText = 'text-danger';
+                colorAl = 'danger';
+            } else if (est_env == 11) {
+                colorTab = 'class="table-info"';
+                colorText = 'text-info';
+                colorAl = 'info';
+            }
+            datos_env = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">ENVIOS ' + temp_es.ee_desc + '</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEstadoEnv">\n\
+                            <thead><tr ' + colorTab + '>\n\
+                                <th scope="col">GUIA LOGI</th>\n\
+                                <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
+                                <th scope="col">ESTADO</th>\n\
+                                <th scope="col">CLIENTE</th>\n\
+                                <th scope="col">SUCURSAL</th>\n\
+                                <th scope="col">SERVICIO</th>\n\
+                                <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">DIRECCION</th>\n\
+                                <th scope="col">OBSERVACIONES</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arreglo_env.length; i++) {
+                temp = arreglo_env[i];
+
+                var fecha_hora = new Date(temp.exe_fec_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp.exe_fec_hora.replace(/-/g, '\/'));
+
+                datos_env += '<tr class="table-sm EnvFil" id="fila_env' + temp.exe_en_id + '" fila="' + temp.exe_en_id + '">';
+                datos_env += '<td>' + temp.exe_en_id + '</td>';
+                datos_env += '<td>' + temp.en_guia + '</td>';
+                datos_env += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_env += '<td>' + timeString + '</td>';
+                datos_env += '<td>' + temp.ee_desc + '</td>';
+                datos_env += '<td>' + temp.cli_nombre + '</td>';
+                if (temp.suc_nombre == null) {
+                    datos_env += '<td></td>';
+                } else {
+                    datos_env += '<td>' + temp.suc_nombre + '</td>';
+                }
+                if (temp.ts_id == 1) {
+                    datos_env += '<td class="table-primary">' + temp.ts_desc + '</td>';
+                } else {
+                    datos_env += '<td>' + temp.ts_desc + '</td>';
+                }
+                datos_env += '<td>' + temp.te_desc + '</td>';
+                datos_env += '<td>' + temp.en_direccion + '</td>';
+                if (temp.exe_ee_id == 5) {
+                    datos_env += '<td>En Reparto</td></tr>';
+                } else {
+                    datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
+                }
+            }
+            datos_env += "</tbody></table></div></div></div>";
+
+
+            $("#tab_est_env").html(datos_env);
+            /**
+             * Evento que pagina una tabla 
+             */
+            var table = $('#tableEstadoEnv').DataTable({
+                'scrollX': true
+            });
+
+        } else {
+            $("#tab_est_env").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga la tabla de envios segun el estado en dashboard cliente
+ * @param {type} est_env
+ * @returns {consulta_tabla_env_x_est_cl}
+ */
+function consulta_tabla_env_x_est_cl(est_env) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php";
+    cadena = "id_est_env=" + est_env; //envio de parametros por POST
     metodo = function (datos) {
 //        alert(datos);
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
@@ -423,7 +579,11 @@ function consulta_tabla_env_x_est_cl(fech_ini, fech_fin, est_env) {
                 } else {
                     datos_env += '<td>' + temp.suc_nombre + '</td>';
                 }
-                datos_env += '<td>' + temp.ts_desc + '</td>';
+                if (temp.ts_id == 1) {
+                    datos_env += '<td class="table-primary">' + temp.ts_desc + '</td>';
+                } else {
+                    datos_env += '<td>' + temp.ts_desc + '</td>';
+                }
                 datos_env += '<td>' + temp.te_desc + '</td>';
                 datos_env += '<td>' + temp.en_direccion + '</td>';
                 if (temp.exe_ee_id == 5) {

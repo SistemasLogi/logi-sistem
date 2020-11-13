@@ -218,7 +218,11 @@ function consulta_tabla_env_x_est(id_est) {
                     datos_env += '<td>' + temp.suc_nombre + '</td>';
                 }
                 datos_env += '<td>' + temp.emp_nombre + '</td>';
-                datos_env += '<td>' + temp.ts_desc + '</td>';
+                if (temp.ts_id == 1) {
+                    datos_env += '<td class="table-primary">' + temp.ts_desc + '</td>';
+                } else {
+                    datos_env += '<td>' + temp.ts_desc + '</td>';
+                }
                 datos_env += '<td>' + temp.te_desc + '</td>';
                 datos_env += '<td>' + temp.en_direccion + '</td>';
                 datos_env += '<td>' + temp.exe_novedad + '</td></tr>';

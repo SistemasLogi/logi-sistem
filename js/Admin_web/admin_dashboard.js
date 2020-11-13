@@ -5384,6 +5384,9 @@ function seguimiento_estado_env() {
         $("#btnBuscaEnv").click(function () {
             validarBuscarNumEnvio(datos_envio_seg);
         });
+        $("#btnBuscaEnvGuiaOp").click(function () {
+            validarBuscarNumEnvioOp(datos_envio_seg_op);
+        });
 //        botones_seg_os();
     };
     f_ajax(request, cadena, metodo);

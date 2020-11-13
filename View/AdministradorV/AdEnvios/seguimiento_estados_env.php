@@ -6,11 +6,22 @@
 
     <div class="toast-body row">        
         <div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">
-            <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvio" name="formBuscarEnvio">                                    
-                <b>Buscar N° Envio :</b>
-                <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaNumEnv" name="inpBuscaNumEnv" placeholder="Buscar N°">
-                <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaEnv" name="btnBuscaEnv">BUSCAR</button>    
-            </form>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvio" name="formBuscarEnvio">                                    
+                        <b>Buscar N° Envio :</b>
+                        <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaNumEnv" name="inpBuscaNumEnv" placeholder="Buscar N°">
+                        <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaEnv" name="btnBuscaEnv">BUSCAR</button>    
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvioGuiaOP" name="formBuscarEnvioGuiaOP">                                    
+                        <b>Buscar Guia OP :</b>
+                        <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaEnvGuiaOp" name="inpBuscaEnvGuiaOp" placeholder="Guia OP">
+                        <button type="submit" class="btn btn-outline-warning btn-sm" id="btnBuscaEnvGuiaOp" name="btnBuscaEnv">BUSCAR</button>    
+                    </form>
+                </div>
+            </div>
             <h4>Envio N° <em id="etqNumEnv"></em></h4>
             <div class="row">
                 <div class="alert alert-dismissible alert-warning col-lg-6">

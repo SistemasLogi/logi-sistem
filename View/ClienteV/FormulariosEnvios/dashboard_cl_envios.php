@@ -1,18 +1,5 @@
 <div class="row">
-    <div class="alert alert-dismissible alert-primary col-lg-12">
-        <form class="form-inline" id="formBuscarEnvFech" name="formBuscarEnvFech">  
-            <div class="form-group mx-sm-3 mb-6">
-                <label class="col-form-label" for="inputFechIni"><b>Fecha Inicial :</b></label>
-                <input class="form-control form-control-sm" type="date" id="inputFechIni" name="inputFechIni">
-            </div>
-            <div class="form-group mx-sm-3 mb-6">
-                <label class="col-form-label" for="inputFechFin"><b>Fecha Final :</b></label>
-                <input class="form-control form-control-sm" type="date" id="inputFechFin" name="inputFechFin">
-            </div>
-            <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaEnvFech" name="btnBuscaEnvFech">BUSCAR</button>    
-        </form>
-    </div>
-    <legend>ENVIOS</legend>
+    <legend>CANTIDAD DE ENVIOS SEGUN ESTADO</legend>
     <div class="col-lg-3">
         <div class="card border-warning mb-3 enlace est_envio" id="cardProgram" elem="1" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
             <div class="card-header" style="background-color: #fbd797; color: #7c550f;"><b>PROGRAMADOS</b><span class="ion-android-alarm-clock float-right" style="color: #7c550f; font-size: x-large"></span></div>
@@ -28,10 +15,17 @@
                 <p class="card-text">En Bodega Origen.</p>
             </div>
         </div>
+        <div class="card border-success mb-3 enlace est_envio" id="cardGestFin" elem="6" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">            
+            <div class="card-header bg-success"><b class="text-light">ENTREGADOS</b><span class="ion-checkmark-circled text-light float-right" style="font-size: x-large"></span></div>
+            <div class="card-body">                
+                <span class="ion-android-search text-success" style="font-size: large"></span>
+                <p class="card-text">Click para buscar.</p>
+            </div>
+        </div>
     </div>
     <div class="col-lg-3">
         <div class="card border-warning mb-3 enlace est_envio" id="cardBodegaOr" elem="2" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">            
-            <div class="card-header alert-warning"><b>BODEGA ORIGEN</b><span class="ion-ios-home float-right" style="font-size: x-large"></span></div>
+            <div class="card-header alert-warning"><b>BODEGA BOGOTÁ</b><span class="ion-ios-home float-right" style="font-size: x-large"></span></div>
             <div class="card-body">                
                 <h5 class="card-title" style="color: #7c550f;" id="cantEnvBodegaOr"></h5>
                 <p class="card-text">En Bodega Origen</p>
@@ -42,6 +36,13 @@
             <div class="card-body alert-info">                
                 <h5 class="card-title" style="color: #2c77ff;" id="cantEnvSolucion"></h5>
                 <p class="card-text">Novedades Solución.</p>
+            </div>
+        </div>
+        <div class="card border-danger mb-3 enlace est_envio" id="cardSolucion" elem="7" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">            
+            <div class="card-header bg-danger"><b class="text-light">DEVOLUCIÓN</b><span class="ion-ios-undo text-light float-right" style="font-size: x-large"></span></div>
+            <div class="card-body alert-danger">                
+                <span class="ion-android-search text-danger" style="font-size: large"></span>
+                <p class="card-text">Click para buscar.</p>
             </div>
         </div>
     </div>
@@ -58,6 +59,13 @@
             <div class="card-body">
                 <h5 class="card-title" style="color: #2c77ff;" id="cantEnvViajDest"></h5>
                 <p class="card-text">Viajando a Destino</p>
+            </div>
+        </div>
+        <div class="card border-info mb-3 enlace est_envio" id="cardViajDest" elem="11" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
+            <div class="card-header alert-info"><b class="text-info">REENVIOS</b><span class="ion-android-sync text-info float-right" style="color: #2c77ff; font-size: x-large"></span></div>
+            <div class="card-body alert-light">
+                <span class="ion-android-search text-info" style="font-size: large"></span>
+                <p class="card-text">Envios con nuevo N° guia</p>
             </div>
         </div>
     </div>
