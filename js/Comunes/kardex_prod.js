@@ -153,3 +153,86 @@ function tabla_kardex_prod(cod_prod) {
     };
     f_ajax(request, cadena, metodo);
 }
+
+/**
+ * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
+ * en la vista cliente
+ * @param {type} sucursal_id
+ * @returns {tabla_stock_suc_cli}
+ */
+function tabla_stock_suc_cli(sucursal_id) {
+    request = "Controller/AdminC/AdministrarProd/consulta_stock_inv_suc_controller.php";
+    cadena = "suc=" + sucursal_id; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_stock_suc = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_stock_suc !== 0) {
+            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+                             <div class="toast-body row"><div class="alert alert-dismissible alert-light col-lg-12" style="border-radius: 0.5rem;">\n\
+                             <h4>Tabla General de Stock</h4>\n\
+                             <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
+                             <table class="table table-striped table-sm table-bordered table-hover col-lg-12" id="tableStockSucursal">\n\
+                             <thead><tr class="table-sm table-primary">\n\
+                                 <th scope="col"></th>\n\
+                                 <th scope="col">CODIGO</th>\n\
+                                 <th scope="col">SKU</th>\n\
+                                 <th scope="col">DESCRIPCIÓN</th>\n\
+                                 <th scope="col">UB.</th>\n\
+                                 <th scope="col">TOTAL</th>\n\
+                             </tr></thead><tbody>';
+            for (i = 0; i < arreglo_stock_suc.length; i++) {
+                tmp = arreglo_stock_suc[i];
+
+//                if (tmp.ts_id == 1) {
+//                    color_serv = ' #593196;';
+//                } else if (tmp.ts_id == 2) {
+//                    color_serv = ' #18d26e;';
+//                }
+                if (tmp.total < 3) {
+                    datos_stock_suc += '<tr class="table-sm" id="fila' + i + '" style="background-color: #ffcece;">';
+                } else {
+                    datos_stock_suc += '<tr class="table-sm" id="fila' + i + '">';
+                }
+                datos_stock_suc += '<td class="enlace"><span class="ion-clipboard geskardex" kardexPro="' + tmp.pro_cod + '" style="color: #702894; font-size: large;"></span></td>';
+                datos_stock_suc += '<td>' + tmp.pro_cod + '</td>';
+                datos_stock_suc += '<td>' + tmp.pro_sku + '</td>';
+                datos_stock_suc += '<td>' + tmp.pro_desc + '</td>';
+                datos_stock_suc += '<td id="ub' + tmp.pro_cod + '">' + tmp.pro_ubicacion + '</td>';
+                if (tmp.total < 3) {
+                    datos_stock_suc += '<td><b style="color: #e40a0a;" id="el' + tmp.pro_cod + '">' + tmp.total + '</b></td></tr>';
+                } else {
+                    datos_stock_suc += '<td id="el' + tmp.pro_cod + '">' + tmp.total + '</td></tr>';
+                }
+            }
+            datos_stock_suc += "</tbody></table></div></div></div>";
+            $("#contenidoInvent").html(datos_stock_suc);
+
+//            /**
+//             * Evento que pagina una tabla 
+//             */
+            $('#tableStockSucursal').DataTable();
+            /**
+             * evento de click para llamada de kardex
+             */
+            $("#tableStockSucursal").on("click", ".geskardex", function () {
+
+                kdx_pro = $(this).attr("kardexPro");
+
+                $('#ModalActuEstOS').modal('toggle');
+                $('#mod-dalog').addClass('modal-lg');
+                $('#ModalEstOSTitle').html('Kardex');
+                total_stk = $("#el" + kdx_pro).html();
+                ub_prod = $("#ub" + kdx_pro).html();
+
+                tabla_kardex_prod(kdx_pro);
+            });
+
+        } else {
+            $("#contenidoInvent").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+
+    };
+    f_ajax(request, cadena, metodo);
+}

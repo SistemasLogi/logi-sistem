@@ -26,6 +26,14 @@ $(document).ready(function () {
     $("#link_vista_dashboard_envios").click(function () {
         vista_dashboard_envios_cl();
     });
+
+    $("#link_stock_cl").click(function () {
+        vista_stock_cl();
+    });
+
+    $("#link_seg_aenv_cl").click(function () {
+        segui_estado_alist_env_cl();
+    });
 });
 /**
  * Variable global de funcion AJAX
@@ -189,6 +197,26 @@ function seguimiento_estado_env() {
 }
 
 /**
+ * Metodo que retorna la vista de seguimiento de envios en alistamiento
+ * @returns {undefined}
+ */
+function segui_estado_alist_env_cl() {
+    request = "View/AdministradorV/AdEnvios/seguimiento_est_alist_env.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#sectionConten").html(datos);
+        $("#btnBuscaEnvAlst").click(function () {
+            validarBuscarNumVenta(datos_seg_alist);
+        });
+        $("#btnBuscaEnvAlstGuiaOp").click(function () {
+            validarBuscarNumGuiaOp(datos_seg_alist_op);
+        });
+//        botones_seg_os();
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
  * Metodo que carga el dashboard principal de envios
  * @returns {undefined}
  */
@@ -206,7 +234,55 @@ function vista_dashboard_envios_cl() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que carga el dashboard principal de envios
+ * @returns {undefined}
+ */
+function vista_stock_cl() {
+    request = "View/ClienteV/FormulariosEnvios/stock_cli.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+//        exist = false;
+        $("#sectionConten").html(datos);
+        combo_sucursal_x();
 
+        $("#selectSucursal").change(function () {
+            sucursal = $("#selectSucursal").val();
+            tabla_stock_suc_cli(sucursal);
+        });
+
+        $("#btnSelectSuc").click(function () {
+            sucursal = $("#selectSucursal").val();
+            tabla_stock_suc_cli(sucursal);
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que retorna los datos a combo sucursales por cliente seleccionado
+ * @returns {undefined}
+ */
+function combo_sucursal_x() {
+    request = "Controller/ClienteC/consulta_suc_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc_cli = $.parseJSON(datos);
+        datouscombo = "";
+        if (arreglo_suc_cli == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            datouscombo += '<option value="0">Seleccione</option>';
+            for (i = 0; i < arreglo_suc_cli.length; i++) {
+                temp = arreglo_suc_cli[i];
+                datouscombo += '<option value="' + temp.suc_num_id + '">' + temp.suc_nombre + "</option>";
+            }
+        }
+
+        $("#selectSucursal").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /**
  * Metodo que permite validar campos de fecha en dashboard envios cliente

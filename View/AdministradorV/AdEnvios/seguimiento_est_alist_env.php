@@ -6,11 +6,22 @@
 
     <div class="toast-body row">        
         <div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">
-            <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvioAlist" name="formBuscarEnvioAlist">                                    
-                <b>Buscar N° Venta :</b>
-                <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaNumVenta" name="inpBuscaNumVenta" placeholder="Buscar N° Venta">
-                <button type="submit" class="btn btn-outline-warning btn-sm" id="btnBuscaEnvAlst" name="btnBuscaEnvAlst">BUSCAR</button>    
-            </form>            
+            <div class="row">
+                <div class="col-lg-6">
+                    <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvioAlist" name="formBuscarEnvioAlist">                                    
+                        <b>Buscar N° Venta :</b>
+                        <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaNumVenta" name="inpBuscaNumVenta" placeholder="Buscar N° Venta">
+                        <button type="submit" class="btn btn-outline-warning btn-sm" id="btnBuscaEnvAlst" name="btnBuscaEnvAlst">BUSCAR</button>    
+                    </form> 
+                </div>
+                <div class="col-lg-6">
+                    <form class="form-inline my-2 my-lg-0 form-group-sm" id="formBuscarEnvioAlistGuiaOp" name="formBuscarEnvioAlistGuiaOp">                                    
+                        <b>Buscar Guia OP :</b>
+                        <input class="form-control form-control-sm mr-sm-2" type="number" id="inpBuscaAlistGuiaOp" name="inpBuscaAlistGuiaOp" placeholder="Guia OP">
+                        <button type="submit" class="btn btn-outline-dark btn-sm" id="btnBuscaEnvAlstGuiaOp" name="btnBuscaEnvAlstGuiaOp">BUSCAR</button>    
+                    </form> 
+                </div>
+            </div>
             <div class="row mt-2">
                 <div class="alert alert-dismissible alert-primary col-lg-8">
                     <p class="mb-0"><strong>VENTA N°: </strong><em id="etqNumVentAlist"></em></p>
@@ -23,7 +34,7 @@
                 <div class="alert alert-dismissible alert-primary col-lg-4">
                     <h5><b>CLIENTE</b></h5>
                     <div id="imgSucLogo">
-                        
+
                     </div>
                 </div>
             </div>

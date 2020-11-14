@@ -5403,6 +5403,9 @@ function seguimiento_estado_alist_env() {
         $("#btnBuscaEnvAlst").click(function () {
             validarBuscarNumVenta(datos_seg_alist);
         });
+        $("#btnBuscaEnvAlstGuiaOp").click(function () {
+            validarBuscarNumGuiaOp(datos_seg_alist_op);
+        });
 //        botones_seg_os();
     };
     f_ajax(request, cadena, metodo);

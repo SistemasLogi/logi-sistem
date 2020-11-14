@@ -100,7 +100,7 @@ if (!isset($_SESSION["cliente_a"])) {
                         Envios
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body alert-secondary" id="adminbd">
+                        <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
