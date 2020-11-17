@@ -114,9 +114,10 @@ if (!isset($_SESSION["adminlogi"])) {
                         ALMACEN
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseALM">
-                        <div class="card card-body alert-secondary">
-                            <div class="dropdown-divider"></div>
+                        <div class="card card-body alert-secondary">                            
                             <a class="dropdown-item enlace" id="link_gest_almacen">Gestionar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_infor_almacen">Informes</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">

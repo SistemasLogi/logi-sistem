@@ -249,11 +249,13 @@ function vista_stock_cl() {
         $("#selectSucursal").change(function () {
             sucursal = $("#selectSucursal").val();
             tabla_stock_suc_cli(sucursal);
+            $("#imgSucLogo").html('<img src="img/sucursales/' + sucursal + '.png" alt=""/>');
         });
 
         $("#btnSelectSuc").click(function () {
             sucursal = $("#selectSucursal").val();
             tabla_stock_suc_cli(sucursal);
+            $("#imgSucLogo").html('<img src="img/sucursales/' + sucursal + '.png" alt=""/>');
         });
     };
     f_ajax(request, cadena, metodo);

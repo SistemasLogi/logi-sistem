@@ -16,7 +16,7 @@
             <div class="alert alert-dismissible alert-primary col-lg-4">
                 <h5><b>CLIENTE</b></h5>
                 <div id="imgSucLogo">
-
+                    
                 </div>
             </div>
         </div>

@@ -6,113 +6,115 @@
     </div>
     <div class="toast-body row">
         <div class="alert alert-dismissible alert-primary col-lg-12">
-            <form id="formOrdenServ">
-                <fieldset>
-                    <?php if (isset($_SESSION["cliente_a"])) {
+            <div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
+                <form id="formOrdenServ">
+                    <fieldset>
+                        <?php if (isset($_SESSION["cliente_a"])) {
+                            ?>
+                            <legend id="lbTitleSection">Solicitar Recolección</legend>
+                            <?php
+                        } elseif (isset($_SESSION["adminlogi"])) {
+                            ?>
+                            <legend id="nombreCliSuc"></legend>
+                            <?php
+                        }
                         ?>
-                        <legend id="lbTitleSection">Solicitar Recolección</legend>
-                        <?php
-                    } elseif (isset($_SESSION["adminlogi"])) {
-                        ?>
-                        <legend id="nombreCliSuc"></legend>
-                        <?php
-                    }
-                    ?>
-                    <div class="row">
-                        <div class="form-group form-group-sm col-lg-5" id="blqinputDir">
-                            <label for="inputDir">Dirección</label>
-                            <?php if (isset($_SESSION["cliente_a"])) {
+                        <div class="row">
+                            <div class="form-group form-group-sm col-lg-5" id="blqinputDir">
+                                <label for="inputDir">Dirección</label>
+                                <?php if (isset($_SESSION["cliente_a"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_cli"]; ?>">
+                                    <?php
+                                } elseif (isset($_SESSION["adminlogi"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección">  
+                                    <input type="text" class="form-control form-control-sm" id="inputNumDocCl" name="inputNumDocCl" style="display: none;">  
+                                    <input type="text" class="form-control form-control-sm" id="inputTDocCli" name="inputTDocCli" style="display: none;">                                                                 
+                                    <?php
+                                } elseif (isset($_SESSION["sucursal"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_suc"]; ?>">                                                                 
+                                    <?php
+                                }
                                 ?>
-                                <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_cli"]; ?>">
-                                <?php
-                            } elseif (isset($_SESSION["adminlogi"])) {
-                                ?>
-                                <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección">  
-                                <input type="text" class="form-control form-control-sm" id="inputNumDocCl" name="inputNumDocCl" style="display: none;">  
-                                <input type="text" class="form-control form-control-sm" id="inputTDocCli" name="inputTDocCli" style="display: none;">                                                                 
-                                <?php
-                            } elseif (isset($_SESSION["sucursal"])) {
-                                ?>
-                                <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir" placeholder="Dirección Recolección" value="<?php echo $_SESSION["direccion_suc"]; ?>">                                                                 
-                                <?php
-                            }
-                            ?>
-                            <input type="text" class="form-control form-control-sm" id="inputNumSucu" name="inputNumSucu" style="display: none;">
-                        </div>
-                        <div class="form-group form-group-sm col-lg-2" id="blqselectCiudad">
-                            <label for="selectCiudad">Ciudad</label>
-                            <select class="form-control form-control-sm" id="selectCiudad" name="selectCiudad">
-
-                            </select>
-                        </div>
-                        <div class="form-group form-group-sm col-lg-2" id="blqinputTele">
-                            <label for="inputTele">Teléfono</label>
-                            <?php if (isset($_SESSION["cliente_a"])) {
-                                ?>
-                                <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono" value="<?php echo $_SESSION["telefono_cli"]; ?>">
-                                <?php
-                            } elseif (isset($_SESSION["adminlogi"])) {
-                                ?>
-                                <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono">
-                                <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="form-group form-group-sm col-lg-3" id="blqinputPerContacto">
-                            <label for="inputPerContacto">Persona Contacto</label>
-                            <?php if (isset($_SESSION["cliente_a"])) {
-                                ?>
-                                <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto" value="<?php echo $_SESSION["per_contac"]; ?>">
-                                <?php
-                            } elseif (isset($_SESSION["adminlogi"])) {
-                                ?>
-                                <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto">
-                                <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="form-group form-group-sm col-lg-3">
-                            <label for="selectTipEnvio">Tipo Envio</label>
-                            <select class="form-control form-control-sm" id="selectTipEnvio" name="selectTipEnvio">
-
-                            </select>
-                        </div>
-                        <div class="form-group form-group-sm col-lg-5">
-                            <label for="inputObservServ">Observaciones</label>
-                            <textarea class="form-control form-control-sm" id="inputObservServ" name="inputObservServ" rows="1"></textarea>
-                        </div>
-                        <div class="form-group form-group-sm col-lg-2">
-                            <label for="inputObservServ">Logi YA</label>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input checkbox-1x" id="inpCheckLogiYa" name="inpCheckLogiYa" value="1">Express
-                                </label>
+                                <input type="text" class="form-control form-control-sm" id="inputNumSucu" name="inputNumSucu" style="display: none;">
                             </div>
+                            <div class="form-group form-group-sm col-lg-2" id="blqselectCiudad">
+                                <label for="selectCiudad">Ciudad</label>
+                                <select class="form-control form-control-sm" id="selectCiudad" name="selectCiudad">
+
+                                </select>
+                            </div>
+                            <div class="form-group form-group-sm col-lg-2" id="blqinputTele">
+                                <label for="inputTele">Teléfono</label>
+                                <?php if (isset($_SESSION["cliente_a"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono" value="<?php echo $_SESSION["telefono_cli"]; ?>">
+                                    <?php
+                                } elseif (isset($_SESSION["adminlogi"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele" placeholder="Teléfono">
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="form-group form-group-sm col-lg-3" id="blqinputPerContacto">
+                                <label for="inputPerContacto">Persona Contacto</label>
+                                <?php if (isset($_SESSION["cliente_a"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto" value="<?php echo $_SESSION["per_contac"]; ?>">
+                                    <?php
+                                } elseif (isset($_SESSION["adminlogi"])) {
+                                    ?>
+                                    <input type="text" class="form-control form-control-sm" id="inputPerContacto" name="inputPerContacto" placeholder="Persona Contacto">
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="form-group form-group-sm col-lg-3">
+                                <label for="selectTipEnvio">Tipo Envio</label>
+                                <select class="form-control form-control-sm" id="selectTipEnvio" name="selectTipEnvio">
+
+                                </select>
+                            </div>
+                            <div class="form-group form-group-sm col-lg-5">
+                                <label for="inputObservServ">Observaciones</label>
+                                <textarea class="form-control form-control-sm" id="inputObservServ" name="inputObservServ" rows="1"></textarea>
+                            </div>
+                            <div class="form-group form-group-sm col-lg-2">
+                                <label for="inputObservServ">Logi YA</label>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input checkbox-1x" id="inpCheckLogiYa" name="inpCheckLogiYa" value="1">Express
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group mx-3">
+                                <button type="submit" class="btn btn-primary" id="btnGenOrdServ" name="btnGenOrdServ" style="margin-top: 22px;">Siguiente</button>
+                                <button type="button" class="btn btn-dark" id="btnCancelarOrd" name="btnCancelarOrd" style="margin-top: 22px;">Cancelar</button>
+                            </div>                                                
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="btnGenOrdServ" name="btnGenOrdServ" style="margin-top: 22px;">Siguiente</button>
-                            <button type="button" class="btn btn-dark" id="btnCancelarOrd" name="btnCancelarOrd" style="margin-top: 22px;">Cancelar</button>
-                        </div>                                                
-                    </div>
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
 
-            <div id="divMensaje">
+                <div id="divMensaje">
 
-            </div>
-            <div class="alert alert-dismissible alert-primary col-lg-12 border-warning" style="border-radius: 0.5rem;" id="blqSelectModoCarga">
-                <h5>Seleccionar Forma de Radicación Envios</h5>
-                <div class="form-check-inline">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input op" name="rbtnCargaEnv" id="optionsRadios1" value="formulario" checked="">
-                        Formulario
-                    </label>
                 </div>
-                <div class="form-check-inline">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input op" name="rbtnCargaEnv" id="optionsRadios2" value="excel">
-                        Excel
-                    </label>
+                <div class="alert alert-dismissible alert-primary col-lg-12 border-warning" style="border-radius: 0.5rem;" id="blqSelectModoCarga">
+                    <h5>Seleccionar Forma de Radicación Envios</h5>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input op" name="rbtnCargaEnv" id="optionsRadios1" value="formulario" checked="">
+                            Formulario
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input op" name="rbtnCargaEnv" id="optionsRadios2" value="excel">
+                            Excel
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

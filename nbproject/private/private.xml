@@ -3,17 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_midificar.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_crear_sucursal.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/admin_logi.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_est_x_env_segui_guia_op_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_est_x_alis_env_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_envio.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_ult_est_envio_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/cliente_logi.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Est_x_aenv_DAO.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdCliente/form_editar.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Comunes/seguimiento_alist.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Cliente/cliente_dashboard.js</file>
         </group>
     </open-files>
 </project-private>

@@ -63,6 +63,6 @@
         </nav>
     </div>
 </div>
-<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" id="contenidoInvent" style="max-width: 100%; border-radius: 0.5rem;">
+<div id="contenidoInvent">
 
 </div>
