@@ -156,7 +156,8 @@ class Producto_DAO {
      * @return type
      */
     function consultaInventarioStock($suc_id, $fec_hor_actual) {
-        $sql = "SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, (T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
+        $sql = "SELECT TM.*, suc.suc_nombre, cl.cli_td_id, cl.cli_num_doc, cl.cli_nombre FROM "
+                . "(SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, (T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
                 . "FROM "
                 . "(SELECT p.pro_sku, p.pro_desc, p.pro_ubicacion, s.* "
                 . "FROM stock AS s, productos AS p WHERE p.pro_cod = s.pro_cod AND p.suc_num_id = s.suc_num_id  AND p.suc_num_id = " . $suc_id . ") "
@@ -166,7 +167,9 @@ class Producto_DAO {
                 . "FROM salida_prod AS sa "
                 . "WHERE suc_num_id = " . $suc_id . " "
                 . "AND sal_fecha > (SELECT stk_fecha FROM stock AS sk WHERE sa.pro_cod = sk.pro_cod) "
-                . "AND sal_fecha < '" . $fec_hor_actual . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod;";
+                . "AND sal_fecha < '" . $fec_hor_actual . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod) "
+                . "AS TM, sucursales AS suc, clientes AS cl "
+                . "WHERE TM.suc_num_id = suc.suc_num_id AND suc.cli_td_id = cl.cli_td_id AND suc.cli_num_doc = cl.cli_num_doc;";
         $BD = new MySQL();
         return $BD->query($sql);
     }
@@ -269,7 +272,7 @@ class Producto_DAO {
                 . "UNION "
                 . "(SELECT p.pro_sku, p.pro_desc, s.sal_fecha, s.pro_cod, s.sal_num_venta, s.sal_cantidad, 2 AS movimiento "
                 . "FROM salida_prod AS s, productos AS p "
-                . "WHERE s.pro_cod = '" . $cod_producto . "' AND s.pro_cod = p.pro_cod) ORDER BY ent_fecha ASC;";
+                . "WHERE s.pro_cod = '" . $cod_producto . "' AND s.pro_cod = p.pro_cod) ORDER BY ent_fecha DESC;";
         $BD = new MySQL();
         return $BD->query($sql);
     }
