@@ -11,7 +11,7 @@ function tabla_stock_suc() {
         arreglo_stock_suc = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arreglo_stock_suc !== 0) {
-            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong><div id="btn_gif"><button type="button" class="btn btn-primary float-right btn-sm" id="btnReportStockXlsx" name="btnReportStockXlsx">Descargar Informe</button></div></div>\n\
                              <div class="toast-body row"><div class="alert alert-dismissible alert-light col-lg-12" style="border-radius: 0.5rem;">\n\
                              <h4>Tabla General de Stock</h4>\n\
                              <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
@@ -69,6 +69,10 @@ function tabla_stock_suc() {
                 ub_prod = $("#ub" + kdx_pro).html();
 
                 tabla_kardex_prod(kdx_pro);
+            });
+
+            $("#btnReportStockXlsx").click(function () {
+                reporte_sock_Xls(sucursal_id);
             });
 
         } else {
@@ -174,7 +178,7 @@ function tabla_stock_suc_cli(sucursal_id) {
         arreglo_stock_suc = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arreglo_stock_suc !== 0) {
-            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong></div>\n\
+            datos_stock_suc = '<div class="toast-header"><strong class="mr-auto">STOCK</strong><div id="btn_gif"><button type="button" class="btn btn-primary float-right btn-sm" id="btnReportStockXlsx" name="btnReportStockXlsx">Descargar Informe</button></div></div>\n\
                              <div class="toast-body row"><div class="alert alert-dismissible alert-light col-lg-12" style="border-radius: 0.5rem;">\n\
                              <h4>Tabla General de Stock</h4>\n\
                              <div class="col-lg-12 table-responsive" id="tabStockSuc">\n\
@@ -234,6 +238,10 @@ function tabla_stock_suc_cli(sucursal_id) {
                 tabla_kardex_prod(kdx_pro);
             });
 
+            $("#btnReportStockXlsx").click(function () {
+                reporte_sock_Xls(sucursal_id);
+            });
+
         } else {
             $("#contenidoInvent").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
@@ -242,4 +250,38 @@ function tabla_stock_suc_cli(sucursal_id) {
 
     };
     f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que genera un reporte en excel .xlsx
+ * segun cliente y sucursal seleccionados
+ * @param {type} num_suc
+ * @returns {reporte_sock_Xls}
+ */
+function reporte_sock_Xls(num_suc) {
+//    alert(num_suc);
+    request = "Controller/AdminC/AdministrarProd/reporte_stock_inv_suc_controller.php";
+    cadena = "suc=" + num_suc; //envio de parametros por POST
+    metodo = function (datos) {
+        rutaXLS_guardado(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que proporciona la ruta y el nombre del archivo xls para descargar
+ * basicamente se hace como medio de control en tiempo de ejecucion
+ * previene que se ejecute una descarga antes de crear el archivo xlsx
+ * @param {type} clienteRuta
+ * @returns {undefined}
+ */
+function rutaXLS_guardado(clienteRuta) {
+    if (clienteRuta == 1) {
+        alertify.alert('Reporte no generado, error al generar el reporte').setHeader('<em> Cuidado! </em> ');
+    } else {
+        $(location).attr('href', 'Files/Reporte_Stock/' + $.trim(clienteRuta) + '.xlsx');
+
+        alertify.warning('Reporte Generado!!!');
+    }
+
 }
