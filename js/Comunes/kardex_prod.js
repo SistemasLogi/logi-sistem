@@ -1,4 +1,4 @@
-
+var kdx_pro;
 /**
  * Metodo que carga a la vista la tabla con el stock actualizado de los productos de una sucursal
  * @returns {undefined}
@@ -153,13 +153,20 @@ function tabla_kardex_prod(cod_prod) {
                 datos_kdx += '<td class="table-danger">' + tmp.ent_cantidad + '</td></tr>';
             }
         }
-        datos_kdx += "</tbody></table></div></div></div>";
+        datos_kdx += '</tbody></table></div></div></div>\n\
+                        <div id="btn_gif">\n\
+                        <button type="button" class="btn btn-primary float-right btn-sm" id="btnReportKardexXlsx" name="btnReportKardexXlsx">Descargar Tarjeta Kardex <span class="ion-document-text"></span></button></div>';
         $('#body_mod_os').html(datos_kdx);
 
 //            /**
 //             * Evento que pagina una tabla 
 //             */
         $('#tableKardex').DataTable();
+
+
+        $("#btnReportKardexXlsx").click(function () {
+            reporte_sock_Xls(sucursal_id);
+        });
 
     };
     f_ajax(request, cadena, metodo);
