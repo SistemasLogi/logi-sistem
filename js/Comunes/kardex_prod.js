@@ -154,7 +154,7 @@ function tabla_kardex_prod(cod_prod) {
             }
         }
         datos_kdx += '</tbody></table></div></div></div>\n\
-                        <form class="form-inline">\n\
+                        <form class="form-inline" id="formFechSelected" name="formFechSelected">\n\
                             <input type="text" class="form-control" id="inputCodProd" name="inputCodProd" style="display: none;">\n\
                             <input type="text" class="form-control" id="inputExistencia" name="inputExistencia" style="display: none;">\n\
                             <input type="text" class="form-control" id="inputUbicacion" name="inputUbicacion" style="display: none;">\n\
@@ -171,12 +171,12 @@ function tabla_kardex_prod(cod_prod) {
                             <input type="date" class="form-control" id="inputFechFinal" name="inputFechFinal">\n\
                           </div>\n\
                         <button type="submit" class="btn btn-primary float-right btn-sm" id="btnReportKardexXlsx" name="btnReportKardexXlsx">Descargar Tarjeta Kardex <span class="ion-document-text"></span></button>\n\
-                    </form>';
+                    </form><div id="mensaje"></div>';
         $('#body_mod_os').html(datos_kdx);
-        
+
         $("#inputCodProd").val(tmp_inf.pro_cod);
-        $("#inputExistencia").val(ub_prod);
-        $("#inputUbicacion").val(total_stk);
+        $("#inputExistencia").val(total_stk);
+        $("#inputUbicacion").val(ub_prod);
 
 //            /**
 //             * Evento que pagina una tabla 
@@ -185,7 +185,7 @@ function tabla_kardex_prod(cod_prod) {
 
 
         $("#btnReportKardexXlsx").click(function () {
-            reporte_kardex_Xlsx();
+            validarGeneracionReporte();
         });
 
     };
@@ -306,7 +306,75 @@ function rutaXLS_guardado(clienteRuta) {
     if (clienteRuta == 1) {
         alertify.alert('Reporte no generado, error al generar el reporte').setHeader('<em> Cuidado! </em> ');
     } else {
-        $(location).attr('href', 'Files/Reporte_Stock/' + $.trim(clienteRuta) + '.xlsx');
+        $(location).attr('href', 'Files/' + $.trim(clienteRuta) + '.xlsx');
+
+        alertify.warning('Reporte Generado!!!');
+    }
+
+}
+/**
+ * Metodo que valida datos del formulario para generar tarjeta kardex
+ * @returns {undefined}
+ */
+function validarGeneracionReporte() {
+    $("#formFechSelected").validate({
+        rules: {
+            inputFechInicial: {
+                required: true,
+                date: true
+            },
+            inputFechFinal: {
+                required: true,
+                date: true
+            }
+        },
+        submitHandler: function (form) {
+            verificaFechas();
+        }
+    });
+}
+/**
+ * Metodo que permite controlar que la fecha inicial sea menor a la final
+ * @returns {undefined}
+ */
+function verificaFechas() {
+    var fInicial = $("#inputFechInicial").val();
+    var fFinal = $("#inputFechFinal").val();
+    if (fInicial > fFinal) {
+        $("#mensaje").html("La fecha inicial no puede ser mayor que la final");
+    } else {
+        reporte_kardex_Xlsx();
+    }
+}
+
+/**
+ * Metodo que genera un reporte en excel .xlsx
+ * de tarjeta cardex de producto
+ * @returns {reporte_sock_Xls}
+ */
+function reporte_kardex_Xlsx() {
+//    alert(num_suc);
+    request = "Controller/AdminC/AdministrarProd/reporte_kardex_prod_controller.php";
+    cadena = $("#formFechSelected").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        rutaXLS_stock_guardado(datos);
+        $('#ModalActuEstOS').modal('hide');
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que proporciona la ruta y el nombre del archivo xls para descargar
+ * basicamente se hace como medio de control en tiempo de ejecucion
+ * previene que se ejecute una descarga antes de crear el archivo xlsx
+ * @param {type} clienteRuta
+ * @returns {undefined}
+ */
+function rutaXLS_stock_guardado(clienteRuta) {
+    if (clienteRuta == 1) {
+        alertify.alert('Reporte no generado, error al generar el reporte').setHeader('<em> Cuidado! </em> ');
+    } else {
+        $(location).attr('href', 'Files/' + $.trim(clienteRuta) + '.xlsx');
 
         alertify.warning('Reporte Generado!!!');
     }

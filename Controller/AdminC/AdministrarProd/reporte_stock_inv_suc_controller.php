@@ -71,7 +71,7 @@ if ($_POST) {
         $objPhpexcel->setActiveSheetIndex(0);
         $objPhpexcel->getActiveSheet()->setTitle("Stock Cliente");
         $objPhpexcel->getActiveSheet()->mergeCells('A1:B1');
-        $objPhpexcel->getActiveSheet()->getRowDimension('1')->setRowHeight(60);
+        $objPhpexcel->getActiveSheet()->getRowDimension('1')->setRowHeight(70);
         $drawing->setWorksheet($objPhpexcel->getActiveSheet());
         $objPhpexcel->getActiveSheet()->getStyle('A1:E1')
                 ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
@@ -122,11 +122,11 @@ if ($_POST) {
         if (isset($_SESSION["adminlogi"])) {
             $writer = new Xlsx($objPhpexcel);
             $writer->save('../../../Files/Reporte_Stock_adm/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc . '.xlsx');
-            echo $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
+            echo 'Reporte_Stock_adm/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
         } else {
             $writer = new Xlsx($objPhpexcel);
             $writer->save('../../../Files/Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc . '.xlsx');
-            echo $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
+            echo 'Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
         }
     } else {
         echo 1;

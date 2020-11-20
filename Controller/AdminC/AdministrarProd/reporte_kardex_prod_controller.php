@@ -65,7 +65,7 @@ if ($_POST) {
         $drawing->setDescription('Logo');
         $drawing->setPath('../../../img/logos/LOGO_CLAROS_500.png');
         $drawing->setCoordinates('A1');
-        $drawing->setHeight(100);
+        $drawing->setHeight(80);
 
 
         $objPhpexcel = new Spreadsheet();
@@ -77,27 +77,35 @@ if ($_POST) {
         $objPhpexcel->getActiveSheet()->mergeCells('B3:C3');
         $objPhpexcel->getActiveSheet()->getRowDimension('1')->setRowHeight(60);
         $drawing->setWorksheet($objPhpexcel->getActiveSheet());
-        $objPhpexcel->getActiveSheet()->getStyle('A:E')
+        $objPhpexcel->getActiveSheet()->getStyle('B1')
                 ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        $objPhpexcel->getActiveSheet()->getStyle('A:E')
+        $objPhpexcel->getActiveSheet()->getStyle('B1')
+                ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $objPhpexcel->getActiveSheet()->getStyle('A2:E2')
+                ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $objPhpexcel->getActiveSheet()->getStyle('A2:E2')
+                ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $objPhpexcel->getActiveSheet()->getStyle('A3:E3')
+                ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $objPhpexcel->getActiveSheet()->getStyle('A3:E3')
                 ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        $styleArray = [
-            'borders' => [
-                'outline' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-//                    'color' => ['argb' => '00000000'],
-                ],
-            ],
-        ];
-
-        $objPhpexcel->getStyle('A1:E4')->applyFromArray($styleArray);
+//        $styleArray = [
+//            'borders' => [
+//                'outline' => [
+//                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+////                    'color' => ['argb' => '00000000'],
+//                ],
+//            ],
+//        ];
+//
+//        $objPhpexcel->getStyle('A1:E4')->applyFromArray($styleArray);
 
         $objPhpexcel->getActiveSheet()->getCell('B1')->setValue($descripcion_prod);
         $objPhpexcel->getActiveSheet()->getStyle('B1')->getAlignment()->setWrapText(true);
 
         $objPhpexcel->getActiveSheet()->setCellValue('A2', 'CODIGO');
-        $objPhpexcel->getActiveSheet()->setCellValue('B2', $codigo_prod);
+        $objPhpexcel->getActiveSheet()->setCellValue('B2', $cod_pro);
         $objPhpexcel->getActiveSheet()->setCellValue('D2', 'UBICACIÓN');
         $objPhpexcel->getActiveSheet()->setCellValue('E2', $ubicacion);
         $objPhpexcel->getActiveSheet()->setCellValue('A3', 'SKU');
@@ -105,7 +113,11 @@ if ($_POST) {
         $objPhpexcel->getActiveSheet()->setCellValue('D3', 'EXISTENCIA');
         $objPhpexcel->getActiveSheet()->setCellValue('E3', $existencia);
 
-
+        $objPhpexcel->getActiveSheet()->setCellValue('A4', 'FECHA');
+        $objPhpexcel->getActiveSheet()->setCellValue('B4', 'HORA');
+        $objPhpexcel->getActiveSheet()->setCellValue('C4', 'DESCRIPCIÓN');
+        $objPhpexcel->getActiveSheet()->setCellValue('D4', 'ENTRADAS');
+        $objPhpexcel->getActiveSheet()->setCellValue('E4', 'SALIDAS');
         $objPhpexcel->getActiveSheet()->getRowDimension('4')->setRowHeight(25);
         $objPhpexcel->getActiveSheet()->getStyle('A2:E4')->getFont()->setBold(TRUE);
         $objPhpexcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE)
@@ -116,10 +128,8 @@ if ($_POST) {
                 ->getFill()->getStartColor()->setRGB('D1C5E2');
         $objPhpexcel->getActiveSheet()->getStyle('B2')->getNumberFormat()
                 ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
-        $objPhpexcel->getActiveSheet()->getStyle('A')->getNumberFormat()
-                ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15);
-        $objPhpexcel->getActiveSheet()->getStyle('B')->getNumberFormat()
-                ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
+        $objPhpexcel->getActiveSheet()->getStyle('A' . $fila)
+                ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
         for ($i = 0; $i < count($datosDecode); $i++) {
             $porciones = explode(" ", $datosDecode[$i]->ent_fecha);
@@ -143,23 +153,35 @@ if ($_POST) {
             $objPhpexcel->getActiveSheet()->setCellValue('D' . $fila, $entrada);
             $objPhpexcel->getActiveSheet()->setCellValue('E' . $fila, $salida);
             $objPhpexcel->getActiveSheet()->getStyle('D' . $fila)
+                    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+            $objPhpexcel->getActiveSheet()->getStyle('D' . $fila)
                     ->getFill()->getStartColor()->setRGB('BDEBCF');
             $objPhpexcel->getActiveSheet()->getStyle('E' . $fila)
+                    ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+            $objPhpexcel->getActiveSheet()->getStyle('E' . $fila)
                     ->getFill()->getStartColor()->setRGB('FEC8C8');
+            $objPhpexcel->getActiveSheet()->getStyle('A' . $fila)->getNumberFormat()
+                    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15);
+            $objPhpexcel->getActiveSheet()->getStyle('B' . $fila)->getNumberFormat()
+                    ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1);
 
             $fila++;
         }
 
-        $objPhpexcel->getActiveSheet()->getColumnDimension('A:E')->setWidth(23);
+        $objPhpexcel->getActiveSheet()->getColumnDimension('A')->setWidth(32);
+        $objPhpexcel->getActiveSheet()->getColumnDimension('B')->setWidth(14);
+        $objPhpexcel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+        $objPhpexcel->getActiveSheet()->getColumnDimension('D')->setWidth(16);
+        $objPhpexcel->getActiveSheet()->getColumnDimension('E')->setWidth(16);
 
         if (isset($_SESSION["adminlogi"])) {
             $writer = new Xlsx($objPhpexcel);
             $writer->save('../../../Files/Reporte_Kardex_adm/' . $numero_suc . '/Kardex_suc_' . $numero_suc . '.xlsx');
-            echo $numero_suc . '/Kardex_suc_' . $numero_suc;
+            echo 'Reporte_Kardex_adm/' . $numero_suc . '/Kardex_suc_' . $numero_suc;
         } else {
             $writer = new Xlsx($objPhpexcel);
-            $writer->save('../../../Files/Reporte_Stock/' . $numero_suc . '/Kardex_suc_' . $numero_suc . '.xlsx');
-            echo $numero_suc . '/Kardex_suc_' . $numero_suc;
+            $writer->save('../../../Files/Reporte_Kardex/' . $numero_suc . '/Kardex_suc_' . $numero_suc . '.xlsx');
+            echo 'Reporte_Kardex/' . $numero_suc . '/Kardex_suc_' . $numero_suc;
         }
     } else {
         echo 1;
