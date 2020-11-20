@@ -263,16 +263,18 @@ class Producto_DAO {
     /**
      * Funcion que retorna los movimientos del kardex
      * @param type $cod_producto
+     * @param type $filtro
      * @return type
      */
-    function consultaTarjetaKardex($cod_producto) {
-        $sql = "(SELECT p.pro_sku, p.pro_desc, e.ent_fecha, e.pro_cod, '' AS venta, e.ent_cantidad, 1 AS movimiento "
+    function consultaTarjetaKardex($cod_producto, $filtro) {
+        $sql = "SELECT TM.* FROM"
+                . "((SELECT p.suc_num_id, p.pro_sku, p.pro_desc, e.ent_fecha, e.pro_cod, '' AS venta, e.ent_cantidad, 1 AS movimiento "
                 . "FROM entrada_prod AS e, productos AS p "
                 . "WHERE e.pro_cod = '" . $cod_producto . "' AND e.pro_cod = p.pro_cod) "
                 . "UNION "
-                . "(SELECT p.pro_sku, p.pro_desc, s.sal_fecha, s.pro_cod, s.sal_num_venta, s.sal_cantidad, 2 AS movimiento "
+                . "(SELECT p.suc_num_id, p.pro_sku, p.pro_desc, s.sal_fecha, s.pro_cod, s.sal_num_venta, s.sal_cantidad, 2 AS movimiento "
                 . "FROM salida_prod AS s, productos AS p "
-                . "WHERE s.pro_cod = '" . $cod_producto . "' AND s.pro_cod = p.pro_cod) ORDER BY ent_fecha DESC;";
+                . "WHERE s.pro_cod = '" . $cod_producto . "' AND s.pro_cod = p.pro_cod) ORDER BY ent_fecha DESC) AS TM" . $filtro . "";
         $BD = new MySQL();
         return $BD->query($sql);
     }

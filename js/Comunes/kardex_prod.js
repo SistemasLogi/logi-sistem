@@ -154,9 +154,29 @@ function tabla_kardex_prod(cod_prod) {
             }
         }
         datos_kdx += '</tbody></table></div></div></div>\n\
-                        <div id="btn_gif">\n\
-                        <button type="button" class="btn btn-primary float-right btn-sm" id="btnReportKardexXlsx" name="btnReportKardexXlsx">Descargar Tarjeta Kardex <span class="ion-document-text"></span></button></div>';
+                        <form class="form-inline">\n\
+                            <input type="text" class="form-control" id="inputCodProd" name="inputCodProd" style="display: none;">\n\
+                            <input type="text" class="form-control" id="inputExistencia" name="inputExistencia" style="display: none;">\n\
+                            <input type="text" class="form-control" id="inputUbicacion" name="inputUbicacion" style="display: none;">\n\
+                          <div class="input-group mb-2 mr-sm-2">\n\
+                            <div class="input-group-prepend">\n\
+                              <div class="input-group-text">Inicial</div>\n\
+                            </div>\n\
+                            <input type="date" class="form-control" id="inputFechInicial" name="inputFechInicial">\n\
+                          </div>\n\
+                          <div class="input-group mb-2 mr-sm-2">\n\
+                            <div class="input-group-prepend">\n\
+                              <div class="input-group-text">Final</div>\n\
+                            </div>\n\
+                            <input type="date" class="form-control" id="inputFechFinal" name="inputFechFinal">\n\
+                          </div>\n\
+                        <button type="submit" class="btn btn-primary float-right btn-sm" id="btnReportKardexXlsx" name="btnReportKardexXlsx">Descargar Tarjeta Kardex <span class="ion-document-text"></span></button>\n\
+                    </form>';
         $('#body_mod_os').html(datos_kdx);
+        
+        $("#inputCodProd").val(tmp_inf.pro_cod);
+        $("#inputExistencia").val(ub_prod);
+        $("#inputUbicacion").val(total_stk);
 
 //            /**
 //             * Evento que pagina una tabla 
@@ -165,7 +185,7 @@ function tabla_kardex_prod(cod_prod) {
 
 
         $("#btnReportKardexXlsx").click(function () {
-            reporte_sock_Xls(sucursal_id);
+            reporte_kardex_Xlsx();
         });
 
     };

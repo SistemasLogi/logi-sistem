@@ -63,7 +63,7 @@ if ($_POST) {
         $drawing->setDescription('Logo');
         $drawing->setPath('../../../img/logos/LOGO_CLAROS_500.png');
         $drawing->setCoordinates('A1');
-        $drawing->setHeight(60);
+        $drawing->setHeight(100);
 
 
         $objPhpexcel = new Spreadsheet();

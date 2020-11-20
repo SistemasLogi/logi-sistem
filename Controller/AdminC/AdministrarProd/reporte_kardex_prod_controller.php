@@ -15,24 +15,26 @@ if ($_POST) {
     require '../../../config.php';
     $product_dao = new Producto_DAO();
 
-    $cod_pro = $_POST["procod"];
+    $cod_pro = $_POST["inputCodProd"];
+    $existencia = $_POST["inputExistencia"];
+    $ubicacion = $_POST["inputUbicacion"];
+    $fech_ini = $_POST["inputFechInicial"];
+    $fech_fin = $_POST["inputFechFinal"];
 
-    $datosKardex = json_encode($product_dao->consultaTarjetaKardex($cod_pro));
+    $datosKardex = json_encode($product_dao->consultaTarjetaKardex($cod_pro, " WHERE TM.ent_fecha BETWEEN '" . $fech_ini . "' AND '" . $fech_fin . "';"));
     $datosDecode = json_decode($datosKardex);
 
-    $fila = 3;
+    $fila = 5;
 
     if (!empty($datosKardex)) {
 
-        $num_doc_client = $datosDecode[0]->cli_num_doc;
-        $tipo_docum_cli = $datosDecode[0]->cli_td_id;
-        $nom_cli = $datosDecode[0]->cli_nombre;
-        $nom_suc = $datosDecode[0]->suc_nombre;
         $numero_suc = $datosDecode[0]->suc_num_id;
+        $descripcion_prod = $datosDecode[0]->pro_desc;
+        $sku_prod = $datosDecode[0]->pro_sku;
 
         if (isset($_SESSION["adminlogi"])) {
             //Crear carpeta por usuario
-            $directorioReport = '../../../Files/Reporte_Stock_adm/' . $num_doc_client . '_' . $tipo_docum_cli . '/';
+            $directorioReport = '../../../Files/Reporte_Kardex_adm/' . $numero_suc . '/';
             if (!file_exists($directorioReport)) {
                 mkdir($directorioReport, 0777, true);
             }
@@ -45,7 +47,7 @@ if ($_POST) {
             }
         } else {
             //Crear carpeta por usuario
-            $directorioReport = '../../../Files/Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/';
+            $directorioReport = '../../../Files/Reporte_Kardex/' . $numero_suc . '/';
             if (!file_exists($directorioReport)) {
                 mkdir($directorioReport, 0777, true);
             }
@@ -63,70 +65,101 @@ if ($_POST) {
         $drawing->setDescription('Logo');
         $drawing->setPath('../../../img/logos/LOGO_CLAROS_500.png');
         $drawing->setCoordinates('A1');
-        $drawing->setHeight(60);
+        $drawing->setHeight(100);
 
 
         $objPhpexcel = new Spreadsheet();
-        $objPhpexcel->getProperties()->setCreator("LOGI")->setDescription("Reporte Stock ");
+        $objPhpexcel->getProperties()->setCreator("LOGI")->setDescription("Reporte Kardex ");
         $objPhpexcel->setActiveSheetIndex(0);
-        $objPhpexcel->getActiveSheet()->setTitle("Stock Cliente");
-        $objPhpexcel->getActiveSheet()->mergeCells('A1:B1');
+        $objPhpexcel->getActiveSheet()->setTitle("Kardex Cliente");
+        $objPhpexcel->getActiveSheet()->mergeCells('B1:E1');
+        $objPhpexcel->getActiveSheet()->mergeCells('B2:C2');
+        $objPhpexcel->getActiveSheet()->mergeCells('B3:C3');
         $objPhpexcel->getActiveSheet()->getRowDimension('1')->setRowHeight(60);
         $drawing->setWorksheet($objPhpexcel->getActiveSheet());
-        $objPhpexcel->getActiveSheet()->getStyle('A1:E1')
+        $objPhpexcel->getActiveSheet()->getStyle('A:E')
                 ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        $objPhpexcel->getActiveSheet()->getStyle('A1:E1')
+        $objPhpexcel->getActiveSheet()->getStyle('A:E')
                 ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        $objPhpexcel->getActiveSheet()->getCell('C1')->setValue("REPORTE STOCK CLIENTE " . $datosDecode[0]->cli_nombre . "\nSUC. " . $datosDecode[0]->suc_nombre);
-        $objPhpexcel->getActiveSheet()->getStyle('C1')->getAlignment()->setWrapText(true);
+        $styleArray = [
+            'borders' => [
+                'outline' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+//                    'color' => ['argb' => '00000000'],
+                ],
+            ],
+        ];
+
+        $objPhpexcel->getStyle('A1:E4')->applyFromArray($styleArray);
+
+        $objPhpexcel->getActiveSheet()->getCell('B1')->setValue($descripcion_prod);
+        $objPhpexcel->getActiveSheet()->getStyle('B1')->getAlignment()->setWrapText(true);
 
         $objPhpexcel->getActiveSheet()->setCellValue('A2', 'CODIGO');
-        $objPhpexcel->getActiveSheet()->setCellValue('B2', 'SKU');
-        $objPhpexcel->getActiveSheet()->setCellValue('C2', 'DESCRIPCIÓN');
+        $objPhpexcel->getActiveSheet()->setCellValue('B2', $codigo_prod);
         $objPhpexcel->getActiveSheet()->setCellValue('D2', 'UBICACIÓN');
-        $objPhpexcel->getActiveSheet()->setCellValue('E2', 'TOTAL');
-        $objPhpexcel->getActiveSheet()->getRowDimension('2')->setRowHeight(25);
-        $objPhpexcel->getActiveSheet()->getStyle('A2:E2')->getFont()->setBold(TRUE);
-        $objPhpexcel->getActiveSheet()->getStyle('C1')->getFont()->setBold(TRUE)
-                ->setName('Calibri')->setSize(16)->getColor()->setRGB('660066');
-        $objPhpexcel->getActiveSheet()->getStyle('A2:E2')
+        $objPhpexcel->getActiveSheet()->setCellValue('E2', $ubicacion);
+        $objPhpexcel->getActiveSheet()->setCellValue('A3', 'SKU');
+        $objPhpexcel->getActiveSheet()->setCellValue('B3', $sku_prod);
+        $objPhpexcel->getActiveSheet()->setCellValue('D3', 'EXISTENCIA');
+        $objPhpexcel->getActiveSheet()->setCellValue('E3', $existencia);
+
+
+        $objPhpexcel->getActiveSheet()->getRowDimension('4')->setRowHeight(25);
+        $objPhpexcel->getActiveSheet()->getStyle('A2:E4')->getFont()->setBold(TRUE);
+        $objPhpexcel->getActiveSheet()->getStyle('B1')->getFont()->setBold(TRUE)
+                ->setName('Arial')->setSize(12)->getColor()->setRGB('660066');
+        $objPhpexcel->getActiveSheet()->getStyle('A4:E4')
                 ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-        $objPhpexcel->getActiveSheet()->getStyle('A2:E2')
+        $objPhpexcel->getActiveSheet()->getStyle('A4:E4')
                 ->getFill()->getStartColor()->setRGB('D1C5E2');
-        $objPhpexcel->getActiveSheet()->getStyle('A')->getNumberFormat()
+        $objPhpexcel->getActiveSheet()->getStyle('B2')->getNumberFormat()
                 ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+        $objPhpexcel->getActiveSheet()->getStyle('A')->getNumberFormat()
+                ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15);
+        $objPhpexcel->getActiveSheet()->getStyle('B')->getNumberFormat()
+                ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME4);
 
         for ($i = 0; $i < count($datosDecode); $i++) {
-            $codigo_pro = $datosDecode[$i]->pro_cod;
-            $sku_pro = $datosDecode[$i]->pro_sku;
-            $desc_pro = $datosDecode[$i]->pro_desc;
-            $ub_pro = $datosDecode[$i]->pro_ubicacion;
-            $total_pro = $datosDecode[$i]->total;
+            $porciones = explode(" ", $datosDecode[$i]->ent_fecha);
 
-            $objPhpexcel->getActiveSheet()->setCellValue('A' . $fila, $codigo_pro);
-            $objPhpexcel->getActiveSheet()->setCellValue('B' . $fila, $sku_pro);
-            $objPhpexcel->getActiveSheet()->setCellValue('C' . $fila, $desc_pro);
-            $objPhpexcel->getActiveSheet()->setCellValue('D' . $fila, $ub_pro);
-            $objPhpexcel->getActiveSheet()->setCellValue('E' . $fila, $total_pro);
+            $fecha_mov = $porciones[0];
+            $hora_mov = $porciones[1];
+            $det_venta = $datosDecode[$i]->venta;
+            $movimiento = $datosDecode[$i]->movimiento;
+
+            if ($movimiento == 1) {
+                $entrada = $datosDecode[$i]->ent_cantidad;
+                $salida = "";
+            } elseif ($movimiento == 2) {
+                $salida = $datosDecode[$i]->ent_cantidad;
+                $entrada = "";
+            }
+
+            $objPhpexcel->getActiveSheet()->setCellValue('A' . $fila, $fecha_mov);
+            $objPhpexcel->getActiveSheet()->setCellValue('B' . $fila, $hora_mov);
+            $objPhpexcel->getActiveSheet()->setCellValue('C' . $fila, $det_venta);
+            $objPhpexcel->getActiveSheet()->setCellValue('D' . $fila, $entrada);
+            $objPhpexcel->getActiveSheet()->setCellValue('E' . $fila, $salida);
+            $objPhpexcel->getActiveSheet()->getStyle('D' . $fila)
+                    ->getFill()->getStartColor()->setRGB('BDEBCF');
+            $objPhpexcel->getActiveSheet()->getStyle('E' . $fila)
+                    ->getFill()->getStartColor()->setRGB('FEC8C8');
 
             $fila++;
         }
 
-        $objPhpexcel->getActiveSheet()->getColumnDimension('A')->setWidth(17);
-        $objPhpexcel->getActiveSheet()->getColumnDimension('B')->setWidth(23);
-        $objPhpexcel->getActiveSheet()->getColumnDimension('C')->setWidth(83);
-        $objPhpexcel->getActiveSheet()->getColumnDimension('D')->setWidth(12);
-        $objPhpexcel->getActiveSheet()->getColumnDimension('E')->setWidth(9);
+        $objPhpexcel->getActiveSheet()->getColumnDimension('A:E')->setWidth(23);
 
         if (isset($_SESSION["adminlogi"])) {
             $writer = new Xlsx($objPhpexcel);
-            $writer->save('../../../Files/Reporte_Stock_adm/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc . '.xlsx');
-            echo $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
+            $writer->save('../../../Files/Reporte_Kardex_adm/' . $numero_suc . '/Kardex_suc_' . $numero_suc . '.xlsx');
+            echo $numero_suc . '/Kardex_suc_' . $numero_suc;
         } else {
             $writer = new Xlsx($objPhpexcel);
-            $writer->save('../../../Files/Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc . '.xlsx');
-            echo $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
+            $writer->save('../../../Files/Reporte_Stock/' . $numero_suc . '/Kardex_suc_' . $numero_suc . '.xlsx');
+            echo $numero_suc . '/Kardex_suc_' . $numero_suc;
         }
     } else {
         echo 1;
