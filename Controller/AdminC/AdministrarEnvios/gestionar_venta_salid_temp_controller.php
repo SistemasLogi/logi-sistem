@@ -93,7 +93,7 @@ if ($_POST) {
                         $es_x_serv_vo->setFecha_hora($fecha_hora);
                         $es_x_serv_vo->setNovedad("");
                         $es_x_serv_vo->setTd_mensajero(1); //cc usuario global LOGI
-                        $es_x_serv_vo->setNum_doc_mensajero(162534495867); //num predefinido usuario global LOGI
+                        $es_x_serv_vo->setNum_doc_mensajero(9874123652); //num predefinido usuario global LOGI
                         //realiza el traking de la os
                         $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
 
@@ -124,7 +124,7 @@ if ($_POST) {
                         $es_x_env_vo->setFecha_hora($fecha_hora);
                         $es_x_env_vo->setNovedad($obsrv);
                         $es_x_env_vo->setTd_mensajero(1);
-                        $es_x_env_vo->setNum_doc_men(162534495867);
+                        $es_x_env_vo->setNum_doc_men(9874123652);
 
                         $es_x_env_dao->insertarEstado_x_envio_general($es_x_env_vo); //crea estado 2 en bodega origen
 
@@ -170,7 +170,7 @@ if ($_POST) {
                     $es_x_env_vo->setFecha_hora($fecha_hora);
                     $es_x_env_vo->setNovedad($obsrv);
                     $es_x_env_vo->setTd_mensajero(1);
-                    $es_x_env_vo->setNum_doc_men(162534495867);
+                    $es_x_env_vo->setNum_doc_men(9874123652);
 
                     if ($es_x_env_dao->insertarEstado_x_envio_general($es_x_env_vo) == 1) {
                         //crea estado 2 en bodega origen){
@@ -219,7 +219,7 @@ if ($_POST) {
                         $es_x_serv_vo->setFecha_hora($fecha_hora);
                         $es_x_serv_vo->setNovedad("");
                         $es_x_serv_vo->setTd_mensajero(1); //cc usuario global LOGI
-                        $es_x_serv_vo->setNum_doc_mensajero(162534495867); //num predefinido usuario global LOGI
+                        $es_x_serv_vo->setNum_doc_mensajero(9874123652); //num predefinido usuario global LOGI
                         //realiza el traking de la os
                         $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
 
@@ -250,7 +250,7 @@ if ($_POST) {
                         $es_x_env_vo->setFecha_hora($fecha_hora);
                         $es_x_env_vo->setNovedad($obsrv);
                         $es_x_env_vo->setTd_mensajero(1);
-                        $es_x_env_vo->setNum_doc_men(162534495867);
+                        $es_x_env_vo->setNum_doc_men(9874123652);
 
                         $es_x_env_dao->insertarEstado_x_envio_general($es_x_env_vo); //crea estado 2 en bodega origen
 

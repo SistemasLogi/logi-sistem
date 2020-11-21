@@ -115,7 +115,7 @@ if ($_POST) {
 
         $objPhpexcel->getActiveSheet()->setCellValue('A4', 'FECHA');
         $objPhpexcel->getActiveSheet()->setCellValue('B4', 'HORA');
-        $objPhpexcel->getActiveSheet()->setCellValue('C4', 'DESCRIPCIÓN');
+        $objPhpexcel->getActiveSheet()->setCellValue('C4', 'DETALLE/N° VENTA');
         $objPhpexcel->getActiveSheet()->setCellValue('D4', 'ENTRADAS');
         $objPhpexcel->getActiveSheet()->setCellValue('E4', 'SALIDAS');
         $objPhpexcel->getActiveSheet()->getRowDimension('4')->setRowHeight(25);
@@ -128,8 +128,6 @@ if ($_POST) {
                 ->getFill()->getStartColor()->setRGB('D1C5E2');
         $objPhpexcel->getActiveSheet()->getStyle('B2')->getNumberFormat()
                 ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
-        $objPhpexcel->getActiveSheet()->getStyle('A' . $fila)
-                ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
         for ($i = 0; $i < count($datosDecode); $i++) {
             $porciones = explode(" ", $datosDecode[$i]->ent_fecha);
@@ -164,7 +162,9 @@ if ($_POST) {
                     ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_XLSX15);
             $objPhpexcel->getActiveSheet()->getStyle('B' . $fila)->getNumberFormat()
                     ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME1);
-
+            $objPhpexcel->getActiveSheet()->getStyle('A' . $fila)
+                    ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+            
             $fila++;
         }
 

@@ -68,6 +68,10 @@ if ($_POST) {
                         $_SESSION["adminlogi"] = $array[$i]->car_nombre;
                         echo 1;
                         break;
+                    case 2:
+                        $_SESSION["mensajero_logi"] = $array[$i]->car_nombre;
+                        echo 5;
+                        break;
                 }
             }
         }
@@ -87,8 +91,8 @@ if ($_POST) {
                 $_SESSION["direccion_suc"] = $array[$i]->suc_direccion;
                 $_SESSION["ciudad_suc"] = $array[$i]->suc_ciudad;
                 $_SESSION["tel_suc"] = $array[$i]->suc_telefono;
-                
-                
+
+
                 $_SESSION["sucursal"] = $array[$i]->suc_nombre;
 
                 echo 4;

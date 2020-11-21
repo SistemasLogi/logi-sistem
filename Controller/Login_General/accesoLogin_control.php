@@ -15,4 +15,6 @@ if (isset($_SESSION["adminlogi"])) {
     header("location:cliente.php");
 } elseif (isset($_SESSION["sucursal"])) {
     header("location:area_control_clientes.php");
+} elseif (isset($_SESSION["mensajero_logi"])) {
+    header("location:mensajero_logi.php");
 }

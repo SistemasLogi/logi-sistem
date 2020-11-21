@@ -12,7 +12,7 @@
         <a class="nav-link" href="rastreo_envio.php">RASTREO ENVIO</a>
     </li>
     <?php
-    if (isset($_SESSION["adminlogi"]) || isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {
+    if (isset($_SESSION["adminlogi"]) || isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"]) || isset($_SESSION["mensajero_logi"])) {
         if (isset($_SESSION["adminlogi"])) {
             ?>  
             <li class = "nav-item">
@@ -25,10 +25,16 @@
                 <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
             </li>
             <?php
-        }elseif (isset($_SESSION["sucursal"])) {
+        } elseif (isset($_SESSION["sucursal"])) {
             ?>
             <li class = "nav-item">
                 <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
+            </li>
+            <?php
+        } elseif (isset($_SESSION["mensajero_logi"])) {
+            ?>
+            <li class = "nav-item">
+                <a class = "nav-link" href = "mensajero_logi.php">MENSAJERO</a>
             </li>
             <?php
         }

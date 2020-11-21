@@ -61,7 +61,7 @@ if ($_POST) {
             $es_x_serv_vo->setFecha_hora($fecha_hora);
             $es_x_serv_vo->setNovedad("");
             $es_x_serv_vo->setTd_mensajero(1); //cc usuario global LOGI
-            $es_x_serv_vo->setNum_doc_mensajero(162534495867); //num predefinido usuario global LOGI
+            $es_x_serv_vo->setNum_doc_mensajero(9874123652); //num predefinido usuario global LOGI
 
             if (isset($_SESSION["adminlogi"])) {
                 $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
