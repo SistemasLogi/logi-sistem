@@ -4,7 +4,7 @@
 
     </div>
     <div class="toast-body">
-        <div class="alert alert-dismissible alert-primary">
+        <div class="alert alert-dismissible alert-primary border-secondary" style="border-radius: 0.5rem;">
             <form id="formCliente">
                 <fieldset>
                     <legend>Cliente</legend>        

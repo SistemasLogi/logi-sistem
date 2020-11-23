@@ -8,7 +8,7 @@
         <div class="alert alert-dismissible alert-warning col-lg-12" style="border-radius: 0.5rem;">
 
             <div class="row">
-                <div class="alert alert-dismissible alert-secondary col-lg-8  border-warning">
+                <div class="alert alert-dismissible alert-light col-lg-8  border-primary" style="border-radius: 0.5rem;">
                     <form id="formBuscarCli_crear_OS">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -51,10 +51,10 @@
                         <strong id="numOrden">0</strong>
                     </div>
                 </div>
-                <div class="alert alert-dismissible alert-light col-lg-4" id="blqFinalizado">
+                <div class="alert alert-dismissible alert-light col-lg-4" id="blqFinalizado" style="border-radius: 0.5rem;">
 
                 </div>
-                <div class="alert alert-dismissible alert-light col-lg-12  border-warning" id="blqProcesadas">
+                <div class="alert alert-dismissible alert-light col-lg-12  border-primary" id="blqProcesadas" style="border-radius: 0.5rem;">
 
                 </div>
             </div>   

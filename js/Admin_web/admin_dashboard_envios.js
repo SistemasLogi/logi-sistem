@@ -356,8 +356,6 @@ function clickEdit_est_Env(color) {
 
         viasta_envio_modal_dash(edit_est_envio);
 //        alert(ges_envio);
-        combo_empleados("#selectMensajero");
-        combo_estado_envio("#selectEstado");
 
         $('#mod-dalog').removeClass('modal-lg');
         $('#ModalActuEstOS').modal('toggle');
@@ -384,18 +382,18 @@ function clickEdit_est_Env(color) {
                 <div class="form-group input-group col-md-7">\n\
                   <label for="inputDirecDestin">Mensajero</label>\n\
                   <div class="input-group">\n\
-                    <select class="form-control form-control-sm" id="selectMensajero" name="selectMensajero"></select>\n\
+                    <select class="form-control form-control-sm" id="selectMens" name="selectMens"></select>\n\
                 </div>\n\
                 </div>\n\
                 <div class="form-group col-md-5">\n\
                   <label for="inputTelDestin">Estado</label>\n\
-                  <select class="form-control form-control-sm" id="selectEstado" name="selectEstado"></select>\n\
+                  <select class="form-control form-control-sm" id="selectEst" name="selectEst"></select>\n\
                 </div>\n\
               </div>\n\
               <div class="form-row">\n\
                 <div class="form-group col-md-12">\n\
                   <label for="inputPesoEnv">Observación</label>\n\
-                  <textarea class="form-control form-control-sm" id="txaNovedadEstado" name="txaNovedadEstado" rows="2"></textarea>\n\
+                  <textarea class="form-control form-control-sm" id="txaNovedadEst" name="txaNovedadEst" rows="2"></textarea>\n\
                 </div>\n\
               </div>\n\
               <button type="submit" class="btn btn-success" id="btnGuarNuevEst" name="btnGuarNuevEst">Guardar</button>\n\
@@ -403,10 +401,13 @@ function clickEdit_est_Env(color) {
             </form>\n\
             <div id="enlaceGuia"></div>');
 
+        combo_empleados("#selectMens");
+        combo_estado_envio("#selectEst");
+
         var mensajero_select;
 
-        $("#selectMensajero").change(function () {
-            mensajero_select = $("#selectMensajero").val();
+        $("#selectMens").change(function () {
+            mensajero_select = $("#selectMens").val();
 //            alert(mensajero_select);
         });
 
@@ -483,7 +484,7 @@ function validarEstEnvio_dash() {
  * @returns {undefined}
  */
 function insert_estado_envio() {
-    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_controller.php";
+    request = "Controller/AdminC/AdministrarEnvios/insertar_est_envio_modal_controller.php";
     cadena = $("#formModalEnvEst").serialize(); //envio de parametros por POST
     metodo = function (datos) {
         if (datos == 1) {

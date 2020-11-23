@@ -14,8 +14,8 @@ if ($_POST) {
     $_SESSION["num_doc_cli_adm_alst"] = $dec_dat_suc[0]->cli_num_doc;
     $_SESSION["td_cli_adm_alst"] = $dec_dat_suc[0]->cli_td_id;
 //    $_SESSION["fecha_adm_alst"] = $_POST["inputDateAlist"];
-//    $_SESSION["direccion_adm_alst"] = $_POST["inputDir"];
-//    $_SESSION["tel_adm_alst"] = $_POST["inputTele"];
+    $_SESSION["direccion_adm_alst"] = $dec_dat_suc[0]->suc_direccion;
+    $_SESSION["tel_adm_alst"] = $dec_dat_suc[0]->suc_telefono;
     echo $json_dat_suc;
 } else {
     header("location../");

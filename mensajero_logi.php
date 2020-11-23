@@ -49,13 +49,7 @@ if (!isset($_SESSION["mensajero_logi"])) {
         <script src="js/localization/messages_es.js" type="text/javascript"></script>
         <script src="lib/jquery/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="js/Cliente/cliente_dashboard.js" type="text/javascript"></script>
-        <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
-        <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
-        <script src="js/Comunes/guias_logi.js" type="text/javascript"></script>
-        <script src="js/Comunes/seguimiento_envio.js" type="text/javascript"></script>
-        <script src="js/Comunes/seguimiento_alist.js" type="text/javascript"></script>
-        <script src="js/Comunes/kardex_prod.js" type="text/javascript"></script>
+        <script src="js/Mensajero/mensajero_dash.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -76,7 +70,7 @@ if (!isset($_SESSION["mensajero_logi"])) {
 
             <div class="bg-light border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
-                <img src="img/clients/<?php echo $_SESSION["numero_doc"]; ?>.png" alt="" title="" />
+                <img src="img/logos/LOGO_CLARO_157x72.png" alt="" title="" />
                 <div class="dropdown-divider"></div>
                 <h4 class="card-title"><?php echo $_SESSION["nombre_cli"]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
@@ -148,7 +142,7 @@ if (!isset($_SESSION["mensajero_logi"])) {
                         <div id="sectionConten" data-spy="scroll">                                
 
                             <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
-                                <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php echo $_SESSION["nombre_cli"]; ?></legend></strong></div>
+                                <div class="card-header"><strong class="mr-auto"><h4 class="mr-auto"><?php echo $_SESSION["nombre_cli"]; ?></h4></strong></div>
                                 <div class="card-body">
                                     <img class="img-fluid" src="img/clients/FONDO/<?php echo $_SESSION["numero_doc"]; ?>.PNG" alt=""/>
                                 </div>

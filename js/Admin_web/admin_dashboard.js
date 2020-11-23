@@ -3946,24 +3946,27 @@ function cargaProdAlistamiento() {
                     datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                     datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
                     datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
-                    datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                    if (tmp.t_sal_cantidad >= 2) {
+                        datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                    } else {
+                        datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                    }
                     datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                     datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                     if (i === arregloAlista[arregloAlista.length - 1]) {
 
                         datosAlist += '</tbody></table></div>\n\
-                          <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                          </span></div>\n\
-                          </div>\n\
-                          <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                          <div class="row justify-content-end">\n\
                           <div class="col-8">\n\
                             <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                           </div>\n\
-                          <div class="col-3">\n\
+                          <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                          </div>\n\
+                          <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                             <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-                          </span></div>\n\
+                          </div>\n\
                           </div>\n\
                         </div></div>';//fin de la tabla
                         datosAlist += '</div>';//fin de la pag
@@ -3983,39 +3986,41 @@ function cargaProdAlistamiento() {
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
-                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            if (tmp.t_sal_cantidad >= 2) {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                            } else {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
-                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
-                              </div>\n\
-                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="row justify-content-end">\n\
                               <div class="col-8">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                              <div class="col-3">\n\
+                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
+                              </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
                         } else {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
-                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
-                              </div>\n\
-                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="row justify-content-end">\n\
                               <div class="col-8">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                              <div class="col-3">\n\
+                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
+                              </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
 
@@ -4053,22 +4058,25 @@ function cargaProdAlistamiento() {
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
-                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            if (tmp.t_sal_cantidad >= 2) {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                            } else {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
-                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
-                              </div>\n\
-                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="row justify-content-end">\n\
                               <div class="col-8">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                              </div>\n\\n\
+                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </div>\n\
-                              <div class="col-3">\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
+                              </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
@@ -4083,24 +4091,27 @@ function cargaProdAlistamiento() {
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
-                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            if (tmp.t_sal_cantidad >= 2) {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                            } else {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                         } else {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
-                              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
-                              </div>\n\
-                              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                              <div class="row justify-content-end">\n\
                               <div class="col-8">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                              <div class="col-3">\n\
+                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-                              </span></div>\n\
+                              </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
 
@@ -4138,7 +4149,11 @@ function cargaProdAlistamiento() {
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
-                            datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            if (tmp.t_sal_cantidad >= 2) {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                            } else {
+                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                            }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
@@ -4149,17 +4164,16 @@ function cargaProdAlistamiento() {
 
             }
             datosAlist += '</tbody></table></div>\n\
-              <div class="row justify-content-end" id="divBtn' + (parseInt(blq) - 1) + '"><div class="col-3">\n\
-                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-              </span></div>\n\
-              </div>\n\
-              <div class="row justify-content-end" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+              <div class="row justify-content-end">\n\
               <div class="col-8">\n\
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
-              <div class="col-3">\n\
+              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+              </div>\n\
+              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: none;">\n\
                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-              </span></div>\n\
+              </div>\n\
               </div>\n\
             </div></div>';//fin de la tabla
             datosAlist += '</div>';//fin de la pag
