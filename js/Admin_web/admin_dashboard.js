@@ -5174,7 +5174,7 @@ function consulta_tabla_env_programados() {
                         }
 
                     }
-
+                    consulta_tabla_env_programados();
                 }
             });
 

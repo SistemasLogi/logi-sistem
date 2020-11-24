@@ -66,11 +66,11 @@ session_start();
         <!--==========================
           Header
         ============================-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top image-fondo">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top image-fondo" id="menu">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="inicio" src="img/logos/LOGO_CLARO_157x72.png" alt=""/>
+            <img id="inicio_img" src="img/logos/LOGO_OSCURO_157x73.png" alt=""/>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <?php include './navbar.php'; ?>
             </div>
