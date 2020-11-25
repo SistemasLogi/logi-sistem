@@ -3958,7 +3958,7 @@ function cargaProdAlistamiento() {
 
                         datosAlist += '</tbody></table></div>\n\
                           <div class="row justify-content-end">\n\
-                          <div class="col-8">\n\
+                          <div class="col-7">\n\
                             <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                           </div>\n\
                           <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
@@ -3966,6 +3966,8 @@ function cargaProdAlistamiento() {
                           </div>\n\
                           <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                             <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                          </div>\n\
+                          <div class="col-2" id="inpGif' + venta + '">\n\
                           </div>\n\
                           </div>\n\
                         </div></div>';//fin de la tabla
@@ -3996,7 +3998,7 @@ function cargaProdAlistamiento() {
 
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
-                              <div class="col-8">\n\
+                              <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
@@ -4004,6 +4006,8 @@ function cargaProdAlistamiento() {
                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -4012,7 +4016,7 @@ function cargaProdAlistamiento() {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
-                              <div class="col-8">\n\
+                              <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
@@ -4020,6 +4024,8 @@ function cargaProdAlistamiento() {
                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -4068,7 +4074,7 @@ function cargaProdAlistamiento() {
 
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
-                              <div class="col-8">\n\
+                              <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\\n\
                               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
@@ -4076,6 +4082,8 @@ function cargaProdAlistamiento() {
                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -4103,7 +4111,7 @@ function cargaProdAlistamiento() {
                             //***NO es la misma venta de la fila anterior**//
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
-                              <div class="col-8">\n\
+                              <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
@@ -4111,6 +4119,8 @@ function cargaProdAlistamiento() {
                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              </div>\n\
+                              <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
@@ -4165,7 +4175,7 @@ function cargaProdAlistamiento() {
             }
             datosAlist += '</tbody></table></div>\n\
               <div class="row justify-content-end">\n\
-              <div class="col-8">\n\
+              <div class="col-7">\n\
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
@@ -4173,6 +4183,8 @@ function cargaProdAlistamiento() {
               </div>\n\
               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: none;">\n\
                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+              </div>\n\
+              <div class="col-2" id="inpGif' + venta + '">\n\
               </div>\n\
               </div>\n\
             </div></div>';//fin de la tabla
@@ -4593,7 +4605,7 @@ function click_gestionar_Venta() {
 //    $('.cheBlq').on('click', function () {
     $('.ventguardar').click(function () {
         esta_venta = $(this).attr("btAddVe");
-
+        $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
 //        elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
 //        insertar_est_x_aenv(4, $("#inputNovedad" + esta_venta + "").val(), esta_venta, orden_serv);
         comprobar_os_creada(esta_venta);
@@ -4656,8 +4668,9 @@ function click_No_gestionarVenta() {
     $('.ventcancel').click(function () {
         esta_venta = $(this).attr("btCanVe");
 
-        elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
+        $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
         insertar_est_x_aenv(4, $("#inputNovedad" + esta_venta + "").val(), esta_venta, orden_serv);
+        elimina_item_alist_venta(esta_venta);//elimina la seccion de una venta
         can_vent_als--;
 
         if (can_vent_als < 1) {
@@ -4675,8 +4688,10 @@ function ventasNoSelected() {
 
         checket_venta = $(this).attr("vent");//numeo de venta
 
-        elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
+        $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
+
         insertar_est_x_aenv(4, $("#inputNovedad" + checket_venta + "").val(), checket_venta, orden_serv);
+        elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
 
         can_vent_als--;
 
@@ -4697,6 +4712,7 @@ function ventasSelected() {
         if (typeof (checket_venta) === 'undefined') {
 
         } else {
+            $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
             comprobar_os_creada(checket_venta);
         }
 
@@ -5674,7 +5690,7 @@ function tabla_entrega_op() {
 }
 
 /**
- * Metodo que determina los check seleccionados para asignacion de valor flete 
+ * Metodo que determina los check seleccionados para actualizacion de estado operador
  * @returns {undefined}
  */
 function enviosAlistSelected() {
@@ -5694,8 +5710,6 @@ function enviosAlistSelected() {
             novedad = $("#inpObsEstAEnv").val();
             actualiza_est_aenv_entrega(guiaLogi, estadoID, novedad);
         }
-
-
     });
 }
 

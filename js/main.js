@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
 
     // Back to top button
     $(window).scroll(function () {
-        if ($("#menu").offset().top > 150) {
+        if ($(this).scrollTop() > $("#intro").offset().top) {
             $("#menu").removeClass("bg-transparent");
             $("#menu").addClass("bg-light");
             $("#menu").removeClass("navbar-dark");
@@ -107,14 +107,14 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    // Header scroll class
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
-            $('#header').addClass('header-scrolled');
-        } else {
-            $('#header').removeClass('header-scrolled');
-        }
-    });
+//    // Header scroll class
+//    $(window).scroll(function () {
+//        if ($(this).scrollTop() > 100) {
+//            $('#header').addClass('header-scrolled');
+//        } else {
+//            $('#header').removeClass('header-scrolled');
+//        }
+//    });
 
     // Intro carousel
     var introCarousel = $(".carousel");

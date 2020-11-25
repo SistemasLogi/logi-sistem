@@ -313,19 +313,21 @@ session_start();
                                 }
                             } else {
                                 ?>
-                                <div class="row justify-content-center">
-                                    <div class="col-4">
-                                        <form id="formRastreo" name="formRastreo">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" id="EnvNum" name="EnvNum" placeholder="Numero guia">
-                                                </div>
-                                                <div class="text-center">
-                                                    <button type="submit" class="btn btn-primary">BUSCAR</button>  
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                <div class="row">                    
+                                    <div class="col-lg-12 col-center">
+                                        <div class="col-lg-4 col-center">
+                                            <form id="formRastreo" name="formRastreo">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="EnvNum" name="EnvNum" placeholder="Numero guia">
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-primary">BUSCAR</button>  
+                                                    </div>
+                                                </fieldset>
+                                            </form>
 
+                                        </div>
                                     </div>
                                 </div>
                                 <?php

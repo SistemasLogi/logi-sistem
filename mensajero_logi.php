@@ -64,55 +64,7 @@ if (!isset($_SESSION["mensajero_logi"])) {
 
     <body>
 
-        <div class="d-flex" id="wrapper">
-
-            <!-- Sidebar -->
-
-            <div class="bg-light border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
-                <!--<div class="sidebar-heading">Start Bootstrap </div>-->
-                <img src="img/logos/LOGO_CLARO_157x72.png" alt="" title="" />
-                <div class="dropdown-divider"></div>
-                <h4 class="card-title"><?php echo $_SESSION["nombre_cli"]; ?></h4>
-                <!--<div class="dropdown-divider"></div>-->
-
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                        <span class="ion-android-document"></span>
-                        Ordenes de Servicio
-                    </a>
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
-                        </div>
-                    </div>
-                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-                        <span class="ion-android-mail"></span>
-                        Envios
-                    </a>
-                    <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
-                        </div>
-                    </div>
-                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">
-                        <span class="ion-ios-home"></span>
-                        ALMACEN
-                    </a>
-                    <div class="collapse multi-collapse" id="multiCollapseALM">
-                        <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="link_stock_cl">Stock</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_seg_aenv_cl">Seguimiento Alistamiento</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex" id="wrapper">        
             <!-- /#sidebar-wrapper -->
 
             <!-- Page Content -->
