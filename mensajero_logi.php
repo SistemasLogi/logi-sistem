@@ -103,8 +103,6 @@ if (!isset($_SESSION["mensajero_logi"])) {
 
                     </div>                        
                 </section> 
-
-
             </div>
             <!-- /#page-content-wrapper -->
 
@@ -125,5 +123,4 @@ if (!isset($_SESSION["mensajero_logi"])) {
             </div>
         </div>
     </body>
-
 </html>
