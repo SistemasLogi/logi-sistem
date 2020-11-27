@@ -380,12 +380,12 @@ function consulta_dashboard_envios_card_cl() {
             }
 
             control_dash_envios();
-            clickPanelDashCl();
         } else {
             $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }
+        clickPanelDashCl();
     };
     f_ajax(request, cadena, metodo);
 }
