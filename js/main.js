@@ -181,4 +181,12 @@ jQuery(document).ready(function ($) {
         items: 1
     });
 
+    if (screen.width < 768){
+        
+    }else{
+        $("#enlSocial").html('<a href="https://www.facebook.com/LOGI-357383681570501" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a>\n\
+<a href="https://www.instagram.com/grupologi.co/?hl=es-la" class="instagram" target="_blank"><i class="fa fa-instagram"></i></a>\n\
+<a href="https://web.whatsapp.com/send?phone=-57-3142055030" class="google-plus" target="_blank"><i class="fa fa-whatsapp"></i></a>');
+    }       
+
 });

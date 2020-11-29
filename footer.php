@@ -26,10 +26,10 @@
                         <strong>Email:</strong> info@example.com<br>
                     </p>
 
-                    <div class="social-links">
+                    <div class="social-links" id="enlSocial">
                         <a href="https://www.facebook.com/LOGI-357383681570501" class="facebook" target="_blank"><i class="fa fa-facebook"></i></a>
                         <a href="https://www.instagram.com/grupologi.co/?hl=es-la" class="instagram" target="_blank"><i class="fa fa-instagram"></i></a>                      
-                        <a href="https://web.whatsapp.com/send?phone=-57-3142055030" class="google-plus" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                        <a href="whatsapp://send?text=Hola, quisiera conocer mas acerca de los servicios&phone=+57-3142055030&abid=+57-3142055030"><i class="fa fa-whatsapp"></i></a>                       
                     </div>
 
                 </div>
