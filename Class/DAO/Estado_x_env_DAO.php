@@ -112,13 +112,15 @@ class Estado_x_env_DAO {
      * @return type
      */
     function consulta_seguimiento_env_x_id($parametro) {
-        $sql = "SELECT e.*, o.*, c.*, es.exe_fec_hora, es.exe_novedad, es.td_id_men, es.num_doc_men, "
-                . "em.emp_nombre, ee.ee_desc, ee.ee_id, cd.ciu_nombre, d.* "
+        $sql = "SELECT e.*, o.os_direccion, o.os_per_cont, o.os_tel_cont, o.ts_id, o.te_id, o.os_observacion, "
+                . "c.*, es.exe_fec_hora, es.exe_novedad, es.td_id_men, es.num_doc_men, "
+                . "em.emp_nombre, ee.ee_desc, ee.ee_id, cd.ciu_nombre, d.*, te.*, ts.* "
                 . "FROM envio AS e, orden_serv AS o, clientes AS c, est_x_envio AS es, estado_env AS ee, "
-                . "ciudad AS cd, departamento AS d, empleados AS em "
+                . "ciudad AS cd, departamento AS d, empleados AS em, tipo_envio AS te, tipo_serv AS ts "
                 . "WHERE e.os_id = o.os_id AND o.cli_td_id = c.cli_td_id AND o.cli_num_doc = c.cli_num_doc "
                 . "AND es.exe_en_id = e.en_id AND es.exe_ee_id = ee.ee_id AND cd.ciu_id = o.ciu_id "
                 . "AND cd.dep_id = d.dep_id AND es.td_id_men = em.emp_td_id AND es.num_doc_men = em.emp_num_doc "
+                . "AND o.te_id = te.te_id AND o.ts_id = ts.ts_id "
                 . "" . $parametro . " ORDER BY es.exe_fec_hora ASC;";
         $BD = new MySQL();
         return $BD->query($sql);

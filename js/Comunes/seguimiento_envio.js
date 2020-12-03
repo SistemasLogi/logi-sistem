@@ -198,6 +198,66 @@ function datos_envio_seg() {
 
 //            alert(cant_teorico);
 //            alert(cant_estados);
+            /**
+             * tabla envio rastreado
+             */
+            datos_env = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">ENVIO N°' + tmp_est.en_id + ' GUIA OP N° ' + tmp_est.en_guia + '</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEstEnvRastreo">\n\
+                            <thead><tr class="table-primary">\n\
+                                <th scope="col">SEC</th>\n\
+                                <th scope="col">GUIA LOGI</th>\n\
+                                <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
+                                <th scope="col">ESTADO</th>\n\
+                                <th scope="col">SERVICIO</th>\n\
+                                <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">OBSERVACIONES</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arregloSegEnvio.length; i++) {
+                temp = arregloSegEnvio[i];
+
+                var fecha_hora = new Date(temp.exe_fec_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp.exe_fec_hora.replace(/-/g, '\/'));
+
+                datos_env += '<tr class="table-sm EnvFil">';
+                datos_env += '<td>' + i + '</td>';
+                datos_env += '<td>' + temp.en_id + '</td>';
+                datos_env += '<td>' + temp.en_guia + '</td>';
+                datos_env += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_env += '<td>' + timeString + '</td>';
+                datos_env += '<td>' + temp.ee_desc + '</td>';
+                if (temp.ts_id == 1) {
+                    datos_env += '<td class="table-primary">' + temp.ts_desc + '</td>';
+                } else {
+                    datos_env += '<td>' + temp.ts_desc + '</td>';
+                }
+                datos_env += '<td>' + temp.te_desc + '</td>';
+                if (temp.ee_id == 5) {
+                    datos_env += '<td></td></tr>';
+                } else {
+                    datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
+                }
+            }
+            datos_env += "</tbody></table></div></div></div>";
+            $("#tabEnvioRastreo").html(datos_env);
+
+            $('#tableEstEnvRastreo').DataTable({
+                'order': [[0, 'desc']],
+                'scrollX': true
+            });
 
         } else {
             alertify.alert('Numero de envio no encontrado, favor verifique e intente nuevamente').setHeader('<em> Cuidado! </em> ');
@@ -371,6 +431,66 @@ function datos_envio_seg_op() {
 
 //            alert(cant_teorico);
 //            alert(cant_estados);
+            /**
+             * tabla envio rastreado
+             */
+            datos_env = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">ENVIO N°' + tmp_est.en_id + ' GUIA OP N° ' + tmp_est.en_guia + '</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEstEnvRastreo">\n\
+                            <thead><tr class="table-primary">\n\
+                                <th scope="col">SEC</th>\n\
+                                <th scope="col">GUIA LOGI</th>\n\
+                                <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
+                                <th scope="col">ESTADO</th>\n\
+                                <th scope="col">SERVICIO</th>\n\
+                                <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">OBSERVACIONES</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arregloSegEnvio.length; i++) {
+                temp = arregloSegEnvio[i];
+
+                var fecha_hora = new Date(temp.exe_fec_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp.exe_fec_hora.replace(/-/g, '\/'));
+
+                datos_env += '<tr class="table-sm EnvFil">';
+                datos_env += '<td>' + i + '</td>';
+                datos_env += '<td>' + temp.en_id + '</td>';
+                datos_env += '<td>' + temp.en_guia + '</td>';
+                datos_env += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_env += '<td>' + timeString + '</td>';
+                datos_env += '<td>' + temp.ee_desc + '</td>';
+                if (temp.ts_id == 1) {
+                    datos_env += '<td class="table-primary">' + temp.ts_desc + '</td>';
+                } else {
+                    datos_env += '<td>' + temp.ts_desc + '</td>';
+                }
+                datos_env += '<td>' + temp.te_desc + '</td>';
+                if (temp.ee_id == 5) {
+                    datos_env += '<td></td></tr>';
+                } else {
+                    datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
+                }
+            }
+            datos_env += "</tbody></table></div></div></div>";
+            $("#tabEnvioRastreo").html(datos_env);
+
+            $('#tableEstEnvRastreo').DataTable({
+                'order': [[0, 'desc']],
+                'scrollX': true
+            });
 
         } else {
             alertify.alert('Numero de envio no encontrado, favor verifique e intente nuevamente').setHeader('<em> Cuidado! </em> ');

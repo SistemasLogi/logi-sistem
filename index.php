@@ -62,7 +62,7 @@ session_start();
     </head>
 
     <body>
-
+        <?php require './Navidad.php'; ?>
         <!--==========================
           Header
         ============================-->

@@ -69,13 +69,12 @@
                     </tbody>
                 </table>
             </div>
-
-
-            <div class="row" id="contAux">
-
+            <div id="contAux">
+                
             </div>
-
         </div>
     </div>
+</div>
+<div id="tabEnvioRastreo">
 
 </div>
