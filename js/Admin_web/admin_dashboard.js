@@ -5150,6 +5150,8 @@ function consulta_tabla_env_programados() {
                 'scrollX': true,
                 'pageLength': 50
             });
+            
+            $('div.dataTables_filter input', table_env_prog.table().container()).focus();
 
 //            table_env_prog.on('search.dt', function () {
 //                num_filas = table_env_prog.rows().count();
