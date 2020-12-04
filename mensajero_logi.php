@@ -72,10 +72,10 @@ if (!isset($_SESSION["mensajero_logi"])) {
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">   
 
-                    <!-- Boton menu dashboard -->
-                    <button id="menu-toggle" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="ion-android-menu"></span>
-                    </button>
+                    <!--                     Boton menu dashboard 
+                                        <button id="menu-toggle" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                                            <span class="ion-android-menu"></span>
+                                        </button>-->
                     <img id="inicio" src="img/logos/LOGO_CLARO_77x36.png" alt=""/>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,12 +91,36 @@ if (!isset($_SESSION["mensajero_logi"])) {
                 <section id="facts" style="padding:0px;"  class="wow fadeIn next">
                     <div class="container" style="margin-top: 85px; height: auto; margin-bottom: 10px;">
 
-                        <div id="sectionConten" data-spy="scroll">                                
+                        <div id="sectionConten" data-spy="scroll"> 
 
-                            <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
-                                <div class="card-header"><strong class="mr-auto"><h4 class="mr-auto"><?php echo $_SESSION["nombre_cli"]; ?></h4></strong></div>
-                                <div class="card-body">
-                                    <img class="img-fluid" src="img/clients/FONDO/<?php echo $_SESSION["numero_doc"]; ?>.PNG" alt=""/>
+                            <nav class="navbar navbar-expand-lg navbar-light" style="border-radius: 0.5rem; background-color: #eee9f6;">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarColor02">
+                                    <ul class="navbar-nav mr-auto" id="items">
+                                        <li class="nav-item active" id="itemenlCrearOs">
+                                            <a class="nav-link enlace" id="enlCrearOs">Nueva</a>
+                                        </li>
+                                        <li class="nav-item" id="itemenlFormOrdenServ">
+                                            <a class="nav-link enlace" id="enlFormOrdenServ">Editar<span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item" id="itemenlSeguimiento">
+                                            <a class="nav-link enlace" id="enlSeguimiento">Seguimiento</a>
+                                        </li>
+                                        <li class="nav-item" id="itemenlEnProceso">
+                                            <a class="nav-link enlace" id="enlEnProceso">En proceso</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+
+                            <div class="toast show border-primary col-lg-12 mt-2" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
+                                <div class="toast-header"><strong class="mr-auto"><h5><?php echo $_SESSION["nombre_cli"]; ?></h5></strong></div>
+                                <div class="card-body">                                   
+
+
                                 </div>
                             </div>
                         </div>

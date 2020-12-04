@@ -5464,6 +5464,8 @@ function vista_form_Nuevo_Edit_Emp() {
         $("#btnGuardaEmp").click(function () {
             validarGuardaEmp();
         });
+        
+        tablaGeneralEmpleadosActivos();
 
     };
     f_ajax(request, cadena, metodo);
@@ -5549,6 +5551,57 @@ function inserta_empleado() {
     };
     f_ajax(request, cadena, metodo);
 }
+
+/**
+ * Metodo que retorna el listado de clientes activos registrados en BD
+ * @returns {undefined}
+ */
+function tablaGeneralEmpleadosActivos() {
+    request = "Controller/AdminC/AdministrarEmpleados/consulta_emp_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloEmpleadosAct = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEmpleadosAct !== 0) {
+            datos_emp = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">TABLA GENERAL DE EMPLEADOS LOGI</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEmpLogi">\n\
+                            <thead><tr class="table-primary">\n\
+                                <th scope="col">N° DOC</th>\n\
+                                <th scope="col">NOMBRE</th>\n\
+                                <th scope="col">CELULAR</th>\n\
+                                <th scope="col">EMAIL</th>\n\
+                                <th scope="col">CARGO</th>\n\
+                                </tr></thead><tbody>';
+            for (i = 0; i < arregloEmpleadosAct.length; i++) {
+                tmp = arregloEmpleadosAct[i];
+                datos_emp += '<tr class="table-sm" id="fila' + i + '">';
+                datos_emp += '<td>' + tmp.emp_num_doc + '</td>';
+                datos_emp += '<td>' + tmp.emp_nombre + '</td>';
+                datos_emp += '<td>' + tmp.emp_cel + '</td>';
+                datos_emp += '<td>' + tmp.emp_email + '</td>';
+                datos_emp += '<td>' + tmp.car_nombre + '</td></tr>';
+            }
+            datos_emp += "</tbody></table>";
+            $("#tabEmpActivos").html(datos_emp);
+            /**
+             * Evento que pagina una tabla 
+             */
+
+            $('#tableEmpLogi').DataTable();
+        } else {
+            $("#tableEmpLogi").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
 
 var arreglo_hist_est_aenv;
 /**
