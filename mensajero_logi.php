@@ -106,85 +106,14 @@ if (!isset($_SESSION["mensajero_logi"])) {
                                         <li class="nav-item" id="itemenlFormOrdenServ">
                                             <a class="nav-link enlace" id="enlFormOrdenServ">Manifiestos<span class="sr-only">(current)</span></a>
                                         </li>
-                                        <li class="nav-item" id="itemenlSeguimiento">
-                                            <a class="nav-link enlace" id="enlSeguimiento">Seguimiento</a>
-                                        </li>
-                                        <li class="nav-item" id="itemenlEnProceso">
-                                            <a class="nav-link enlace" id="enlEnProceso">En proceso</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </nav>
-
+                            <strong class="mr-auto"><h5>DICIEMBRE 1 al 15 = <b class="text-primary">$150.000</b></h5></strong>
                             <div class="toast show border-primary col-lg-12 mt-2" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
-                                <div class="toast-header"><strong class="mr-auto"><h5><?php echo $_SESSION["nombre_cli"]; ?></h5></strong><strong class="mr-auto text-lg-left"><h5>$ 150.000</h5></strong></div>
-                                <div class="card-body"> 
+                                <div class="toast-header"><strong class="mr-auto"><h5><?php echo $_SESSION["nombre_cli"]; ?></h5></strong></div>
+                                <div class="card-body" id="tabEnvDia"> 
 
-                                    <div class="alert alert-dismissible alert-primary" style="border-radius: 0.5rem;">
-                                        <div class="row">
-                                            <div class="col-5">
-                                                <h6 class="alert-heading text-nowrap">N° Envio: <b class="text-primary">10235</b></h6>
-                                            </div>
-                                            <div class="col-5">
-                                                <button type="button" class="btn btn-primary btn-sm float-right">Gestión</button>
-                                            </div>                                            
-                                        </div>
-
-                                        <table class="table table-hover table-sm table-responsive text-nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Guia OP</th>
-                                                    <th scope="col">Dirección</th>
-                                                    <th scope="col">Nombre</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>40127476857</th>
-                                                    <td>Carrera 11#84-09 piso 3y4 Bogota - TEAM</td>
-                                                    <td>LUIS ALBERTO BOTERO / PRESIDENTE</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="alert alert-dismissible alert-warning" style="border-radius: 0.5rem;">
-                                        <h6 class="alert-heading">N° Envio: <b class="text-primary">10235</b></h6>
-                                        <table class="table table-hover table-sm table-responsive text-nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Guia OP</th>
-                                                    <th scope="col">Dirección</th>
-                                                    <th scope="col">Nombre</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>40127476857</th>
-                                                    <td>Carrera 11#84-09 piso 3y4 Bogota - TEAM</td>
-                                                    <td>LUIS ALBERTO BOTERO / PRESIDENTE</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="alert alert-dismissible alert-success" style="border-radius: 0.5rem;">
-                                        <h6 class="alert-heading">N° Envio: <b class="text-primary">10235</b></h6>
-                                        <table class="table table-hover table-sm table-responsive text-nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Guia OP</th>
-                                                    <th scope="col">Dirección</th>
-                                                    <th scope="col">Nombre</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th class="text-success">40127476857</th>
-                                                    <td>Carrera 11#84-09 piso 3y4 Bogota - TEAM</td>
-                                                    <td>LUIS ALBERTO BOTERO / PRESIDENTE</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
 
                                 </div>
                             </div>
