@@ -9,6 +9,7 @@ $(document).ready(function () {
         $("#wrapper").toggleClass("toggled");
     });
     consulta_envios_diarios();
+    consulta_monedero();
 });
 
 /**
@@ -133,6 +134,22 @@ function consulta_envios_diarios() {
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>Hoy no se han cargado envios ni servicios.</strong></div>");
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos de pago a mensajero
+ * @returns {undefined}
+ */
+function consulta_monedero() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_monedero_mens_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+
+        datosMonedero = datos;
+
+        $("#monedero").html(datosMonedero);
+
     };
     f_ajax(request, cadena, metodo);
 }

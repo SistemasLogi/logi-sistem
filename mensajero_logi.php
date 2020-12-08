@@ -109,7 +109,7 @@ if (!isset($_SESSION["mensajero_logi"])) {
                                     </ul>
                                 </div>
                             </nav>
-                            <strong class="mr-auto"><h5>DICIEMBRE 1 al 15 = <b class="text-primary">$150.000</b></h5></strong>
+                            <strong class="mr-auto" id="monedero"></strong>
                             <div class="toast show border-primary col-lg-12 mt-2" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
                                 <div class="toast-header"><strong class="mr-auto"><h5><?php echo $_SESSION["nombre_cli"]; ?></h5></strong></div>
                                 <div class="card-body" id="tabEnvDia"> 
