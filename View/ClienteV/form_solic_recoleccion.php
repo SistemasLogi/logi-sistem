@@ -79,11 +79,11 @@
                                 </select>
                             </div>
                             <div class="form-group form-group-sm col-lg-5">
-                                <label for="inputObservServ">Observaciones</label>
+                                <label for="inputObservServ">Observaciones/Recaudo</label>
                                 <textarea class="form-control form-control-sm" id="inputObservServ" name="inputObservServ" rows="1"></textarea>
                             </div>
                             <div class="form-group form-group-sm col-lg-2">
-                                <label for="inputObservServ">Logi YA</label>
+                                <label for="inpCheckLogiYa">Logi YA</label>
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input checkbox-1x" id="inpCheckLogiYa" name="inpCheckLogiYa" value="1">Express

@@ -354,7 +354,7 @@ function formularios_envio() {
                                 </div>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-6" id="blqObserv' + contador + '">\n\
-                                <label for="inputObserv' + contador + '">Observaciones</label>\n\
+                                <label for="inputObserv' + contador + '">Observaciones/Recaudo</label>\n\
                                 <textarea class="form-control form-control-sm" id="inputObserv' + contador + '" name="inputObserv' + contador + '" rows="1"></textarea>\n\
                             </div></div></div>');
         //en esta parte se agrega el elemento div contenedor para otro formulario

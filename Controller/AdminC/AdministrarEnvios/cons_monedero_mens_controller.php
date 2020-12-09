@@ -7,20 +7,23 @@ $fecha_hora_now = date("Y-m-d H:i:s");
 $fech_solo = date('Y-m-d');
 $hora_desde = '00:00:00';
 $hora_hasta = '23:59:00';
-$fecha_ini = $fech_solo . " " . $hora_desde;
-$fecha_fin = $fech_solo . " " . $hora_hasta;
+
 $date = strtotime($fecha_hora_now);
-$anio = date("Y", $date); // Year (2003)
-$mes = date("m", $date); // Month (12)
-$dia = date("d", $date); // day (14) 
+$anio = date("Y", $date); // Year
+$mes = date("m", $date); // Month
+$dia = date("d", $date); // day
 
 $número = cal_days_in_month(CAL_GREGORIAN, $mes, $anio); // 31
 
 if ($_POST) {
     if ($dia < 15) {
+        $fecha_ini = $anio . "-" . $mes . "-01 " . $hora_desde;
+        $fecha_fin = $anio . "-" . $mes . "-15 " . $hora_hasta;
         setlocale(LC_TIME, "spanish");
         $quincena = ucwords(strftime("%B")) . " 1 al 15 =$";
     } else {
+        $fecha_ini = $anio . "-" . $mes . "-16 " . $hora_desde;
+        $fecha_fin = $anio . "-" . $mes . "-" . $número . " " . $hora_hasta;
         setlocale(LC_TIME, "spanish");
         $quincena = ucwords(strftime("%B")) . " 16 al " . $número . " =$";
     }

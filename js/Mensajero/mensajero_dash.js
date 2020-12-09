@@ -8,6 +8,13 @@ $(document).ready(function () {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    $("#enlEnvHoy").click(function () {
+        consulta_envios_diarios();
+    });
+    $("#enlSelectEnv").click(function () {
+        consulta_envios_x_fecha();
+    });
     consulta_envios_diarios();
     consulta_monedero();
 });
@@ -103,14 +110,15 @@ function consulta_envios_diarios() {
                 datosEnvDia += '<h6 class="alert-heading text-nowrap">N° Envio: <b class="text-primary">' + tmp.exe_en_id + '</b></h6>';
                 datosEnvDia += '</div>';
                 if (tmp.exe_ee_id == 5) {
-                    datosEnvDia += '<div class="col-5">';
+                    datosEnvDia += '<div class="col-6">';
                     datosEnvDia += '<button type="button" class="btn btn-primary btn-sm float-right" id="' + tmp.exe_en_id + '">Gestión</button>';
                     datosEnvDia += '</div>';
                 }
                 datosEnvDia += '</div>';
-                datosEnvDia += '<table class="table table-hover table-sm table-responsive text-nowrap">';
+                datosEnvDia += '<div class="table-responsive text-nowrap col-lg-12">';
+                datosEnvDia += '<table class="table table-sm table table-hover">';
                 datosEnvDia += '<thead>';
-                datosEnvDia += '<tr>';
+                datosEnvDia += '<tr class="table-primary text-primary">';
                 datosEnvDia += '<th scope="col">Guia OP</th>';
                 datosEnvDia += '<th scope="col">Dirección</th>';
                 datosEnvDia += '<th scope="col">Nombre</th>';
@@ -124,6 +132,7 @@ function consulta_envios_diarios() {
                 datosEnvDia += '</tr>';
                 datosEnvDia += '</tbody>';
                 datosEnvDia += '</table>';
+                datosEnvDia += '</div>';
                 datosEnvDia += '</div>';
             }
             $("#tabEnvDia").html(datosEnvDia);
@@ -150,6 +159,162 @@ function consulta_monedero() {
 
         $("#monedero").html(datosMonedero);
 
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que retorna los datos de envios y monedero segun un rango de fechas
+ * @returns {undefined}
+ */
+function consulta_envios_x_fecha() {
+    request = "View/AdministradorV/AdEmpleados/form_select_date.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+
+        $("#tabEnvDia").html(datos);
+
+        $("#btnBusEnvFec").click(function () {
+            validarFechaManifiesto();
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que permite validar campos de formulario seleccion de fechas
+ * @returns {undefined}
+ */
+function validarFechaManifiesto() {
+    $("#formFechManif").validate({
+        rules: {
+            InputFecIni: {
+                required: true,
+                date: true
+            },
+            InputFecFin: {
+                required: true,
+                date: true
+            }
+        },
+        submitHandler: function (form) {
+            compararFechas();
+        }
+    });
+}
+
+/**
+ * Metodo que permite controlar que la fecha inicial sea menor a la final
+ * @returns {undefined}
+ */
+function compararFechas() {
+    var fInicial = $("#InputFecIni").val();
+    var fFinal = $("#InputFecFin").val();
+    if (fInicial > fFinal) {
+        alertify.alert("La fecha de inicio no debe ser mayor que la fecha final").setHeader('<em> Cuidado! </em> ');
+    } else {
+        consulta_envios_historico();
+    }
+}
+
+
+/**
+ * Metodo que retorna los envios cargados historicos para un mensajero
+ * @returns {undefined}
+ */
+function consulta_envios_historico() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_historico_env_mens_controller.php";
+    cadena = $("#formFechManif").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arregloEnvHist = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvHist !== 0) {
+            datosEnvHist = '<div class="table-responsive text-nowrap col-lg-12">';
+            datosEnvHist += '<table class="table table-sm table-bordered table table-hover">';
+            datosEnvHist += '<thead>';
+            datosEnvHist += '<tr class="table-primary text-primary">';
+            datosEnvHist += '<th scope="col">N° Envio</th>';
+            datosEnvHist += '<th scope="col">Guia OP</th>';
+            datosEnvHist += '<th scope="col">Costo</th>';
+            datosEnvHist += '<th scope="col">Destino</th>';
+            datosEnvHist += '</tr>';
+            datosEnvHist += '</thead>';
+            datosEnvHist += '<tbody>';
+
+            dia_ant = "";
+            a = 0;
+            b = 0;
+            c = 0;
+            for (i = 0; i < arregloEnvHist.length; i++) {
+                tmp = arregloEnvHist[i];
+                dia = tmp.exe_fec_hora.substr(8, 2);
+                f = new Date(tmp.exe_fec_hora.replace(/-/g, '\/'));
+
+                if (i == 0) {
+                    datosEnvHist += '<tr><th class="table-warning" colspan="4">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                    datosEnvHist += '<tr>';
+                    datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                    datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                    datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                    datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                    datosEnvHist += '</tr>';
+                    a = parseInt(tmp.exe_novedad);
+                    c = (a + b);
+                    b = c;
+                } else {
+                    if (dia == dia_ant) {
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                        datosEnvHist += '</tr>';
+                        a = parseInt(tmp.exe_novedad);
+                        c = (a + b);
+                        b = c;
+                    } else {
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<th colspan="2">SubTotal</th>';
+
+                        datosEnvHist += '<th colspan="2">' + b + '</th>';
+                        datosEnvHist += '</tr>';
+
+                        a = 0;
+                        c = 0;
+                        b = 0;
+
+                        datosEnvHist += '<tr><th class="table-warning" colspan="4">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                        datosEnvHist += '</tr>';
+                        a = parseInt(tmp.exe_novedad);
+                        c = (a + b);
+                        b = c;
+                    }
+                }
+                dia_ant = tmp.exe_fec_hora.substr(8, 2);
+
+            }
+            datosEnvHist += '<tr>';
+            datosEnvHist += '<th colspan="2">SubTotal</th>';
+
+            datosEnvHist += '<th colspan="2">' + b + '</th>';
+            datosEnvHist += '</tr>';
+            datosEnvHist += "</tbody></table></div>";
+            $("#datosMenif").html(datosEnvHist);
+
+//            clickActuEstado_OS();
+        } else {
+            $("#datosMenif").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No se encontraron datos.</strong></div>");
+        }
     };
     f_ajax(request, cadena, metodo);
 }

@@ -21,7 +21,7 @@ class Estado_x_env_DAO {
      */
     function insertarEstado_x_envio($ord_ser_vo) {
         $sql = "INSERT INTO est_x_envio (SELECT e.en_id, 1 AS estado, (SELECT now()) AS fecha, '' AS novedad, "
-                . "1 AS td_id, 162534495867 AS num_doc "
+                . "1 AS td_id, 9874123652 AS num_doc "
                 . "FROM envio AS e WHERE os_id = " . $ord_ser_vo . ");";
         $BD = new MySQL();
 //        return $sql;
