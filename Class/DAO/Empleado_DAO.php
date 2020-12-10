@@ -63,12 +63,12 @@ class Empleado_DAO {
      * @return type
      */
     function consultaEmpleadosQuincena($seper_query, $td_mens, $num_doc_mens, $fecha_ini, $fecha_fin, $fin_query) {
-        $sql = "" . $seper_query . "SELECT es.*, e.en_guia, e.en_nombre, e.en_direccion "
+        $sql = "" . $seper_query . "SELECT es.*, e.en_guia, e.en_nombre, e.en_direccion, e.en_novedad "
                 . "FROM est_x_envio AS es, envio AS e "
                 . "WHERE es.exe_en_id = e.en_id AND es.td_id_men = " . $td_mens . " AND es.num_doc_men = " . $num_doc_mens . " "
                 . "AND es.exe_ee_id = 5 AND es.exe_fec_hora BETWEEN '" . $fecha_ini . "' AND '" . $fecha_fin . "' "
                 . "UNION "
-                . "SELECT ess.*, '' AS guia, cl.cli_nombre, s.os_direccion "
+                . "SELECT ess.*, '' AS guia, cl.cli_nombre, s.os_direccion, s.os_observacion "
                 . "FROM est_x_serv AS ess, clientes AS cl, orden_serv AS s "
                 . "WHERE ess.os_id = s.os_id AND s.cli_td_id = cl.cli_td_id AND s.cli_num_doc = cl.cli_num_doc "
                 . "AND ess.td_id_men = " . $td_mens . " AND ess.num_doc_men = " . $num_doc_mens . " "

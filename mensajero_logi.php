@@ -125,11 +125,11 @@ if (!isset($_SESSION["mensajero_logi"])) {
             <!-- /#page-content-wrapper -->
 
         </div>
-        <div class="modal fade" id="ModalActuEstOS" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="ModalActuEstEnv" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" id="mod-dalog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalEstOSTitle"></h5>
+                        <h5 class="modal-title" id="ModalEstEnvTitle"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnCloseModal">
                             <span aria-hidden="true">&times;</span>
                         </button>

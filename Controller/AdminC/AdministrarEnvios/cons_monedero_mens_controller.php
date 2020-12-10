@@ -37,7 +37,7 @@ if ($_POST) {
     } elseif (isset($_SESSION["mensajero_logi"])) {
         $valor_json = json_encode($emp_dao->consultaEmpleadosQuincena($super_query, $_SESSION["tipo_doc"], $_SESSION["numero_doc"], $fecha_ini, $fecha_fin, $fin_query));
         $valor_dec = json_decode($valor_json);
-        echo '<h5>' . $quincena . '<b class="text-primary">' . $valor_dec[0]->total . '</b></h5>';
+        echo '<h5>Tu saldo de ' . $quincena . '<b class="text-primary">' . $valor_dec[0]->total . '</b></h5>';
     }
 } else {
     header("location../");

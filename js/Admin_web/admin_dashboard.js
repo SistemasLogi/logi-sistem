@@ -2179,7 +2179,12 @@ function clickActuEstado_OS() {
         form_act_est_os(arregloEstOS, actu_es_os);
     });
 }
-
+/**
+ * Metodo que llama la ventana emergente con el formulario
+ * @param {type} array
+ * @param {type} position
+ * @returns {undefined}
+ */
 function form_act_est_os(array, position) {
     tm = array[position];
 
