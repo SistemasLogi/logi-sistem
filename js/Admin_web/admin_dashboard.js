@@ -24,6 +24,9 @@ $(document).ready(function () {
     $("#link_vista_dashboard_envios").click(function () {
         vista_dashboard_envios();
     });
+    $("#link_vista_informes_envios").click(function () {
+        vista_informes_envios();
+    });
 
     //*Este menu es gestionar del almacen*//
     $("#link_gest_almacen").click(function () {
@@ -5790,6 +5793,47 @@ function actualiza_est_aenv_entrega(guia, estado, novedad) {
         } else {
             alert(datos);
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/****************************************************************
+ * Metodos de Informes de envios
+ * 
+ ****************************************************************/
+/**
+ * Metodo que carga menu de informes de envios
+ * @returns {undefined}
+ */
+function vista_informes_envios() {
+    request = "View/AdministradorV/AdEnvios/informes.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html(datos);
+
+//        $("#enlAsigMens").click(function () {
+//            formulario_asig_mens();
+//            $("#items-env li").removeClass("active");
+//            $("#itemenlAsigMens").addClass("active");
+//        });
+//
+//        $("#enlFormEntregaOp").click(function () {
+//            tabla_entrega_op();
+//            $("#items-env li").removeClass("active");
+//            $("#itemenlFormEntregaOp").addClass("active");
+//        });
+//
+//        $("#enlSeguimientoEnv").click(function () {
+//            seguimiento_estado_env();
+//            $("#items-env li").removeClass("active");
+//            $("#itemenlSeguimientoEnv").addClass("active");
+//        });
+//
+//        $("#enlSeguimientoAlist").click(function () {
+//            seguimiento_estado_alist_env();
+//            $("#items-env li").removeClass("active");
+//            $("#itemenlSeguimientoAlist").addClass("active");
+//        });
     };
     f_ajax(request, cadena, metodo);
 }
