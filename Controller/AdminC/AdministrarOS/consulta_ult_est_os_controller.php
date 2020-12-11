@@ -7,7 +7,7 @@
 if ($_POST) {
     require '../../../config.php';
     $est_os = new Est_x_serv_DAO();
-    echo json_encode($est_os->consultaUltimoEstadoOS(" AND TM.exs_fecha_hora >= CURDATE();"));
+    echo json_encode($est_os->consultaUltimoEstadoOS(" AND TM.exs_fecha_hora >= DATE_SUB(NOW(),INTERVAL 30 DAY);"));
 } else {
     header("location../");
 }

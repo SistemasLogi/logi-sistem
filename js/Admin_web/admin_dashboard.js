@@ -5158,7 +5158,7 @@ function consulta_tabla_env_programados() {
                 'scrollX': true,
                 'pageLength': 50
             });
-            
+
             $('div.dataTables_filter input', table_env_prog.table().container()).focus();
 
 //            table_env_prog.on('search.dt', function () {
@@ -5474,7 +5474,7 @@ function vista_form_Nuevo_Edit_Emp() {
         $("#btnGuardaEmp").click(function () {
             validarGuardaEmp();
         });
-        
+
         tablaGeneralEmpleadosActivos();
 
     };
@@ -5811,29 +5811,345 @@ function vista_informes_envios() {
     metodo = function (datos) {
         $("#list-formCliente").html(datos);
 
-//        $("#enlAsigMens").click(function () {
-//            formulario_asig_mens();
-//            $("#items-env li").removeClass("active");
-//            $("#itemenlAsigMens").addClass("active");
-//        });
-//
-//        $("#enlFormEntregaOp").click(function () {
-//            tabla_entrega_op();
-//            $("#items-env li").removeClass("active");
-//            $("#itemenlFormEntregaOp").addClass("active");
-//        });
-//
-//        $("#enlSeguimientoEnv").click(function () {
-//            seguimiento_estado_env();
-//            $("#items-env li").removeClass("active");
-//            $("#itemenlSeguimientoEnv").addClass("active");
-//        });
-//
-//        $("#enlSeguimientoAlist").click(function () {
-//            seguimiento_estado_alist_env();
-//            $("#items-env li").removeClass("active");
-//            $("#itemenlSeguimientoAlist").addClass("active");
-//        });
+        $("#enlManifRec").click(function () {
+            vista_form_manif_rec();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga menu de informes de envios
+ * @returns {undefined}
+ */
+function vista_form_manif_rec() {
+    request = "View/AdministradorV/AdEnvios/form_manif_recaudos.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenInfEnv").html(datos);
+
+        combo_empleados("#selectMensajero");
+
+        $("#btnBusEnvFec").click(function () {
+            validarFechaManifiesto();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que permite validar campos de formulario seleccion de fechas
+ * @returns {undefined}
+ */
+function validarFechaManifiesto() {
+    $("#formFechManif").validate({
+        rules: {
+            InputFecIni: {
+                required: true,
+                date: true
+            },
+            InputFecFin: {
+                required: true,
+                date: true
+            },
+            selectMensajero: {
+                valueNotEquals: "0|0"
+            }
+        },
+        submitHandler: function (form) {
+            compararFechas();
+        }
+    });
+}
+
+/**
+ * Metodo que permite controlar que la fecha inicial sea menor a la final
+ * @returns {undefined}
+ */
+function compararFechas() {
+    var fInicial = $("#InputFecIni").val();
+    var fFinal = $("#InputFecFin").val();
+    if (fInicial > fFinal) {
+        alertify.alert("La fecha de inicio no debe ser mayor que la fecha final").setHeader('<em> Cuidado! </em> ');
+    } else {
+        consulta_envios_historico();
+        consulta_envios_hist_rec();
+    }
+}
+
+
+/**
+ * Metodo que retorna los envios cargados historicos para un mensajero
+ * @returns {undefined}
+ */
+function consulta_envios_historico() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_historico_env_mens_controller.php";
+    cadena = $("#formFechManif").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arregloEnvHist = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvHist !== 0) {
+            datosEnvHist = '<legend>MANIFIESTOS</legend>';
+            datosEnvHist += '<div class="table-responsive text-nowrap col-lg-12">';
+            datosEnvHist += '<table class="table table-sm table-bordered table table-hover">';
+            datosEnvHist += '<thead>';
+            datosEnvHist += '<tr class="table-primary text-primary">';
+            datosEnvHist += '<th scope="col">N° Envio</th>';
+            datosEnvHist += '<th scope="col">Guia OP</th>';
+            datosEnvHist += '<th scope="col">Costo</th>';
+            datosEnvHist += '<th scope="col">Destino</th>';
+            datosEnvHist += '<th scope="col">Recaudo Teorico</th>';
+            datosEnvHist += '</tr>';
+            datosEnvHist += '</thead>';
+            datosEnvHist += '<tbody>';
+
+            dia_ant = "";
+            a = 0;
+            b = 0;
+            c = 0;
+            tot = 0;
+
+            ar = 0;
+            br = 0;
+            cr = 0;
+            rec = 0;
+            for (i = 0; i < arregloEnvHist.length; i++) {
+                tmp = arregloEnvHist[i];
+                dia = tmp.exe_fec_hora.substr(8, 2);
+                f = new Date(tmp.exe_fec_hora.replace(/-/g, '\/'));
+
+                if (i == 0) {
+                    datosEnvHist += '<tr><th class="table-warning" colspan="5">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                    datosEnvHist += '<tr>';
+                    datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                    datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                    datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                    datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                    if (tmp.en_novedad == "") {
+                        rec = 0;
+                        datosEnvHist += '<td>0</td>';
+                    } else {
+                        rec = tmp.en_novedad;
+                        datosEnvHist += '<td>' + tmp.en_novedad + '</td>';
+                    }
+                    datosEnvHist += '</tr>';
+                    a = parseInt(tmp.exe_novedad);
+                    c = (a + b);
+                    b = c;
+
+                    ar = parseInt(rec);
+                    cr = (ar + br);
+                    br = cr;
+                } else {
+                    if (dia == dia_ant) {
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                        if (tmp.en_novedad == "") {
+                            rec = 0;
+                            datosEnvHist += '<td>0</td>';
+                        } else {
+                            rec = tmp.en_novedad;
+                            datosEnvHist += '<td>' + tmp.en_novedad + '</td>';
+                        }
+                        datosEnvHist += '</tr>';
+                        a = parseInt(tmp.exe_novedad);
+                        c = (a + b);
+                        b = c;
+
+                        ar = parseInt(rec);
+                        cr = (ar + br);
+                        br = cr;
+                    } else {
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<th colspan="2">SubTotal</th>';
+
+                        tot = tot + b;
+                        datosEnvHist += '<th colspan="2">' + b + '</th>';
+                        datosEnvHist += '<th>' + br + '</th>';
+                        datosEnvHist += '</tr>';
+
+                        a = 0;
+                        c = 0;
+                        b = 0;
+
+                        ar = 0;
+                        br = 0;
+                        cr = 0;
+
+                        datosEnvHist += '<tr><th class="table-warning" colspan="5">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                        if (tmp.en_novedad == "") {
+                            rec = 0;
+                            datosEnvHist += '<td>0</td>';
+                        } else {
+                            rec = tmp.en_novedad;
+                            datosEnvHist += '<td>' + tmp.en_novedad + '</td>';
+                        }
+                        datosEnvHist += '</tr>';
+                        a = parseInt(tmp.exe_novedad);
+                        c = (a + b);
+                        b = c;
+
+                        ar = parseInt(rec);
+                        cr = (ar + br);
+                        br = cr;
+                    }
+                }
+                dia_ant = tmp.exe_fec_hora.substr(8, 2);
+
+            }
+            datosEnvHist += '<tr>';
+            datosEnvHist += '<th colspan="2">SubTotal</th>';
+
+            tot = tot + b;
+            datosEnvHist += '<th colspan="2">' + b + '</th>';
+            datosEnvHist += '<th>' + br + '</th>';
+            datosEnvHist += '</tr>';
+
+            datosEnvHist += '<tr class="table-primary">';
+            datosEnvHist += '<th colspan="2">TOTAL</th>';
+            datosEnvHist += '<th colspan="3">' + tot + '</th>';
+            datosEnvHist += "</tbody></table></div>";
+            $("#datosMenif").html(datosEnvHist);
+
+//            clickActuEstado_OS();
+        } else {
+            $("#datosMenif").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No se encontraron datos.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que retorna los envios cargados historicos para un mensajero
+ * @returns {undefined}
+ */
+function consulta_envios_hist_rec() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_hist_recaudos_controller.php";
+    cadena = $("#formFechManif").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arregloEnvHistRec = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvHistRec !== 0) {
+            datosEnvHistRc = '<legend>RECAUDOS</legend>';
+            datosEnvHistRc += '<div class="table-responsive text-nowrap col-lg-12">';
+            datosEnvHistRc += '<table class="table table-sm table-bordered table table-hover">';
+            datosEnvHistRc += '<thead>';
+            datosEnvHistRc += '<tr class="bg-success">';
+            datosEnvHistRc += '<th scope="col">N° Envio</th>';
+            datosEnvHistRc += '<th scope="col">Guia OP</th>';
+            datosEnvHistRc += '<th scope="col">Destino</th>';
+            datosEnvHistRc += '<th scope="col">Recaudo</th>';
+            datosEnvHistRc += '</tr>';
+            datosEnvHistRc += '</thead>';
+            datosEnvHistRc += '<tbody>';
+
+            dia_ant = "";
+
+            ar = 0;
+            br = 0;
+            cr = 0;
+            rec = 0;
+            for (i = 0; i < arregloEnvHistRec.length; i++) {
+                tmp = arregloEnvHistRec[i];
+                dia = tmp.exe_fec_hora.substr(8, 2);
+                f = new Date(tmp.exe_fec_hora.replace(/-/g, '\/'));
+
+                if (i == 0) {
+                    datosEnvHistRc += '<tr><th class="table-success" colspan="5">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                    datosEnvHistRc += '<tr>';
+                    datosEnvHistRc += '<td>' + tmp.exe_en_id + '</td>';
+                    datosEnvHistRc += '<td>' + tmp.en_guia + '</td>';
+                    datosEnvHistRc += '<td>' + tmp.en_direccion + '</td>';
+                    if (tmp.en_novedad == "") {
+                        rec = 0;
+                        datosEnvHistRc += '<td>0</td>';
+                    } else {
+                        rec = tmp.en_novedad;
+                        datosEnvHistRc += '<td>' + tmp.en_novedad + '</td>';
+                    }
+                    datosEnvHistRc += '</tr>';
+
+                    ar = parseInt(rec);
+                    cr = (ar + br);
+                    br = cr;
+                } else {
+                    if (dia == dia_ant) {
+                        datosEnvHistRc += '<tr>';
+                        datosEnvHistRc += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHistRc += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHistRc += '<td>' + tmp.en_direccion + '</td>';
+                        if (tmp.en_novedad == "") {
+                            rec = 0;
+                            datosEnvHistRc += '<td>0</td>';
+                        } else {
+                            rec = tmp.en_novedad;
+                            datosEnvHistRc += '<td>' + tmp.en_novedad + '</td>';
+                        }
+                        datosEnvHistRc += '</tr>';
+
+                        ar = parseInt(rec);
+                        cr = (ar + br);
+                        br = cr;
+                    } else {
+                        datosEnvHistRc += '<tr>';
+                        datosEnvHistRc += '<th colspan="3">SubTotal</th>';
+
+                        datosEnvHistRc += '<th>' + br + '</th>';
+                        datosEnvHistRc += '</tr>';
+
+                        ar = 0;
+                        br = 0;
+                        cr = 0;
+
+                        datosEnvHistRc += '<tr><th class="table-success" colspan="5">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                        datosEnvHistRc += '<tr>';
+                        datosEnvHistRc += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHistRc += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHistRc += '<td>' + tmp.en_direccion + '</td>';
+                        if (tmp.en_novedad == "") {
+                            rec = 0;
+                            datosEnvHistRc += '<td>0</td>';
+                        } else {
+                            rec = tmp.en_novedad;
+                            datosEnvHistRc += '<td>' + tmp.en_novedad + '</td>';
+                        }
+                        datosEnvHistRc += '</tr>';
+
+                        ar = parseInt(rec);
+                        cr = (ar + br);
+                        br = cr;
+                    }
+                }
+                dia_ant = tmp.exe_fec_hora.substr(8, 2);
+
+            }
+            datosEnvHistRc += '<tr>';
+            datosEnvHistRc += '<th colspan="3">SubTotal</th>';
+
+            datosEnvHistRc += '<th>' + br + '</th>';
+            datosEnvHistRc += '</tr>';
+            datosEnvHistRc += "</tbody></table></div>";
+            $("#datosRecaudo").html(datosEnvHistRc);
+
+//            clickActuEstado_OS();
+        } else {
+            $("#datosRecaudo").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No se encontraron datos.</strong></div>");
+        }
     };
     f_ajax(request, cadena, metodo);
 }

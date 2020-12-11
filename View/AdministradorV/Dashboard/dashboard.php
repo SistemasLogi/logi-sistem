@@ -1,5 +1,5 @@
 <div class="row">
-    <legend>ORDENES DE SERVICIO</legend>
+    <legend>ORDENES DE SERVICIO DE LOS ÚLTIMOS 30 DIAS</legend>
     <div class="col-lg-4">
         <div class="card border-success mb-3 enlace" id="cardRealizadas" elem="3" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">            
             <div class="card-header" style="background-color: #18d26e;"><b>REALIZADAS</b><span class="ion-document-text float-right" style="color: #fff; font-size: x-large"></span></div>

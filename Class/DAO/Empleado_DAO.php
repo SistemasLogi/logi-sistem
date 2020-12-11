@@ -78,4 +78,23 @@ class Empleado_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que retorna los datos del acumulado para pago de mensajero y manifiestos
+     * @param type $td_mens
+     * @param type $num_doc_mens
+     * @param type $fecha_ini
+     * @param type $fecha_fin
+     * @param type $est_env
+     * @return type
+     */
+    function consultaEnviosEmpEstado($td_mens, $num_doc_mens, $fecha_ini, $fecha_fin, $est_env) {
+        $sql = "SELECT es.*, e.en_guia, e.en_nombre, e.en_direccion, e.en_novedad "
+                . "FROM est_x_envio AS es, envio AS e "
+                . "WHERE es.exe_en_id = e.en_id AND es.td_id_men = " . $td_mens . " AND es.num_doc_men = " . $num_doc_mens . " "
+                . "AND es.exe_ee_id = " . $est_env . " AND es.exe_fec_hora BETWEEN '" . $fecha_ini . "' AND '" . $fecha_fin . "' "
+                . "ORDER BY es.exe_fec_hora ASC;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

@@ -6,11 +6,11 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto" id="items">
             <li class="nav-item" id="itemenlFormOrdenServ">
-                <a class="nav-link enlace" id="enlSelectEnv">Manifiestos y Recaudos<span class="sr-only">(current)</span></a>
+                <a class="nav-link enlace" id="enlManifRec">Manifiestos y Recaudos<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
 </nav>
-<div id="contenGestEnvios" class="mt-2">
+<div id="contenInfEnv" class="mt-2">
 
 </div>
