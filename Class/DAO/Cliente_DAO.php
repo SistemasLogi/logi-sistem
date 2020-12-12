@@ -85,4 +85,29 @@ class Cliente_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que consulta los envios segun estado para un cliente en un rango de fechas
+     * @param type $td_id
+     * @param type $num_doc
+     * @return type
+     */
+    function consulta_hist_env_cliente($est_env, $fech_ini, $fech_fin, $td_cli, $num_doc_cli, $parametro) {
+        $sql = "SELECT TS.*, TD.os_id AS os_id_suc, TD.suc_num_id, TD.suc_nombre FROM "
+                . "(SELECT es.*, e.en_guia, e.en_nombre, e.en_direccion, e.en_novedad, e.os_id, os.cli_td_id, cl.cli_nombre, "
+                . "os.cli_num_doc, os.ts_id, ts.ts_desc, os.te_id, te.te_desc "
+                . "FROM est_x_envio AS es, envio AS e, orden_serv AS os, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "WHERE es.exe_en_id = e.en_id AND e.os_id = os.os_id AND os.ts_id = ts.ts_id AND os.te_id = te.te_id "
+                . "AND os.cli_td_id = cl.cli_td_id AND os.cli_num_doc = cl.cli_num_doc "
+                . "AND os.cli_td_id = " . $td_cli . " AND os.cli_num_doc = " . $num_doc_cli . " "
+                . "AND es.exe_ee_id = " . $est_env . " AND es.exe_fec_hora BETWEEN '" . $fech_ini . "' AND '" . $fech_fin . "' "
+                . "ORDER BY es.exe_fec_hora ASC) AS TS "
+                . "LEFT JOIN "
+                . "(SELECT osu.*, suc.suc_nombre "
+                . "FROM os_x_suc AS osu, sucursales AS suc "
+                . "WHERE osu.suc_num_id = suc.suc_num_id) AS TD ON TS.os_id = TD.os_id".$parametro."";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
+    }
+
 }

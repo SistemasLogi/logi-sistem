@@ -6260,7 +6260,7 @@ function compararFechasRecaud() {
     if (fInicial > fFinal) {
         alertify.alert("La fecha de inicio no debe ser mayor que la fecha final").setHeader('<em> Cuidado! </em> ');
     } else {
-        consulta_envios_historico();
+        consulta_env_entregados_recaudo();
     }
 }
 
@@ -6269,9 +6269,10 @@ function compararFechasRecaud() {
  * @returns {undefined}
  */
 function consulta_env_entregados_recaudo() {
-    request = "Controller/AdminC/AdministrarEnvios/cons_historico_env_mens_controller.php";
-    cadena = $("#formFechManif").serialize(); //envio de parametros por POST
+    request = "Controller/AdminC/AdministrarEnvios/cons_hist_recaudo_cli_controller.php";
+    cadena = $("#formFechRecaudCli").serialize(); //envio de parametros por POST
     metodo = function (datos) {
+        alert(datos);
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
         diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
         arregloEnvHist = $.parseJSON(datos);
