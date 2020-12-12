@@ -3111,6 +3111,26 @@ function combo_clientes() {
 }
 
 /**
+ * Metodo que llena el combo de seleccion Clientes
+ * primer option 0
+ * @returns {undefined}
+ */
+function combo_clientes_dos() {
+    request = "Controller/AdminC/AdministrarCliente/consulta_general_cliente_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = '<option value="0|0">Seleccione</option>';
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.cli_td_id + '|' + temp.cli_num_doc + '">' + temp.cli_nombre + "</option>";
+        }
+        $("#selectCliente").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
  * Metodo que permite validar campos en formulario orden servicio actualizar
  * @returns {undefined}
  */
@@ -3661,6 +3681,29 @@ function combo_sucursal_x_cli() {
     metodo = function (datos) {
         arreglo_suc_cli = $.parseJSON(datos);
         datouscombo = "";
+        if (arreglo_suc_cli == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            for (i = 0; i < arreglo_suc_cli.length; i++) {
+                temp = arreglo_suc_cli[i];
+                datouscombo += '<option value="' + temp.suc_num_id + '">' + temp.suc_nombre + "</option>";
+            }
+        }
+
+        $("#selectSuc_x_Cli").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos a combo sucursales por cliente seleccionado
+ * @returns {undefined}
+ */
+function combo_sucursal_x_cli_dos() {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_cli_controller.php";
+    cadena = "selectCliente=" + $("#selectCliente").val(); //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc_cli = $.parseJSON(datos);
+        datouscombo = '<option value="0">Seleccione</option>';
         if (arreglo_suc_cli == "") {
             datouscombo += '<option value="0"></option>';
         } else {
@@ -5814,11 +5857,14 @@ function vista_informes_envios() {
         $("#enlManifRec").click(function () {
             vista_form_manif_rec();
         });
+        $("#enlRecaudCli").click(function () {
+            vista_form_recaud_cli();
+        });
     };
     f_ajax(request, cadena, metodo);
 }
 /**
- * Metodo que carga menu de informes de envios
+ * Metodo que carga formulario para seleccion de mensajero y fechas 
  * @returns {undefined}
  */
 function vista_form_manif_rec() {
@@ -5873,6 +5919,7 @@ function compararFechas() {
     } else {
         consulta_envios_historico();
         consulta_envios_hist_rec();
+        $("#labelNomMens").html($('select[name="selectMensajero"] option:selected').text());
     }
 }
 
@@ -6144,9 +6191,225 @@ function consulta_envios_hist_rec() {
             datosEnvHistRc += "</tbody></table></div>";
             $("#datosRecaudo").html(datosEnvHistRc);
 
-//            clickActuEstado_OS();
         } else {
             $("#datosRecaudo").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No se encontraron datos.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga formulario para generar informe de recaudos
+ * @returns {undefined}
+ */
+function vista_form_recaud_cli() {
+    request = "View/AdministradorV/AdEnvios/form_recaudos_cli.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenInfEnv").html(datos);
+
+        combo_clientes_dos();
+
+        $("#selectCliente").change(function () {
+            combo_sucursal_x_cli_dos();
+        });
+
+        $("#btnBusEnvFecRec").click(function () {
+            validarFechaRecaudCli();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que permite validar campos de formulario seleccion de fechas
+ * para informe de recaudos cliente sucursal
+ * @returns {undefined}
+ */
+function validarFechaRecaudCli() {
+    $("#formFechRecaudCli").validate({
+        rules: {
+            InputFecIni: {
+                required: true,
+                date: true
+            },
+            InputFecFin: {
+                required: true,
+                date: true
+            },
+            selectCliente: {
+                valueNotEquals: "0|0"
+            }
+        },
+        submitHandler: function (form) {
+            compararFechasRecaud();
+        }
+    });
+}
+
+/**
+ * Metodo que permite controlar que la fecha inicial sea menor a la final
+ * formulario de informe de recaudos cliente sucursal
+ * @returns {undefined}
+ */
+function compararFechasRecaud() {
+    var fInicial = $("#InputFecIni").val();
+    var fFinal = $("#InputFecFin").val();
+    if (fInicial > fFinal) {
+        alertify.alert("La fecha de inicio no debe ser mayor que la fecha final").setHeader('<em> Cuidado! </em> ');
+    } else {
+        consulta_envios_historico();
+    }
+}
+
+/**
+ * Metodo que retorna los envios entregados que generaron recaudo
+ * @returns {undefined}
+ */
+function consulta_env_entregados_recaudo() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_historico_env_mens_controller.php";
+    cadena = $("#formFechManif").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arregloEnvHist = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvHist !== 0) {
+            datosEnvHist = '<legend>MANIFIESTOS</legend>';
+            datosEnvHist += '<div class="table-responsive text-nowrap col-lg-12">';
+            datosEnvHist += '<table class="table table-sm table-bordered table table-hover">';
+            datosEnvHist += '<thead>';
+            datosEnvHist += '<tr class="table-primary text-primary">';
+            datosEnvHist += '<th scope="col">N° Envio</th>';
+            datosEnvHist += '<th scope="col">Guia OP</th>';
+            datosEnvHist += '<th scope="col">Costo</th>';
+            datosEnvHist += '<th scope="col">Destino</th>';
+            datosEnvHist += '<th scope="col">Recaudo Teorico</th>';
+            datosEnvHist += '</tr>';
+            datosEnvHist += '</thead>';
+            datosEnvHist += '<tbody>';
+
+            dia_ant = "";
+            a = 0;
+            b = 0;
+            c = 0;
+            tot = 0;
+
+            ar = 0;
+            br = 0;
+            cr = 0;
+            rec = 0;
+            for (i = 0; i < arregloEnvHist.length; i++) {
+                tmp = arregloEnvHist[i];
+                dia = tmp.exe_fec_hora.substr(8, 2);
+                f = new Date(tmp.exe_fec_hora.replace(/-/g, '\/'));
+
+                if (i == 0) {
+                    datosEnvHist += '<tr><th class="table-warning" colspan="5">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                    datosEnvHist += '<tr>';
+                    datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                    datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                    datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                    datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                    if (tmp.en_novedad == "") {
+                        rec = 0;
+                        datosEnvHist += '<td>0</td>';
+                    } else {
+                        rec = tmp.en_novedad;
+                        datosEnvHist += '<td>' + tmp.en_novedad + '</td>';
+                    }
+                    datosEnvHist += '</tr>';
+                    a = parseInt(tmp.exe_novedad);
+                    c = (a + b);
+                    b = c;
+
+                    ar = parseInt(rec);
+                    cr = (ar + br);
+                    br = cr;
+                } else {
+                    if (dia == dia_ant) {
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                        if (tmp.en_novedad == "") {
+                            rec = 0;
+                            datosEnvHist += '<td>0</td>';
+                        } else {
+                            rec = tmp.en_novedad;
+                            datosEnvHist += '<td>' + tmp.en_novedad + '</td>';
+                        }
+                        datosEnvHist += '</tr>';
+                        a = parseInt(tmp.exe_novedad);
+                        c = (a + b);
+                        b = c;
+
+                        ar = parseInt(rec);
+                        cr = (ar + br);
+                        br = cr;
+                    } else {
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<th colspan="2">SubTotal</th>';
+
+                        tot = tot + b;
+                        datosEnvHist += '<th colspan="2">' + b + '</th>';
+                        datosEnvHist += '<th>' + br + '</th>';
+                        datosEnvHist += '</tr>';
+
+                        a = 0;
+                        c = 0;
+                        b = 0;
+
+                        ar = 0;
+                        br = 0;
+                        cr = 0;
+
+                        datosEnvHist += '<tr><th class="table-warning" colspan="5">' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</th></tr>';
+                        datosEnvHist += '<tr>';
+                        datosEnvHist += '<td>' + tmp.exe_en_id + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_guia + '</td>';
+                        datosEnvHist += '<td>' + tmp.exe_novedad + '</td>';
+                        datosEnvHist += '<td>' + tmp.en_direccion + '</td>';
+                        if (tmp.en_novedad == "") {
+                            rec = 0;
+                            datosEnvHist += '<td>0</td>';
+                        } else {
+                            rec = tmp.en_novedad;
+                            datosEnvHist += '<td>' + tmp.en_novedad + '</td>';
+                        }
+                        datosEnvHist += '</tr>';
+                        a = parseInt(tmp.exe_novedad);
+                        c = (a + b);
+                        b = c;
+
+                        ar = parseInt(rec);
+                        cr = (ar + br);
+                        br = cr;
+                    }
+                }
+                dia_ant = tmp.exe_fec_hora.substr(8, 2);
+
+            }
+            datosEnvHist += '<tr>';
+            datosEnvHist += '<th colspan="2">SubTotal</th>';
+
+            tot = tot + b;
+            datosEnvHist += '<th colspan="2">' + b + '</th>';
+            datosEnvHist += '<th>' + br + '</th>';
+            datosEnvHist += '</tr>';
+
+            datosEnvHist += '<tr class="table-primary">';
+            datosEnvHist += '<th colspan="2">TOTAL</th>';
+            datosEnvHist += '<th colspan="3">' + tot + '</th>';
+            datosEnvHist += "</tbody></table></div>";
+            $("#datosMenif").html(datosEnvHist);
+
+//            clickActuEstado_OS();
+        } else {
+            $("#datosMenif").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No se encontraron datos.</strong></div>");
         }

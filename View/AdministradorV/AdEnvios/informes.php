@@ -5,8 +5,11 @@
 
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto" id="items">
-            <li class="nav-item" id="itemenlFormOrdenServ">
-                <a class="nav-link enlace" id="enlManifRec">Manifiestos y Recaudos<span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link enlace" id="enlManifRec">Manifiestos/Recaudos<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link enlace" id="enlRecaudCli">Recaudos Cliente</a>
             </li>
         </ul>
     </div>

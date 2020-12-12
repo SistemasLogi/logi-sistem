@@ -75,7 +75,7 @@ session_start();
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="inicio" src="img/logos/LOGO-ESTILO-154x61.png" alt=""/>
+            <img id="inicio" src="img/logos/LOGO_OSCURO_157x73.png" alt=""/>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <?php include './navbar.php'; ?>
             </div>
@@ -176,7 +176,7 @@ session_start();
                                                         <td></td>
                                                         <?php
                                                     } else {
-                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11 || $id_env_dec[$tmp_ult_est]->ee_id == 12) {
                                                             
                                                         } else {
                                                             ?>
@@ -198,7 +198,7 @@ session_start();
                                                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $porcentaje ?>%"></div>
                                                                 <?php
                                                             } else {
-                                                                if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                                if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11 || $id_env_dec[$tmp_ult_est]->ee_id == 12) {
                                                                     ?>
                                                                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress_bar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                                                                     <?php
@@ -225,7 +225,7 @@ session_start();
                                                         <td id="fec_asig">PENDIENTE</td>
                                                         <?php
                                                     } else {
-                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11 || $id_env_dec[$tmp_ult_est]->ee_id == 12) {
                                                             
                                                         } else {
                                                             ?>
@@ -282,6 +282,10 @@ session_start();
                                                             ?>
                                                             <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-loop" style="font-size: xx-large; color: #1ea7f7;"></span></a></td>
                                                             <?php
+                                                        } else if ($id_env_dec[$i]->ee_id == 12) {
+                                                            ?>
+                                                            <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-cancel" style="font-size: xx-large; color: #b90808;"></span></a></td>
+                                                            <?php
                                                         }
                                                         ?>
                                                         <?PHP
@@ -292,7 +296,7 @@ session_start();
                                                         <td><span class="ion-checkmark-circled" style="font-size: xx-large; color: #77248c;"></span></td>
                                                         <?php
                                                     } else {
-                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11) {
+                                                        if ($id_env_dec[$tmp_ult_est]->ee_id == 6 || $id_env_dec[$tmp_ult_est]->ee_id == 7 || $id_env_dec[$tmp_ult_est]->ee_id == 11 || $id_env_dec[$tmp_ult_est]->ee_id == 12) {
                                                             
                                                         } else {
                                                             ?>

@@ -100,10 +100,10 @@ if (!isset($_SESSION["mensajero_logi"])) {
 
                                 <div class="collapse navbar-collapse" id="navbarColor02">
                                     <ul class="navbar-nav mr-auto" id="items">
-                                        <li class="nav-item active" id="itemenlCrearOs">
+                                        <li class="nav-item active">
                                             <a class="nav-link enlace" id="enlEnvHoy">Hoy</a>
                                         </li>
-                                        <li class="nav-item" id="itemenlFormOrdenServ">
+                                        <li class="nav-item">
                                             <a class="nav-link enlace" id="enlSelectEnv">Manifiestos<span class="sr-only">(current)</span></a>
                                         </li>
                                     </ul>
