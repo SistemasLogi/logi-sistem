@@ -108,7 +108,7 @@ if (!isset($_SESSION["cliente_a"])) {
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">
                         <span class="ion-ios-home"></span>
-                        ALMACEN
+                        Almacen
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseALM">
                         <div class="card card-body alert-secondary">

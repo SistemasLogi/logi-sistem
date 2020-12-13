@@ -24,9 +24,9 @@ if ($_POST) {
         $num_doc_cli = $porciones[1];
         $estado = 6; //entregados
         if ($_POST["selectSuc_x_Cli"] == 0 || $_POST["selectSuc_x_Cli"] == "") {
-            $parametro = ";";
+            $parametro = " ORDER BY TS.exe_fec_hora;";
         } else {
-            $parametro = " AND TD.suc_num_id = " . $_POST["selectSuc_x_Cli"] . ";";
+            $parametro = " AND TD.suc_num_id = " . $_POST["selectSuc_x_Cli"] . " ORDER BY TS.exe_fec_hora;";
         }
         echo json_encode($client_dao->consulta_hist_env_cliente($estado, $fecha_ini, $fecha_fin, $td_cli, $num_doc_cli, $parametro));
     } elseif (isset($_SESSION["mensajero_logi"])) {

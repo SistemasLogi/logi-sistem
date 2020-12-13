@@ -29,6 +29,7 @@
                 </div>
                 <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBusEnvFecRec" name="btnBusEnvFecRec">BUSCAR</button>
             </form>
+            <p class="text-primary"><b>NOTA: </b>Si no se selecciona una sucursal la consulta retorna el total de todas las sucusales para un cliente</p>
         </div>
         <div id="datosRecaudo">
 

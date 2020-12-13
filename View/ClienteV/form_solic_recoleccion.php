@@ -79,7 +79,7 @@
                                 </select>
                             </div>
                             <div class="form-group form-group-sm col-lg-5">
-                                <label for="inputObservServ">Observaciones/Recaudo</label>
+                                <label for="inputObservServ">Observaciones</label>
                                 <textarea class="form-control form-control-sm" id="inputObservServ" name="inputObservServ" rows="1"></textarea>
                             </div>
                             <div class="form-group form-group-sm col-lg-2">
@@ -195,7 +195,7 @@
                                     </div>  
                                 </div>
                                 <div class="form-group form-group-sm col-lg-6" id="blqObserv">
-                                    <label for="inputObserv">Observaciones</label>
+                                    <label for="inputObserv">Observaciones/Recaudo</label>
                                     <textarea class="form-control form-control-sm" id="inputObserv" name="inputObserv" rows="1"></textarea>
                                 </div>
                             </div>                    
