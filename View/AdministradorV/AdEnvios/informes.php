@@ -11,6 +11,9 @@
             <li class="nav-item">
                 <a class="nav-link enlace" id="enlRecaudCli">Recaudos Cliente</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link enlace" id="enlConteoEnviosCli">Envios a Facturar</a>
+            </li>
         </ul>
     </div>
 </nav>

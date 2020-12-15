@@ -87,8 +87,12 @@ class Cliente_DAO {
 
     /**
      * Funcion que consulta los envios segun estado para un cliente en un rango de fechas
-     * @param type $td_id
-     * @param type $num_doc
+     * @param type $est_env
+     * @param type $fech_ini
+     * @param type $fech_fin
+     * @param type $td_cli
+     * @param type $num_doc_cli
+     * @param type $parametro
      * @return type
      */
     function consulta_hist_env_cliente($est_env, $fech_ini, $fech_fin, $td_cli, $num_doc_cli, $parametro) {
@@ -104,7 +108,39 @@ class Cliente_DAO {
                 . "LEFT JOIN "
                 . "(SELECT osu.*, suc.suc_nombre "
                 . "FROM os_x_suc AS osu, sucursales AS suc "
-                . "WHERE osu.suc_num_id = suc.suc_num_id) AS TD ON TS.os_id = TD.os_id".$parametro."";
+                . "WHERE osu.suc_num_id = suc.suc_num_id) AS TD ON TS.os_id = TD.os_id" . $parametro . "";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que consulta los envios procesados para facturacion de cliente en un rango de fechas
+     * @param type $fech_ini
+     * @param type $fech_fin
+     * @param type $td_cli
+     * @param type $num_doc_cli
+     * @return type
+     */
+    function consulta_hist_env_cliente_fact($fech_ini, $fech_fin, $td_cli, $num_doc_cli) {
+        $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
+                . "(SELECT TM.*, e.en_guia, e.os_id, e.en_cantidad, e.en_peso, e.en_alto, e.en_ancho, e.en_largo, e.en_nombre, e.en_direccion, e.en_telefono, "
+                . "e.en_ciudad, e.en_departamento, e.en_contiene, e.en_valor_decl, em.emp_nombre, es.ee_desc, "
+                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre "
+                . "FROM (SELECT TE1.exe_en_id, TE2.exe_ee_id, TE2.exe_fec_hora, TE2.exe_novedad, TE2.td_id_men, TE2.num_doc_men FROM("
+                . "SELECT TU1.* FROM est_x_envio AS TU1 WHERE TU1.exe_fec_hora = (SELECT MAX(TU2.exe_fec_hora) "
+                . "FROM est_x_envio AS TU2 WHERE TU1.exe_en_id = TU2.exe_en_id)AND TU1.exe_ee_id !=12 "
+                . "GROUP BY TU1.exe_en_id ORDER BY TU1.exe_fec_hora DESC) AS TE1 "
+                . "LEFT JOIN (SELECT TP1.* FROM est_x_envio AS TP1 WHERE TP1.exe_fec_hora = (SELECT MIN(TP2.exe_fec_hora) "
+                . "FROM est_x_envio AS TP2 WHERE TP1.exe_en_id = TP2.exe_en_id) "
+                . "GROUP BY TP1.exe_en_id ORDER BY TP1.exe_fec_hora DESC)AS TE2 ON TE1.exe_en_id = TE2.exe_en_id) AS TM, envio AS e, empleados AS em, estado_env AS es, "
+                . "orden_serv AS o, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND te.te_id != 4 "
+                . "AND cl.cli_td_id = " . $td_cli . " AND cl.cli_num_doc = " . $num_doc_cli . " AND TM.exe_fec_hora BETWEEN '" . $fech_ini . "' AND '" . $fech_fin . "') AS TP "
+                . "LEFT JOIN (SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id) AS TS "
+                . "ON TP.os_id = TS.os_id ORDER BY TP.exe_fec_hora;";
         $BD = new MySQL();
 //        return $sql;
         return $BD->query($sql);

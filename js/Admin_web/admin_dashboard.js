@@ -5860,6 +5860,9 @@ function vista_informes_envios() {
         $("#enlRecaudCli").click(function () {
             vista_form_recaud_cli();
         });
+        $("#enlConteoEnviosCli").click(function () {
+            vista_form_conteo_envios_fact();
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -6244,7 +6247,7 @@ function validarFechaRecaudCli() {
             }
         },
         submitHandler: function (form) {
-            compararFechasRecaud();
+            compararFechasCli(consulta_env_entregados_recaudo);
         }
     });
 }
@@ -6252,15 +6255,16 @@ function validarFechaRecaudCli() {
 /**
  * Metodo que permite controlar que la fecha inicial sea menor a la final
  * formulario de informe de recaudos cliente sucursal
+ * @param {type} metodo
  * @returns {undefined}
  */
-function compararFechasRecaud() {
+function compararFechasCli(metodo) {
     var fInicial = $("#InputFecIni").val();
     var fFinal = $("#InputFecFin").val();
     if (fInicial > fFinal) {
         alertify.alert("La fecha de inicio no debe ser mayor que la fecha final").setHeader('<em> Cuidado! </em> ');
     } else {
-        consulta_env_entregados_recaudo();
+        metodo();
     }
 }
 
@@ -6272,7 +6276,7 @@ function consulta_env_entregados_recaudo() {
     request = "Controller/AdminC/AdministrarEnvios/cons_hist_recaudo_cli_controller.php";
     cadena = $("#formFechRecaudCli").serialize(); //envio de parametros por POST
     metodo = function (datos) {
-        
+
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
         diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
         arregloEnvHist = $.parseJSON(datos);
@@ -6410,6 +6414,161 @@ function consulta_env_entregados_recaudo() {
                  <strong>No se encontraron datos.</strong></div>");
         }
         $("#totalRec").html("Total Recaudos: $" + tot);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga formulario para generar informe de envios a facturar
+ * @returns {undefined}
+ */
+function vista_form_conteo_envios_fact() {
+    request = "View/AdministradorV/AdEnvios/form_cuenta_env_fact_cli.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#contenInfEnv").html(datos);
+
+        combo_clientes_dos();
+
+        $("#btnBusEnvFecFact").click(function () {
+            validarFechaEnvCliFact();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que permite validar campos de formulario seleccion de fechas
+ * para informe de recaudos cliente sucursal
+ * @returns {undefined}
+ */
+function validarFechaEnvCliFact() {
+    $("#formFechConteoEnvCliFact").validate({
+        rules: {
+            InputFecIni: {
+                required: true,
+                date: true
+            },
+            InputFecFin: {
+                required: true,
+                date: true
+            },
+            selectCliente: {
+                valueNotEquals: "0|0"
+            }
+        },
+        submitHandler: function (form) {
+            compararFechasCli(consulta_env_cli_fact);
+        }
+    });
+}
+
+/**
+ * Metodo que retorna los envios procesados para facturar
+ * @returns {undefined}
+ */
+function consulta_env_cli_fact() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_hist_env_cli_fact_controller.php";
+    cadena = $("#formFechConteoEnvCliFact").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arregloEnvHistFact = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvHistFact !== 0) {
+            datosEnvHistFact = '<div class="table-responsive text-nowrap col-lg-12">';
+            datosEnvHistFact += '<table class="table table-sm table-bordered table-hover" id="tableEnvCliFact">';
+            datosEnvHistFact += '<thead>';
+            datosEnvHistFact += '<tr class="table-primary text-primary">';
+            datosEnvHistFact += '<th scope="col">N° Envio</th>';
+            datosEnvHistFact += '<th scope="col">Guia OP</th>';
+            datosEnvHistFact += '<th scope="col">Fecha</th>';
+            datosEnvHistFact += '<th scope="col">N° OS</th>';
+            datosEnvHistFact += '<th scope="col">Cliente</th>';
+            datosEnvHistFact += '<th scope="col">Sucursal</th>';
+            datosEnvHistFact += '<th scope="col">T. Servicio</th>';
+            datosEnvHistFact += '<th scope="col">T. Envio</th>';
+            datosEnvHistFact += '<th scope="col">Nombre Destinatario</th>';
+            datosEnvHistFact += '<th scope="col">Dirección Destino</th>';
+            datosEnvHistFact += '<th scope="col">Ciudad Destino</th>';
+            datosEnvHistFact += '</tr>';
+            datosEnvHistFact += '</thead>';
+            datosEnvHistFact += '<tbody>';
+
+            for (i = 0; i < arregloEnvHistFact.length; i++) {
+                tmp = arregloEnvHistFact[i];
+
+                dia = tmp.exe_fec_hora.substr(8, 2);
+                f = new Date(tmp.exe_fec_hora.replace(/-/g, '\/'));
+
+                datosEnvHistFact += '<td>' + tmp.exe_en_id + '</td>';
+                datosEnvHistFact += '<td>' + tmp.en_guia + '</td>';
+                datosEnvHistFact += '<td>' + diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear() + '</td>';
+                datosEnvHistFact += '<td>' + tmp.os_id + '</td>';
+                datosEnvHistFact += '<td>' + tmp.cli_nombre + '</td>';
+                datosEnvHistFact += '<td>' + tmp.suc_nombre + '</td>';
+                datosEnvHistFact += '<td>' + tmp.ts_desc + '</td>';
+                datosEnvHistFact += '<td>' + tmp.te_desc + '</td>';
+                datosEnvHistFact += '<td>' + tmp.en_nombre + '</td>';
+                datosEnvHistFact += '<td>' + tmp.en_direccion + '</td>';
+                datosEnvHistFact += '<td>' + tmp.en_ciudad + '</td>';
+                datosEnvHistFact += '</tr>';
+
+            }
+
+            datosEnvHistFact += "</tbody></table></div>";
+            $("#datosEnvFact").html(datosEnvHistFact);
+
+            $('#tableEnvCliFact thead tr').clone(true).appendTo('#tableEnvCliFact thead');
+            $('#tableEnvCliFact thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                if (i == 0) {
+                    $(this).html('<input type="text" id="inpCod' + i + '" placeholder="' + title + '" size="4">');
+                } else if (i == 1) {
+                    $(this).html('<input type="text" id="inpCod' + i + '" placeholder="' + title + '" size="5">');
+                } else if (i == 2) {
+                    $(this).html('<input type="text" id="inpSku' + i + '" placeholder="' + title + '" size="20">');
+                } else if (i == 3) {
+                    $(this).html('<input type="text" id="inpDesc' + i + '" placeholder="' + title + '" size="3">');
+                } else if (i == 4) {
+                    $(this).html('<input type="text" id="inpUb' + i + '" placeholder="' + title + '" size="20">');
+                } else if (i == 5) {
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="20">');
+                } else if (i == 6) {
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="8">');
+                } else if (i == 7) {
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="8">');
+                } else if (i == 8) {
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="30">');
+                } else if (i == 9) {
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="30">');
+                } else if (i == 10) {
+                    $(this).html('<input type="text" id="inpCos' + i + '" placeholder="' + title + '" size="8">');
+                }
+//                $(this).html('<input type="text" id="inp' + i + '" placeholder="' + title + '"/>');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                                .column(i)
+                                .search(this.value)
+                                .draw();
+                    }
+                });
+            });
+
+            var table = $('#tableEnvCliFact').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true
+            });
+
+
+//            clickActuEstado_OS();
+        } else {
+            $("#datosEnvFact").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No se encontraron datos.</strong></div>");
+        }
     };
     f_ajax(request, cadena, metodo);
 }
