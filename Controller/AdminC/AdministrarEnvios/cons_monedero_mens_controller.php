@@ -16,7 +16,7 @@ $dia = date("d", $date); // day
 $número = cal_days_in_month(CAL_GREGORIAN, $mes, $anio); // 31
 
 if ($_POST) {
-    if ($dia < 15) {
+    if ($dia < 16) {
         $fecha_ini = $anio . "-" . $mes . "-01 " . $hora_desde;
         $fecha_fin = $anio . "-" . $mes . "-15 " . $hora_hasta;
         setlocale(LC_TIME, "spanish");

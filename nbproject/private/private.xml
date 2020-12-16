@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_hist_env_cli_fact_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/form_cuenta_env_fact_cli.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/form_manif_recaudos.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/OrdenesServicio/crear_os_cliente.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_historico_env_mens_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/mensajero_logi.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/informes.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/cons_hist_recaudo_cli_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Cliente_DAO.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/form_recaudos_cli.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard_envios.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/ingreso_clientes.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/consulta_ult_est_envio_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/cliente_logi.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
         </group>
     </open-files>

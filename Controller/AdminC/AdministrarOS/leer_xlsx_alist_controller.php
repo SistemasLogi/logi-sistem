@@ -17,7 +17,7 @@ if ($_POST) {
 
     $spreadsheet = IOFactory::load($xls_name);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-
+    $valor = $_POST["valor"];
     if ($sheetData[1]['A'] == "Guia" && $sheetData[1]['B'] == "No venta" && $sheetData[1]['C'] == "SKU" && $sheetData[1]['D'] == "Cantidad" && $sheetData[1]['E'] == "Operador") {
 
         $or_servi_dao = new Orden_serv_DAO();
@@ -31,7 +31,7 @@ if ($_POST) {
         $or_servi_vo->setCli_docum($_SESSION["num_doc_cli_adm_alst"]);
         $or_servi_vo->setCli_id($_SESSION["td_cli_adm_alst"]);
 
-        $or_servi_vo->setTipo_serv_id(4); //Predifinido Alistamiento
+        $or_servi_vo->setTipo_serv_id($valor); //parametro por post
 
         $or_servi_vo->setObservacion('');
 
@@ -66,7 +66,7 @@ if ($_POST) {
                     $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
                     $aenvio_vo->setAenv_operador_id($sheetData[2]['U']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
-                    $aenvio_dao->insertarAlistEnvio($aenvio_vo);//guarda la primera fila del xlsx
+                    $aenvio_dao->insertarAlistEnvio($aenvio_vo); //guarda la primera fila del xlsx
 
                     $guia_num = $sheetData[2]['A'];
 
@@ -114,8 +114,7 @@ if ($_POST) {
                     $obj_est_x_aenvio_dao = new Est_x_aenv_DAO();
                     $novedad = "";
 
-                    $obj_est_x_aenvio_dao->insertarEstados_x_AEnvio(1, $_SESSION["fecha_adm_alst"], $novedad, $os_id[0]->os_id);//El primer parametro es el codigo del estado
-
+                    $obj_est_x_aenvio_dao->insertarEstados_x_AEnvio(1, $_SESSION["fecha_adm_alst"], $novedad, $os_id[0]->os_id); //El primer parametro es el codigo del estado
                     //***insertar datos en salidas temp****
                     $reg_tsal_temp = trim($reg_tsalidas_temp, ",");
                     $reg_tsal_temp .= ";";

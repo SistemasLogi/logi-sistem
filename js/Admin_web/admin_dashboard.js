@@ -2771,6 +2771,9 @@ function seguimiento_estado() {
     };
     f_ajax(request, cadena, metodo);
 }
+
+var valor;
+
 /**
  * Metodo que trae a la vista el entorno de creacion de ordenes de servicio
  * @returns {undefined}
@@ -2818,7 +2821,8 @@ function crear_os_por_cliente() {
                     $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
                     $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                 }
-            } else if ($("#selectProceso").val() == 2) {
+            } else if ($("#selectProceso").val() == 4 || $("#selectProceso").val() == 5) {
+                valor = $("#selectProceso").val();
                 formulario_alistamiento_xlsx();
                 if ($('#checkSucur').prop('checked')) {
                     if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
@@ -3921,7 +3925,7 @@ function cargaArchivo_xlsx_alist() {
  */
 function lectura_xlsx_alist() {
     request = "Controller/AdminC/AdministrarOS/leer_xlsx_alist_controller.php";
-    cadena = "a=1";
+    cadena = "valor=" + valor;
     metodo = function (datos) {
         $("#changeAlistEnvios").html(datos);
 
