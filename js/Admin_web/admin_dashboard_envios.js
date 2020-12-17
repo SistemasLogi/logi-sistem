@@ -187,7 +187,9 @@ function consulta_tabla_env_x_est(id_est) {
                                 <th scope="col">MENSAJERO</th>\n\
                                 <th scope="col">SERVICIO</th>\n\
                                 <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">NOMBRE</th>\n\
                                 <th scope="col">DIRECCION</th>\n\
+                                <th scope="col">TELEFONO</th>\n\
                                 <th scope="col">OBSERVACIONES</th>\n\
                                 </tr></thead><tbody>';
 
@@ -224,7 +226,9 @@ function consulta_tabla_env_x_est(id_est) {
                     datos_env += '<td>' + temp.ts_desc + '</td>';
                 }
                 datos_env += '<td>' + temp.te_desc + '</td>';
+                datos_env += '<td>' + temp.en_nombre + '</td>';
                 datos_env += '<td>' + temp.en_direccion + '</td>';
+                datos_env += '<td>' + temp.en_telefono + '</td>';
                 datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
             }
             datos_env += "</tbody></table></div></div></div>";
