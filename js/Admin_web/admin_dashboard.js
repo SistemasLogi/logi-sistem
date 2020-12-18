@@ -2773,6 +2773,7 @@ function seguimiento_estado() {
 }
 
 var valor;
+var id_cliente_select;
 
 /**
  * Metodo que trae a la vista el entorno de creacion de ordenes de servicio
@@ -2798,50 +2799,56 @@ function crear_os_por_cliente() {
         });
 
         $("#selectCliente").change(function () {
+            id_cliente_select = $("#selectCliente").val();
             if ($('#checkSucur').prop('checked')) {
                 combo_sucursal_x_cli();
             }
         });
 
         $("#btnSiguiente").click(function () {
-            if ($("#selectProceso").val() == 1) {
-                formulario_recolec();
-                if ($('#checkSucur').prop('checked')) {
-                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+            if ($("#selectCliente").val() == '0|0') {
+                alertify.alert('Por favor seleccione un cliente').setHeader('<em> Cuidado! </em> ');
+            } else {
+                if ($("#selectProceso").val() == 1) {
+                    formulario_recolec();
+                    if ($('#checkSucur').prop('checked')) {
+                        if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                            datos_cliente_selected();
+                            $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                            $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                        } else {
+                            datos_sucursal_selected();
+                            $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+                            $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                        }
+                    } else {
                         datos_cliente_selected();
                         $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
                         $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
-                    } else {
-                        datos_sucursal_selected();
-                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
-                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     }
-                } else {
-                    datos_cliente_selected();
-                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
-                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
-                }
-            } else if ($("#selectProceso").val() == 4 || $("#selectProceso").val() == 5) {
-                valor = $("#selectProceso").val();
-                formulario_alistamiento_xlsx();
-                if ($('#checkSucur').prop('checked')) {
-                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                } else if ($("#selectProceso").val() == 4 || $("#selectProceso").val() == 5) {
+                    valor = $("#selectProceso").val();
+                    formulario_alistamiento_xlsx();
+                    if ($('#checkSucur').prop('checked')) {
+                        if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                            datos_cliente_selected();
+                            $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                            $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                        } else {
+                            datos_sucursal_selected();
+                            $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+                            $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                        }
+                    } else {
                         datos_cliente_selected();
                         $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
                         $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
-                    } else {
-                        datos_sucursal_selected();
-                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
-                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     }
-                } else {
-                    datos_cliente_selected();
-                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
-                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                 }
+                $("#formBuscarCli_crear_OS").hide();
+                $("#infoCliente").show();
             }
-            $("#formBuscarCli_crear_OS").hide();
-            $("#infoCliente").show();
+
         });
     };
     f_ajax(request, cadena, metodo);
@@ -3104,7 +3111,7 @@ function combo_clientes() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         arreglo = $.parseJSON(datos);
-        datouscombo = "";
+        datouscombo = '<option value="0|0">Seleccione...</option>';
         for (i = 0; i < arreglo.length; i++) {
             temp = arreglo[i];
             datouscombo += '<option value="' + temp.cli_td_id + '|' + temp.cli_num_doc + '">' + temp.cli_nombre + "</option>";
@@ -3681,7 +3688,7 @@ function clickGestProducto() {
  */
 function combo_sucursal_x_cli() {
     request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_cli_controller.php";
-    cadena = "selectCliente=" + $("#selectCliente").val(); //envio de parametros por POST
+    cadena = "selectCliente=" + id_cliente_select; //envio de parametros por POST
     metodo = function (datos) {
         arreglo_suc_cli = $.parseJSON(datos);
         datouscombo = "";
@@ -3727,7 +3734,7 @@ function combo_sucursal_x_cli_dos() {
  */
 function datos_cliente_selected() {
     request = "Controller/AdminC/AdministrarCliente/consulta_cli_x_num_controller.php";
-    cadena = "selectCliente=" + $("#selectCliente").val(); //envio de parametros por POST
+    cadena = "selectCliente=" + id_cliente_select; //envio de parametros por POST
     metodo = function (datos) {
         arreglo_datos_cli = $.parseJSON(datos);
 

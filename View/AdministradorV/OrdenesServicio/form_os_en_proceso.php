@@ -24,7 +24,8 @@
                                 <div>
                                     <select class="form-control form-control-sm mr-sm-2 col-12" id="selectProceso">
                                         <option value="1">RECOLECCIÓN</option>
-                                        <option value="2">ALISTAMIENTO</option>
+                                        <option value="4">ALISTAMIENTO</option>
+                                        <option value="5">ALISTAMIENTO CORTESÍA</option>
                                     </select>
                                 </div>
                             </div>
