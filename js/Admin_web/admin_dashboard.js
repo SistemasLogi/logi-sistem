@@ -2809,6 +2809,7 @@ function crear_os_por_cliente() {
             if ($("#selectCliente").val() == '0|0') {
                 alertify.alert('Por favor seleccione un cliente').setHeader('<em> Cuidado! </em> ');
             } else {
+                $("#infoCliente").show();
                 if ($("#selectProceso").val() == 1) {
                     formulario_recolec();
                     if ($('#checkSucur').prop('checked')) {
@@ -2846,7 +2847,6 @@ function crear_os_por_cliente() {
                     }
                 }
                 $("#formBuscarCli_crear_OS").hide();
-                $("#infoCliente").show();
             }
 
         });
