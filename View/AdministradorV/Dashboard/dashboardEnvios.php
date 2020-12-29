@@ -5,7 +5,7 @@
             <div class="form-row align-items-center">
                 <div class="col-sm-3 my-1">
                     <label class="mr-sm-2" for="selectCliente">Cliente</label>
-                    <select class="form-control form-control-sm" id="selectCliente">
+                    <select class="form-control form-control-sm" id="selectCliente" name="selectCliente">
 
                     </select>
                 </div> 
@@ -17,12 +17,12 @@
                 </div>
                 <div class="col-sm-3 my-1" id="blqSucur" style="display: none;">
                     <label class="mr-sm-2" for="selectSuc_x_Cli">Sucursal</label>
-                    <select class="form-control form-control-sm" id="selectSuc_x_Cli">
+                    <select class="form-control form-control-sm" id="selectSuc_x_Cli" name="selectSuc_x_Cli">
                         
                     </select>
                 </div>
                 <div class="col-auto my-1 mt-4">
-                    <button type="button" class="btn btn-primary" id="btnVer">VER</button>
+                    <button type="submit" class="btn btn-primary" id="btnVer">VER</button>
                 </div>
             </div>
         </form>
