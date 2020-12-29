@@ -9,6 +9,49 @@ function vista_dashboard_envios() {
 //        exist = false;
         $("#list-formCliente").html(datos);
         consulta_dashboard_envios_card();
+        combo_clientes();
+
+        $('#checkSucur').on('click', function () {
+            if ($(this).is(':checked')) {
+                // Hacer algo si el checkbox ha sido seleccionado
+                $("#blqSucur").show();
+                combo_sucursal_x_cli();
+            } else {
+                // Hacer algo si el checkbox ha sido deseleccionado
+                $("#selectSuc_x_Cli").html("");
+                $("#blqSucur").hide();
+            }
+        });
+
+        $("#selectCliente").change(function () {
+            id_cliente_select = $("#selectCliente").val();
+            if ($('#checkSucur').prop('checked')) {
+                combo_sucursal_x_cli();
+            }
+        });
+
+        $("#btnVer").click(function () {
+            if ($("#selectCliente").val() == '0|0') {
+                alertify.alert('Por favor seleccione un cliente').setHeader('<em> Cuidado! </em> ');
+            } else {
+                if ($('#checkSucur').prop('checked')) {
+                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                        datos_cliente_selected();
+                        $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                    } else {
+                        datos_sucursal_selected();
+                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
+                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                    }
+                } else {
+                    datos_cliente_selected();
+                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
+                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
+                }
+            }
+
+        });
 //        consulta_dashboard_serv();
 //        setInterval(consulta_os_program, 20000);
     };

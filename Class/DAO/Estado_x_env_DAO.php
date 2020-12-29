@@ -130,9 +130,10 @@ class Estado_x_env_DAO {
      * Funcion que retorna datos de el ultimo estado de todos los envios
      * @param type $param_subquery
      * @param type $param
+     * @param type $sucursal
      * @return type
      */
-    function consulta_ultimo_est_envios($param_subquery, $param) {
+    function consulta_ultimo_est_envios($param_subquery, $param, $sucursal) {
         $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
                 . "(SELECT TM.*, e.en_guia, e.os_id, e.en_cantidad, e.en_nombre, e.en_direccion, e.en_telefono, "
                 . "e.en_ciudad, e.en_departamento, e.en_contiene, e.en_valor_decl, em.emp_nombre, es.ee_desc, "
@@ -148,7 +149,7 @@ class Estado_x_env_DAO {
                 . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc "
                 . "" . $param . ") AS TP "
                 . "LEFT JOIN "
-                . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id) AS TS "
+                . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "
                 . "ON TP.os_id = TS.os_id;";
 
         $BD = new MySQL();
