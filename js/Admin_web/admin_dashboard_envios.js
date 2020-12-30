@@ -1,3 +1,29 @@
+var id_cliente_sel = "0|0";
+var id_sucursal_sel = "0";
+/**
+ * Metodo que retorna los datos a combo sucursales por cliente seleccionado
+ * @returns {undefined}
+ */
+function combo_sucursal_x_cli_dos() {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_cli_controller.php";
+    cadena = "selectCliente=" + id_cliente_sel; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc_cli = $.parseJSON(datos);
+        datouscombo = "";
+        if (arreglo_suc_cli == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            datouscombo += '<option value="0">Seleccione..</option>';
+            for (i = 0; i < arreglo_suc_cli.length; i++) {
+                temp = arreglo_suc_cli[i];
+                datouscombo += '<option value="' + temp.suc_num_id + '">' + temp.suc_nombre + "</option>";
+            }
+        }
+
+        $("#selectSuc_x_Cli").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
 /**
  * Metodo que carga el dashboard principal de envios
  * @returns {undefined}
@@ -11,46 +37,19 @@ function vista_dashboard_envios() {
         consulta_dashboard_envios_card();
         combo_clientes();
 
-        $('#checkSucur').on('click', function () {
-            if ($(this).is(':checked')) {
-                // Hacer algo si el checkbox ha sido seleccionado
-                $("#blqSucur").show();
-                combo_sucursal_x_cli();
-            } else {
-                // Hacer algo si el checkbox ha sido deseleccionado
-                $("#selectSuc_x_Cli").html("");
-                $("#blqSucur").hide();
-            }
-        });
 
         $("#selectCliente").change(function () {
-            id_cliente_select = $("#selectCliente").val();
-            if ($('#checkSucur').prop('checked')) {
-                combo_sucursal_x_cli();
-            }
+            id_sucursal_sel = "0";
+            id_cliente_sel = $("#selectCliente").val();
+            combo_sucursal_x_cli_dos();
+        });
+
+        $("#selectSuc_x_Cli").change(function () {
+            id_sucursal_sel = $("#selectSuc_x_Cli").val();
         });
 
         $("#btnVer").click(function () {
-            if ($("#selectCliente").val() == '0|0') {
-                alertify.alert('Por favor seleccione un cliente').setHeader('<em> Cuidado! </em> ');
-            } else {
-                if ($('#checkSucur').prop('checked')) {
-                    if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
-                        datos_cliente_selected();
-                        $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
-                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
-                    } else {
-                        datos_sucursal_selected();
-                        $("#nomCli").html("Cliente: " + $("#selectSuc_x_Cli option:selected").html());
-                        $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
-                    }
-                } else {
-                    datos_cliente_selected();
-                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
-                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
-                }
-            }
-
+            consulta_dashboard_envios_card_cli(id_cliente_sel, id_sucursal_sel);
         });
 //        consulta_dashboard_serv();
 //        setInterval(consulta_os_program, 20000);
@@ -143,7 +142,7 @@ function clickPanelDash() {
     $(".est_envio").click(function () {
         estado_id = $(this).attr("elem");
 //        alert(estado_id);
-        consulta_tabla_env_x_est(estado_id);
+        consulta_tabla_env_x_est(id_cliente_sel, id_sucursal_sel, estado_id);
 //        $("#btnGuardaCiu").removeClass("btn-primary");
 //        $("#btnGuardaCiu").addClass("btn-warning");
 //        $("#btnGuardaCiu").html("Actualizar");
@@ -161,12 +160,14 @@ function clickPanelDash() {
 var arreglo_env;
 /**
  * Metodo que carga la tabla de envios segun el estado
+ * @param {type} cliente_id
+ * @param {type} sucursal_id
  * @param {type} id_est
  * @returns {consulta_tabla_env_x_est}
  */
-function consulta_tabla_env_x_est(id_est) {
+function consulta_tabla_env_x_est(cliente_id, sucursal_id, id_est) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php";
-    cadena = "id_est_env=" + id_est; //envio de parametros por POST
+    cadena = {"cliente_id": cliente_id, "sucursal_id": sucursal_id, "id_est_env": id_est}; //envio de parametros por POST
     metodo = function (datos) {
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
         diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
@@ -383,7 +384,7 @@ function insert_estado_envio_dash(selectMensajero, inputNumEnvi, selectEstado, t
     metodo = function (datos) {
 
         if (datos == 1) {
-            consulta_tabla_env_x_est(estado_id);
+            consulta_tabla_env_x_est(id_cliente_sel, id_sucursal_sel, estado_id);
             consulta_dashboard_envios_card();
         } else {
             alert(datos);
@@ -543,6 +544,60 @@ function insert_estado_envio() {
         } else {
             alert("Error al actualizar estado, por favor vuelva a dar click en el envio");
             limpiarFormulario("#formModalEnvEst");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Funcion que carga las acciones en los card segun cliente
+ * @param {type} cliente_id
+ * @param {type} sucursal_id
+ * @returns {consulta_dashboard_envios_card_cli}
+ */
+function consulta_dashboard_envios_card_cli(cliente_id, sucursal_id) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_env_cli_controller.php";
+    cadena = {"cliente_id": cliente_id, "sucursal_id": sucursal_id}; //envio de parametros por POST
+    metodo = function (datos) {
+        env_program = 0;
+        env_bodega_or = 0;
+        env_reparto = 0;
+        env_novedad = 0;
+        env_gest_fin = 0;
+        env_solucion = 0;
+        env_viajando_dest = 0;
+        env_bodega_dest = 0;
+        arregloEstEnvCard = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstEnvCard !== 0) {
+
+            for (i = 0; i < arregloEstEnvCard.length; i++) {
+                tmp = arregloEstEnvCard[i];
+                if (tmp.exe_ee_id == 1) {
+                    env_program++;
+                } else if (tmp.exe_ee_id == 2) {
+                    env_bodega_or++;
+                } else if (tmp.exe_ee_id == 3) {
+                    env_viajando_dest++;
+                } else if (tmp.exe_ee_id == 4) {
+                    env_bodega_dest++;
+                } else if (tmp.exe_ee_id == 5) {
+                    env_reparto++;
+                } else if (tmp.exe_ee_id == 8) {
+                    env_novedad++;
+                } else if (tmp.exe_ee_id == 9) {
+                    env_gest_fin++;
+                } else if (tmp.exe_ee_id == 10) {
+                    env_solucion++;
+                }
+            }
+
+            control_dash_envios();
+            clickPanelDash();
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
         }
     };
     f_ajax(request, cadena, metodo);
