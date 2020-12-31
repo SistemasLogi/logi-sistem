@@ -9,12 +9,6 @@
 
                     </select>
                 </div> 
-                <!--                <div class="col-auto my-1 mt-4">
-                                    <div class="custom-control custom-checkbox mr-sm-2">
-                                        <input type="checkbox" class="custom-control-input" id="checkSucur">
-                                        <label class="custom-control-label" for="checkSucur">Seleccionar Sucursal</label>
-                                    </div>
-                                </div>-->
                 <div class="col-sm-3 my-1" id="blqSucur">
                     <label class="mr-sm-2" for="selectSuc_x_Cli">Sucursal</label>
                     <select class="form-control form-control-sm" id="selectSuc_x_Cli">

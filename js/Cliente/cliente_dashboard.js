@@ -215,7 +215,7 @@ function segui_estado_alist_env_cl() {
     };
     f_ajax(request, cadena, metodo);
 }
-
+var id_sucursal_sel = "0";
 /**
  * Metodo que carga el dashboard principal de envios
  * @returns {undefined}
@@ -226,9 +226,25 @@ function vista_dashboard_envios_cl() {
     metodo = function (datos) {
 //        exist = false;
         $("#sectionConten").html(datos);
-//        $("#btnBuscaEnvFech").click(function () {
-//            validarFechEnvEst();
-//        });
+
+        combo_sucursal_x_dos();
+
+        $("#selectSuc_Cli").change(function () {
+            id_sucursal_sel = $("#selectSuc_Cli").val();
+        });
+
+        $("#btnVer").click(function () {
+            consulta_dashboard_envios_card_cli(id_sucursal_sel);
+
+            if ($('#selectSuc_Cli option:selected').val() == '0') {
+                $("#lbSuc").html("");
+            } else {
+                $("#lbSuc").html(' ' + $('#selectSuc_Cli option:selected').text());
+            }
+
+
+        });
+
         consulta_dashboard_envios_card_cl();
 
     };
@@ -285,7 +301,29 @@ function combo_sucursal_x() {
     };
     f_ajax(request, cadena, metodo);
 }
-
+/**
+ * Metodo que retorna los datos a combo sucursales por cliente seleccionado
+ * @returns {undefined}
+ */
+function combo_sucursal_x_dos() {
+    request = "Controller/ClienteC/consulta_suc_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc_cli = $.parseJSON(datos);
+        datouscombo = "";
+        if (arreglo_suc_cli == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            datouscombo += '<option value="0">Todos</option>';
+            for (i = 0; i < arreglo_suc_cli.length; i++) {
+                temp = arreglo_suc_cli[i];
+                datouscombo += '<option value="' + temp.suc_num_id + '">' + temp.suc_nombre + "</option>";
+            }
+        }
+        $("#selectSuc_Cli").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
 /**
  * Metodo que permite validar campos de fecha en dashboard envios cliente
  * @returns {undefined}
@@ -333,6 +371,22 @@ function control_dash_envios() {
     $("#cantEnvNovedades").html(env_novedad);
     $("#cantEnvBodegaDest").html(env_bodega_dest);
 }
+
+/**
+ * Metodo que resetea los paneles
+ * @returns {undefined}
+ */
+function control_dash_envios_reset() {
+    $("#cantEnvProgram").html("");
+    $("#cantEnvGestFin").html("");
+    $("#cantEnvBodegaOr").html("");
+    $("#cantEnvSolucion").html("");
+    $("#cantEnvReparto").html("");
+    $("#cantEnvViajDest").html("");
+    $("#cantEnvNovedades").html("");
+    $("#cantEnvBodegaDest").html("");
+}
+
 var fech_ini;
 var fech_fin;
 /**
@@ -390,6 +444,60 @@ function consulta_dashboard_envios_card_cl() {
     f_ajax(request, cadena, metodo);
 }
 
+/**
+ * Funcion que carga las acciones en los card segun cliente
+ * @param {type} sucursal_id
+ * @returns {consulta_dashboard_envios_card_cli}
+ */
+function consulta_dashboard_envios_card_cli(sucursal_id) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_env_cli_controller.php";
+    cadena = {"sucursal_id": sucursal_id}; //envio de parametros por POST
+    metodo = function (datos) {
+        control_dash_envios_reset();
+        env_program = 0;
+        env_bodega_or = 0;
+        env_reparto = 0;
+        env_novedad = 0;
+        env_gest_fin = 0;
+        env_solucion = 0;
+        env_viajando_dest = 0;
+        env_bodega_dest = 0;
+        arregloEstEnvCard = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstEnvCard !== 0) {
+
+            for (i = 0; i < arregloEstEnvCard.length; i++) {
+                tmp = arregloEstEnvCard[i];
+                if (tmp.exe_ee_id == 1) {
+                    env_program++;
+                } else if (tmp.exe_ee_id == 2) {
+                    env_bodega_or++;
+                } else if (tmp.exe_ee_id == 3) {
+                    env_viajando_dest++;
+                } else if (tmp.exe_ee_id == 4) {
+                    env_bodega_dest++;
+                } else if (tmp.exe_ee_id == 5) {
+                    env_reparto++;
+                } else if (tmp.exe_ee_id == 8) {
+                    env_novedad++;
+                } else if (tmp.exe_ee_id == 9) {
+                    env_gest_fin++;
+                } else if (tmp.exe_ee_id == 10) {
+                    env_solucion++;
+                }
+            }
+
+            control_dash_envios();
+            clickPanelDashCl();
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
 var estado_id;
 /**
  * Metodo que plasma los datos del elemento seleccionado en los campos de texto
@@ -404,7 +512,7 @@ function clickPanelDashCl() {
         if (estado_id == 6 || estado_id == 7 || estado_id == 11) {
             click_modal_fech();
         } else {
-            consulta_tabla_env_x_est_cl(estado_id);
+            consulta_tabla_env_x_est_cl(estado_id, id_sucursal_sel);
         }
 
         //En esta linea me redirije al formulario con una velocodad establecida
@@ -563,11 +671,12 @@ function consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, est_env) {
 /**
  * Metodo que carga la tabla de envios segun el estado en dashboard cliente
  * @param {type} est_env
+ * @param {type} sucursal_id
  * @returns {consulta_tabla_env_x_est_cl}
  */
-function consulta_tabla_env_x_est_cl(est_env) {
+function consulta_tabla_env_x_est_cl(est_env, sucursal_id) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php";
-    cadena = "id_est_env=" + est_env; //envio de parametros por POST
+    cadena = {"id_est_env": est_env, "sucursal_id": sucursal_id}; //envio de parametros por POST
     metodo = function (datos) {
 //        alert(datos);
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");

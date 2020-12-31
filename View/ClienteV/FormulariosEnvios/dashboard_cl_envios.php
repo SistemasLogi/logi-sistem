@@ -1,5 +1,20 @@
 <div class="row">
-    <legend>CANTIDAD DE ENVIOS SEGUN ESTADO</legend>
+    <legend>CANTIDAD DE ENVIOS SEGUN ESTADO <e id="lbSuc"></e></legend>
+    <div class="col-12">
+        <form id="formCliSuc">
+            <div class="form-row align-items-center">
+                <div class="col-sm-3 my-1" id="blqSucur">
+                    <label class="mr-sm-2" for="selectSuc_x_Cli">Sucursal</label>
+                    <select class="form-control form-control-sm" id="selectSuc_Cli">
+
+                    </select>
+                </div>
+                <div class="col-auto my-1 mt-4">
+                    <button type="button" class="btn btn-primary" id="btnVer">VER</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="col-lg-3">
         <div class="card border-warning mb-3 enlace est_envio" id="cardProgram" elem="1" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
             <div class="card-header" style="background-color: #fbd797; color: #7c550f;"><b>PROGRAMADOS</b><span class="ion-android-alarm-clock float-right" style="color: #7c550f; font-size: x-large"></span></div>

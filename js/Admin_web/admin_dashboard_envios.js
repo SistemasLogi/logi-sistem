@@ -50,6 +50,17 @@ function vista_dashboard_envios() {
 
         $("#btnVer").click(function () {
             consulta_dashboard_envios_card_cli(id_cliente_sel, id_sucursal_sel);
+            if ($('#selectCliente option:selected').val() == '0|0') {
+                $("#lbCli").html("");
+            } else {
+                $("#lbCli").html($('#selectCliente option:selected').text());
+                if($('#selectSuc_x_Cli option:selected').val() == '0'){
+                    $("#lbSuc").html("");
+                }else{
+                    $("#lbSuc").html(' /SUC: '+$('#selectSuc_x_Cli option:selected').text());
+                }
+            }
+
         });
 //        consulta_dashboard_serv();
 //        setInterval(consulta_os_program, 20000);
@@ -78,6 +89,20 @@ function control_dash_envios() {
     $("#cantEnvViajDest").html(env_viajando_dest);
     $("#cantEnvNovedades").html(env_novedad);
     $("#cantEnvBodegaDest").html(env_bodega_dest);
+}
+/**
+ * Metodo que resetea los paneles
+ * @returns {undefined}
+ */
+function control_dash_envios_reset() {
+    $("#cantEnvProgram").html("");
+    $("#cantEnvGestFin").html("");
+    $("#cantEnvBodegaOr").html("");
+    $("#cantEnvSolucion").html("");
+    $("#cantEnvReparto").html("");
+    $("#cantEnvViajDest").html("");
+    $("#cantEnvNovedades").html("");
+    $("#cantEnvBodegaDest").html("");
 }
 
 /**
@@ -559,6 +584,7 @@ function consulta_dashboard_envios_card_cli(cliente_id, sucursal_id) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_env_cli_controller.php";
     cadena = {"cliente_id": cliente_id, "sucursal_id": sucursal_id}; //envio de parametros por POST
     metodo = function (datos) {
+        control_dash_envios_reset();
         env_program = 0;
         env_bodega_or = 0;
         env_reparto = 0;
