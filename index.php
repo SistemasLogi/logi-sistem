@@ -87,12 +87,12 @@ session_start();
                     <div class="carousel-inner" role="listbox">
 
                         <div class="carousel-item active">
-                            <div class="carousel-background"><img src="img/intro-carousel/1.jpg" alt=""></div>
+                            <div class="carousel-background"><img src="img/intro-carousel/10.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
                                     <h2>MENSAJERÍA Y MERCANCÍAS</h2>
-                                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-                                    <a href="#featured-services" class="btn-get-started scrollto btn-primary">COTIZA TUS ENVIOS</a>
+                                    <h4><p>Somos el aliado logístico que estabas buscando</p></h4>
+                                    <!--<a href="#featured-services" class="btn-get-started scrollto btn-primary">COTIZA TUS ENVIOS</a>-->
                                 </div>
                             </div>
                         </div>
@@ -102,8 +102,9 @@ session_start();
                             <div class="carousel-container">
                                 <div class="carousel-content">
                                     <h2>¿Ya vendiste ? Ahora envialo!!!</h2>
-                                    <!--<p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut.</p>-->
-                                    <a href="#featured-services" class="btn-get-started-a scrollto">CONTACTA CON NOSOTROS</a>
+                                    <h3><p class="text-secondary"><b>Mercancías</b></p></h3>
+                                    <h3><p>Paquetes y mercancías de 11  kg  en adelante</p></h3>
+                                    <!--<a href="#featured-services" class="btn-get-started-a scrollto">CONTACTA CON NOSOTROS</a>-->
                                 </div>
                             </div>
                         </div>
@@ -112,9 +113,9 @@ session_start();
                             <div class="carousel-background"><img src="img/intro-carousel/3.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
-                                    <h2>RECOLECCIÓN SIN COSTO</h2>
-                                    <!--<p>Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt omnis iste natus error sit voluptatem accusantium.</p>-->
-                                    <a href="#featured-services" class="btn-get-started scrollto">SOLICITAR RECOLECCIÓN</a>
+                                    <h2>Recogemos y Entregamos</h2>
+                                    <h5><p>Documentos, paquetes, cajas y mercancías en Bogotá y Medellín, con rapidez , cumplimiento y el debido cuidado que requieren tus envíos</p></h5>
+                                    <a href="#featured-services" class="btn-get-started scrollto">CONTACTA CON NOSOTROS</a>
                                 </div>
                             </div>
                         </div>

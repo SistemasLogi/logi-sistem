@@ -2231,7 +2231,7 @@ function form_act_est_os(array, position) {
                     </div>\n\
                     <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="2" style="display: none;" readonly>\n\
                 </fieldset>\n\
-            </form>');
+            </form></div>');
         combo_emp();
     } else if (tm.es_id == 2) {
         $('#ModalEstOSTitle').html('FINALIZAR RECOLECCIÓN');
@@ -2278,7 +2278,7 @@ function form_act_est_os(array, position) {
                     </div>\n\
                     <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="3" style="display: none;" none;" readonly>\n\
                 </fieldset>\n\
-            </form>');
+            </form></div>');
         $("#divRadios input[name='customRadio']").click(function () {
             est = $("input:radio[name=customRadio]:checked").val();
             if (est === "1") {
@@ -2300,17 +2300,55 @@ function form_act_est_os(array, position) {
                     <div class="form-group form-group-sm col-lg-8">\n\
                         <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
                     </div>\n\
-                    <div class="form-group form-group-sm col-lg-4">\n\
-                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #84dba7; display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
-                    </div>\n\
                   </div>\n\
                 <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
                 <b>FECHA: </b>' + formato_fec + '<br>\n\
                 <b>HORA: </b>' + formato_hor + '<br>\n\
                 <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
                 <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
-                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>');
-
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>\n\
+                <div class="custom-control custom-switch">\n\
+                 <input type="checkbox" class="custom-control-input" id="switchCheck">\n\
+                 <label class="custom-control-label" for="switchCheck">Asignar Servicio a Mensajero</label>\n\
+                </div>\n\
+                <form id="formActEstOsAsig" style="display: none;">\n\
+                <fieldset>\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-4" style="display: none;">\n\
+                        <input type="text" class="form-control form-control-sm" id="inpEstOrdServ" style="background-color: #ffeccafc;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                        <input type="text" class="form-control form-control-sm" id="inpEstId" value="2" style="background-color: #ffeccafc;" name="inpEstId" readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                </fieldset>\n\
+                <div class="form-row align-items-center">\n\
+                <div class="col-sm-6 my-1">\n\
+                    <label class="mr-sm-2" for="selectEmpl">Mensajero/Vehiculo</label>\n\
+                    <select class="form-control form-control-sm" id="selectEmpl" name="selectEmpl">\n\
+                    </select>\n\
+                </div>\n\
+                <div class="col-sm-3 my-1" id="blqSucur">\n\
+                    <label class="mr-sm-2" for="selectSuc_x_Cli">Valor</label>\n\
+                    <input class="form-control form-control-sm mr-sm-2" type="number" id="inpValorFlet" name="inpValorFlet" placeholder="$">\n\
+                </div>\n\
+                <div class="col-auto my-1 mt-4">\n\
+                    <button type="submit" class="btn btn-primary btn-sm" id="btnGuarEstAct" name="btnGuarEstAct">Guardar</button>\n\
+                </div>\n\
+            </div>\n\
+            </form></div>');
+        $('#switchCheck').on('click', function () {
+            if ($(this).is(':checked')) {
+                // Hacer algo si el checkbox ha sido seleccionado
+                $("#formActEstOsAsig").show();
+                combo_empleados("#selectEmpl");
+            } else {
+                // Hacer algo si el checkbox ha sido deseleccionado
+//                $("#selectSuc_x_Cli").html("");
+                $("#formActEstOsAsig").hide();
+            }
+        });
+        $("#btnGuarEstAct").click(function () {
+            validarAct_est_x_os();
+        });
     } else if (tm.es_id == 4) {
 
         $('#ModalEstOSTitle').html('CANCELADA');
@@ -2328,9 +2366,10 @@ function form_act_est_os(array, position) {
                 <b>HORA: </b>' + formato_hor + '<br>\n\
                 <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
                 <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
-                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>');
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p></div>');
     }
     $("#inpEstOrdServ").val(tm.os_id);
+//    $("#inpEstId").val(tm.es_id);
     $("#btnGuardaEstOS").click(function () {
         validarInsert_est_x_os();
     });
@@ -2371,6 +2410,30 @@ function validarInsert_est_x_os() {
         }
     });
 }
+
+/**
+ * Funcion de validacion para actualizacion de est_x_os
+ * @returns {undefined}
+ */
+function validarAct_est_x_os() {
+    $("#formActEstOsAsig").validate({
+        rules: {
+            inpEstOrdServ: {
+                required: true
+            },
+            selectEmpl: {
+                valueNotEquals: "0|0"
+            },
+            inpValorFlet:{
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            act_est_x_ordServ();
+        }
+    });
+}
 /**
  * Funcion que inserta un registro en tabla est_x_os
  * @returns {undefined}
@@ -2378,6 +2441,28 @@ function validarInsert_est_x_os() {
 function inserta_est_x_ordServ() {
     request = "Controller/AdminC/AdministrarOS/insertar_es_x_os_controller.php";
     cadena = $("#formEstOS").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Registro actualizado!');
+//            $("#link_vista_dashboard_serv").trigger("click");
+            consulta_dashboard_serv();
+            consulta_dashboard_serv_card();
+            seguimiento_estado();
+            $("#btnCloseModal").trigger("click");
+        } else {
+//            alert(datos);
+            alertify.error('No actualizado!');
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Funcion que actualiza un registro en tabla est_x_os
+ * @returns {undefined}
+ */
+function act_est_x_ordServ() {
+    request = "Controller/AdminC/AdministrarOS/act_est_os_controller.php";
+    cadena = $("#formActEstOsAsig").serialize(); //envio de parametros por POST
     metodo = function (datos) {
         if (datos == 1) {
             alertify.success('Registro actualizado!');
@@ -2806,14 +2891,14 @@ function crear_os_por_cliente() {
         });
 
         $("#btnSiguiente").click(function () {
-            if ($("#selectCliente").val() == '0|0') {
+            if ($("#selectCliente option:selected").val() == '0|0') {
                 alertify.alert('Por favor seleccione un cliente').setHeader('<em> Cuidado! </em> ');
             } else {
                 $("#infoCliente").show();
-                if ($("#selectProceso").val() == 1) {
+                if ($("#selectProceso option:selected").val() == '1') {
                     formulario_recolec();
                     if ($('#checkSucur').prop('checked')) {
-                        if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                        if ($("#selectSuc_x_Cli option:selected").val() == '' || $("#selectSuc_x_Cli option:selected").val() == '0') {
                             datos_cliente_selected();
                             $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
                             $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
@@ -2827,11 +2912,11 @@ function crear_os_por_cliente() {
                         $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
                         $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
                     }
-                } else if ($("#selectProceso").val() == 4 || $("#selectProceso").val() == 5) {
-                    valor = $("#selectProceso").val();
+                } else if ($("#selectProceso option:selected").val() == 4 || $("#selectProceso option:selected").val() == '5') {
+                    valor = $("#selectProceso  option:selected").val();
                     formulario_alistamiento_xlsx();
                     if ($('#checkSucur').prop('checked')) {
-                        if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
+                        if ($("#selectSuc_x_Cli option:selected").val() == '' || $("#selectSuc_x_Cli option:selected").val() == '0') {
                             datos_cliente_selected();
                             $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
                             $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());

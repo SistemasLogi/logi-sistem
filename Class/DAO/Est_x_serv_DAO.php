@@ -71,4 +71,21 @@ class Est_x_serv_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que actualiza un registro en tabla est_x_serv
+     * @param type $td_men
+     * @param type $num_doc_men
+     * @param type $num_os
+     * @param type $id_est
+     * @param type $valor
+     * @return type
+     */
+    function actualiza_est_x_os($td_men, $num_doc_men, $num_os, $id_est, $valor) {
+        $sql = "UPDATE est_x_serv SET td_id_men = " . $td_men . ", num_doc_men = " . $num_doc_men . ", exs_novedad = " . $valor . " "
+                . "WHERE os_id = " . $num_os . " AND es_id = " . $id_est . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
 }
