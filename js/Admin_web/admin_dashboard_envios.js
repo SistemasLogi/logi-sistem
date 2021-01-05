@@ -33,6 +33,7 @@ function vista_dashboard_envios() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
 //        exist = false;
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         consulta_dashboard_envios_card();
         combo_clientes();

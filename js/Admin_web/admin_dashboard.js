@@ -157,6 +157,7 @@ function vista_form_Nuevo_Edit() {
     request = "View/AdministradorV/AdCliente/form_nuevo_editar.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         combo_tipo_docum();
         combo_tipo_us();
@@ -178,6 +179,7 @@ function vista_form_Edit() {
     request = "View/AdministradorV/AdCliente/form_editar.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         tablaGeneralClientesActivos();
 
@@ -813,6 +815,7 @@ function vista_tabla_bd(ruta) {
     request = "View/AdministradorV/" + ruta_vista + ".php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         tablaGeneralCiudades();
         combo_depto();
@@ -2005,6 +2008,7 @@ function vista_gestionar_os() {
     request = "View/AdministradorV/OrdenesServicio/gestion_os.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
 
 //        formulario_oreden_serv();//ejecuta por defecto
@@ -2043,6 +2047,7 @@ function vista_dashboard() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         exist = false;
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         consulta_dashboard_serv_card();
         consulta_dashboard_serv();
@@ -3166,6 +3171,7 @@ function vista_historial_os() {
     request = "View/AdministradorV/OrdenesServicio/tipo_busq_historial_os.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         combo_clientes();
 
@@ -3275,6 +3281,7 @@ function vista_admin_sucursal() {
     request = "View/AdministradorV/AdSucursal/contenedor_suc.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
 
         combo_sucursal();
@@ -4940,6 +4947,7 @@ function vista_gestionar_envios() {
     request = "View/AdministradorV/AdEnvios/gestion_envios.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
 
         $("#enlAsigMens").click(function () {
@@ -5603,6 +5611,7 @@ function vista_form_Nuevo_Edit_Emp() {
     request = "View/AdministradorV/AdEmpleados/form_nuevo_emp.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
         combo_tipo_docum();
         combo_cargo();
@@ -5948,6 +5957,7 @@ function vista_informes_envios() {
     request = "View/AdministradorV/AdEnvios/informes.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
 
         $("#enlManifRec").click(function () {
