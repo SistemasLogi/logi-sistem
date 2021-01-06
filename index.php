@@ -121,12 +121,14 @@ session_start();
                         </div>
 
                         <div class="carousel-item">
-                            <div class="carousel-background"><img src="img/intro-carousel/4.jpg" alt=""></div>
+                            <div class="carousel-background"><img src="img/intro-carousel/12.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
                                     <h2>¿Necesitas enviar varias comunicaciones o invitaciones? Somos tu solución!!!</h2>
                                     <!--<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum.</p>-->
-                                    <a href="#featured-services" class="btn-get-started-b scrollto">CONTACTA CON NOSOTROS</a>
+                                    <!--<a href="#featured-services" class="btn-get-started-b scrollto">CONTACTA CON NOSOTROS</a>-->
+                                    <h3><p class="text-secondary"><b>Mensajería</b></p></h3>
+                                    <h3><p>Documentos y Paquetes hasta  10 kg</p></h3>
                                 </div>
                             </div>
                         </div>
@@ -135,9 +137,20 @@ session_start();
                             <div class="carousel-background"><img src="img/intro-carousel/5.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
-                                    <h2>Magnam aliquam quaerat</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <h2>Recaudos contra entrega</h2>
+                                    <p>Tus clientes pueden pagar su compra al momento de recibir el envío. Nosotros recaudamos el dinero.</p>
                                     <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="carousel-background"><img src="img/intro-carousel/11.jpg" alt=""></div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>Rastreo de Envios</h2>
+                                    <p>Realiza un seguimiento del estado de tus envios desde nuestro portal web.</p>
+                                    <a href="rastreo_envio.php" class="btn-get-started scrollto">Rastreo de Envios</a>
                                 </div>
                             </div>
                         </div>
@@ -169,19 +182,19 @@ session_start();
 
                         <div class="col-lg-4 box">
                             <i class="ion-android-mail"></i>
-                            <h4 class="title"><a href="">CONTACTA CON NOSOTROS</a></h4>
-                            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                            <h4 class="title"><a href="img/services/Mensajero.png" data-lightbox="portfolio" data-title="LOGI YA!" class="link-preview" title="Preview">LOGI YA!</a></h4>
+                            <p class="description">Recogemos tus envíos y los entregamos el mismo día. Servicio disponible únicamente en Bogotá, sujeto a restricciones.</p>
                         </div>
 
                         <div class="col-lg-4 box box-bg">
                             <i class="ion-ios-box"></i>
-                            <h4 class="title"><a href="">COTIZA TUS ENVIOS</a></h4>
+                            <h4 class="title"><a href="">MENSAJERIA NORMAL</a></h4>
                             <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
                         </div>
 
                         <div class="col-lg-4 box">
                             <i class="ion-android-chat"></i>
-                            <h4 class="title"><a href="">SOLICITAR RECOLECCIÓN</a></h4>
+                            <h4 class="title"><a href="">MENSAJERÍA MASIVA</a></h4>
                             <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
                         </div>
 
@@ -193,7 +206,7 @@ session_start();
             <!--==========================
               About Us Section
             ============================-->
-<!--            <section id="about">
+            <section id="about">
                 <div class="container">
 
                     <header class="section-header">
@@ -203,10 +216,10 @@ session_start();
 
                     <div class="row about-cols">
 
-                        <div class="col-md-4 wow fadeInUp">
+                        <div class="col-md-3 wow fadeInUp">
                             <div class="about-col">
                                 <div class="img">
-                                    <img src="img/about-mission.jpg" alt="" class="img-fluid">
+                                    <img src="img/services/Mensajero.png" alt="" class="img-fluid"/>
                                     <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
                                 </div>
                                 <h2 class="title"><a href="#">Our Mission</a></h2>
@@ -216,7 +229,7 @@ session_start();
                             </div>
                         </div>
 
-                        <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-md-3 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="about-col">
                                 <div class="img">
                                     <img src="img/about-plan.jpg" alt="" class="img-fluid">
@@ -229,7 +242,20 @@ session_start();
                             </div>
                         </div>
 
-                        <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="about-col">
+                                <div class="img">
+                                    <img src="img/about-vision.jpg" alt="" class="img-fluid">
+                                    <div class="icon"><i class="ion-ios-eye-outline"></i></div>
+                                </div>
+                                <h2 class="title"><a href="#">Our Vision</a></h2>
+                                <p>
+                                    Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores eos qui ratione voluptatem sequi nesciunt Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 wow fadeInUp" data-wow-delay="0.3s">
                             <div class="about-col">
                                 <div class="img">
                                     <img src="img/about-vision.jpg" alt="" class="img-fluid">
@@ -245,7 +271,7 @@ session_start();
                     </div>
 
                 </div>
-            </section> #about -->
+            </section>
 
             <!--==========================
               Services Section
@@ -373,7 +399,7 @@ session_start();
             <!--==========================
               Skills Section
             ============================-->
-<!--            <section id="skills">
+            <section id="skills">
                 <div class="container">
 
                     <header class="section-header">
@@ -410,7 +436,7 @@ session_start();
                     </div>
 
                 </div>
-            </section>-->
+            </section>
 
             <!--==========================
               Facts Section
@@ -631,12 +657,12 @@ session_start();
                     </div>
 
                 </div>
-            </section> #portfolio -->
+            </section>-->
 
             <!--==========================
               Clients Section
             ============================-->
-<!--            <section id="clients" class="wow fadeInUp">
+            <section id="clients" class="wow fadeInUp">
                 <div class="container">
 
                     <header class="section-header">
@@ -655,12 +681,12 @@ session_start();
                     </div>
 
                 </div>
-            </section> #clients -->
+            </section>
 
             <!--==========================
               Clients Section
             ============================-->
-<!--            <section id="testimonials" class="section-bg wow fadeInUp">
+            <section id="testimonials" class="section-bg wow fadeInUp">
                 <div class="container">
 
                     <header class="section-header">
@@ -731,12 +757,12 @@ session_start();
                     </div>
 
                 </div>
-            </section> #testimonials -->
+            </section>
 
             <!--==========================
               Team Section
             ============================-->
-<!--            <section id="team">
+            <section id="team">
                 <div class="container">
                     <div class="section-header wow fadeInUp">
                         <h3>Team</h3>
@@ -820,12 +846,12 @@ session_start();
                     </div>
 
                 </div>
-            </section> #team -->
+            </section>
 
             <!--==========================
               Contact Section
             ============================-->
-<!--            <section id="contact" class="section-bg wow fadeInUp">
+            <section id="contact" class="section-bg wow fadeInUp">
                 <div class="container">
 
                     <div class="section-header">
@@ -888,7 +914,7 @@ session_start();
                     </div>
 
                 </div>
-            </section> #contact -->
+            </section>
 
         </main>
 

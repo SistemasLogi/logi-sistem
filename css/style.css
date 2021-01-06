@@ -682,7 +682,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     padding-top: 8px;
     text-align: center;
     position: absolute;
-    background-color: #18d26e;
+    background-color: #550055;
     border-radius: 50%;
     text-align: center;
     border: 4px solid #fff;
@@ -703,7 +703,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #about .about-col:hover i {
-    color: #18d26e;
+    color: #550055;
 }
 
 #about .about-col h2 {
@@ -720,7 +720,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #about .about-col h2 a:hover {
-    color: #18d26e;
+    color: #550055;
 }
 
 #about .about-col p {
@@ -788,7 +788,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     font-family: "Montserrat", sans-serif;
     font-weight: bold;
     font-size: 48px;
-    color: #18d26e;
+    color: #efa31d;
 }
 
 #call-to-action h3 {
