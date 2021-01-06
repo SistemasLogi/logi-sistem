@@ -98,7 +98,7 @@ session_start();
                         </div>
 
                         <div class="carousel-item">
-                            <div class="carousel-background"><img src="img/intro-carousel/2.jpg" alt=""></div>
+                            <div class="carousel-background"><img src="img/intro-carousel/15.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
                                     <h2>¿Ya vendiste ? Ahora envialo!!!</h2>
@@ -139,7 +139,6 @@ session_start();
                                 <div class="carousel-content">
                                     <h2>Recaudos contra entrega</h2>
                                     <p>Tus clientes pueden pagar su compra al momento de recibir el envío. Nosotros recaudamos el dinero.</p>
-                                    <a href="#featured-services" class="btn-get-started scrollto">Get Started</a>
                                 </div>
                             </div>
                         </div>
@@ -187,15 +186,15 @@ session_start();
                         </div>
 
                         <div class="col-lg-4 box box-bg">
-                            <i class="ion-ios-box"></i>
-                            <h4 class="title"><a href="">MENSAJERIA NORMAL</a></h4>
-                            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                            <i class="ion-ios-email"></i>
+                            <h4 class="title"><a href="" data-lightbox="portfolio" data-title="MENSAJERIA NORMAL" class="link-preview" title="Preview">MENSAJERIA NORMAL</a></h4>
+                            <p class="description">Recogemos tus envíos y los entregamos entre 1 o 2 días hábiles </p>
                         </div>
 
                         <div class="col-lg-4 box">
-                            <i class="ion-android-chat"></i>
-                            <h4 class="title"><a href="">MENSAJERÍA MASIVA</a></h4>
-                            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                            <i class="ion-ios-albums"></i>
+                            <h4 class="title"><a href="" data-lightbox="portfolio" data-title="MENSAJERIA MASIVA" class="link-preview" title="Preview">MENSAJERÍA MASIVA</a></h4>
+                            <p class="description"> Servicio de alistamiento y distribución de grandes volúmenes de envíos, con un peso máximo de hasta 350 gr por unidad. </p>
                         </div>
 
                     </div>
@@ -210,8 +209,8 @@ session_start();
                 <div class="container">
 
                     <header class="section-header">
-                        <h3>About Us</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <h3>LOGISTICA</h3>
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
                     </header>
 
                     <div class="row about-cols">
@@ -220,11 +219,11 @@ session_start();
                             <div class="about-col">
                                 <div class="img">
                                     <img src="img/services/Mensajero.png" alt="" class="img-fluid"/>
-                                    <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
+                                    <div class="icon"><i class="ion-ios-email-outline"></i></div>
                                 </div>
-                                <h2 class="title"><a href="#">Our Mission</a></h2>
+                                <h2 class="title"><a style="cursor: pointer;">Mensajería</a></h2>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    Servicio ideal para el envío de documentos o paquetes hasta 10 kilogramos de peso físico o peso volumen y con dimensiones máximas por arista de 50 cm
                                 </p>
                             </div>
                         </div>
@@ -232,12 +231,12 @@ session_start();
                         <div class="col-md-3 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="about-col">
                                 <div class="img">
-                                    <img src="img/about-plan.jpg" alt="" class="img-fluid">
-                                    <div class="icon"><i class="ion-ios-list-outline"></i></div>
+                                    <img src="img/intro-carousel/14.jpg" alt="" class="img-fluid"/>
+                                    <div class="icon"><i class="ion-ios-box-outline"></i></div>
                                 </div>
-                                <h2 class="title"><a href="#">Our Plan</a></h2>
+                                <h2 class="title"><a style="cursor: pointer;">Mercancías</a></h2>
                                 <p>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                                    Servicio ideal para envío de paquetes y mercancías con pesos de 11 hasta 200 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts
                                 </p>
                             </div>
                         </div>
@@ -245,12 +244,12 @@ session_start();
                         <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s">
                             <div class="about-col">
                                 <div class="img">
-                                    <img src="img/about-vision.jpg" alt="" class="img-fluid">
-                                    <div class="icon"><i class="ion-ios-eye-outline"></i></div>
+                                    <img src="img/intro-carousel/8.jpg" alt="" class="img-fluid"/>
+                                    <div class="icon"><i class="ion-social-buffer-outline"></i></div>
                                 </div>
-                                <h2 class="title"><a href="#">Our Vision</a></h2>
+                                <h2 class="title"><a style="cursor: pointer;">Almacenamiento</a></h2>
                                 <p>
-                                    Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores eos qui ratione voluptatem sequi nesciunt Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                    Almacenamos y manejamos tu inventario. 
                                 </p>
                             </div>
                         </div>
@@ -258,12 +257,12 @@ session_start();
                         <div class="col-md-3 wow fadeInUp" data-wow-delay="0.3s">
                             <div class="about-col">
                                 <div class="img">
-                                    <img src="img/about-vision.jpg" alt="" class="img-fluid">
-                                    <div class="icon"><i class="ion-ios-eye-outline"></i></div>
+                                    <img src="img/intro-carousel/13.png" alt="" class="img-fluid"/>
+                                    <div class="icon"><i class="ion-ios-filing-outline"></i></div>
                                 </div>
-                                <h2 class="title"><a href="#">Our Vision</a></h2>
+                                <h2 class="title"><a href="#">Procesamiento</a></h2>
                                 <p>
-                                    Nemo enim ipsam voluptatem quia voluptas sit aut odit aut fugit, sed quia magni dolores eos qui ratione voluptatem sequi nesciunt Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.
+                                    Procesamos y alistamos tus ventas con diferentes modalidades de embalaje y empaques
                                 </p>
                             </div>
                         </div>
