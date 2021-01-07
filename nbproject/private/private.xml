@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp64/www/LogiClientes/css/style.css</file>
             <file>file:/C:/wamp64/www/LogiClientes/navbar.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/form_recaudos_cli.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Controller/Correos/contactenos_controller.php</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/Contactenos/contactenos.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/Class/EMAIL/Envio_MAIL.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/index.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
+            <file>file:/C:/wamp64/www/LogiClientes/js/principal.js</file>
         </group>
     </open-files>
 </project-private>

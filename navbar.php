@@ -3,13 +3,16 @@
         <a class="nav-link" href="index.php" id="volver">INICIO <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link ancla" href="index.php #logistica" data-ancla="logistica">SERVICIOS</a>
+        <a class="nav-link ancla" href="index.php #featured-services" data-ancla="logistica">SERVICIOS</a>
     </li>
     <li class="nav-item">
         <a class="nav-link ancla" href="index.php #call-to-action" data-ancla="call-to-action">NOSOTROS</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="rastreo_envio.php">RASTREO ENVIO</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link ancla" href="index.php #contact" data-ancla="contact">CONTACTENOS</a>
     </li>
     <?php
     if (isset($_SESSION["adminlogi"]) || isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"]) || isset($_SESSION["mensajero_logi"])) {

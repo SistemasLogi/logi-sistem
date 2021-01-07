@@ -119,7 +119,7 @@ session_start();
                                 <div class="carousel-content">
                                     <h2>Recogemos y Entregamos</h2>
                                     <h5><p>Documentos, paquetes, cajas y mercancías en Bogotá y Medellín, con rapidez , cumplimiento y el debido cuidado que requieren tus envíos</p></h5>
-                                    <a href="#featured-services" class="btn-get-started scrollto">CONTACTA CON NOSOTROS</a>
+                                    <a href="#contact" class="btn-get-started scrollto">CONTACTA CON NOSOTROS</a>
                                 </div>
                             </div>
                         </div>
@@ -181,6 +181,12 @@ session_start();
             ============================-->
             <section id="featured-services">
                 <div class="container">
+
+                    <header class="section-header">
+                        <h3 class="text-light">SERVICIOS</h3>
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+                    </header>
+
                     <div class="row">
 
                         <div class="col-lg-4 box">
@@ -214,7 +220,7 @@ session_start();
                     <div class="container">
 
                         <header class="section-header">
-                            <h3>LOGISTICA</h3>
+                            <h3>OTROS SERVICIOS</h3>
                             <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
                         </header>
 
@@ -223,12 +229,12 @@ session_start();
                             <div class="col-md-3 wow fadeInUp">
                                 <div class="about-col">
                                     <div class="img">
-                                        <img src="img/services/Mensajero.png" alt="" class="img-fluid"/>
+                                        <img src="img/services/recaudo.png" alt="" class="img-fluid"/>
                                         <div class="icon"><i class="ion-ios-email-outline"></i></div>
                                     </div>
-                                    <h2 class="title"><a style="cursor: pointer;">Mensajería</a></h2>
+                                    <h2 class="title"><a style="cursor: pointer;">Recaudos contra entrega</a></h2>
                                     <p>
-                                        Servicio ideal para el envío de documentos o paquetes hasta 10 kilogramos de peso físico o peso volumen y con dimensiones máximas por arista de 50 cm
+                                        Tus clientes pueden pagar su compra al momento de recibir el envío. Nosotros recaudamos el dinero.
                                     </p>
                                 </div>
                             </div>
@@ -368,8 +374,8 @@ session_start();
                         <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
                     </header>
                     <h3>Nuestra pasión por el servicio nos identifica</h3>
-                    <p>Somos una empresa especializada en el sector de la mensajería y el paqueteo. Buscamos brindar soluciones logísticas para la entrega de sus documentos y mercancías; contamos con la infraestructura física, tecnológica y humana, necesaria para prestar un servicio de óptima calidad. Nos enfocamos en el cumplimiento de los tiempos de entrega, en brindar información oportuna cuando se presenten novedades y en entregar sus envíos en perfecto estado</p>
-                    <!--<a class="cta-btn" href="#">Call To Action</a>-->
+                    <p>Somos una empresa especializada en el sector de logístico. Ofrecemos soluciones integrales para la entrega de sus envíos; contamos con la infraestructura física, tecnológica y humana, necesaria para brindar un servicio de alto nivel con tiempos de entrega mas rápidos.</p>
+                    <p>Sabemos que no basta con tener buen producto y un buen precio, sino que se debe entregar cuando y como el cliente lo desee.</p> <!--<a class="cta-btn" href="#">Call To Action</a>-->
                     <div class="row counters" id="voz">
 
                         <div class="col-lg-3 col-6 text-center">
@@ -393,7 +399,7 @@ session_start();
                         </div>
 
                     </div>
-
+                    <h3>La clave es adaptarse rápidamente a las nuevas necesidades</h3>
                 </div>
 
 
@@ -448,43 +454,44 @@ session_start();
             <section id="facts"  class="wow fadeIn next">
                 <div class="container">
 
-                    <header class="section-header">
-                        <h3>YA SON MAS DE 10.000 ENVIOS MOVILIZADOS</h3>
-                        <h4><p>Gracias a nuestros clientes por confiar en nosotros!</p></h4>
+                    <header class="section-header text-center">
+                        <h3>Logística para ecommerce</h3>
+                        <h2><b style="color: #550055;">Fulfillment</b></h2>
                     </header>
 
                     <div class="row about-cols">
 
-                        <div class="col-lg-6 wow fadeInUp mx-auto">
-                            <div class="about-col ">
-                                <div class="img text-center">
-                                    <img src="img/conten/35645645-300x300.png" alt="" class="img-fluid">
-                                    <!--<div class="icon"><i class="ion-ios-speedometer-outline"></i></div>-->
-                                </div>
-
+                        <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="about-col">
+                                <div class="img">
+                                    <img src="img/services/ecomerce.png" alt="" class="img-fluid"/>
+                                    <!--<div class="icon"><i class="ion-ios-eye-outline"></i></div>-->
+                                </div>                               
                             </div>
                         </div>
 
-                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-md-8 wow fadeInUp">
                             <div class="about-col">
-                                <div class="img text-center">
-                                    <img src="img/conten/545642-300x300.png" alt="" class="img-fluid">
-                                    <!--<div class="icon"><i class="ion-ios-list-outline"></i></div>-->
+                                <div class="img">
+                                    <!--<img src="img/about-mission.jpg" alt="" class="img-fluid">-->
+                                    <!--<div class="icon"><i class="ion-ios-speedometer-outline"></i></div>-->
                                 </div>
-
+<!--                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                </p>-->
+                                <h4>
+                                    <ul>
+                                        <li type="disc">Cliente realiza la compra en el sitio web / recibimos la orden.</li>
+                                        <li type="disc">Realizamos proceso de Picking and Packing.</li>
+                                        <li type="disc">Enviamos a reparto el pedido.</li>
+                                        <li type="disc">Recaudo del valor de la compra y entrega del producto al comprador.</li>
+                                        <li type="disc">Logística inversa en caso de devoluciones y cambios.</li>
+                                    </ul>
+                                </h4>
                             </div>
-                        </div>  
+                        </div>
 
-                        <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="about-col">
-                                <div class="text-center">
-                                    <h2 class="title text-center" style="font-weight: bold; padding-top: 20px;">RECOLECCIÓN SIN COSTO</h2>
-                                </div>                              
-                            </div>
-                        </div>                
-
-                    </div>                    
-                </div>
+                    </div>
             </section><!-- #facts -->
 
             <!--==========================
@@ -657,18 +664,11 @@ session_start();
                 <div class="container">
 
                     <header class="section-header">
-                        <h3>CLIENTES</h3>
+                        <h3>YA SON MAS DE 10.000 ENVIOS MOVILIZADOS</h3>
+                        <h4><p>Gracias a nuestros clientes por confiar en nosotros!</p></h4>
                     </header>
 
                     <div class="owl-carousel clients-carousel">
-<!--                        <img src="img/clients/client-1.png" alt="">
-                        <img src="img/clients/client-2.png" alt="">
-                        <img src="img/clients/client-3.png" alt="">
-                        <img src="img/clients/client-4.png" alt="">
-                        <img src="img/clients/client-5.png" alt="">
-                        <img src="img/clients/client-6.png" alt="">
-                        <img src="img/clients/client-7.png" alt="">
-                        <img src="img/clients/client-8.png" alt="">-->
                         <img src="img/clients/8000123654.png" alt=""/>
                         <img src="img/clients/8005230014.png" alt=""/>
                         <img src="img/clients/900258456.png" alt=""/>
@@ -852,7 +852,7 @@ session_start();
 
                     <div class="section-header">
                         <h3>CONTACTENOS</h3>
-                        <p>Dejanos un mensaje para saber en que te podemos ayudar, nos comunicaremos contigo lo antes posible.</p>
+                        <h4><p>Dejanos un mensaje para saber en que te podemos ayudar, nos comunicaremos contigo lo antes posible.</p></h4>
                     </div>
 
                     <div class="row contact-info">
