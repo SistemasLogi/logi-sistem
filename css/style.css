@@ -639,7 +639,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* About Us Section
 --------------------------------*/
 #about {
-    background: url("../img/about-bg.jpg") center top no-repeat fixed;
+    background: url("../img/services/mini_van.png") center top no-repeat fixed;
     background-size: cover;
     padding: 60px 0 40px 0;
     position: relative;
@@ -1078,7 +1078,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #clients .owl-dot.active {
-    background-color: #18d26e;
+    background-color: #79257a;
 }
 
 /* Testimonials Section
@@ -1284,7 +1284,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     font-size: 48px;
     display: inline-block;
     margin-bottom: 10px;
-    color: #18d26e;
+    color: #883387;
 }
 
 #contact .contact-info address, #contact .contact-info p {
@@ -1305,7 +1305,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #contact .contact-info a:hover {
-    color: #18d26e;
+    color: #550055;
 }
 
 #contact .contact-address, #contact .contact-phone, #contact .contact-email {
@@ -1365,7 +1365,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #contact .form button[type="submit"] {
-    background: #18d26e;
+    background: #770068;
     border: 0;
     padding: 10px 30px;
     color: #fff;
@@ -1374,7 +1374,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #contact .form button[type="submit"]:hover {
-    background: #13a456;
+    background: #7d60b1;
 }
 
 /*--------------------------------------------------------------

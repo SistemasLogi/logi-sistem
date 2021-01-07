@@ -3,7 +3,7 @@
         <a class="nav-link" href="index.php" id="volver">INICIO <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link ancla" href="index.php #services" data-ancla="services">SERVICIOS</a>
+        <a class="nav-link ancla" href="index.php #logistica" data-ancla="logistica">SERVICIOS</a>
     </li>
     <li class="nav-item">
         <a class="nav-link ancla" href="index.php #call-to-action" data-ancla="call-to-action">NOSOTROS</a>

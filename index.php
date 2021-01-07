@@ -35,6 +35,9 @@ session_start();
         <!-- JavaScript Libraries -->
         <script src="lib/jquery/jquery.min.js"></script>
         <script src="lib/jquery/jquery-migrate.min.js"></script>
+        <script src="js/jquery.validate.js" type="text/javascript"></script>
+        <script src="js/additional-methods.js" type="text/javascript"></script>
+        <script src="js/localization/messages_es.js" type="text/javascript"></script>
         <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/superfish/hoverIntent.js"></script>
@@ -52,6 +55,7 @@ session_start();
         <!-- Template Main Javascript File -->
         <script src="js/main.js"></script>
         <script src="js/principal.js" type="text/javascript"></script>
+        <script src="js/Contactenos/contactenos.js" type="text/javascript"></script>
 
         <!-- =======================================================
           Theme Name: BizPage
@@ -205,78 +209,79 @@ session_start();
             <!--==========================
               About Us Section
             ============================-->
-            <section id="about">
-                <div class="container">
+            <div id="logistica">
+                <section id="about">
+                    <div class="container">
 
-                    <header class="section-header">
-                        <h3>LOGISTICA</h3>
-                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-                    </header>
+                        <header class="section-header">
+                            <h3>LOGISTICA</h3>
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
+                        </header>
 
-                    <div class="row about-cols">
+                        <div class="row about-cols">
 
-                        <div class="col-md-3 wow fadeInUp">
-                            <div class="about-col">
-                                <div class="img">
-                                    <img src="img/services/Mensajero.png" alt="" class="img-fluid"/>
-                                    <div class="icon"><i class="ion-ios-email-outline"></i></div>
+                            <div class="col-md-3 wow fadeInUp">
+                                <div class="about-col">
+                                    <div class="img">
+                                        <img src="img/services/Mensajero.png" alt="" class="img-fluid"/>
+                                        <div class="icon"><i class="ion-ios-email-outline"></i></div>
+                                    </div>
+                                    <h2 class="title"><a style="cursor: pointer;">Mensajería</a></h2>
+                                    <p>
+                                        Servicio ideal para el envío de documentos o paquetes hasta 10 kilogramos de peso físico o peso volumen y con dimensiones máximas por arista de 50 cm
+                                    </p>
                                 </div>
-                                <h2 class="title"><a style="cursor: pointer;">Mensajería</a></h2>
-                                <p>
-                                    Servicio ideal para el envío de documentos o paquetes hasta 10 kilogramos de peso físico o peso volumen y con dimensiones máximas por arista de 50 cm
-                                </p>
                             </div>
-                        </div>
 
-                        <div class="col-md-3 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="about-col">
-                                <div class="img">
-                                    <img src="img/intro-carousel/14.jpg" alt="" class="img-fluid"/>
-                                    <div class="icon"><i class="ion-ios-box-outline"></i></div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="about-col">
+                                    <div class="img">
+                                        <img src="img/services/Mercancias.png" alt="" class="img-fluid"/>
+                                        <div class="icon"><i class="ion-ios-box-outline"></i></div>
+                                    </div>
+                                    <h2 class="title"><a style="cursor: pointer;">Mercancías</a></h2>
+                                    <p>
+                                        Servicio ideal para envío de paquetes y mercancías con pesos de 11 hasta 200 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts
+                                    </p>
                                 </div>
-                                <h2 class="title"><a style="cursor: pointer;">Mercancías</a></h2>
-                                <p>
-                                    Servicio ideal para envío de paquetes y mercancías con pesos de 11 hasta 200 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts
-                                </p>
                             </div>
-                        </div>
 
-                        <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="about-col">
-                                <div class="img">
-                                    <img src="img/intro-carousel/8.jpg" alt="" class="img-fluid"/>
-                                    <div class="icon"><i class="ion-social-buffer-outline"></i></div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="about-col">
+                                    <div class="img">
+                                        <img src="img/services/Almacen.png" alt="" class="img-fluid"/>
+                                        <div class="icon"><i class="ion-social-buffer-outline"></i></div>
+                                    </div>
+                                    <h2 class="title"><a style="cursor: pointer;">Almacenamiento</a></h2>
+                                    <p>
+                                        Almacenamos y manejamos tu inventario. 
+                                    </p>
                                 </div>
-                                <h2 class="title"><a style="cursor: pointer;">Almacenamiento</a></h2>
-                                <p>
-                                    Almacenamos y manejamos tu inventario. 
-                                </p>
                             </div>
-                        </div>
 
-                        <div class="col-md-3 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="about-col">
-                                <div class="img">
-                                    <img src="img/intro-carousel/13.png" alt="" class="img-fluid"/>
-                                    <div class="icon"><i class="ion-ios-filing-outline"></i></div>
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.3s">
+                                <div class="about-col">
+                                    <div class="img">
+                                        <img src="img/services/Alistamiento.png" alt="" class="img-fluid"/>
+                                        <div class="icon"><i class="ion-ios-filing-outline"></i></div>
+                                    </div>
+                                    <h2 class="title"><a href="#">Procesamiento</a></h2>
+                                    <p>
+                                        Procesamos y alistamos tus ventas con diferentes modalidades de embalaje y empaques
+                                    </p>
                                 </div>
-                                <h2 class="title"><a href="#">Procesamiento</a></h2>
-                                <p>
-                                    Procesamos y alistamos tus ventas con diferentes modalidades de embalaje y empaques
-                                </p>
                             </div>
+
                         </div>
 
                     </div>
-
-                </div>
-            </section>
-
+                </section>
+            </div>
             <!--==========================
               Services Section
             ============================-->
 
-            <section id="services">
+<!--            <section id="services">
                 <div class="container">
 
                     <header class="section-header wow fadeInUp">
@@ -290,7 +295,7 @@ session_start();
                             <div class="testimonial-item">
                                 <img src="img/services/service1.jpg" class="testimonial-img testimonial-b-img" alt="">
                                 <h3>MENSAJERÍA</h3>
-                                <!--<h4>Ceo &amp; Founder</h4>-->
+                                <h4>Ceo &amp; Founder</h4>
                                 <p>
                                     <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
                                     Servicio ideal para el envío de documentos o paquetes de 1 hasta 5 kilogramos de peso físico o peso volumen y con dimensiones máximas por arista de 50 cm
@@ -302,7 +307,7 @@ session_start();
                             <div class="testimonial-item">
                                 <img src="img/services/service2.jpg" class="testimonial-img" alt="">
                                 <h3>MERCANCÍAS</h3>
-                                <!--<h4>Designer</h4>-->
+                                <h4>Designer</h4>
                                 <p>
                                     <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
                                     Servicio ideal para envío de paquetes y mercancías con pesos de 6 hasta 200 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts.
@@ -314,7 +319,7 @@ session_start();
                             <div class="testimonial-item">
                                 <img src="img/services/service3.jpg" class="testimonial-img testimonial-a-img" alt="">
                                 <h3>MENSAJERÍA MASIVA</h3>
-                                <!--<h4>Ceo &amp; Founder</h4>-->
+                                <h4>Ceo &amp; Founder</h4>
                                 <p>
                                     <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
                                     Servicio de alistamiento y distribución de grandes volúmenes de envíos, con un peso máximo de hasta 350 gr por unidad y admitidos en una misma orden de servicio.
@@ -326,7 +331,7 @@ session_start();
                             <div class="testimonial-item">
                                 <img src="img/services/service1.jpg" class="testimonial-img testimonial-c-img" alt="">
                                 <h3>RADICACIÓN DOCUMENTOS</h3>
-                                <!--<h4>Ceo &amp; Founder</h4>-->
+                                <h4>Ceo &amp; Founder</h4>
                                 <p>
                                     <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
                                     Servicio ideal para la radiación de sus documentos con una copia de ellos devuelta a sus instalaciones firmada y sellada por parte del destinatario.
@@ -338,7 +343,7 @@ session_start();
                             <div class="testimonial-item">
                                 <img src="img/services/service1.jpg" class="testimonial-img testimonial-d-img" alt="">
                                 <h3>SERVICIO EXPRESO</h3>
-                                <!--<h4>Ceo &amp; Founder</h4>-->
+                                <h4>Ceo &amp; Founder</h4>
                                 <p>
                                     <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
                                     Por medio de este servicio recogemos tus envíos, y los entregamos en menos de 3 horas. Este servicio aplica únicamente en Bogotá y esta sujeto a restricciones en las localidades de Usme, Ciudad Bolívar, San Cristóbal y Rafael Uribe.
@@ -350,7 +355,7 @@ session_start();
                     </div>
 
                 </div>
-            </section><!-- #services -->
+            </section> #services -->
 
             <!--==========================
               Call To Action Section
@@ -447,13 +452,6 @@ session_start();
                         <h3>YA SON MAS DE 10.000 ENVIOS MOVILIZADOS</h3>
                         <h4><p>Gracias a nuestros clientes por confiar en nosotros!</p></h4>
                     </header>
-                    <!--
-                                        <div class="facts-img">
-                                            <img src="img/conten/35645645-300x300.png" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="facts-img">
-                                            <img src="img/conten/545642-300x300.png" alt="" class="img-fluid">
-                                        </div>-->
 
                     <div class="row about-cols">
 
@@ -463,10 +461,7 @@ session_start();
                                     <img src="img/conten/35645645-300x300.png" alt="" class="img-fluid">
                                     <!--<div class="icon"><i class="ion-ios-speedometer-outline"></i></div>-->
                                 </div>
-                                <!--                                <h2 class="title"><a href="#">Our Mission</a></h2>
-                                                                <p>
-                                                                    Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                                                </p>-->
+
                             </div>
                         </div>
 
@@ -476,10 +471,7 @@ session_start();
                                     <img src="img/conten/545642-300x300.png" alt="" class="img-fluid">
                                     <!--<div class="icon"><i class="ion-ios-list-outline"></i></div>-->
                                 </div>
-                                <!--                                <h2 class="title"><a href="#">Our Plan</a></h2>
-                                                                <p>
-                                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                                                                </p>-->
+
                             </div>
                         </div>  
 
@@ -665,18 +657,23 @@ session_start();
                 <div class="container">
 
                     <header class="section-header">
-                        <h3>Our Clients</h3>
+                        <h3>CLIENTES</h3>
                     </header>
 
                     <div class="owl-carousel clients-carousel">
-                        <img src="img/clients/client-1.png" alt="">
+<!--                        <img src="img/clients/client-1.png" alt="">
                         <img src="img/clients/client-2.png" alt="">
                         <img src="img/clients/client-3.png" alt="">
                         <img src="img/clients/client-4.png" alt="">
                         <img src="img/clients/client-5.png" alt="">
                         <img src="img/clients/client-6.png" alt="">
                         <img src="img/clients/client-7.png" alt="">
-                        <img src="img/clients/client-8.png" alt="">
+                        <img src="img/clients/client-8.png" alt="">-->
+                        <img src="img/clients/8000123654.png" alt=""/>
+                        <img src="img/clients/8005230014.png" alt=""/>
+                        <img src="img/clients/900258456.png" alt=""/>
+                        <img src="img/clients/900456987.png" alt=""/>
+                        <img src="img/clients/900987412.png" alt=""/>
                     </div>
 
                 </div>
@@ -685,7 +682,7 @@ session_start();
             <!--==========================
               Clients Section
             ============================-->
-            <section id="testimonials" class="section-bg wow fadeInUp">
+<!--            <section id="testimonials" class="section-bg wow fadeInUp">
                 <div class="container">
 
                     <header class="section-header">
@@ -756,12 +753,12 @@ session_start();
                     </div>
 
                 </div>
-            </section>
+            </section>-->
 
             <!--==========================
               Team Section
             ============================-->
-            <section id="team">
+<!--            <section id="team">
                 <div class="container">
                     <div class="section-header wow fadeInUp">
                         <h3>Team</h3>
@@ -845,7 +842,7 @@ session_start();
                     </div>
 
                 </div>
-            </section>
+            </section>-->
 
             <!--==========================
               Contact Section
@@ -854,8 +851,8 @@ session_start();
                 <div class="container">
 
                     <div class="section-header">
-                        <h3>Contact Us</h3>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                        <h3>CONTACTENOS</h3>
+                        <p>Dejanos un mensaje para saber en que te podemos ayudar, nos comunicaremos contigo lo antes posible.</p>
                     </div>
 
                     <div class="row contact-info">
@@ -863,53 +860,56 @@ session_start();
                         <div class="col-md-4">
                             <div class="contact-address">
                                 <i class="ion-ios-location-outline"></i>
-                                <h3>Address</h3>
-                                <address>A108 Adam Street, NY 535022, USA</address>
+                                <h3>DIRECCIÓN</h3>
+                                <address>CR 31 C N° 1 C - 31 Bogota D.C.</address>
                             </div>
+                        </div>
+
+                        <div class="col-md-4 embed-responsive embed-responsive-16by9">
+                            <!--<div class="contact-phone">-->
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d497.1202855374095!2d-74.10609525426453!3d4.600778186460162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2sco!4v1609964748414!5m2!1ses!2sco" width="380" height="200" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <!--</div>-->
                         </div>
 
                         <div class="col-md-4">
                             <div class="contact-phone">
                                 <i class="ion-ios-telephone-outline"></i>
-                                <h3>Phone Number</h3>
-                                <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="contact-email">
-                                <i class="ion-ios-email-outline"></i>
-                                <h3>Email</h3>
-                                <p><a href="mailto:info@example.com">info@example.com</a></p>
+                                <h3>TELÉFONO</h3>
+                                <p><a href="tel:+0312695105">2695105</a></p>
                             </div>
                         </div>
 
                     </div>
 
                     <div class="form">
-                        <div id="sendmessage">Your message has been sent. Thank you!</div>
-                        <div id="errormessage"></div>
-                        <form action="" method="post" role="form" class="contactForm">
+                        <form role="form" class="contactForm" id="formContactenos" name="formContactenos">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                                    <div class="validation"></div>
+                                    <input type="text" name="inputNombreCont" class="form-control" id="inputNombreCont" placeholder="Nombre o razón social"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="text" class="form-control" name="inputCiudad" id="inputCiudad" placeholder="Ciudad"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="text" class="form-control" name="inputTelefonoCont" id="inputTelefonoCont" placeholder="Télefono"/>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" name="inputAsunto" id="inputAsunto" placeholder="Asunto"/>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                                    <div class="validation"></div>
+                                    <input type="text" class="form-control" name="inputCorreroCont" id="inputCorreroCont" placeholder="Correo contacto"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                                <div class="validation"></div>
+                                <textarea class="form-control" name="txaMensaje" id="txaMensaje" rows="5" placeholder="Mensaje"></textarea>
                             </div>
-                            <div class="form-group">
-                                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                                <div class="validation"></div>
-                            </div>
-                            <div class="text-center"><button type="submit">Send Message</button></div>
+                            <div class="text-center"><button type="submit" id="btnEnviarCont" name="btnEnviarCont">ENVIAR</button></div>
                         </form>
+                    </div>
+                    <div id="mensajeContacto">
+
                     </div>
 
                 </div>
