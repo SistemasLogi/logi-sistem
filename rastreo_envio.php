@@ -11,7 +11,7 @@ session_start();
         <meta content="" name="description">
 
         <!-- Favicons -->
-        <link href="img/logos/LOGO-ESTILO-icon.ico" rel="icon">
+        <link href="img/logos/LOGO-ESTILO-icon.ico" rel="icon" type="imagen/ico">
         <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
         <!-- Google Fonts -->

@@ -17,7 +17,8 @@ if (!isset($_SESSION["adminlogi"])) {
         <title>LOGI</title>
 
         <!-- Favicons -->
-        <link href="img/logos/LOGO-ESTILO-icon.ico" rel="icon">
+        <link href="img/logos/LOGO-ESTILO-icon.ico" rel="icon" type="imagen/ico">
+        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
         <!-- Bootstrap core CSS -->
         <!--<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>-->
@@ -79,7 +80,8 @@ if (!isset($_SESSION["adminlogi"])) {
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
                 <img src="img/logos/LOGO_CLARO_157x72.png" alt="" title="" />
                 <div class="dropdown-divider border-primary"></div>
-                <h4 class="card-title"><?php $porciones = explode(" ", $_SESSION["nombre_cli"]); echo $porciones[0]." ".$porciones[2]; ?></h4>
+                <h4 class="card-title"><?php $porciones = explode(" ", $_SESSION["nombre_cli"]);
+echo $porciones[0] . " " . $porciones[2]; ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
@@ -187,7 +189,7 @@ if (!isset($_SESSION["adminlogi"])) {
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <?php include './navbar.php'; ?>
+<?php include './navbar.php'; ?>
                     </div>
                 </nav>
 

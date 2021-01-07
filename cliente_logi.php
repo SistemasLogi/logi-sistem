@@ -17,7 +17,8 @@ if (!isset($_SESSION["cliente_a"])) {
         <title>LOGI</title>
 
         <!-- Favicons -->
-        <link href="img/logos/LOGO-ESTILO-icon.ico" rel="icon">
+        <link href="img/logos/LOGO-ESTILO-icon.ico" rel="icon" type="imagen/ico">
+        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
         <!-- Bootstrap core CSS -->
         <!--<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>-->
