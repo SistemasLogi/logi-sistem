@@ -75,7 +75,7 @@ session_start();
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <img id="inicio" src="img/logos/LOGO_OSCURO_157x73.png" alt=""/>
+            <img id="inicio" src="img/logos/LOGO_CLARO_157x72.png" alt=""/>
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <?php include './navbar.php'; ?>
             </div>

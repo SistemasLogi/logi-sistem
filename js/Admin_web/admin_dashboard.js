@@ -2429,7 +2429,7 @@ function validarAct_est_x_os() {
             selectEmpl: {
                 valueNotEquals: "0|0"
             },
-            inpValorFlet:{
+            inpValorFlet: {
                 required: true
             }
         },

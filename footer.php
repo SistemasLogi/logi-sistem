@@ -12,18 +12,18 @@
                         <li><i class="ion-ios-arrow-right"></i> <a class="ancla" href="index.php" id="footvolver">Inicio</a></li>
                         <li><i class="ion-ios-arrow-right"></i> <a class="ancla" href="index.php #services" data-ancla="services">Servicios</a></li>
                         <li><i class="ion-ios-arrow-right"></i> <a class="ancla" href="index.php #call-to-action" data-ancla="call-to-action">Nosotros</a></li>
-
+                        <li><i class="ion-ios-arrow-right"></i> <a href="rastreo_envio.php">Rastreo Envio</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-4 col-md-6 footer-contact">
                     <h4>CONTACTENOS</h4>
                     <p>
-                        A108 Adam Street <br>
-                        New York, NY 535022<br>
-                        United States <br>
-                        <strong>Phone:</strong> +1 5589 55488 55<br>
-                        <strong>Email:</strong> info@example.com<br>
+                        CR 31C N° 1C - 31 <br>
+                        Bogotá D.C.<br>
+                        COLOMBIA <br>
+                        <strong>Tel:</strong><em>+57 (1)</em> 2695105<br>
+                        <!--<strong>Email:</strong> info@example.com<br>-->
                     </p>
 
                     <div class="social-links" id="enlSocial">
@@ -46,7 +46,7 @@
 
     <div class="container">
         <div class="copyright">
-            &copy; Copyright <strong>BizPage</strong>. All Rights Reserved
+            &copy; Copyright <strong>Grupo Logi SAS</strong>. All Rights Reserved
         </div>
         <div class="credits">
             <!--
@@ -55,7 +55,7 @@
               Licensing information: https://bootstrapmade.com/license/
               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=BizPage
             -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            Designed by <span>V&G Asesorias SAS</span>
         </div>
     </div>
 </footer><!-- #footer -->
