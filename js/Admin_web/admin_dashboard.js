@@ -881,6 +881,23 @@ function vista_tabla_bd(ruta) {
         $("#btnCancelarEstAEnv").click(function () {
             resetFormEsae();
         });
+
+        tablaGeneral_US_Clientes();
+        vista_form_act_us_cli();
+        $('input[type=radio][name=customRadio]').change(function () {
+            if (this.value == 'clientes') {
+                tablaGeneral_US_Clientes();
+                vista_form_act_us_cli();
+            }
+            if (this.value == 'sucursales') {
+                tablaGeneral_US_Sucursales();
+                vista_form_act_us_suc();
+            }
+            if (this.value == 'empleados') {
+                tablaGeneral_US_Empleados();
+                vista_form_act_us_emp();
+            }
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -1995,6 +2012,461 @@ function resetFormEsae() {
     $("#btnGuardaEstAEnv").addClass("btn-primary");
     $("#btnGuardaEstAEnv").html("Guardar");
 }
+/****************************************************************
+ * Metodos de administracion de usuarios
+ * 
+ ****************************************************************/
+
+/**
+ * variable global del arreglo usuarios del sistema
+ * @type Object
+ */
+var arregloUser;
+/**
+ * Metodo que retorna el listado de usuarios clientes
+ * @returns {undefined}
+ */
+function tablaGeneral_US_Clientes() {
+    request = "Controller/AdminC/AdministrarCliente/consulta_usuarios_cli_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloUser = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloUser !== 0) {
+            datosUser = "<table class='table table-responsive-sm table-hover table-bordered table-fixed' id='tableUsCli'>\n\
+                             <thead><tr class='thead-light'>\n\
+                             <th scope='col'>NOMBRE</th>\n\
+                             <th scope='col'>NUM. DOC</th>\n\
+                             <th scope='col'>USUARIOS</th>\n\
+                             <th scope='col'>ACT. PASS</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloUser.length; i++) {
+                tmp = arregloUser[i];
+                datosUser += '<tr class="table-primary" id="fila' + i + '"><td>' + tmp.cli_nombre + "</td>";
+                datosUser += '<td>' + tmp.us_num_doc + '</td>';
+                datosUser += '<td>' + tmp.us_usuario + '</td>';
+//                datosUser += '<td><img src="img/iconos/editar_46x46.png" alt=""/ class="enlace img-responsive actualizaesae" actuesae="' + i + '"></td></tr>';
+                datosUser += '<td><span class="ion-eye-disabled enlace actualizaclus" style="font-size: xx-large; color: #831e1e;" actuclus="' + i + '"></span></td></tr>';
+            }
+            datosUser += "</tbody></table>";
+            $("#tablaUsuarios").html(datosUser);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+
+            $('#tableUsCli').DataTable();
+            clickActualizaClUs();
+        } else {
+            $("#tablaUsuarios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga el form actualizar datos de usuario y pass clientes
+ * @returns {undefined}
+ */
+function vista_form_act_us_cli() {
+    request = "View/AdministradorV/AdCliente/form_act_us_pass_cl.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#formularioUsuarios").html(datos);
+        $("#btnActuUsuCli").click(function () {
+            validarActuUsCli();
+        });
+        $("#btnCancelUsuCli").click(function () {
+            limpiarFormulario("#formUsCli");
+        });
+        $("#inputGroup-sizing-sm").click(function () {
+            if ($('#inpPass').attr("type") == "text") {
+
+                $('#inpPass').attr('type', 'password');
+                $('#inputGroup-sizing-sm').removeClass("ion-eye");
+                $('#inputGroup-sizing-sm').addClass("ion-eye-disabled");
+
+            } else if ($('#inpPass').attr("type") == "password") {
+
+                $('#inpPass').attr('type', 'text');
+                $('#inputGroup-sizing-sm').removeClass("ion-eye-disabled");
+                $('#inputGroup-sizing-sm').addClass("ion-eye");
+            }
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma los datos del elemento seleccionado en los campos de texto
+ * formulario estado usuario cliente
+ * @returns {undefined}
+ */
+function clickActualizaClUs() {
+    $("#tableUsCli").on("click", ".actualizaclus", function () {
+//    $(".actualizaesae").click(function () {
+        actualizar = $(this).attr("actuclus");
+        tm = arregloUser[actualizar];
+        $("#inpTipoDoc").val(tm.us_td_id);
+        $("#inpNumero").val(tm.us_num_doc);
+        $("#inpNombre").val(tm.cli_nombre);
+        $("#inpUsuario").val(tm.us_usuario);
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#page-content-wrapper").offset().top
+        }, 300);
+    });
+}
+
+/**
+ * Metodo que permite validar campos en formulario actualizacion de usuario cliente 
+ * @returns {undefined}
+ */
+function validarActuUsCli() {
+    $("#formUsCli").validate({
+        rules: {
+            inpTipoDoc: {
+                required: true
+            },
+            inpNumero: {
+                required: true
+            },
+            inpNombre: {
+                required: true
+            },
+            inpUsuario: {
+                required: true
+            },
+            inpPass: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            actualiza_us_cli();
+        }
+    });
+}
+/**
+ * Metodo que actualiza usuario y pass en tabla usuario_pass
+ * @returns {undefined}
+ */
+function actualiza_us_cli() {
+    request = "Controller/AdminC/AdministrarCliente/actualiza_us_pass_cli_controller.php";
+    cadena = $("#formUsCli").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            $("#mensajeAccion").html("<div class='alert alert-dismissible alert-success'>\n\
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+              <strong>Datos de aceso de Cliente Actualizados!</strong>.</div>");
+            limpiarFormulario("#formUsCli");
+            tablaGeneral_US_Clientes();
+        } else {
+            $("#mensajeAccion").html("<div class='alert alert-dismissible alert-danger'>\n\
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+              <strong>Error al guardar los datos!</strong>.</div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que retorna el listado de usuarios empleados
+ * @returns {undefined}
+ */
+function tablaGeneral_US_Empleados() {
+    request = "Controller/AdminC/AdministrarEmpleados/consulta_usuarios_emp_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloUser = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloUser !== 0) {
+            datosUserEmp = "<table class='table table-responsive-sm table-hover table-bordered table-fixed' id='tableUsEmp'>\n\
+                             <thead><tr class='thead-light'>\n\
+                             <th scope='col'>NOMBRE</th>\n\
+                             <th scope='col'>NUM. DOC</th>\n\
+                             <th scope='col'>USUARIOS</th>\n\
+                             <th scope='col'>ACT. PASS</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloUser.length; i++) {
+                tmp = arregloUser[i];
+                datosUserEmp += '<tr class="table-warning" id="fila' + i + '"><td>' + tmp.emp_nombre + "</td>";
+                datosUserEmp += '<td>' + tmp.ue_num_doc + '</td>';
+                datosUserEmp += '<td>' + tmp.ue_usuario + '</td>';
+//                datosUser += '<td><img src="img/iconos/editar_46x46.png" alt=""/ class="enlace img-responsive actualizaesae" actuesae="' + i + '"></td></tr>';
+                datosUserEmp += '<td><span class="ion-eye-disabled enlace actualizaempus" style="font-size: xx-large; color: #831e1e;" actuempus="' + i + '"></span></td></tr>';
+            }
+            datosUserEmp += "</tbody></table>";
+            $("#tablaUsuarios").html(datosUserEmp);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+
+            $('#tableUsEmp').DataTable();
+            clickActualizaEmpUs();
+        } else {
+            $("#tablaUsuarios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga el form actualizar datos de usuario y pass empleados
+ * @returns {undefined}
+ */
+function vista_form_act_us_emp() {
+    request = "View/AdministradorV/AdEmpleados/form_act_us_pass_emp.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#formularioUsuarios").html(datos);
+        $("#btnActuUsuEmp").click(function () {
+            validarActuUsEmp();
+        });
+        $("#btnCancelUsuEmp").click(function () {
+            limpiarFormulario("#formUsEmp");
+        });
+        $("#inputGroup-sizing-sm").click(function () {
+            if ($('#inpPassEmp').attr("type") == "text") {
+
+                $('#inpPassEmp').attr('type', 'password');
+                $('#inputGroup-sizing-sm').removeClass("ion-eye");
+                $('#inputGroup-sizing-sm').addClass("ion-eye-disabled");
+
+            } else if ($('#inpPassEmp').attr("type") == "password") {
+
+                $('#inpPassEmp').attr('type', 'text');
+                $('#inputGroup-sizing-sm').removeClass("ion-eye-disabled");
+                $('#inputGroup-sizing-sm').addClass("ion-eye");
+            }
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma los datos del elemento seleccionado en los campos de texto
+ * formulario usuarios empleados
+ * @returns {undefined}
+ */
+function clickActualizaEmpUs() {
+    $("#tableUsEmp").on("click", ".actualizaempus", function () {
+//    $(".actualizaesae").click(function () {
+        actualizar = $(this).attr("actuempus");
+        tmpo = arregloUser[actualizar];
+        $("#inpTipoDocEmp").val(tmpo.ue_td_id);
+        $("#inpNumeroEmp").val(tmpo.ue_num_doc);
+        $("#inpNombreEmp").val(tmpo.emp_nombre);
+        $("#inpUsuarioEmp").val(tmpo.ue_usuario);
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#page-content-wrapper").offset().top
+        }, 300);
+    });
+}
+
+/**
+ * Metodo que permite validar campos en formulario actualizacion de usuario empleado 
+ * @returns {undefined}
+ */
+function validarActuUsEmp() {
+    $("#formUsEmp").validate({
+        rules: {
+            inpTipoDocEmp: {
+                required: true
+            },
+            inpNumeroEmp: {
+                required: true
+            },
+            inpNombreEmp: {
+                required: true
+            },
+            inpUsuarioEmp: {
+                required: true
+            },
+            inpPassEmp: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            actualiza_us_emp();
+        }
+    });
+}
+/**
+ * Metodo que actualiza usuario y pass en tabla usuario_pass_emp
+ * @returns {undefined}
+ */
+function actualiza_us_emp() {
+    request = "Controller/AdminC/AdministrarEmpleados/actualiza_us_pass_emp_controller.php";
+    cadena = $("#formUsEmp").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            $("#mensajeAccion").html("<div class='alert alert-dismissible alert-success'>\n\
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+              <strong>Datos de aceso de Cliente Actualizados!</strong>.</div>");
+            limpiarFormulario("#formUsEmp");
+            tablaGeneral_US_Empleados();
+        } else {
+            $("#mensajeAccion").html("<div class='alert alert-dismissible alert-danger'>\n\
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+              <strong>Error al guardar los datos!</strong>.</div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que retorna el listado de usuarios sucursales
+ * @returns {undefined}
+ */
+function tablaGeneral_US_Sucursales() {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_gen_sucursales_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloUser = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloUser !== 0) {
+            datosUserSuc = "<table class='table table-responsive-sm table-hover table-bordered table-fixed' id='tableUsSuc'>\n\
+                             <thead><tr class='thead-light'>\n\
+                             <th scope='col'>NOMBRE</th>\n\
+                             <th scope='col'>NUM. SUC</th>\n\
+                             <th scope='col'>USUARIOS</th>\n\
+                             <th scope='col'>ACT. PASS</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloUser.length; i++) {
+                tmp = arregloUser[i];
+                datosUserSuc += '<tr class="table-info" id="fila' + i + '"><td>' + tmp.suc_nombre + "</td>";
+                datosUserSuc += '<td>' + tmp.suc_num_id + '</td>';
+                datosUserSuc += '<td>' + tmp.suc_usuario + '</td>';
+//                datosUser += '<td><img src="img/iconos/editar_46x46.png" alt=""/ class="enlace img-responsive actualizaesae" actuesae="' + i + '"></td></tr>';
+                datosUserSuc += '<td><span class="ion-eye-disabled enlace actualizasucus" style="font-size: xx-large; color: #831e1e;" actusucus="' + i + '"></span></td></tr>';
+            }
+            datosUserSuc += "</tbody></table>";
+            $("#tablaUsuarios").html(datosUserSuc);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+
+            $('#tableUsSuc').DataTable();
+            clickActualizaSucUs();
+        } else {
+            $("#tablaUsuarios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga el form actualizar datos de usuario y pass sucursales
+ * @returns {undefined}
+ */
+function vista_form_act_us_suc() {
+    request = "View/AdministradorV/AdSucursal/form_act_us_pass_suc.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#formularioUsuarios").html(datos);
+        $("#btnActuUsuSuc").click(function () {
+            validarActuUsSuc();
+        });
+        $("#btnCancelUsuSuc").click(function () {
+            limpiarFormulario("#formUsSuc");
+        });
+        $("#inputGroup-sizing-sm").click(function () {
+            if ($('#inpPassSuc').attr("type") == "text") {
+
+                $('#inpPassSuc').attr('type', 'password');
+                $('#inputGroup-sizing-sm').removeClass("ion-eye");
+                $('#inputGroup-sizing-sm').addClass("ion-eye-disabled");
+
+            } else if ($('#inpPassSuc').attr("type") == "password") {
+
+                $('#inpPassSuc').attr('type', 'text');
+                $('#inputGroup-sizing-sm').removeClass("ion-eye-disabled");
+                $('#inputGroup-sizing-sm').addClass("ion-eye");
+            }
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma los datos del elemento seleccionado en los campos de texto
+ * formulario usuarios sucursales
+ * @returns {undefined}
+ */
+function clickActualizaSucUs() {
+    $("#tableUsSuc").on("click", ".actualizasucus", function () {
+//    $(".actualizaesae").click(function () {
+        actualizar = $(this).attr("actusucus");
+        tempo = arregloUser[actualizar];
+        $("#inpNumeroSuc").val(tempo.suc_num_id);
+        $("#inpNombreSuc").val(tempo.suc_nombre);
+        $("#inpUsuarioSuc").val(tempo.suc_usuario);
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#page-content-wrapper").offset().top
+        }, 300);
+    });
+}
+
+/**
+ * Metodo que permite validar campos en formulario actualizacion de usuario sucursal 
+ * @returns {undefined}
+ */
+function validarActuUsSuc() {
+    $("#formUsSuc").validate({
+        rules: {
+            inpNumeroSuc: {
+                required: true
+            },
+            inpNombreSuc: {
+                required: true
+            },
+            inpUsuarioSuc: {
+                required: true
+            },
+            inpPassSuc: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            actualiza_us_suc();
+        }
+    });
+}
+/**
+ * Metodo que actualiza usuario y pass en tabla sucursales
+ * @returns {undefined}
+ */
+function actualiza_us_suc() {
+    request = "Controller/AdminC/AdministrarSucursal/actualiza_us_pass_suc_controller.php";
+    cadena = $("#formUsSuc").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            $("#mensajeAccion").html("<div class='alert alert-dismissible alert-success'>\n\
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+              <strong>Datos de aceso de Cliente Actualizados!</strong>.</div>");
+            limpiarFormulario("#formUsSuc");
+            tablaGeneral_US_Sucursales();
+        } else {
+            $("#mensajeAccion").html("<div class='alert alert-dismissible alert-danger'>\n\
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+              <strong>Error al guardar los datos!</strong>.</div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /****************************************************************
  * Metodos de ordenes de servicio
@@ -2863,7 +3335,7 @@ function seguimiento_estado() {
 }
 
 var valor;
-var id_cliente_select;
+var id_cliente_select = '0|0';
 
 /**
  * Metodo que trae a la vista el entorno de creacion de ordenes de servicio
@@ -2967,6 +3439,7 @@ function en_proceso_os_por_cliente() {
         });
 
         $("#selectCliente").change(function () {
+            id_cliente_select = $("#selectCliente").val();
             if ($('#checkSucur').prop('checked')) {
                 combo_sucursal_x_cli();
             }
@@ -2991,7 +3464,7 @@ function en_proceso_os_por_cliente() {
 //                    $("#nomCli").html("Cliente: " + $("#selectCliente option:selected").html());
 //                    $("#infoOrd").html("Proceso: " + $("#selectProceso option:selected").html());
 //                }
-            } else if ($("#selectProceso").val() == 2) {
+            } else if ($("#selectProceso").val() == 4) {
 //                formulario_alistamiento_xlsx();
                 if ($('#checkSucur').prop('checked')) {
                     if ($("#selectSuc_x_Cli").val() == '' || $("#selectSuc_x_Cli").val() == 0) {
@@ -3015,11 +3488,29 @@ function en_proceso_os_por_cliente() {
             }
             $("#formBuscarCli_crear_OS").hide();
             $("#infoCliente").show();
+            $("#inputGuiaNum").focus();
+
+            $("#inputGuiaNum").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    filtro_guia = $('#inputGuiaNum').val();
+//                    alert(filtro_in);
+                    if (filtro_guia === "" || filtro_guia === null) {
+
+//                        alert("No ha seleccionado un filtro valido");
+                        $("#inputGuiaNum").focus();
+//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+                    } else {
+                        alst_guia = true;
+                        cargaProdAlistamiento();
+                    }
+                }
+            });
         });
     };
     f_ajax(request, cadena, metodo);
 }
-
+var alst_guia = false;
+var filtro_guia;
 /**
  * Metodo que trae a la vista el contenido de botones de actualizacion de estados os
  * @returns {undefined}
@@ -4040,8 +4531,16 @@ var can_vent_als;
  * @returns {undefined}
  */
 function cargaProdAlistamiento() {
-    request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_stock_controller.php";
-    cadena = "a=1";
+    if (alst_guia == true) {
+        request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_st_guia_controller.php";
+        cadena = {"inp_num_guia": filtro_guia};
+        alst_guia = false;
+        filtro_guia = "";
+    } else {
+        request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_stock_controller.php";
+        cadena = "a=1";
+    }
+
     metodo = function (datos) {
 
 //        $("#blqPagina1").html(datos);
@@ -4076,7 +4575,10 @@ function cargaProdAlistamiento() {
                         <div class="row">\n\
                         <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
-                        <div class="form-group col-3">\n\
+                        <div class="form-group col-2">\n\
+                          <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
+                        </div>\n\
+                        <div class="form-group col-2">\n\
                           <div class="custom-control custom-switch">\n\
                           <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
                           <label class="custom-control-label" for="' + blq + '">OK</label>\n\
@@ -4085,20 +4587,23 @@ function cargaProdAlistamiento() {
                         <div class="table-responsive text-nowrap">\n\
                         <table class="table table-hover table-sm table-fixed">\n\
                         <thead><tr class="table-primary">\n\
-                        <th scope="col">SKU</th>\n\
-                            <th scope="col">PRODUCTO</th>\n\
+                            <th scope="col">VER</th>\n\
+                            <th scope="col">SKU</th>\n\
                             <th scope="col">UB</th>\n\
                             <th scope="col">STOCK</th>\n\
                             <th scope="col">UNS</th>\n\
                             <th scope="col">TEÓRICO</th>\n\
+                            <th scope="col">PRODUCTO</th>\n\
+                            <th scope="col">COD</th>\n\
                             <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                         </tr></thead><tbody>';
 
                     blq++;
 
-                    datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
-                    datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
-                    datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                    datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                    datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
+                    datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                    datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                     datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                     if (tmp.t_sal_cantidad >= 2) {
                         datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
@@ -4106,6 +4611,8 @@ function cargaProdAlistamiento() {
                         datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                     }
                     datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
+                    datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                    datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
                     datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                     if (i === arregloAlista[arregloAlista.length - 1]) {
@@ -4138,9 +4645,10 @@ function cargaProdAlistamiento() {
                         //***si es la ultima fila del arreglo**//
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
+                            datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
@@ -4148,6 +4656,8 @@ function cargaProdAlistamiento() {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
+                            datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
@@ -4194,7 +4704,10 @@ function cargaProdAlistamiento() {
                                 <div class="row">\n\
                                 <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
-                                <div class="form-group col-3">\n\
+                                <div class="form-group col-2">\n\
+                                  <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
+                                </div>\n\
+                                <div class="form-group col-2">\n\
                                   <div class="custom-control custom-switch">\n\
                                   <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
                                   <label class="custom-control-label" for="' + blq + '">OK</label>\n\
@@ -4203,20 +4716,23 @@ function cargaProdAlistamiento() {
                                 <div class="table-responsive text-nowrap">\n\
                                 <table class="table table-hover table-sm table-fixed">\n\
                                 <thead><tr class="table-primary">\n\
-                                <th scope="col">SKU</th>\n\
-                                    <th scope="col">PRODUCTO</th>\n\
+                                    <th scope="col">VER</th>\n\
+                                    <th scope="col">SKU</th>\n\
                                     <th scope="col">UB</th>\n\
                                     <th scope="col">STOCK</th>\n\
                                     <th scope="col">UNS</th>\n\
                                     <th scope="col">TEÓRICO</th>\n\
+                                    <th scope="col">PRODUCTO</th>\n\
+                                    <th scope="col">COD</th>\n\
                                     <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
 
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
+                            datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
@@ -4224,6 +4740,8 @@ function cargaProdAlistamiento() {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
+                            datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
@@ -4249,9 +4767,10 @@ function cargaProdAlistamiento() {
 
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
+                            datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
@@ -4259,6 +4778,8 @@ function cargaProdAlistamiento() {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
+                            datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                         } else {
@@ -4289,7 +4810,10 @@ function cargaProdAlistamiento() {
                                 <div class="row">\n\
                                 <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
-                                <div class="form-group col-3">\n\
+                                <div class="form-group col-2">\n\
+                                   <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
+                                </div>\n\
+                                <div class="form-group col-2">\n\
                                   <div class="custom-control custom-switch">\n\
                                   <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
                                   <label class="custom-control-label" for="' + blq + '">OK</label>\n\
@@ -4298,20 +4822,23 @@ function cargaProdAlistamiento() {
                                 <div class="table-responsive text-nowrap">\n\
                                 <table class="table table-hover table-sm table-fixed">\n\
                                 <thead><tr class="table-primary">\n\
-                                <th scope="col">SKU</th>\n\
-                                    <th scope="col">PRODUCTO</th>\n\
+                                    <th scope="col">VER</th>\n\
+                                    <th scope="col">SKU</th>\n\
                                     <th scope="col">UB</th>\n\
                                     <th scope="col">STOCK</th>\n\
                                     <th scope="col">UNS</th>\n\
                                     <th scope="col">TEÓRICO</th>\n\
+                                    <th scope="col">PRODUCTO</th>\n\
+                                    <th scope="col">COD</th>\n\
                                     <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
 
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '"><td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
-                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
-                            datosAlist += '<td id="td3' + tmp.t_csc + '">' + tmp.pro_ubicacion + '</td>';
+                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
+                            datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
+                            datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
@@ -4319,6 +4846,8 @@ function cargaProdAlistamiento() {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
                             datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
+                            datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
+                            datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             venta = tmp.t_sal_num_venta;
@@ -4383,6 +4912,12 @@ function cargaProdAlistamiento() {
                 ventasSelected();
                 cargaProdAlistamiento();
             });
+
+            if (arregloAlista.length == 1) {
+                $("#inpCodProd0").focus();
+            }
+
+            enterProCod();
 
         } else {
             $("#bloques").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -4611,6 +5146,30 @@ function checkedVenta() {
     });
 }
 /**
+ * Metodo que se encarga de realizar check en prod de una venta para alistamiento
+ * @returns {undefined}
+ */
+function enterProCod() {
+
+    $(".inpBlq").keyup(function (e) {
+        if (e.keyCode == 13) {
+            inp_id = $(this).attr("id");
+            cod_pro = $('#' + inp_id).val();
+            inp_blq = $(this).attr("blinp");
+//                    alert(filtro_in);
+            if (cod_pro === "" || cod_pro === null) {
+
+//                        alert("No ha seleccionado un filtro valido");
+                $('#' + inp_id).focus();
+//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+            } else {
+                $("#Check" + inp_blq + cod_pro).prop('checked', true);
+
+            }
+        }
+    });
+}
+/**
  * Metodo que carga en el form del modal datos para editar producto alistamiento
  * @param {type} csc
  * @returns {undefined}
@@ -4735,15 +5294,20 @@ function actualizarProdItemAlist() {
             $('#td4' + edit_prod + '').html("");
             $('#td5' + edit_prod + '').html("");
             $('#td6' + edit_prod + '').html("");
+            $('#td7' + edit_prod + '').html("");
+            $('#tdcheck' + edit_prod + '').html("");
+            elch = $('#tdcheck' + edit_prod + '').attr("elch");
 
             tmp_prod_item = arreglo_datos_prod_sku[0];
 
             $('#td1' + edit_prod + '').html(tmp_prod_item.pro_sku);
-            $('#td2' + edit_prod + '').html(tmp_prod_item.pro_desc);
+            $('#td2' + edit_prod + '').html(tmp_prod_item.pro_cod);
             $('#td3' + edit_prod + '').html(tmp_prod_item.pro_ubicacion);
             $('#td4' + edit_prod + '').html(tmp_prod_item.total);
             $('#td5' + edit_prod + '').html(cantidad);
             $('#td6' + edit_prod + '').html(teorico);
+            $('#td7' + edit_prod + '').html(tmp_prod_item.pro_desc);
+            $('#tdcheck' + edit_prod + '').html('<input type="checkbox" id="Check' + elch + tmp_prod_item.pro_cod + '">');
         } else {
             alertify.error('No se pudo realizar la Actualización!');
 //            alert(datos);

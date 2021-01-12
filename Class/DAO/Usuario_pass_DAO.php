@@ -38,6 +38,28 @@ class Usuario_pass_DAO {
     }
 
     /**
+     * Funcion que actualiza las credenciales de acdeso de un cliente
+     * @param type $usu_pass_vo
+     */
+    function actualizarUsuarioCliente($usu_pass_vo) {
+        $sql = "UPDATE usuario_pass SET us_usuario = '" . $usu_pass_vo->getUsuario() . "', us_password = '" . $usu_pass_vo->getPassword() . "' "
+                . "WHERE us_td_id = " . $usu_pass_vo->getTipo_doc() . " AND us_num_doc = " . $usu_pass_vo->getNum_doc() . ";";
+        $BD = new MySQL();
+        echo $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que actualiza las credenciales de acdeso de un empleado
+     * @param type $usu_pass_vo
+     */
+    function actualizarUsuarioEmpleado($usu_pass_vo) {
+        $sql = "UPDATE usuario_emp_pass SET ue_usuario = '" . $usu_pass_vo->getUsuario() . "', ue_password = '" . $usu_pass_vo->getPassword() . "' "
+                . "WHERE ue_td_id = " . $usu_pass_vo->getTipo_doc() . " AND ue_num_doc = " . $usu_pass_vo->getNum_doc() . ";";
+        $BD = new MySQL();
+        echo $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que retorna los datos de un usuario_pass en el login
      * @param type $usuario
      * @return type

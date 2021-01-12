@@ -73,6 +73,19 @@ class Cliente_DAO {
     }
 
     /**
+     * Funcion que consulta los usuarios de clientes
+     * @param type $cliente_vo
+     */
+    function consultarClientesUsuarios() {
+        $sql = "SELECT cl.cli_nombre, us.* "
+                . "FROM clientes AS cl, usuario_pass AS us "
+                . "WHERE cl.cli_td_id = us.us_td_id AND cl.cli_num_doc = us.us_num_doc;";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que consulta datos de cliente por parametro
      * @param type $td_id
      * @param type $num_doc

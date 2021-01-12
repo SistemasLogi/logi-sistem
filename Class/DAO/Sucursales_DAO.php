@@ -28,6 +28,17 @@ class Sucursales_DAO {
     }
 
     /**
+     * Funcion que actualiza las credenciales de acdeso de una sucursal
+     * @param type $sucursal_vo
+     */
+    function actualizarUsuarioSucursal($sucursal_vo) {
+        $sql = "UPDATE sucursales SET suc_usuario = '" . $sucursal_vo->getUsuario_suc() . "', suc_password = '" . $sucursal_vo->getPass_suc() . "' "
+                . "WHERE suc_num_id = " . $sucursal_vo->getNum_suc() . ";";
+        $BD = new MySQL();
+        echo $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que retorna los datos de las sucursales registradas
      * @return type
      */

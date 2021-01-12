@@ -97,4 +97,17 @@ class Empleado_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que consulta los usuarios de empleados
+     * @param type $cliente_vo
+     */
+    function consultarEmpleadosUsuarios() {
+        $sql = "SELECT em.emp_nombre, ue.* "
+                . "FROM empleados AS em, usuario_emp_pass AS ue "
+                . "WHERE em.emp_td_id = ue.ue_td_id AND em.emp_num_doc = ue.ue_num_doc;";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
+    }
+
 }

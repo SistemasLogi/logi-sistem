@@ -13,7 +13,7 @@
                             <div class="form-group col-md-6">
                                 <label for="selectCliente" class="col-form-label"><b>Buscar Cliente :</b></label>
                                 <div>
-                                    <select class="form-control form-control-sm mr-sm-2 col-12" id="selectCliente">
+                                    <select class="form-control form-control-sm mr-sm-2 col-12" id="selectCliente" name="selectCliente">
 
                                     </select>
                                 </div>

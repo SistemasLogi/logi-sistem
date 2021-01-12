@@ -61,6 +61,12 @@
             </div>   
         </div>
     </div>
+    <div class="form-group row">
+        <label for="inputGuiaNum" class="col-sm-1 col-form-label">Buscar</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control form-control-sm" id="inputGuiaNum" name="inputGuiaNum" placeholder="N° Guia">
+        </div>
+    </div>
     <div id="bloques">
 
     </div>

@@ -156,6 +156,8 @@ echo $porciones[0] . " " . $porciones[2]; ?></h4>
                             <a class="dropdown-item enlace" bd="admin_operadores">Op. Logisticos</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" bd="admin_estado_aenv">Estado Alist. Envios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" bd="admin_usuarios">Usuarios del Sistema</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseEmp" role="button" aria-expanded="false" aria-controls="multiCollapseEmp">
