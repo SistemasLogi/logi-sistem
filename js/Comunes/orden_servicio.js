@@ -401,9 +401,9 @@ function seleccionCargaEnvios() {
 }
 
 /*******************************************************************************
-/*************Metodos de carga masiva por archivo xlsx**************************
-/*******************************************************************************
-/**
+ /*************Metodos de carga masiva por archivo xlsx**************************
+ /*******************************************************************************
+ /**
  * Metodo que se encarga de guardar un fichero en la carpeta raiz del servidor
  * @returns {undefined}
  */
@@ -476,9 +476,9 @@ function lectura_xlsx() {
     f_ajax(request, cadena, metodo);
 }
 /*******************************************************************************
-/********************Metodos de impresion de Guias******************************
-/*******************************************************************************
-/*
+ /********************Metodos de impresion de Guias******************************
+ /*******************************************************************************
+ /*
  * Variables globales de numero de pagina inicial y final para impresion de guias en pdf
  */
 var pagInicio = $("#inputHojaDesde").val();

@@ -3412,6 +3412,30 @@ function crear_os_por_cliente() {
             }
 
         });
+
+
+        //**Metodos Nuevos**//
+        combo_ciudad("#selCiudad");
+        combo_tipo_envio("#selEnvio");
+        combo_clientes_param("#selCliente");
+        combo_tipo_serv_param("#selServi");
+
+        $("#selCliente").change(function () {
+            id_cli_sel = $("#selCliente").val();
+
+            combo_sucursal_x_cli_param("#selSucur", id_cli_sel);
+            datos_cliente_selected_v2(id_cli_sel);
+
+        });
+        $("#selSucur").change(function () {
+            id_suc_sel = $("#selSucur").val();
+
+            datos_sucursal_selected_v2(id_suc_sel);
+
+        });
+        $("#btnGuardaOS").click(function () {
+            validarGuardarOS();
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -3509,6 +3533,33 @@ function en_proceso_os_por_cliente() {
     };
     f_ajax(request, cadena, metodo);
 }
+
+/**
+ * Metodo que permite validar formulario de ingreso de Empleado
+ * @returns {undefined}
+ */
+function validarGuardarOS() {
+    $("#form_guarda_os").validate({
+        rules: {
+            selCliente: {
+                valueNotEquals: "0|0"
+            },
+            inpDirec: {
+                required: true
+            },
+            inpTel: {
+                digits: true
+            },
+            inpCel: {
+                digits: true
+            }
+        },
+        submitHandler: function (form) {
+            inserta_empleado();
+        }
+    });
+}
+
 var alst_guia = false;
 var filtro_guia;
 /**
@@ -3719,6 +3770,25 @@ function combo_clientes_dos() {
             datouscombo += '<option value="' + temp.cli_td_id + '|' + temp.cli_num_doc + '">' + temp.cli_nombre + "</option>";
         }
         $("#selectCliente").html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que llena el combo de seleccion Clientes reibe parametro identificador
+ * @param {type} seletCliente
+ * @returns {undefined}
+ */
+function combo_clientes_param(seletCliente) {
+    request = "Controller/AdminC/AdministrarCliente/consulta_general_cliente_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = '<option value="0|0">Seleccione...</option>';
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.cli_td_id + '|' + temp.cli_num_doc + '">' + temp.cli_nombre + "</option>";
+        }
+        $(seletCliente).html(datouscombo);
     };
     f_ajax(request, cadena, metodo);
 }
@@ -4290,6 +4360,63 @@ function combo_sucursal_x_cli() {
 }
 /**
  * Metodo que retorna los datos a combo sucursales por cliente seleccionado
+ * recibe parametro identificador select
+ * @param {type} iden_select
+ * @param {type} id_cliente
+ * @returns {undefined}
+ */
+function combo_sucursal_x_cli_param(iden_select, id_cliente) {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_cli_controller.php";
+    cadena = "selectCliente=" + id_cliente; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_suc_cli = $.parseJSON(datos);
+        datouscombo = "";
+        if (arreglo_suc_cli == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            datouscombo += '<option value="0">Seleccione..</option>';
+            for (i = 0; i < arreglo_suc_cli.length; i++) {
+                temp = arreglo_suc_cli[i];
+                datouscombo += '<option value="' + temp.suc_num_id + '">' + temp.suc_nombre + "</option>";
+            }
+        }
+
+        $(iden_select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos a combo tipo de servicio
+ * recibe parametro identificador
+ * @param {type} ident_select
+ * @returns {undefined}
+ */
+function combo_tipo_serv_param(ident_select) {
+    request = "Controller/AdminC/AdministrarBD/consulta_tipo_serv_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_serv = $.parseJSON(datos);
+        datouscombo = "";
+        if (arreglo_serv == "") {
+            datouscombo += '<option value="0"></option>';
+        } else {
+            for (i = 0; i < arreglo_serv.length; i++) {
+                temp = arreglo_serv[i];
+                if (temp.ts_id == 2) {
+                    datouscombo += '<option value="' + temp.ts_id + '" selected>' + temp.ts_desc + "</option>";
+                } else {
+                    datouscombo += '<option value="' + temp.ts_id + '">' + temp.ts_desc + "</option>";
+                }
+
+            }
+        }
+
+        $(ident_select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos a combo sucursales por cliente seleccionado
  * @returns {undefined}
  */
 function combo_sucursal_x_cli_dos() {
@@ -4333,6 +4460,26 @@ function datos_cliente_selected() {
     f_ajax(request, cadena, metodo);
 }
 /**
+ * Metodo que retorna los datos de cliente seleccionado
+ * recibe parametro identificador de id select
+ * @param {type} id_sel_cli
+ * @returns {undefined}
+ */
+function datos_cliente_selected_v2(id_sel_cli) {
+    request = "Controller/AdminC/AdministrarCliente/consulta_cli_x_num_controller.php";
+    cadena = "selectCliente=" + id_sel_cli; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_cli = $.parseJSON(datos);
+
+        tmp_dat_cli = arreglo_datos_cli[0];
+
+        $("#inpDirec").val(tmp_dat_cli.cli_direccion);
+        $("#inpTel").val(tmp_dat_cli.cli_tel);
+        $("#inpPerCont").val(tmp_dat_cli.cli_per_cont);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
  * Metodo que retorna los datos de sucursal seleccionada
  * @returns {undefined}
  */
@@ -4352,6 +4499,32 @@ function datos_sucursal_selected() {
         $("#inputNumSucu").val(tmp_dat_suc.suc_num_id);
         $("#nombreCliSuc").html(tmp_dat_suc.suc_nombre);
         $("#blqFinalizado").html('<img src="img/sucursales/' + tmp_dat_suc.suc_num_id + '.png" class="rounded mx-auto d-block" alt=""/>');
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna los datos de sucursal seleccionada
+ * recibe parametro de id sucursal
+ * @param {type} id_suc_sel
+ * @returns {undefined}
+ */
+function datos_sucursal_selected_v2(id_suc_sel) {
+    request = "Controller/AdminC/AdministrarSucursal/consulta_suc_x_id_controller.php";
+    cadena = "selectSuc_x_Cli=" + id_suc_sel; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_datos_suc = $.parseJSON(datos);
+
+        tmp_dat_suc = arreglo_datos_suc[0];
+
+        if (tmp_dat_suc === 0 || typeof tmp_dat_suc === "undefined") {
+
+        } else {
+            $("#inpDirec").val(tmp_dat_suc.suc_direccion);
+            $("#inpTel").val(tmp_dat_suc.suc_telefono);
+            $("#inpPerCont").val(tmp_dat_suc.suc_nombre);
+
+//            $("#blqFinalizado").html('<img src="img/sucursales/' + tmp_dat_suc.suc_num_id + '.png" class="rounded mx-auto d-block" alt=""/>');
+        }
     };
     f_ajax(request, cadena, metodo);
 }
