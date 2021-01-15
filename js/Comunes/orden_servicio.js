@@ -204,6 +204,64 @@ function insertar_orden_serv() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que guarda registro en tabla orden_serv
+ * desde form form_guarda_os
+ * @returns {undefined}
+ */
+function insertar_orden_serv_v2() {
+    request = "Controller/ClienteOS/insertar_os_adm_controller.php";
+    cadena = $("#form_guarda_os").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        if (datos == 1) {
+            numero_orden_serv();
+            ciudad = $("#selectCiudad option:selected").text();
+            direccion = $("#inputDir").val();
+            tipo_envio = $("#selectTipEnvio option:selected").text();
+            if ($('#inpCheckLogiYa').prop('checked')) {
+                tipo_servi = "<b>LOGI YA!!</b>";
+            } else {
+                tipo_servi = "MENSAJERIA";
+            }
+            limpiarFormulario("#formOrdenServ");
+            $("#blqinputDir").hide();
+            $("#blqselectCiudad").hide();
+            $("#blqinputPerContacto").hide();
+            $("#blqinputTele").hide();
+            $("#lbTitleSection").html("");
+//            $("#inputCantidadEnv").prop('disabled', true);
+//            $("#selectTipEnvio").prop('disabled', true);
+//            $("#btnGenOrdServ").prop('disabled', true);
+//            $("#btnAgreEnv").prop('disabled', false);
+//            $(".ocultar").show();
+//            $("#controlesInput").hide();
+            $("#btnGenOrdServ").hide();
+            $("#btnCancelarOrd").hide();
+            $("#formOrdenServ").hide();
+            $("#instruccionNuevo").show();
+            alertify.success('Orden Creada!');
+            $("#divMensaje").html("<legend id='legTitulo'></legend>\n\
+                  <strong>Lugar de Recolección: </strong>" + direccion + " " + ciudad + "<br>\n\
+                  <strong>Tipo de Envio: </strong>" + tipo_envio + "<br>\n\
+                  <strong>Tipo Servicio: </strong>" + tipo_servi + "\n\
+                  <div class='alert alert-dismissible alert-warning border-warning' id='mensajeCompletar' style='border-radius: 0.5rem;'><strong>Orden de Recolección creada,</strong> por favor diligencie los datos de envio.</div>");
+            $("#formDescEnvios").show();
+            resetMostrarCampos(tipo_envio, "#blqPeso", "#blqAlto", "#blqAncho", "#blqLargo", "#blqContenido", "#blqValorDecl", "#blqObserv", "#inputCantidadEnv");
+            $("#blqCargaExcel").hide();
+            $("#blqSelectModoCarga").show();
+        } else if (datos == 2) {
+//            alert(datos);
+            $("#divMensaje").html("<div class='alert alert-dismissible alert-warning col-lg-12'><strong>error al guardar estado de orden de servicio, </strong>la orden fue creada</div> ");
+        } else if (datos == 3) {
+//            alert(datos);
+            $("#divMensaje").html("<div class='alert alert-dismissible alert-danger col-lg-12'><strong>error al guardar orden de servicio</strong></div> ");
+        } else {
+            alert(datos);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /**
  * Metodo que permite resetear el formulario solicitar orden de servicio

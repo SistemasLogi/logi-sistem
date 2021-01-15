@@ -3427,6 +3427,7 @@ function crear_os_por_cliente() {
             datos_cliente_selected_v2(id_cli_sel);
 
         });
+        
         $("#selSucur").change(function () {
             id_suc_sel = $("#selSucur").val();
 
@@ -3535,7 +3536,7 @@ function en_proceso_os_por_cliente() {
 }
 
 /**
- * Metodo que permite validar formulario de ingreso de Empleado
+ * Metodo que permite validar formulario de creacion de os
  * @returns {undefined}
  */
 function validarGuardarOS() {
@@ -3555,7 +3556,7 @@ function validarGuardarOS() {
             }
         },
         submitHandler: function (form) {
-            inserta_empleado();
+            insertar_orden_serv_v2();
         }
     });
 }

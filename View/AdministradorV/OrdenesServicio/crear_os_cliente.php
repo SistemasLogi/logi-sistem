@@ -67,7 +67,6 @@
 
         <div class="toast-body row">        
             <div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">
-
                 <div class="row">
                     <div class="alert alert-dismissible alert-light col-lg-12  border-warning" style="border-radius: 0.5rem;">
                         <form id="form_guarda_os">
@@ -98,7 +97,7 @@
                                 </div>                                  
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inpDirec">Dirección</label>
                                     <input type="text" class="form-control form-control-sm" id="inpDirec" name="inpDirec" placeholder="Dirección">
                                 </div>
@@ -112,11 +111,7 @@
                                     <label for="inpTel">Teléfono</label>
                                     <input type="text" class="form-control form-control-sm" id="inpTel" name="inpTel" placeholder="Teléfono">
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label for="inpCel">Celular</label>
-                                    <input type="text" class="form-control form-control-sm" id="inpCel" name="inpCel" placeholder="Celular">
-                                </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label for="inpPerCont">Persona Contacto</label>
                                     <input type="text" class="form-control form-control-sm" id="inpPerCont" name="inpPerCont" placeholder="Contacto">
                                 </div>
