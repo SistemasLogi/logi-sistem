@@ -112,9 +112,7 @@
             </div>
         </section><!-- #facts -->
 
-    </main>
+        <?PHP require './footer.php'; ?>
 
-    <?PHP require './footer.php'; ?>
-
-</body>
+    </body>
 </html>

@@ -22,12 +22,8 @@ if (isset($_SESSION["adminlogi"])) {
         if ($sheetData[1]['B'] == "Nombre Destinatario" && $sheetData[1]['C'] == "Direccion Destinatario" && $sheetData[1]['D'] == "Ciudad Destino" && $sheetData[1]['E'] == "Departamento Destino") {
 
             $obj_env_vo = new Envio_VO();
-            $orden_servi_dao = new Orden_serv_DAO();
-            $json_ultima_os = json_encode($orden_servi_dao->consultaUltimaOS($_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"]));
-            $array = json_decode($json_ultima_os);
 
             $sql = "INSERT INTO envio VALUES "; //cabecera del insert
-            $id_os_cliente = $array[0]->os_id; //numero de orden de servicio
 
             $reg_buenos = 0;
             $reg_error = 0;
@@ -35,21 +31,45 @@ if (isset($_SESSION["adminlogi"])) {
             for ($i = 2; $i <= count($sheetData); $i++) {
 
                 $obj_env_vo->setNum_guia($sheetData[$i]['A']);
-                $obj_env_vo->setNum_orden_serv($id_os_cliente);
-                $obj_env_vo->setCantidad(1); //para mensajeria y radicacion de documentos la cantidad de envios por guia siempre sera de 1
-                $obj_env_vo->setPeso_kg(0);
-                $obj_env_vo->setAlto_cm(0);
-                $obj_env_vo->setAncho_cm(0);
-                $obj_env_vo->setLargo_cm(0);
-                $obj_env_vo->setTrayecto("");
                 $obj_env_vo->setNombre(str_replace("'", '\\\'', $sheetData[$i]['B']));
+                $obj_env_vo->setNum_orden_serv($_SESSION["os_creada"]);
                 $obj_env_vo->setDireccion($sheetData[$i]['C']);
                 $obj_env_vo->setCiudad_dest($sheetData[$i]['D']);
                 $obj_env_vo->setDepto_dest($sheetData[$i]['E']);
                 $obj_env_vo->setTelefono($sheetData[$i]['F']);
-                $obj_env_vo->setContenido($sheetData[$i]['G']);
-                $obj_env_vo->setNovedad($sheetData[$i]['H']);
-                $obj_env_vo->setValor_declarado(0);
+                if (is_numeric($sheetData[$i]['G'])) {
+                    $obj_env_vo->setCantidad($sheetData[$i]['G']);
+                } else {
+                    $obj_env_vo->setCantidad(1);
+                }
+                if (is_numeric($sheetData[$i]['H'])) {
+                    $obj_env_vo->setPeso_kg($sheetData[$i]['H']);
+                } else {
+                    $obj_env_vo->setPeso_kg(1);
+                }
+                if (is_numeric($sheetData[$i]['I'])) {
+                    $obj_env_vo->setAlto_cm($sheetData[$i]['I']);
+                } else {
+                    $obj_env_vo->setAlto_cm(1);
+                }
+                if (is_numeric($sheetData[$i]['J'])) {
+                    $obj_env_vo->setAncho_cm($sheetData[$i]['J']);
+                } else {
+                    $obj_env_vo->setAncho_cm(1);
+                }
+                if (is_numeric($sheetData[$i]['K'])) {
+                    $obj_env_vo->setLargo_cm($sheetData[$i]['K']);
+                } else {
+                    $obj_env_vo->setLargo_cm(1);
+                }
+                $obj_env_vo->setTrayecto("");
+                $obj_env_vo->setContenido($sheetData[$i]['L']);
+                if (is_numeric($sheetData[$i]['M'])) {
+                    $obj_env_vo->setValor_declarado($sheetData[$i]['M']);
+                } else {
+                    $obj_env_vo->setValor_declarado(0);
+                }
+                $obj_env_vo->setNovedad($sheetData[$i]['N']);
 
                 if (empty($obj_env_vo->getNombre()) || empty($obj_env_vo->getDireccion()) || empty($obj_env_vo->getCiudad_dest()) || empty($obj_env_vo->getDepto_dest())) {
                     if (empty($obj_env_vo->getNombre())) {
@@ -64,7 +84,6 @@ if (isset($_SESSION["adminlogi"])) {
                     if (empty($obj_env_vo->getDepto_dest())) {
                         $datos_errados[$reg_error] = "Error en la linea " . $i . " en departamento destino";
                     }
-
                     $reg_error++;
                 } else {
                     $datos_insert[$reg_buenos] = "(null,'" . $obj_env_vo->getNum_guia() . "'," . $obj_env_vo->getNum_orden_serv() . ","
@@ -116,10 +135,10 @@ if (isset($_SESSION["adminlogi"])) {
                 echo '<strong>Envios ingresados correctamente.</strong>';
                 echo "<strong>&nbsp;&nbsp;Total " . $contador . " numeros de Guia creados</strong>";
                 $est_x_env = new Estado_x_env_DAO();
-                $est_x_env->insertarEstado_x_envio($id_os_cliente);
+                $est_x_env->insertarEstado_x_envio($_SESSION["os_creada"]);
 
                 $envio_dao = new Envio_DAO();
-                $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 1));
+                $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($_SESSION["os_creada"], $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 1));
                 $array = json_decode($env_ing);
                 require './consulta_env_ingresados_controller.php';
             } else {
@@ -158,12 +177,8 @@ if (isset($_SESSION["adminlogi"])) {
         if ($sheetData[1]['B'] == "Nombre Destinatario" && $sheetData[1]['C'] == "Direccion Destinatario" && $sheetData[1]['D'] == "Ciudad Destino" && $sheetData[1]['E'] == "Departamento Destino") {
 
             $obj_env_vo = new Envio_VO();
-            $orden_servi_dao = new Orden_serv_DAO();
-            $json_ultima_os = json_encode($orden_servi_dao->consultaUltimaOS($_SESSION["tipo_doc"], $_SESSION["numero_doc"]));
-            $array = json_decode($json_ultima_os);
 
             $sql = "INSERT INTO envio VALUES "; //cabecera del insert
-            $id_os_cliente = $array[0]->os_id; //numero de orden de servicio
 
             $reg_buenos = 0;
             $reg_error = 0;
@@ -171,7 +186,7 @@ if (isset($_SESSION["adminlogi"])) {
             for ($i = 2; $i <= count($sheetData); $i++) {
 
                 $obj_env_vo->setNum_guia($sheetData[$i]['A']);
-                $obj_env_vo->setNum_orden_serv($id_os_cliente);
+                $obj_env_vo->setNum_orden_serv($_SESSION["os_creada"]);
                 $obj_env_vo->setCantidad(1); //para mensajeria y radicacion de documentos la cantidad de envios por guia siempre sera de 1
                 $obj_env_vo->setPeso_kg(0);
                 $obj_env_vo->setAlto_cm(0);
@@ -252,10 +267,10 @@ if (isset($_SESSION["adminlogi"])) {
                 echo '<strong>Envios ingresados correctamente.</strong>';
                 echo "<strong>&nbsp;&nbsp;Total " . $contador . " numeros de Guia creados</strong>";
                 $est_x_env = new Estado_x_env_DAO();
-                $est_x_env->insertarEstado_x_envio($id_os_cliente);
+                $est_x_env->insertarEstado_x_envio($_SESSION["os_creada"]);
 
                 $envio_dao = new Envio_DAO();
-                $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["tipo_doc"], $_SESSION["numero_doc"], 1));
+                $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($_SESSION["os_creada"], $_SESSION["tipo_doc"], $_SESSION["numero_doc"], 1));
                 $array = json_decode($env_ing);
                 require './consulta_env_ingresados_controller.php';
             } else {

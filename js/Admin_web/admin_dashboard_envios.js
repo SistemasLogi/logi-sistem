@@ -55,10 +55,55 @@ function vista_dashboard_envios() {
                 $("#lbCli").html("");
             } else {
                 $("#lbCli").html($('#selectCliente option:selected').text());
-                if($('#selectSuc_x_Cli option:selected').val() == '0'){
+                if ($('#selectSuc_x_Cli option:selected').val() == '0') {
                     $("#lbSuc").html("");
-                }else{
-                    $("#lbSuc").html(' /SUC: '+$('#selectSuc_x_Cli option:selected').text());
+                } else {
+                    $("#lbSuc").html(' /SUC: ' + $('#selectSuc_x_Cli option:selected').text());
+                }
+            }
+
+        });
+//        consulta_dashboard_serv();
+//        setInterval(consulta_os_program, 20000);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga el dashboard principal de alistamiento
+ * @returns {undefined}
+ */
+function vista_dashboard_alist() {
+    request = "View/AdministradorV/Dashboard/dashboardAlist.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+//        exist = false;
+        $("#list-formCliente").html("");
+        $("#list-formCliente").html(datos);
+
+        consulta_dashboard_alist_card();
+        combo_clientes();
+
+
+        $("#selectCliente").change(function () {
+            id_sucursal_sel = "0";
+            id_cliente_sel = $("#selectCliente").val();
+            combo_sucursal_x_cli_dos();
+        });
+
+        $("#selectSuc_x_Cli").change(function () {
+            id_sucursal_sel = $("#selectSuc_x_Cli").val();
+        });
+
+        $("#btnVer").click(function () {
+            consulta_dashboard_alist_card_cli(id_cliente_sel, id_sucursal_sel);
+            if ($('#selectCliente option:selected').val() == '0|0') {
+                $("#lbCli").html("");
+            } else {
+                $("#lbCli").html($('#selectCliente option:selected').text());
+                if ($('#selectSuc_x_Cli option:selected').val() == '0') {
+                    $("#lbSuc").html("");
+                } else {
+                    $("#lbSuc").html(' /SUC: ' + $('#selectSuc_x_Cli option:selected').text());
                 }
             }
 
@@ -104,6 +149,26 @@ function control_dash_envios_reset() {
     $("#cantEnvViajDest").html("");
     $("#cantEnvNovedades").html("");
     $("#cantEnvBodegaDest").html("");
+}
+
+var alst_piking;
+var alst_paking;
+/**
+ * Metodo que retorna la cantidad de envios segun su estado a la vista de los paneles
+ * alistamiento
+ * @returns {undefined}
+ */
+function control_dash_alist() {
+    $("#cantEnvPiking").html(alst_piking);
+    $("#cantEnvPaking").html(alst_paking);
+}
+/**
+ * Metodo que resetea los paneles alistamiento
+ * @returns {undefined}
+ */
+function control_dash_alist_reset() {
+    $("#cantEnvPiking").html("");
+    $("#cantEnvPaking").html("");
 }
 
 /**
@@ -157,6 +222,38 @@ function consulta_dashboard_envios_card() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Funcion que carga las acciones en los card alistamiento
+ * @returns {undefined}
+ */
+function consulta_dashboard_alist_card() {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_aenvio_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        alst_piking = 0;
+        alst_paking = 0;
+        arregloEstAlsCard = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstAlsCard !== 0) {
+
+            for (i = 0; i < arregloEstAlsCard.length; i++) {
+                tmp = arregloEstAlsCard[i];
+                if (tmp.esae_id == 1) {
+                    alst_piking++;
+                } else if (tmp.esae_id == 2) {
+                    alst_paking++;
+                }
+            }
+            control_dash_alist();
+            clickPanelDashAlist();
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
 var estado_id;
 /**
  * Metodo que plasma los datos del elemento seleccionado en los campos de texto
@@ -167,21 +264,364 @@ function clickPanelDash() {
 //    $("#tableCiudad").on("click", ".actualiza", function () {
     $(".est_envio").click(function () {
         estado_id = $(this).attr("elem");
-//        alert(estado_id);
-        consulta_tabla_env_x_est(id_cliente_sel, id_sucursal_sel, estado_id);
-//        $("#btnGuardaCiu").removeClass("btn-primary");
-//        $("#btnGuardaCiu").addClass("btn-warning");
-//        $("#btnGuardaCiu").html("Actualizar");
-//        tm = arregloCiudad[actualizar];
-//        $("#inpCodCiudad").val(tm.ciu_id);
-//        $("#inpNomCiudad").val(tm.ciu_nombre);
-//        $('#selectDepto option[value="' + tm.dep_id + '"]').attr('selected', true);
-//
+
+        if (estado_id == 6 || estado_id == 7 || estado_id == 11) {
+            click_modal_fech();
+        } else {
+            consulta_tabla_env_x_est(id_cliente_sel, id_sucursal_sel, estado_id);
+        }
+
         //En esta linea me redirije al formulario con una velocodad establecida
         $([document.documentElement, document.body]).animate({
             scrollTop: $("#tbInfoEstEnv").offset().top
         }, 300);
     });
+}
+var estado_id_alist;
+/**
+ * Metodo de ejecucion click en paneles dashboard alistamiento
+ * @returns {undefined}
+ */
+function clickPanelDashAlist() {
+//    $("#tableCiudad").on("click", ".actualiza", function () {
+    $(".est_env_als").click(function () {
+        estado_id_alist = $(this).attr("estals");
+
+        if (estado_id_alist == 3 || estado_id_alist == 4) {
+            click_modal_fech_alis();
+        } else {
+            consulta_tabla_alist_x_est(id_cliente_sel, id_sucursal_sel, estado_id_alist);
+        }
+
+        //En esta linea me redirije al formulario con una velocodad establecida
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $("#tbInfoEstEnv").offset().top
+        }, 300);
+    });
+}
+/**
+ * Metodo que carga el modal con formulario para seleccion de rango fechas
+ * @returns {undefined}
+ */
+function click_modal_fech_alis() {
+
+//        alert(ges_envio);
+
+    $('#mod-dalog').removeClass('modal-lg');
+    $('#ModalActuEstOS').modal('toggle');
+    $('#ModalEstOSTitle').html('RANGO FECHAS');
+    $('#body_mod_os').html('<b>Seleccione un rango de fechas para generar la tabla</b>\n\
+            <div class="alert alert-dismissible alert-info">\n\
+            <form id="formBuscarAlstFech" name="formBuscarAlstFech">\n\
+              <div class="form-row">\n\
+                <div class="form-group col-md-6">\n\
+                  <label class="col-form-label" for="inputFechIni"><b>Fecha Inicial :</b></label>\n\
+                  <input class="form-control form-control-sm" type="date" id="inputFechIni" name="inputFechIni">\n\
+                </div>\n\
+                <div class="form-group col-md-6">\n\
+                  <label class="col-form-label" for="inputFechFin"><b>Fecha Final :</b></label>\n\
+                  <input class="form-control form-control-sm" type="date" id="inputFechFin" name="inputFechFin">\n\
+                </div>\n\
+              </div>\n\
+              <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaAEnvFech" name="btnBuscaAEnvFech">BUSCAR</button>\n\
+            </form></div>');
+    $("#btnBuscaAEnvFech").click(function () {
+        fech_ini = $("#inputFechIni").val();
+        fech_fin = $("#inputFechFin").val();
+        validarFechAlstEst();
+    });
+}
+/**
+ * Metodo que permite validar campos de fecha en dashboard envios cliente
+ * @returns {undefined}
+ */
+function validarFechAlstEst() {
+    $("#formBuscarAlstFech").validate({
+        rules: {
+            inputFechIni: {
+                required: true
+            },
+            inputFechFin: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            consulta_tabla_aenv_x_est_fech_cl(fech_ini, fech_fin, estado_id_alist);
+            $('#ModalActuEstOS').modal('hide');
+            //En esta linea me redirije al formulario con una velocodad establecida
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#tbInfoEstEnv").offset().top
+            }, 300);
+        }
+    });
+}
+/**
+ * Metodo que carga el modal con formulario para seleccion de rango fechas
+ * @returns {undefined}
+ */
+function click_modal_fech() {
+
+//        alert(ges_envio);
+
+    $('#mod-dalog').removeClass('modal-lg');
+    $('#ModalActuEstOS').modal('toggle');
+    $('#ModalEstOSTitle').html('RANGO FECHAS');
+    $('#body_mod_os').html('<b>Seleccione un rango de fechas para generar la tabla</b>\n\
+            <div class="alert alert-dismissible alert-primary">\n\
+            <form id="formBuscarEnvFech" name="formBuscarEnvFech">\n\
+              <div class="form-row">\n\
+                <div class="form-group col-md-6">\n\
+                  <label class="col-form-label" for="inputFechIni"><b>Fecha Inicial :</b></label>\n\
+                  <input class="form-control form-control-sm" type="date" id="inputFechIni" name="inputFechIni">\n\
+                </div>\n\
+                <div class="form-group col-md-6">\n\
+                  <label class="col-form-label" for="inputFechFin"><b>Fecha Final :</b></label>\n\
+                  <input class="form-control form-control-sm" type="date" id="inputFechFin" name="inputFechFin">\n\
+                </div>\n\
+              </div>\n\
+              <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaEnvFech" name="btnBuscaEnvFech">BUSCAR</button>\n\
+            </form></div>');
+    $("#btnBuscaEnvFech").click(function () {
+        fech_ini = $("#inputFechIni").val();
+        fech_fin = $("#inputFechFin").val();
+        validarFechEnvEst();
+    });
+}
+/**
+ * Metodo que permite validar campos de fecha en dashboard envios cliente
+ * @returns {undefined}
+ */
+function validarFechEnvEst() {
+    $("#formBuscarEnvFech").validate({
+        rules: {
+            inputFechIni: {
+                required: true
+            },
+            inputFechFin: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, estado_id);
+            $('#ModalActuEstOS').modal('hide');
+            //En esta linea me redirije al formulario con una velocodad establecida
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#tbInfoEstEnv").offset().top
+            }, 300);
+        }
+    });
+}
+/**
+ * Metodo que carga la tabla de envios segun el estado y un rango de fechas en dashboard cliente
+ * @param {type} fech_ini
+ * @param {type} fech_fin
+ * @param {type} est_env
+ * @returns {consulta_tabla_env_x_est_fech_cl}
+ */
+function consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, est_env) {
+    request = "Controller/ClienteC/cons_ult_est_id_env_cl_controller.php";
+    cadena = {"fech_ini": fech_ini, "fech_fin": fech_fin, "est_env": est_env}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arreglo_env = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_env !== 0) {
+            temp_es = arreglo_env[0];
+            var colorTab;
+            var colorText;
+            var colorAl;
+            if (est_env == 6) {
+                colorTab = 'class="table-success"';
+                colorText = 'text-success';
+                colorAl = 'success';
+            } else if (est_env == 7) {
+                colorTab = 'class="table-danger"';
+                colorText = 'text-danger';
+                colorAl = 'danger';
+            } else if (est_env == 11) {
+                colorTab = 'class="table-info"';
+                colorText = 'text-info';
+                colorAl = 'info';
+            }
+            datos_env = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">ENVIOS ' + temp_es.ee_desc + '</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEstadoEnv">\n\
+                            <thead><tr ' + colorTab + '>\n\
+                                <th scope="col">GUIA LOGI</th>\n\
+                                <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
+                                <th scope="col">ESTADO</th>\n\
+                                <th scope="col">CLIENTE</th>\n\
+                                <th scope="col">SUCURSAL</th>\n\
+                                <th scope="col">SERVICIO</th>\n\
+                                <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">DIRECCION</th>\n\
+                                <th scope="col">OBSERVACIONES</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arreglo_env.length; i++) {
+                temp = arreglo_env[i];
+
+                var fecha_hora = new Date(temp.exe_fec_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp.exe_fec_hora.replace(/-/g, '\/'));
+
+                datos_env += '<tr class="table-sm EnvFil" id="fila_env' + temp.exe_en_id + '" fila="' + temp.exe_en_id + '">';
+                datos_env += '<td>' + temp.exe_en_id + '</td>';
+                datos_env += '<td>' + temp.en_guia + '</td>';
+                datos_env += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_env += '<td>' + timeString + '</td>';
+                datos_env += '<td>' + temp.ee_desc + '</td>';
+                datos_env += '<td>' + temp.cli_nombre + '</td>';
+                if (temp.suc_nombre == null) {
+                    datos_env += '<td></td>';
+                } else {
+                    datos_env += '<td>' + temp.suc_nombre + '</td>';
+                }
+                if (temp.ts_id == 1) {
+                    datos_env += '<td class="table-primary">' + temp.ts_desc + '</td>';
+                } else {
+                    datos_env += '<td>' + temp.ts_desc + '</td>';
+                }
+                datos_env += '<td>' + temp.te_desc + '</td>';
+                datos_env += '<td>' + temp.en_direccion + '</td>';
+                if (temp.exe_ee_id == 5) {
+                    datos_env += '<td>En Reparto</td></tr>';
+                } else {
+                    datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
+                }
+            }
+            datos_env += "</tbody></table></div></div></div>";
+
+
+            $("#tab_est_env").html(datos_env);
+            /**
+             * Evento que pagina una tabla 
+             */
+            var table = $('#tableEstadoEnv').DataTable({
+                'scrollX': true
+            });
+
+        } else {
+            $("#tab_est_env").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga la tabla de envios segun el estado y un rango de fechas 
+ * dashboard cliente alistamiento
+ * @param {type} fech_ini
+ * @param {type} fech_fin
+ * @param {type} est_env
+ * @returns {consulta_tabla_env_x_est_fech_cl}
+ */
+function consulta_tabla_aenv_x_est_fech_cl(fech_ini, fech_fin, est_env) {
+    request = "Controller/ClienteC/cons_ult_est_id_aenv_cl_controller.php";
+    cadena = {"fech_ini": fech_ini, "fech_fin": fech_fin, "est_env": est_env}; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#tab_est_alist").html("");
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arreglo_alist = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_alist !== 0) {
+            temp_es_als = arreglo_alist[0];
+            var colorTab;
+            var colorText;
+            var colorAl;
+            if (est_env == 3) {
+                colorTab = 'class="table-success"';
+                colorText = 'text-success';
+                colorAl = 'success';
+            } else if (est_env == 4) {
+                colorTab = 'class="table-danger"';
+                colorText = 'text-danger';
+                colorAl = 'danger';
+            }
+            datos_alist = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">ENVIOS ' + temp_es_als.esae_desc + '</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEstadoAlist">\n\
+                            <thead><tr ' + colorTab + '>\n\
+                                <th scope="col">N°</th>\n\
+                                <th scope="col">VENTA</th>\n\
+                                <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
+                                <th scope="col">ESTADO</th>\n\
+                                <th scope="col">OPERADOR</th>\n\
+                                <th scope="col">CLIENTE</th>\n\
+                                <th scope="col">SUCURSAL</th>\n\
+                                <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">OBSERVACIONES</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arreglo_alist.length; i++) {
+                temp_es_als = arreglo_alist[i];
+
+                var fecha_hora = new Date(temp_es_als.exae_fecha_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp_es_als.exae_fecha_hora.replace(/-/g, '\/'));
+
+                datos_alist += '<tr class="table-sm EnvFil" id="fila_env' + temp_es_als.aen_id + '" fila="' + temp_es_als.aen_id + '">';
+                datos_alist += '<td>' + temp_es_als.aen_id + '</td>';
+                datos_alist += '<td>' + temp_es_als.aen_venta + '</td>';
+                datos_alist += '<td>' + temp_es_als.aen_guia_op + '</td>';
+                datos_alist += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_alist += '<td>' + timeString + '</td>';
+                datos_alist += '<td>' + temp_es_als.esae_desc + '</td>';
+                datos_alist += '<td>' + temp_es_als.ope_nombre + '</td>';
+                datos_alist += '<td>' + temp_es_als.cli_nombre + '</td>';
+                if (temp_es_als.suc_nombre == null) {
+                    datos_alist += '<td></td>';
+                } else {
+                    datos_alist += '<td>' + temp_es_als.suc_nombre + '</td>';
+                }
+                datos_alist += '<td>' + temp_es_als.te_desc + '</td>';
+                datos_alist += '<td>' + temp_es_als.exae_novedad + '</td></tr>';
+            }
+            datos_alist += "</tbody></table></div></div></div>";
+
+
+            $("#tab_est_alist").html(datos_alist);
+            /**
+             * Evento que pagina una tabla 
+             */
+            var table = $('#tableEstadoAlist').DataTable({
+                'order': [[1, 'asc']],
+                'scrollX': true
+            });
+
+        } else {
+            $("#tab_est_env").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
 }
 var arreglo_env;
 /**
@@ -195,6 +635,7 @@ function consulta_tabla_env_x_est(cliente_id, sucursal_id, id_est) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php";
     cadena = {"cliente_id": cliente_id, "sucursal_id": sucursal_id, "id_est_env": id_est}; //envio de parametros por POST
     metodo = function (datos) {
+        $("#tab_est_env").html("");
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
         diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
         arreglo_env = $.parseJSON(datos);
@@ -260,6 +701,8 @@ function consulta_tabla_env_x_est(cliente_id, sucursal_id, id_est) {
                                 <th scope="col">NOMBRE</th>\n\
                                 <th scope="col">DIRECCION</th>\n\
                                 <th scope="col">TELEFONO</th>\n\
+                                <th scope="col">CIUDAD DEST</th>\n\
+                                <th scope="col">DPTO</th>\n\
                                 <th scope="col">OBSERVACIONES</th>\n\
                                 </tr></thead><tbody>';
 
@@ -299,6 +742,8 @@ function consulta_tabla_env_x_est(cliente_id, sucursal_id, id_est) {
                 datos_env += '<td>' + temp.en_nombre + '</td>';
                 datos_env += '<td>' + temp.en_direccion + '</td>';
                 datos_env += '<td>' + temp.en_telefono + '</td>';
+                datos_env += '<td>' + temp.en_ciudad + '</td>';
+                datos_env += '<td>' + temp.en_departamento + '</td>';
                 datos_env += '<td>' + temp.exe_novedad + '</td></tr>';
             }
             datos_env += "</tbody></table></div></div></div>";
@@ -564,8 +1009,8 @@ function insert_estado_envio() {
         if (datos == 1) {
             limpiarFormulario("#formModalEnvEst");
             $('#ModalActuEstOS').modal('hide');
-            consulta_dashboard_envios_card();
             $("#tab_est_env").html("");
+            consulta_dashboard_envios_card();
             alertify.success('Estado actualizado!');
         } else {
             alert("Error al actualizar estado, por favor vuelva a dar click en el envio");
@@ -623,6 +1068,140 @@ function consulta_dashboard_envios_card_cli(cliente_id, sucursal_id) {
             clickPanelDash();
         } else {
             $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Funcion que carga las acciones en los card segun cliente para alistamiento
+ * @param {type} cliente_id
+ * @param {type} sucursal_id
+ * @returns {consulta_dashboard_envios_card_cli}
+ */
+function consulta_dashboard_alist_card_cli(cliente_id, sucursal_id) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_aenv_cli_controller.php";
+    cadena = {"cliente_id": cliente_id, "sucursal_id": sucursal_id}; //envio de parametros por POST
+    metodo = function (datos) {
+
+        control_dash_alist_reset();
+        alst_piking = 0;
+        alst_paking = 0;
+        arregloEstAlsCard = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEstAlsCard !== 0) {
+
+            for (i = 0; i < arregloEstAlsCard.length; i++) {
+                tmp = arregloEstAlsCard[i];
+                if (tmp.esae_id == 1) {
+                    alst_piking++;
+                } else if (tmp.esae_id == 2) {
+                    alst_paking++;
+                }
+            }
+            control_dash_alist();
+
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+        clickPanelDashAlist();
+    };
+    f_ajax(request, cadena, metodo);
+}
+var arreglo_alist;
+/**
+ * Metodo que carga la tabla de alistamiento segun el estado
+ * @param {type} cliente_id
+ * @param {type} sucursal_id
+ * @param {type} id_est
+ * @returns {consulta_tabla_env_x_est}
+ */
+function consulta_tabla_alist_x_est(cliente_id, sucursal_id, id_est) {
+    request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_aen_id_est_controller.php";
+    cadena = {"cliente_id": cliente_id, "sucursal_id": sucursal_id, "id_est_env": id_est}; //envio de parametros por POST
+    metodo = function (datos) {
+        meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+        arreglo_alist = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_alist !== 0) {
+            temp_es_als = arreglo_alist[0];
+            var colorTab;
+            var colorText;
+            if (id_est == 1) {
+                colorTab = 'style="background-color: #fbd797; color: #7c550f;"';
+                colorText = 'text-warning';
+            } else if (id_est == 2) {
+                colorTab = 'class="bg-info"';
+                colorText = 'text-info';
+            }
+            datos_alist = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">ENVIOS ' + temp_es_als.esae_desc + '</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbInfoEstEnv">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableEstadoAlist">\n\
+                            <thead><tr ' + colorTab + '>\n\
+                                <th scope="col">N°</th>\n\
+                                <th scope="col">VENTA</th>\n\
+                                <th scope="col">GUIA OP</th>\n\
+                                <th scope="col">FECHA</th>\n\
+                                <th scope="col">HORA</th>\n\
+                                <th scope="col">ESTADO</th>\n\
+                                <th scope="col">OPERADOR</th>\n\
+                                <th scope="col">CLIENTE</th>\n\
+                                <th scope="col">SUCURSAL</th>\n\
+                                <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">OBSERVACIONES</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arreglo_alist.length; i++) {
+                temp_es_als = arreglo_alist[i];
+
+                var fecha_hora = new Date(temp_es_als.exae_fecha_hora);
+                var options = {
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                };
+                var timeString = fecha_hora.toLocaleString('en-US', options);
+                fe = new Date(temp_es_als.exae_fecha_hora.replace(/-/g, '\/'));
+
+                datos_alist += '<tr class="table-sm EnvFil" id="fila_env' + temp_es_als.aen_id + '" fila="' + temp_es_als.aen_id + '">';
+                datos_alist += '<td>' + temp_es_als.aen_id + '</td>';
+                datos_alist += '<td>' + temp_es_als.aen_venta + '</td>';
+                datos_alist += '<td>' + temp_es_als.aen_guia_op + '</td>';
+                datos_alist += '<td>' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                datos_alist += '<td>' + timeString + '</td>';
+                datos_alist += '<td>' + temp_es_als.esae_desc + '</td>';
+                datos_alist += '<td>' + temp_es_als.ope_nombre + '</td>';
+                datos_alist += '<td>' + temp_es_als.cli_nombre + '</td>';
+                if (temp_es_als.suc_nombre == null) {
+                    datos_alist += '<td></td>';
+                } else {
+                    datos_alist += '<td>' + temp_es_als.suc_nombre + '</td>';
+                }
+                datos_alist += '<td>' + temp_es_als.te_desc + '</td>';
+                datos_alist += '<td>' + temp_es_als.exae_novedad + '</td></tr>';
+            }
+            datos_alist += "</tbody></table></div></div></div>";
+
+
+            $("#tab_est_alist").html(datos_alist);
+            /**
+             * Evento que pagina una tabla 
+             */
+            var table = $('#tableEstadoAlist').DataTable({
+                'order': [[1, 'asc']],
+                'scrollX': true
+            });
+
+        } else {
+            $("#tab_est_alist").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }

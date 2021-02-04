@@ -9,7 +9,6 @@ require '../../../config.php';
 
 date_default_timezone_set('America/Bogota');
 $fecha_hora_now = date("Y-m-d H:i:s");
-$fech_solo = date('Y-m-d');
 
 if ($_POST) {
 

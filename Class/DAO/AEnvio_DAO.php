@@ -26,4 +26,15 @@ class AEnvio_DAO {
         return $BD->execute_query($sql);
     }
 
+    /**
+     * Funcion que retorna maximo id aenvio segun una venta
+     * @param type $venta
+     * @return type
+     */
+    function consulta_max_id_aenvio($venta) {
+        $sql = "SELECT * FROM a_envio WHERE aen_venta = " . $venta . " ORDER BY aen_id DESC LIMIT 1;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

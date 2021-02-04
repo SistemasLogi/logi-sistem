@@ -23,19 +23,18 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="alert alert-dismissible alert-primary col-lg-8">
-                    <p class="mb-0"><strong>VENTA N°: </strong><em id="etqNumVentAlist"></em></p>
-                    <p class="mb-0"><strong>OPERADOR: </strong><em id="nom_oper"></em></p>
-                    <p class="mb-0"><strong>GUIA OP: </strong><em id="guia_op"></em></p>
+                <div class="alert alert-dismissible alert-primary col-lg-12">
+                    <div class="float-left col-lg-6">
+                        <p class="mb-0"><strong>VENTA N°: </strong><em id="etqNumVentAlist"></em></p>
+                        <p class="mb-0"><strong>OPERADOR: </strong><em id="nom_oper"></em></p>
+                        <p class="mb-0"><strong>GUIA OP: </strong><em id="guia_op"></em></p>  
+                    </div>
+                    <div class="float-right col-lg-6" id="imgSucLogo">
+                        
+                    </div>
                     <div id="tablItemsAlist">
 
                     </div>                    
-                </div>
-                <div class="alert alert-dismissible alert-primary col-lg-4">
-                    <h5><b>CLIENTE</b></h5>
-                    <div id="imgSucLogo">
-
-                    </div>
                 </div>
             </div>
             <div class="col-lg-12 table-responsive">  

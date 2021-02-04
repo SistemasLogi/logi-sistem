@@ -52,6 +52,9 @@ if (!isset($_SESSION["sucursal"])) {
         <script src="js/Cliente/cliente_dashboard.js" type="text/javascript"></script>
         <script src="js/Comunes/orden_servicio.js" type="text/javascript"></script>
         <script src="js/Comunes/seguimiento_os.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_envio.js" type="text/javascript"></script>
+        <script src="js/Comunes/seguimiento_alist.js" type="text/javascript"></script>
+        <script src="js/Comunes/kardex_prod.js" type="text/javascript"></script>
 
         <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -71,42 +74,49 @@ if (!isset($_SESSION["sucursal"])) {
 
             <div class="bg-light border-right" id="sidebar-wrapper" style="height: auto; margin-top: 75px;">
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
-                <img src="img/sucursales/CLI_SUC/<?php echo $_SESSION["numero_suc"]; ?>.png" alt="" title="" />
+                <img src="img/clients/<?php echo $_SESSION["numero_doc"]; ?>.png" alt="" title="" />
                 <div class="dropdown-divider border-primary"></div>
-                <h4 class="card-title" style="color: #D6D6D6;"><?php // echo $_SESSION["nombre_cli"];    ?></h4>
+                <h4 class="card-title" style="color: #D6D6D6;"><?php // echo $_SESSION["sucursal"];               ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
                         <span class="ion-android-document"></span>
-                        Ordenes de Recolección
+                        Ordenes de Servicio
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento</a>
+                            <!--                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
+                                                        <div class="dropdown-divider"></div>-->
+                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento OS</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
                         </div>
                     </div>
-                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
                         <span class="ion-android-mail"></span>
                         Envios
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
-                        <div class="card card-body alert-secondary" id="adminbd">
-                            <a class="dropdown-item enlace" bd="admin_ciudades">Ciudades</a>
+                        <div class="card card-body alert-secondary">
+                            <a class="dropdown-item enlace" id="enlSeguimientoEnv">Rastreo Envios</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_doc">Tipo Documento</a>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios_suc">DashBoard Envios</a>
+                        </div>
+                    </div>
+                    <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">
+                        <span class="ion-ios-home"></span>
+                        Almacen
+                    </a>
+                    <div class="collapse multi-collapse" id="multiCollapseALM">
+                        <div class="card card-body alert-secondary">
+                            <a class="dropdown-item enlace" id="link_stock_suc">Inventario</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_serv">Tipo Servicio</a>
+                            <a class="dropdown-item enlace" id="link_vista_dash_alist_suc">DashBoard Alistamiento</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_env">Tipo Envio</a>
+                            <a class="dropdown-item enlace" id="link_seg_aenv_cl">Seguimiento Alistamiento</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_serv">Estado Servicio</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_env">Estado Envio</a>
+                            <a class="dropdown-item enlace" id="link_ent_suc">Entradas</a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +132,8 @@ if (!isset($_SESSION["sucursal"])) {
                     <button id="menu-toggle" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="ion-android-menu"></span>
                     </button>
-                    <img id="inicio" src="img/logos/LOGO_CLARO_77x36.png" alt=""/>
+                    <!--<img id="inicio" src="img/logos/LOGO_CLARO_77x36.png" alt=""/>-->                    
+                    <samp class="navbar-brand"><?php echo $_SESSION["sucursal"]; ?></samp>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -131,20 +142,7 @@ if (!isset($_SESSION["sucursal"])) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">                            
                             <?php
-                            if (isset($_SESSION["adminlogi"]) || isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {
-                                if (isset($_SESSION["adminlogi"])) {
-                                    ?>  
-                                    <li class = "nav-item">
-                                        <a class = "nav-link" href = "admin_logi.php">ADMINISTRADOR</a>
-                                    </li>
-                                    <?php
-                                } elseif (isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {
-                                    ?>
-                                    <li class = "nav-item">
-                                        <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
-                                    </li>
-                                    <?php
-                                }
+                            if (isset($_SESSION["sucursal"])) {
                                 ?>
                                 <li class = "nav-item">
                                     <a class = "nav-link" href = "Controller/Login_General/log_aut_control.php">CERRAR SESION</a>
@@ -170,7 +168,7 @@ if (!isset($_SESSION["sucursal"])) {
                         <div id="sectionConten" data-spy="scroll">                                
 
                             <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
-                                <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php // echo $_SESSION["nombre_cli"];    ?></legend></strong></div>
+                                <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php // echo $_SESSION["nombre_cli"];               ?></legend></strong></div>
                                 <div class="card-body">
                                     <img class="img-fluid" src="img/clients/FONDO/<?php echo $_SESSION["numero_doc"]; ?>.PNG" alt=""/>
                                 </div>
@@ -184,6 +182,21 @@ if (!isset($_SESSION["sucursal"])) {
             </div>
             <!-- /#page-content-wrapper -->
 
+        </div>
+        <div class="modal fade" id="ModalActuEstOS" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" id="mod-dalog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalEstOSTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnCloseModal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="body_mod_os">
+
+                    </div> 
+                </div>
+            </div>
         </div>
     </body>
 

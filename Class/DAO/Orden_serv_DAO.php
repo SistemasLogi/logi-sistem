@@ -56,6 +56,19 @@ class Orden_serv_DAO {
     }
 
     /**
+     * Funcion que consulta datos del ultimo registro en orden_serv
+     * @return type
+     */
+    function consulta_datos_UltimaOS() {
+        $sql = "SELECT o.*, c.ciu_nombre, ts.ts_desc, te.te_desc "
+                . "FROM orden_serv AS o, ciudad AS c, tipo_serv AS ts, tipo_envio AS te "
+                . "WHERE o.os_id = (SELECT MAX(os_id) AS num FROM orden_serv) AND o.ciu_id = c.ciu_id "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que consulta orden de servicio por numero
      * @param type $num_os
      * @return type
@@ -112,6 +125,24 @@ class Orden_serv_DAO {
     function consulta_id_UltimaOS_x_cli($tipo_doc, $num_doc, $tipo_serv) {
         $sql = "SELECT MAX(os_id) AS num FROM orden_serv "
                 . "WHERE cli_td_id = " . $tipo_doc . " AND cli_num_doc = " . $num_doc . " AND ts_id = " . $tipo_serv . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que consulta la ultima OS segun tipo servicio tipo envio y cliente
+     * @param type $tipo_serv
+     * @param type $tipo_envio
+     * @param type $tipo_doc
+     * @param type $num_doc
+     * @return type
+     */
+    function consulta_UltimaOS_x_ts_te($tipo_serv, $tipo_envio, $tipo_doc, $num_doc) {
+        $sql = "SELECT o.*, es.es_id, es.exs_fecha_hora FROM orden_serv AS o, est_x_serv AS es "
+                . "WHERE o.os_id = es.os_id AND es.exs_fecha_hora > CURDATE() "
+                . "AND o.ts_id = " . $tipo_serv . " AND o.te_id = " . $tipo_envio . " "
+                . "AND o.cli_td_id = " . $tipo_doc . " AND o.cli_num_doc = " . $num_doc . " "
+                . "ORDER BY o.os_id DESC LIMIT 1;";
         $BD = new MySQL();
         return $BD->query($sql);
     }

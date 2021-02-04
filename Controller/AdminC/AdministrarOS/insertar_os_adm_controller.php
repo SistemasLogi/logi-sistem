@@ -10,7 +10,7 @@ if ($_POST) {
     $or_servi_vo = new Orden_serv_VO();
     $or_servi_dao = new Orden_serv_DAO();
 
-    $ident = explode("|", $_POST["selectEmpleado"]);
+    $ident = explode("|", $_POST["selCliente"]);
 
     $or_servi_vo->setCli_id($ident[0]);
     $or_servi_vo->setCli_docum($ident[1]);
@@ -33,34 +33,38 @@ if ($_POST) {
         $es_x_serv_vo = new Est_x_serv_VO();
 
         $json_id_os = json_encode($or_servi_dao->consultaUltimaOS($or_servi_vo->getCli_id(), $or_servi_vo->getCli_docum()));
-
+             
         if (!empty($json_id_os)) {
             $os_id = json_decode($json_id_os);
-
+            $_SESSION["os_creada"] = $os_id[0]->os_id;
             $es_x_serv_vo->setOrden_id($os_id[0]->os_id);
-            $es_x_serv_vo->setEstado_id(1); //predefinido 1 programada            
             $es_x_serv_vo->setFecha_hora($fecha_hora);
             $es_x_serv_vo->setNovedad("");
             $es_x_serv_vo->setTd_mensajero(1); //cc usuario global LOGI
             $es_x_serv_vo->setNum_doc_mensajero(9874123652); //num predefinido usuario global LOGI
 
-            if (isset($_SESSION["adminlogi"])) {
+            if ($os_id[0]->ts_id == 4 || $os_id[0]->ts_id == 5) {
+                $es_x_serv_vo->setEstado_id(5); //predefinido  5 piking
+                $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
+            } else {
+                $es_x_serv_vo->setEstado_id(1); //predefinido 1 programada
                 $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
                 $es_x_serv_vo->setEstado_id(2);
                 $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
                 $es_x_serv_vo->setEstado_id(3);
                 $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
-                if (!empty($numero_suc)) {
-                    $_SESSION["num_suc_adm"] = $os_id[0]->os_id;
-                    $or_servi_dao->insertarOS_x_SUC($os_id[0]->os_id, $numero_suc);
-                }
-                echo 1;//guardado correcto de os estados y os_x_suc si existe
             }
+            if (!empty($numero_suc)) {
+                $_SESSION["num_suc_adm"] = $numero_suc;
+                $or_servi_dao->insertarOS_x_SUC($os_id[0]->os_id, $numero_suc);
+            }
+            echo 1; //guardado correcto de os estados y os_x_suc si existe
         } else {
-            echo 2;//error al realizar consulta de os ya creada
+            echo 2; //error al realizar consulta de os ya creada
         }
+    } else {
+        echo 3; //error al crear os
     }
-    echo 3;//error al crear os
 } else {
     header("location../");
 }

@@ -74,7 +74,7 @@ class Est_x_aenv_DAO {
                 . "WHERE ae.os_id = o.os_id AND o.cli_td_id = c.cli_td_id AND o.cli_num_doc = c.cli_num_doc "
                 . "AND op.ope_id = ae.ope_id AND es.aen_id = ae.aen_id AND es.esae_id = ee.esae_id "
                 . "AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id " . $parametro . " "
-                . "ORDER BY es.esae_id ASC, es.exae_fecha_hora ASC;";
+                . "ORDER BY es.exae_fecha_hora ASC, es.esae_id ASC;";
         $BD = new MySQL();
         return $BD->query($sql);
     }
@@ -95,6 +95,64 @@ class Est_x_aenv_DAO {
                 . "WHERE TM.esae_id = es.esae_id AND TM.aen_id = ae.aen_id AND ae.ope_id = op.ope_id AND ae.os_id = os.os_id "
                 . "AND cl.cli_td_id = os.cli_td_id AND cl.cli_num_doc = os.cli_num_doc AND oxs.os_id = os.os_id AND oxs.suc_num_id = suc.suc_num_id "
                 . "" . $parametro . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna datos de el ultimo estado de todos los envios en alistamiento
+     * @param type $param_subquery
+     * @param type $param
+     * @param type $sucursal
+     * @return type
+     */
+    function consulta_ultimo_est_alistamiento($param_subquery, $param, $sucursal) {
+        $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
+                . "(SELECT TM.*, ae.aen_guia_op, ae.aen_venta, ae.os_id, ae.ope_id, ae.aen_cantidad, op.ope_nombre, es.esae_desc, "
+                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre "
+                . "FROM "
+                . "(SELECT T1.* FROM est_x_aenv AS T1 WHERE T1.exae_fecha_hora = (SELECT MAX(T2.exae_fecha_hora) "
+                . "FROM est_x_aenv AS T2 WHERE T2.aen_id = T1.aen_id" . $param_subquery . ") "
+                . "AND T1.esae_id = (SELECT MAX(T3.esae_id)FROM est_x_aenv AS T3 WHERE T3.aen_id = T1.aen_id) "
+                . "ORDER BY T1.exae_fecha_hora DESC) AS TM, a_envio AS ae, operador AS op, estados_aenv AS es, "
+                . "orden_serv AS o, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "WHERE TM.aen_id = ae.aen_id AND TM.esae_id = es.esae_id AND ae.os_id = o.os_id "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ae.ope_id = op.ope_id "
+                . "" . $param . ") AS TP "
+                . "LEFT JOIN "
+                . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "
+                . "ON TP.os_id = TS.os_id;";
+
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna datos de el ultimo estado de todos los envios en alistamiento segun sucursal
+     * @param type $param_subquery
+     * @param type $param
+     * @param type $sucursal
+     * @return type
+     */
+    function consulta_ultimo_est_alistamiento_suc($param_subquery, $param, $sucursal) {
+        $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
+                . "(SELECT TM.*, ae.aen_guia_op, ae.aen_venta, ae.os_id, ae.ope_id, ae.aen_cantidad, op.ope_nombre, es.esae_desc, "
+                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre "
+                . "FROM "
+                . "(SELECT T1.* FROM est_x_aenv AS T1 WHERE T1.exae_fecha_hora = (SELECT MAX(T2.exae_fecha_hora) "
+                . "FROM est_x_aenv AS T2 WHERE T2.aen_id = T1.aen_id" . $param_subquery . ") "
+                . "AND T1.esae_id = (SELECT MAX(T3.esae_id)FROM est_x_aenv AS T3 WHERE T3.aen_id = T1.aen_id) "
+                . "ORDER BY T1.exae_fecha_hora DESC) AS TM, a_envio AS ae, operador AS op, estados_aenv AS es, "
+                . "orden_serv AS o, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "WHERE TM.aen_id = ae.aen_id AND TM.esae_id = es.esae_id AND ae.os_id = o.os_id "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ae.ope_id = op.ope_id "
+                . "" . $param . ") AS TP "
+                . "JOIN "
+                . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "
+                . "ON TP.os_id = TS.os_id;";
+
         $BD = new MySQL();
         return $BD->query($sql);
     }

@@ -247,6 +247,18 @@ class Producto_DAO {
     }
 
     /**
+     * Funcion que retorna los productos por venta y sucursal en salidas temp
+     * @param type $num_venta
+     * @return type
+     */
+    function consultaProd_x_venta_sucursal_salTemp($num_venta, $num_sucursal) {
+        $sql = "SELECT st.t_csc FROM salidas_prod_temp AS st "
+                . "WHERE st.t_sal_num_venta = " . $num_venta . " AND st.t_suc_num_id = " . $num_sucursal . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que inserta un conjunto de datos a partir de una consulta en tabla salida_prod
      * @param type $num_venta
      * @return type
@@ -267,8 +279,8 @@ class Producto_DAO {
      * @return type
      */
     function consultaTarjetaKardex($cod_producto, $filtro) {
-        $sql = "SELECT TM.* FROM"
-                . "((SELECT p.suc_num_id, p.pro_sku, p.pro_desc, e.ent_fecha, e.pro_cod, '' AS venta, e.ent_cantidad, 1 AS movimiento "
+        $sql = "SELECT TM.* FROM "
+                . "((SELECT p.suc_num_id, p.pro_sku, p.pro_desc, e.ent_fecha, e.pro_cod, e.ent_detalle AS venta, e.ent_cantidad, 1 AS movimiento "
                 . "FROM entrada_prod AS e, productos AS p "
                 . "WHERE e.pro_cod = '" . $cod_producto . "' AND e.pro_cod = p.pro_cod) "
                 . "UNION "
@@ -293,6 +305,17 @@ class Producto_DAO {
     }
 
     /**
+     * Funcion que retorna datos para determinar la existencia de datos en tabla temp
+     * @param type $num_sucursal
+     * @return type
+     */
+    function consulta_existente_temp_x_suc($num_sucursal) {
+        $sql = "SELECT * FROM salidas_prod_temp WHERE t_suc_num_id = " . $num_sucursal . " ORDER BY t_csc ASC LIMIT 1;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que retorna los item de una venta en tabla salidas
      * @param type $num_venta
      * @return type
@@ -311,6 +334,37 @@ class Producto_DAO {
      */
     function consultaGeneralProductosCreados($num_suc) {
         $sql = "SELECT * FROM productos WHERE suc_num_id = " . $num_suc . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna la consulta segun detalle de entrada
+     * @param type $num_suc
+     * @param type $detalle
+     * @return type
+     */
+    function consultaDetalleEntrada($num_suc, $detalle) {
+        $sql = "SELECT e.*, p.pro_sku, p.pro_desc FROM entrada_prod AS e, productos AS p "
+                . "WHERE e.pro_cod = p.pro_cod AND p.suc_num_id = " . $num_suc . " "
+                . "AND e.ent_detalle LIKE '%" . $detalle . "%';";
+//        return $sql;
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que retorna la consulta segun fechas de entrada
+     * @param type $num_suc
+     * @param type $fec_ini
+     * @param type $fec_fin
+     * @return type
+     */
+    function consultaFechasEntrada($num_suc, $fec_ini, $fec_fin) {
+        $sql = "SELECT e.*, p.pro_sku, p.pro_desc FROM entrada_prod AS e, productos AS p "
+                . "WHERE e.pro_cod = p.pro_cod AND p.suc_num_id = " . $num_suc . " "
+                . "AND e.ent_fecha BETWEEN '" . $fec_ini . "' AND '" . $fec_fin . "';";
+//        return $sql;
         $BD = new MySQL();
         return $BD->query($sql);
     }

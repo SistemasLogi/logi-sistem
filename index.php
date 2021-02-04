@@ -91,7 +91,7 @@ session_start();
                     <div class="carousel-inner" role="listbox">
 
                         <div class="carousel-item active">
-                            <div class="carousel-background"><img src="img/intro-carousel/10.jpg" alt=""></div>
+                            <div class="carousel-background"><img src="img/intro-carousel/16.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
                                     <h2>MENSAJERÍA Y MERCANCÍAS</h2>
@@ -374,7 +374,7 @@ session_start();
                         <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
                     </header>
                     <h3>Nuestra pasión por el servicio nos identifica</h3>
-                    <p>Somos una empresa especializada en el sector de logístico. Ofrecemos soluciones integrales para la entrega de sus envíos; contamos con la infraestructura física, tecnológica y humana, necesaria para brindar un servicio de alto nivel con tiempos de entrega mas rápidos.</p>
+                    <p>Somos una empresa especializada en el sector logístico. Ofrecemos soluciones integrales para la entrega de sus envíos; contamos con la infraestructura física, tecnológica y humana, necesaria para brindar un servicio de alto nivel con tiempos de entrega mas rápidos.</p>
                     <p>Sabemos que no basta con tener buen producto y un buen precio, sino que se debe entregar cuando y como el cliente lo desee.</p> <!--<a class="cta-btn" href="#">Call To Action</a>-->
                     <div class="row counters" id="voz">
 
@@ -409,7 +409,7 @@ session_start();
             <!--==========================
               Skills Section
             ============================-->
-            <section id="skills">
+<!--            <section id="skills">
                 <div class="container">
 
                     <header class="section-header">
@@ -446,7 +446,7 @@ session_start();
                     </div>
 
                 </div>
-            </section>
+            </section>-->
 
             <!--==========================
               Facts Section
@@ -490,8 +490,8 @@ session_start();
                                 </h4>
                             </div>
                         </div>
-
                     </div>
+                </div>
             </section><!-- #facts -->
 
             <!--==========================
@@ -671,7 +671,7 @@ session_start();
                     <div class="owl-carousel clients-carousel">
                         <img src="img/clients/8000123654.png" alt=""/>
                         <img src="img/clients/8005230014.png" alt=""/>
-                        <img src="img/clients/900258456.png" alt=""/>
+                        <img src="img/clients/900873298.png" alt=""/>
                         <img src="img/clients/900456987.png" alt=""/>
                         <img src="img/clients/900987412.png" alt=""/>
                     </div>
@@ -875,7 +875,7 @@ session_start();
                             <div class="contact-phone">
                                 <i class="ion-ios-telephone-outline"></i>
                                 <h3>TELÉFONO</h3>
-                                <p><a href="tel:+0312695105">2695105</a></p>
+                                <p><a href="tel:+0312695105"><em>+57(1)</em> 2695105</a></p>
                             </div>
                         </div>
 

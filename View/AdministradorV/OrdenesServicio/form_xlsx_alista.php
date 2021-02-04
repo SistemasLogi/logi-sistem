@@ -1,3 +1,17 @@
+<div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
+    <div class="toast-header">
+        <strong class="mr-auto">DATOS DE ORDEN CREADA</strong>
+    </div>
+    <div class="toast-body row">
+        <div class="alert alert-dismissible alert-primary col-lg-12">
+            <div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
+                <div id="divMensaje">
+
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
 <div class="toast show border-primary" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
     <div class="toast-header">
         <strong class="mr-auto">DESCRIPCIÓN DE ENVIOS PARA ALISTAMIENTO</strong>
@@ -7,13 +21,6 @@
             <fieldset>
                 <legend id="nombreCliSuc"></legend>
                 <div class="row">
-                    <div class="form-group form-group-sm col-lg-2" id="blqinputDir"  style="display: none;">
-                        <input type="text" class="form-control form-control-sm" id="inputDir" name="inputDir">
-                        <input type="text" class="form-control form-control-sm" id="inputNumDocCl" name="inputNumDocCl">  
-                        <input type="text" class="form-control form-control-sm" id="inputTDocCli" name="inputTDocCli">                                                              
-                        <input type="text" class="form-control form-control-sm" id="inputNumSucu" name="inputNumSucu">
-                        <input type="text" class="form-control form-control-sm" id="inputTele" name="inputTele">
-                    </div>
                     <div class="form-group row margen_top col-lg-4">
                         <label for="inputDateAlist" class="col-2 col-form-label">Fecha:</label>
                         <div class="col-10">

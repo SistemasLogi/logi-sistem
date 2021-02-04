@@ -14,8 +14,13 @@ $fech_solo = date('Y-m-d');
 if ($_POST) {
     require '../../../config.php';
     $product_dao = new Producto_DAO();
+    if (isset($_SESSION["sucursal"])) {
+        $suc_num_id = $_SESSION["numero_suc"];
+    } else {
+        $suc_num_id = $_POST["suc"];
+    }
 
-    $suc_num_id = $_POST["suc"];
+
 
     $datosStock = json_encode($product_dao->consultaInventarioStock($suc_num_id, $fecha_hora_now));
     $datosDecode = json_decode($datosStock);
@@ -43,9 +48,22 @@ if ($_POST) {
                     unlink($file); //elimino el fichero
                 }
             }
-        } else {
+        } elseif (isset($_SESSION["cliente_a"])) {
             //Crear carpeta por usuario
             $directorioReport = '../../../Files/Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/';
+            if (!file_exists($directorioReport)) {
+                mkdir($directorioReport, 0777, true);
+            }
+//elimina el contenido en carpeta
+            $filesReport = glob($directorioReport . '*'); //obtenemos todos los nombres de los ficheros
+            foreach ($filesReport as $file) {
+                if (is_file($file)) {
+                    unlink($file); //elimino el fichero
+                }
+            }
+        } elseif (isset($_SESSION["sucursal"])) {
+            //Crear carpeta por usuario
+            $directorioReport = '../../../Files/Reporte_Stock_suc/' . $num_doc_client . '_' . $tipo_docum_cli . '/';
             if (!file_exists($directorioReport)) {
                 mkdir($directorioReport, 0777, true);
             }
@@ -123,10 +141,14 @@ if ($_POST) {
             $writer = new Xlsx($objPhpexcel);
             $writer->save('../../../Files/Reporte_Stock_adm/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc . '.xlsx');
             echo 'Reporte_Stock_adm/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
-        } else {
+        } elseif (isset($_SESSION["cliente_a"])) {
             $writer = new Xlsx($objPhpexcel);
             $writer->save('../../../Files/Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc . '.xlsx');
             echo 'Reporte_Stock/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_cli . '_' . $numero_suc;
+        } elseif (isset($_SESSION["sucursal"])) {
+            $writer = new Xlsx($objPhpexcel);
+            $writer->save('../../../Files/Reporte_Stock_suc/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_suc . '_' . $numero_suc . '.xlsx');
+            echo 'Reporte_Stock_suc/' . $num_doc_client . '_' . $tipo_docum_cli . '/Reporte_Stock_' . $nom_suc . '_' . $numero_suc;
         }
     } else {
         echo 1;

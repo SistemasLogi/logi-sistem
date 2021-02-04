@@ -20,7 +20,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
     $pdf->AddPage(); //agregar pagina
     $pdf->SetFont('Arial', 'B', 15);
-    $pdf->Image('../../img/logos/LOGO_LOGI_2020_FODOS_CLAROS_2100.png', 15, 12, 30);
+    $pdf->Image('../../img/logos/LOGO_CLAROS_500.png', 15, 12, 30);
     barcode($file_bar_name, $code, 23, 'horizontal', 'code39', false, 1);
     $pdf->Image($file_bar_name, 12, 30, 35);
     QRcode::png($contenido, $file_qr_name, $lavel, $tamanio, $framesize);
@@ -36,7 +36,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
     $pdf->Cell(40, 24, '', 0, 1, 'C');
 
-    $pdf->Image('../../img/logos/LOGO_LOGI_2020_FODOS_CLAROS_2100.png', 15, 106, 30);
+    $pdf->Image('../../img/logos/LOGO_CLAROS_500.png', 15, 106, 30);
     $pdf->Image($file_bar_name, 12, 124, 35);
     $pdf->Image($file_qr_name, 165, 141, 30);
     $pdf->Cell(40, 35, '', 1, 0, 'C');
@@ -50,7 +50,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 
     $pdf->Cell(40, 24, '', 0, 1, 'C');
 
-    $pdf->Image('../../img/logos/LOGO_LOGI_2020_FODOS_CLAROS_2100.png', 15, 200, 30);
+    $pdf->Image('../../img/logos/LOGO_CLAROS_500.png', 15, 200, 30);
     $pdf->Image($file_bar_name, 12, 218, 35);
     $pdf->Image($file_qr_name, 165, 235, 30);
     $pdf->Cell(40, 35, '', 1, 0, 'C');
@@ -105,7 +105,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 //    $pdf->Cell(60, 5, '', 0, 1, 'L');
     $pdf->SetX(110);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->Cell(60, 5, utf8_decode($array[$i]->en_nombre), 0, 1, 'L');
+    $pdf->MultiCell(60, 3, utf8_decode($array[$i]->en_nombre), 0, 'L', 0);
     $pdf->SetX(110);
     $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, 'Tel. ' . $array[$i]->en_telefono, 0, 1, 'L');
@@ -284,7 +284,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 //    $pdf->Cell(60, 5, '', 0, 1, 'L');
     $pdf->SetX(110);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->Cell(60, 5, utf8_decode($array[$i]->en_nombre), 0, 1, 'L');
+    $pdf->MultiCell(60, 3, utf8_decode($array[$i]->en_nombre), 0, 'L', 0);
     $pdf->SetX(110);
     $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, 'Tel. ' . $array[$i]->en_telefono, 0, 1, 'L');
@@ -463,7 +463,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
 //    $pdf->Cell(60, 5, '', 0, 1, 'L');
     $pdf->SetX(110);
     $pdf->SetFont('Arial', '', 6);
-    $pdf->Cell(60, 5, utf8_decode($array[$i]->en_nombre), 0, 1, 'L');
+    $pdf->MultiCell(60, 3, utf8_decode($array[$i]->en_nombre), 0, 'L', 0);
     $pdf->SetX(110);
     $pdf->SetFont('Arial', '', 6);
     $pdf->Cell(60, 5, 'Tel. ' . $array[$i]->en_telefono, 0, 1, 'L');

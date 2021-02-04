@@ -55,6 +55,9 @@
                     <li class="nav-item">
                         <a class="nav-link enlace" id="formEdita">Editar</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link enlace" id="formRepEntradas">Reporte Entradas</a>
+                    </li>
                 </ul>
                 <div id="imageSucursal">
 

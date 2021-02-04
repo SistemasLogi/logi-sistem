@@ -15,7 +15,7 @@
                 <a class="nav-link enlace" id="enlSeguimiento">Seguimiento</a>
             </li>
             <li class="nav-item" id="itemenlEnProceso">
-                <a class="nav-link enlace" id="enlEnProceso">En proceso</a>
+                <a class="nav-link enlace" id="enlEnProceso">Alistamiento en Proceso</a>
             </li>
         </ul>
     </div>

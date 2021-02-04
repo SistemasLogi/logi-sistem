@@ -9,8 +9,9 @@ if ($_POST) {
     $product_dao = new Producto_DAO();
 
     $csc_sal_tmp = $_POST["csc"];
+    $suc_num_id = $_POST["id_suc"];
 
-    echo json_encode($product_dao->consultaProdStockAlist($_SESSION["num_suc_adm_alst"], $csc_sal_tmp, $fecha_hora_now));
+    echo json_encode($product_dao->consultaProdStockAlist($suc_num_id, $csc_sal_tmp, $fecha_hora_now));
 } else {
     header("location../");
 }

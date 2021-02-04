@@ -80,8 +80,10 @@ if (!isset($_SESSION["adminlogi"])) {
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
                 <img src="img/logos/LOGO_CLARO_157x72.png" alt="" title="" />
                 <div class="dropdown-divider border-primary"></div>
-                <h4 class="card-title"><?php $porciones = explode(" ", $_SESSION["nombre_cli"]);
-echo $porciones[0] . " " . $porciones[2]; ?></h4>
+                <h4 class="card-title"><?php
+                    $porciones = explode(" ", $_SESSION["nombre_cli"]);
+                    echo $porciones[0] . " " . $porciones[2];
+                    ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
@@ -92,8 +94,8 @@ echo $porciones[0] . " " . $porciones[2]; ?></h4>
                     <div class="collapse multi-collapse" id="multiCollapseOS">
                         <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="link_vista_gest">Gestionar</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_vista_dashboard_serv">DashBoard</a>
+                            <div class="dropdown-divider"></div>                            
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_serv">DashBoard Servicios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_hist">Historial</a>
                         </div>
@@ -104,9 +106,15 @@ echo $porciones[0] . " " . $porciones[2]; ?></h4>
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseENV">
                         <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="link_vista_gest_env">Gestionar</a>
+                            <!--                            <a class="dropdown-item enlace" id="link_vista_gest_env">Gestionar</a>
+                                                        <div class="dropdown-divider"></div>-->
+                            <a class="dropdown-item enlace" id="enlAsigMens">Asignar Mensajero</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard Envios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="enlFormEntregaOp">Entregar a Operador</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="enlSeguimientoEnv">Rastreo Envios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_informes_envios">Informes</a>
                         </div>
@@ -118,6 +126,10 @@ echo $porciones[0] . " " . $porciones[2]; ?></h4>
                     <div class="collapse multi-collapse" id="multiCollapseALM">
                         <div class="card card-body alert-secondary">                            
                             <a class="dropdown-item enlace" id="link_gest_almacen">Gestionar</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_alist">DashBoard Alistamiento</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="enlSeguimientoAlist">Seguimiento Alistamiento</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_infor_almacen">Informes</a>
                         </div>
@@ -191,7 +203,7 @@ echo $porciones[0] . " " . $porciones[2]; ?></h4>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-<?php include './navbar.php'; ?>
+                        <?php include './navbar.php'; ?>
                     </div>
                 </nav>
 

@@ -20,6 +20,8 @@ if ($_POST) {
         echo json_encode($est_os->consultaUltimoEstadoOS(" AND ord.cli_td_id = " . $tipo_d . " AND ord.cli_num_doc = " . $num_d . " ORDER BY ord.os_id DESC;"));
     } elseif (isset($_SESSION["cliente_a"])) {
         echo json_encode($est_os->consultaUltimoEstadoOS(" AND ord.cli_td_id = " . $_SESSION["tipo_doc"] . " AND ord.cli_num_doc = " . $_SESSION["numero_doc"] . " ORDER BY ord.os_id DESC;"));
+    } elseif (isset($_SESSION["sucursal"])) {
+        echo json_encode($est_os->consultaUltimoEstadoOS(" AND ord.cli_td_id = " . $_SESSION["tipo_doc"] . " AND ord.cli_num_doc = " . $_SESSION["numero_doc"] . " AND ord.os_id IN (SELECT osu.os_id FROM os_x_suc AS osu WHERE osu.suc_num_id = " . $_SESSION["numero_suc"] . ") ORDER BY ord.os_id DESC;"));
     }
 } else {
     header("location../");

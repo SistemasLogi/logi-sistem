@@ -3,8 +3,8 @@
 class Datos {
 
     private $hostname = '127.0.0.1';
-    private $usuario = 'logiadmin';
-    private $clave = '4dm1n1str4d0rl0g12020';
+    private $usuario = 'tecnologiadmin';
+    private $clave = '4dm1n1str4d0rl0g12021';
     private $db = 'logi';
     
     public function getPre(){

@@ -89,9 +89,9 @@ if (!isset($_SESSION["cliente_a"])) {
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento</a>
+                            <!--<a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>-->
+                            <!--<div class="dropdown-divider"></div>-->
+                            <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento OS</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
                         </div>
@@ -102,9 +102,9 @@ if (!isset($_SESSION["cliente_a"])) {
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
                         <div class="card card-body alert-secondary">
-                            <a class="dropdown-item enlace" id="enlSeguimientoEnv">Seguimiento Envios</a>
+                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard Envios</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" id="link_vista_dashboard_envios">DashBoard</a>
+                            <a class="dropdown-item enlace" id="enlSeguimientoEnv">Rastreo Envios</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">
@@ -114,6 +114,8 @@ if (!isset($_SESSION["cliente_a"])) {
                     <div class="collapse multi-collapse" id="multiCollapseALM">
                         <div class="card card-body alert-secondary">
                             <a class="dropdown-item enlace" id="link_stock_cl">Stock</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_dash_alist_cl">DashBoard Alistamiento</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_seg_aenv_cl">Seguimiento Alistamiento</a>
                         </div>
