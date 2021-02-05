@@ -318,6 +318,8 @@ function consulta_tabla_items_alis_salidas(venta) {
 
             datos_items_venta = "<div class='table-responsive text-nowrap'><table class='table table-striped table-sm table-bordered' id='tableEnvProgram'>\n\
                              <thead><tr>\n\
+                             <th scope='col'>FECHA</th>\n\
+                             <th scope='col'>GUIA OP</th>\n\
                              <th scope='col'>SKU</th>\n\
                              <th scope='col'>CODIGO</th>\n\
                              <th scope='col'>DESCRIPCIÓN</th>\n\
@@ -325,8 +327,11 @@ function consulta_tabla_items_alis_salidas(venta) {
                              </tr></thead><tbody>";
             for (i = 0; i < arreglo_venta_items.length; i++) {
                 temp = arreglo_venta_items[i];
+                var splitDate = temp.fecha.split(" ");
 
                 datos_items_venta += '<tr class="table-sm table-warning">';
+                datos_items_venta += '<td>' + splitDate[0] + '</td>';
+                datos_items_venta += '<td>' + temp.guia + '</td>';
                 datos_items_venta += '<td>' + temp.sku + '</td>';
                 datos_items_venta += '<td>' + temp.codigo + '</td>';
                 datos_items_venta += '<td>' + temp.descripcion + '</td>';

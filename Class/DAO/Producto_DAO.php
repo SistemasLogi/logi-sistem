@@ -265,7 +265,7 @@ class Producto_DAO {
      */
     function insertarSalidaProd($num_venta) {
         $sql = "INSERT INTO salida_prod "
-                . "SELECT NOW() AS fecha, st.t_suc_num_id, st.t_pro_cod, st.t_sal_num_venta, st.t_sal_cantidad, st.t_sal_observaciones "
+                . "SELECT NOW() AS fecha, st.t_suc_num_id, st.t_pro_cod, st.t_sal_num_venta, st.t_sal_guia_num, st.t_sal_cantidad, st.t_sal_observaciones "
                 . "FROM salidas_prod_temp AS st WHERE st.t_sal_num_venta = " . $num_venta . ";";
         $BD = new MySQL();
 //        return $sql;
@@ -297,7 +297,8 @@ class Producto_DAO {
      * @return type
      */
     function consultaProd_x_venta_sal_temp($num_venta) {
-        $sql = "SELECT ts.t_suc_num_id AS sucursal, ts.t_pro_cod AS codigo, ts.t_sal_guia_num AS guia, ts.t_sal_num_venta AS venta, p.pro_sku AS sku, p.pro_desc AS descripcion, ts.t_sal_cantidad AS unidades "
+        $sql = "SELECT ts.t_sal_fecha AS fecha, ts.t_suc_num_id AS sucursal, ts.t_pro_cod AS codigo, "
+                . "ts.t_sal_guia_num AS guia, ts.t_sal_num_venta AS venta, p.pro_sku AS sku, p.pro_desc AS descripcion, ts.t_sal_cantidad AS unidades "
                 . "FROM salidas_prod_temp AS ts, productos AS p "
                 . "WHERE ts.t_pro_cod = p.pro_cod AND ts.t_sal_num_venta = " . $num_venta . ";";
         $BD = new MySQL();
@@ -321,7 +322,8 @@ class Producto_DAO {
      * @return type
      */
     function consultaProd_x_venta_sal($num_venta) {
-        $sql = "SELECT s.suc_num_id AS sucursal, s.pro_cod AS codigo, s.sal_num_venta AS venta, p.pro_sku AS sku, p.pro_desc AS descripcion, s.sal_cantidad AS unidades "
+        $sql = "SELECT s.sal_fecha AS fecha, s.suc_num_id AS sucursal, s.pro_cod AS codigo, s.sal_num_guia AS guia, "
+                . "s.sal_num_venta AS venta, p.pro_sku AS sku, p.pro_desc AS descripcion, s.sal_cantidad AS unidades "
                 . "FROM salida_prod AS s, productos AS p "
                 . "WHERE s.pro_cod = p.pro_cod AND s.sal_num_venta = " . $num_venta . ";";
         $BD = new MySQL();
