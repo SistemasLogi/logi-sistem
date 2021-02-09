@@ -52,6 +52,8 @@ $(document).ready(function () {
     $("#link_seg_aenv_cl").click(function () {
         segui_estado_alist_env_cl();
     });
+
+    setInterval(refrescar_sesion, 30000);
 });
 /**
  * Variable global de funcion AJAX
@@ -146,7 +148,18 @@ function limpiarFormulario(formulario) {
         $(this).val('');
     });
 }
+/**
+ * Funcion que mantiene la sesion abierta
+ * @returns {undefined}
+ */
+function refrescar_sesion() {
+    request = "Controller/Login_General/refrescar_control.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
 
+    };
+    f_ajax(request, cadena, metodo);
+}
 /**
  * Metodo que carga la vista de seguimiento de ordenes de servicio
  * @returns {undefined}

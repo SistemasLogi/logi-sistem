@@ -17,6 +17,7 @@ $(document).ready(function () {
     });
     consulta_envios_diarios();
     consulta_monedero();
+    setInterval(refrescar_sesion, 30000);
 });
 
 /**
@@ -81,7 +82,18 @@ function f_ajax_files(request, cadena, metodo) {
         }
     });
 }
+/**
+ * Funcion que mantiene la sesion abierta
+ * @returns {undefined}
+ */
+function refrescar_sesion() {
+    request = "Controller/Login_General/refrescar_control.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
 
+    };
+    f_ajax(request, cadena, metodo);
+}
 var arregloEnvDia;
 
 /**
