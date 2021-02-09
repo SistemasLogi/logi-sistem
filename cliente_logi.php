@@ -153,7 +153,7 @@ if (!isset($_SESSION["cliente_a"])) {
                             <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
                                 <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php echo $_SESSION["nombre_cli"]; ?></legend></strong></div>
                                 <div class="card-body">
-                                    <img class="img-fluid" src="img/clients/FONDO/<?php echo $_SESSION["numero_doc"]; ?>.PNG" alt=""/>
+                                    <img class="img-fluid" src="img/clients/FONDO/<?php echo $_SESSION["numero_doc"]; ?>.png" alt=""/>
                                 </div>
                             </div>
                         </div>
