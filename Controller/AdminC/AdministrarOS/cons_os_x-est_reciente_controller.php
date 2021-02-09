@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 if ($_POST) {
     require '../../../config.php';
     $est_os = new Est_x_serv_DAO();
