@@ -59,7 +59,9 @@ $(document).ready(function () {
 
     vista_dashboard();
 
-    consulta_os_program_ini();
+//    consulta_os_program_ini();
+    
+    setInterval(refrescar_sesion, 30000);
 
 });
 
@@ -2540,7 +2542,7 @@ function vista_dashboard() {
         $("#list-formCliente").html(datos);
         consulta_dashboard_serv_card();
         consulta_dashboard_serv();
-        setInterval(consulta_os_program, 20000);
+//        setInterval(consulta_os_program, 20000);
     };
     f_ajax(request, cadena, metodo);
 }
@@ -3118,6 +3120,18 @@ function consulta_os_program() {
 
         }
 //        alert(fech_old);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Funcion que mantiene la sesion abierta
+ * @returns {undefined}
+ */
+function refrescar_sesion() {
+    request = "Controller/Login_General/refrescar_control.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        
     };
     f_ajax(request, cadena, metodo);
 }
