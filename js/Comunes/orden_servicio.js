@@ -390,6 +390,48 @@ function ultima_orden_serv() {
     };
     f_ajax(request, cadena, metodo);
 }
+var arreglo_tot_env;
+/**
+ * Metodo que consulta el total de envios para una os
+ * @param {type} os_id
+ * @returns {consulta_total_envios}
+ */
+function consulta_total_envios(os_id) {
+    request = "Controller/AdminC/AdministrarOS/cons_total_env_x_os_controller.php";
+    cadena = {"os_id": os_id}; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_tot_env = $.parseJSON(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+var arreglo_tot_aenv;
+/**
+ * Metodo que consulta el total de envios para una os
+ * @param {type} os_id
+ * @returns {consulta_total_envios}
+ */
+function consulta_total_aenvios(os_id) {
+    request = "Controller/AdminC/AdministrarOS/cons_total_aenv_x_os_controller.php";
+    cadena = {"os_id": os_id}; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_dat_os = "";
+        arreglo_dat_os = $.parseJSON(datos);
+        temp_total = arreglo_dat_os[0];
+//        $("#inf_tot_aenv").html(temp_total.total);
+
+        num_os = temp_total.os_id;
+
+        $("#btnCloseModal").trigger("click");
+
+        if (temp_total.ts_id == 4 || temp_total.ts_id == 5) {
+            formulario_alistamiento_xlsx_dash();
+        } else {
+            formulario_carga_envios();
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
 /**
  * Variable global que almacena la cantidad de formularios generados 
  * @type Number
@@ -405,21 +447,18 @@ function formularios_envio() {
         $('#f' + contador + '').html('<strong class="mr-auto">Sección ' + parseInt(contador + 1) + '</strong><div class="toast show border-primary" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
                             <div class="toast-body row">\n\
                             <div class="form-group form-group-sm col-lg-4">\n\
-                                <label for="inputNombreDestino' + contador + '">Nombre destinatario</label>\n\
-                                <input type="text" class="form-control form-control-sm" id="inputNombreDestino' + contador + '" name="inputNombreDestino' + contador + '" placeholder="Nombre Destinatario" required>\n\
+                                <label for="inputNombreDestino' + contador + '">Nombre destinatario</label>\n\                                 <input type="text" class="form-control form-control-sm" id="inputNombreDestino' + contador + '" name="inputNombreDestino' + contador + '" placeholder="Nombre Destinatario" required>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-4">\n\
                                 <label for="inputDirDestino' + contador + '">Dirección destino</label>\n\
                                 <input type="text" class="form-control form-control-sm" id="inputDirDestino' + contador + '" name="inputDirDestino' + contador + '" placeholder="Dirección Destinatario" required>\n\
-                            </div>\n\
-                            <div class="form-group form-group-sm col-lg-2">\n\
+                            </div>\n\                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="inputTeleDestino' + contador + '">Teléfono Destino</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputTeleDestino' + contador + '" name="inputTeleDestino' + contador + '" placeholder="Telefono Destinatario">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="selectCiudDestino' + contador + '">Ciudad Destino</label>\n\
-                                <select class="form-control form-control-sm" id="selectCiudDestino' + contador + '" name="selectCiudDestino' + contador + '">\n\
-                                </select>\n\
+                                <select class="form-control form-control-sm" id="selectCiudDestino' + contador + '" name="selectCiudDestino' + contador + '">\n\                                 </select>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="inputCantidadEnv' + contador + '">Cantidad</label>\n\
@@ -455,19 +494,18 @@ function formularios_envio() {
                                     <div class="input-group mb-3 input-group-sm">\n\
                                         <div class="input-group-prepend">\n\
                                             <span class="input-group-text">$</span>\n\
-                                        </div>\n\
-                                        <input type="number" class="form-control form-control-sm" id="inputValorDecl' + contador + '" name="inputValorDecl' + contador + '" aria-label="Amount (to the nearest dollar)">\n\
-                                        <div class="input-group-append">\n\
-                                            <span class="input-group-text">m/c</span>\n\
-                                        </div>\n\
-                                    </div>\n\
-                                </div>\n\
-                            </div>\n\
-                            <div class="form-group form-group-sm col-lg-5" id="blqObserv' + contador + '">\n\
-                                <label for="inputObserv' + contador + '">Observaciones/Recaudo</label>\n\
-                                <textarea class="form-control form-control-sm" id="inputObserv' + contador + '" name="inputObserv' + contador + '" rows="1"></textarea>\n\
-                            </div></div></div>');
-        //en esta parte se agrega el elemento div contenedor para otro formulario
+        </div>\n\
+        <input type="number" class="form-control form-control-sm" id="inputValorDecl' + contador + '" name="inputValorDecl' + contador + '" aria-label="Amount (to the nearest dollar)">\n\
+        <div class="input-group-append">\n\
+        <span class="input-group-text">m/c</span>\n\
+        </div>\n\
+        </div>\n\
+        </div>\n\
+    </div>\n\
+ <div class="form-group form-group-sm col-lg-5" id="blqObserv' + contador + '">\n\
+<label for="inputObserv' + contador + '">Observaciones/Recaudo</label>\n\
+        <textarea class="form-control form-control-sm" id="inputObserv' + contador + '" name="inputObserv' + contador + '" rows="1"></textarea>\n\
+                            </div></div></div>');         //en esta parte se agrega el elemento div contenedor para otro formulario
         $("#parentControl").append('<div id="f' + parseInt(contador + 1) + '" class="alert alert-dismissible alert-primary col-lg-12 border-light" style="border-radius: 0.5rem;"></div>');
         combo_tipo_envio('#selectTipEnvio' + contador + '');
         combo_ciudad('#selectCiudDestino' + contador + '');
@@ -519,8 +557,8 @@ function seleccionCargaEnvios() {
  */
 function cargaArchivoEnvDocum() {
     var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
-                    <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
-                    <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+             <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+            <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
     $("#changeEnvios").html(creando);
     request = "Controller/ClienteC/carga_masiva_env_doc_controller.php";
     cadena = new FormData($("#formMasEnvDoc")[0]);
@@ -549,8 +587,7 @@ function lectura_xlsx() {
         if ($("#tableEnvios").length > 0) {
             /**
              * Evento que pagina una tabla 
-             */
-            $('#tableEnvios').DataTable({
+             */  $('#tableEnvios').DataTable({
                 'scrollX': true
             });
 
@@ -566,7 +603,6 @@ function lectura_xlsx() {
                 validarImprimirRem();
             });
             $("#inputNumOS").val(num_os);
-
         }
 
     };
@@ -620,7 +656,7 @@ function enviarImpresion() {
     cadena = $("#formImprimirRem").serialize(); //envio de parametros por POST
     metodo = function (datos) {
         $("#menErrorImprimir").html(datos);
-//        $(location).attr('href', 'Files/GuiasPDF_temp/' + num_doc + '_' + td_doc + '/' + num_doc + '.pdf');
+        //        $(location).attr('href', 'Files/GuiasPDF_temp/' + num_doc + '_' + td_doc + '/' + num_doc + '.pdf');
     };
     f_ajax(request, cadena, metodo);
 }
@@ -674,8 +710,8 @@ function insertarEnvios() {
             $("#formEnvios").hide();
             $("#blqSelectModoCarga").hide();
             $("#mensajeCompletar").hide();
-//            $("#blqCargaExcel").removeClass("alert-primary");
-//            $("#blqCargaExcel").addClass("alert-light");
+            //            $("#blqCargaExcel").removeClass("alert-primary");
+            //            $("#blqCargaExcel").addClass("alert-light");
 
 
             pagInicio = $("#inputHojaDesde").val();
@@ -749,12 +785,54 @@ function formulario_alistamiento_xlsx() {
         $("#inputContador").val(parseInt(contador));
 
         $("#divMensaje").html("<legend id='legTitulo'>Orden N° " + num_os + "</legend>\n\
-                  <strong>Lugar de Recolección: </strong>" + direccion + " " + ciudad + "<br>\n\
-                  <strong>Tipo de Envio: </strong>" + tipo_envio + "<br>\n\
-                  <strong>Tipo Servicio: </strong>" + tipo_servi);
-
+            <strong>Lugar de Recolección: </strong>" + direccion + " " + ciudad + "<br>\n\
+                <strong>Tipo de Envio: </strong>" + tipo_envio + "<br>\n\
+        <strong>Tipo Servicio: </strong>" + tipo_servi);
         $("#btnGMasAlist").click(function () {
             validarMasivoEnviosAlist();
+        });
+        $("#sectionConten").hide();
+        nameFileCargaMasEnvAlist();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que trae a la vista el formulario de alistamiento xlsx para orden desde dashboard
+ * @returns {undefined}
+ */
+function formulario_alistamiento_xlsx_dash() {
+    request = "View/AdministradorV/OrdenesServicio/form_xlsx_alist_dash.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#sectionDatOS").html(datos);
+
+        temp = arreglo_dat_os[0];
+        ciudad = temp.ciu_nombre;
+        direccion = temp.os_direccion;
+        tipo_envio = temp.te_desc;
+        tipo_servi = temp.ts_desc;
+        td_cli = temp.cli_td_id;
+        num_doc_cli = temp.cli_num_doc;
+        ciu_id = temp.ciu_id;
+        id_serv = temp.ts_id;
+        id_env = temp.te_id;
+        id_suc = temp.suc_num_id;
+
+        $("#inputNumOrd").val(num_os);
+        $("#inputTdCli").val(td_cli);
+        $("#inputNumDocCli").val(num_doc_cli);
+        $("#inputCiuId").val(ciu_id);
+        $("#inputTipoServ").val(id_serv);
+        $("#inputTipoEnv").val(id_env);
+        $("#inputNumSuc").val(id_suc);
+        $("#inputContador").val(parseInt(contador));
+
+        $("#divMensaje").html("<legend id='legTitulo'>Orden N° " + num_os + "</legend>\n\
+            <strong>Lugar de Recolección: </strong>" + direccion + " " + ciudad + "<br>\n\
+                <strong>Tipo de Envio: </strong>" + tipo_envio + "<br>\n\
+        <strong>Tipo Servicio: </strong>" + tipo_servi);
+        $("#btnGMasAlist").click(function () {
+            validarMasivoEnviosAlistDash();
         });
         $("#sectionConten").hide();
         nameFileCargaMasEnvAlist();
@@ -786,9 +864,38 @@ function validarMasivoEnviosAlist() {
             inputDateAlist: {
                 required: "El campo Fecha es Requerido.. "
             }
-        },
-        submitHandler: function (form) {
+        }, submitHandler: function (form) {
             cargaArchivo_xlsx_alist();
+        }
+    });
+}
+/**
+ * Metodo de validacion Carga masiva de envios documentos xlsx
+ * @returns {undefined}
+ */
+function validarMasivoEnviosAlistDash() {
+    $("#formMasAlistamiento").validate({
+        errorLabelContainer: '#errorTxt',
+        rules: {
+            inpFileMasAlist: {
+                required: true,
+                extension: "xlsx"
+            },
+            inputDateAlist: {
+                required: true,
+                date: true
+            }
+        },
+        messages: {
+            inpFileMasAlist: {
+                extension: "Extensión no valida, debe ser xlsx",
+                required: "El campo Excel es obligatorio"
+            },
+            inputDateAlist: {
+                required: "El campo Fecha es Requerido.. "
+            }
+        }, submitHandler: function (form) {
+            cargaArchivo_xlsx_alist_dash();
         }
     });
 }
@@ -799,9 +906,9 @@ function validarMasivoEnviosAlist() {
 function nameFileCargaMasEnvAlist() {
     $("#inpFileMasAlist").change(function () {
         nombre = $("#inpFileMasAlist").val();
-//        if (nombre.substring(3,11) == 'fakepath') {
-//            nombre = nombre.substring(12);
-//        }
+        //        if (nombre.substring(3,11) == 'fakepath') {
+        //            nombre = nombre.substring(12);
+        //        }
         $("#textMasAlist").text(nombre);
     });
 }
@@ -812,34 +919,83 @@ function nameFileCargaMasEnvAlist() {
  */
 function cargaArchivo_xlsx_alist() {
     var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
-                    <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
-                    <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+        <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+<div class='col-lg-5'><span>Epere un momento por favor</span></div>";
     $("#changeAlistEnvios").html(creando);
     request = "Controller/AdminC/AdministrarOS/cargar_xlsx_alist_v2_controller.php";
     cadena = new FormData($("#formMasAlistamiento")[0]);
     metodo = function (datos) {
         $("#textMasAlist").html("");
         limpiarFormulario("#formMasAlistamiento");
-        if (datos == 1) {
-            lectura_xlsx_alist();
-        } else {
-            $("#changeAlistEnvios").html(datos);
-        }
+
+        $("#changeAlistEnvios").html(datos);
+        $("#formMasAlistamiento").hide();
+        cargaProdAlistamiento(id_suc_sel);
+
+//        if (datos == 1) {
+//            lectura_xlsx_alist();
+//        } else {
+//            $("#changeAlistEnvios").html(datos);
+//        }
+    };
+    f_ajax_files(request, cadena, metodo);
+}
+/**
+ * Metodo que se encarga de guardar un fichero en la carpeta temporal de alistamiento
+ * @returns {undefined}
+ */
+function cargaArchivo_xlsx_alist_dash() {
+    var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
+        <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+<div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+    $("#changeAlistEnvios").html(creando);
+    request = "Controller/AdminC/AdministrarOS/cargar_xlsx_alist_v3_controller.php";
+    cadena = new FormData($("#formMasAlistamiento")[0]);
+    metodo = function (datos) {
+        $("#textMasAlist").html("");
+        limpiarFormulario("#formMasAlistamiento");
+
+
+        $("#changeAlistEnvios").html(datos);
+        $("#formMasAlistamiento").hide();
+        temp = arreglo_dat_os[0];
+        cargaProdAlistamiento(temp.suc_num_id);
+
+
+//        if (datos == 1) {
+//            lectura_xlsx_alist_dash();
+//        } else {
+//            $("#changeAlistEnvios").html(datos);
+//        }
     };
     f_ajax_files(request, cadena, metodo);
 }
 /**
  * Metodo que lee los datos del archivo excel subido para alistamiento
  * @returns {undefined}
- */
-function lectura_xlsx_alist() {
+ */ function lectura_xlsx_alist() {
     request = "Controller/AdminC/AdministrarOS/leer_xlsx_alist_v2_controller.php";
     cadena = "a=1";
     metodo = function (datos) {
         $("#changeAlistEnvios").html(datos);
         $("#formMasAlistamiento").hide();
         cargaProdAlistamiento(id_suc_sel);
-//        datos_os_picking_en_proceso();
+        //        datos_os_picking_en_proceso();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que lee los datos del archivo excel subido para alistamiento
+ * @returns {undefined}
+ */ function lectura_xlsx_alist_dash() {
+    request = "Controller/AdminC/AdministrarOS/leer_xlsx_alist_v3_controller.php";
+    cadena = "a=1";
+    metodo = function (datos) {
+        $("#changeAlistEnvios").html(datos);
+        $("#formMasAlistamiento").hide();
+        temp = arreglo_dat_os[0];
+        cargaProdAlistamiento(temp.suc_num_id);
+        //        datos_os_picking_en_proceso();
     };
     f_ajax(request, cadena, metodo);
 }
@@ -853,6 +1009,10 @@ var arregloAlista;
  */
 function cargaProdAlistamiento(id_suc) {
     if (alst_guia == true) {
+        if (filtro_guia.substr(0, 1) == "{") {
+            dato = $.parseJSON(filtro_guia);
+            filtro_guia = dato.id;
+        }
         request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_st_guia_controller.php";
         cadena = {"inp_id_sucursal": id_suc, "inp_num_guia": filtro_guia};
         alst_guia = false;
@@ -863,8 +1023,7 @@ function cargaProdAlistamiento(id_suc) {
     }
 
     metodo = function (datos) {
-
-//        $("#blqPagina1").html(datos);
+        //        $("#blqPagina1").html(datos);
 
         arregloAlista = $.parseJSON(datos);
 
@@ -875,12 +1034,12 @@ function cargaProdAlistamiento(id_suc) {
             blq = 0;
             pag = 1;
             datosAlist = '<div class="form-group row" id="formBuscaGuiaOp">\n\
-                            <label for="inputGuiaNum" class="col-sm-1 col-form-label">Buscar</label>\n\
-                            <div class="col-sm-3">\n\
-                                <input type="text" class="form-control form-control-sm" id="inputGuiaNum" name="inputGuiaNum" placeholder="N° Guia">\n\
+                    <label for="inputGuiaNum" class="col-sm-1 col-form-label">Buscar</label>\n\
+                    <div class="col-sm-3">\n\
+                    <input type="text" class="form-control form-control-sm" id="inputGuiaNum" name="inputGuiaNum" placeholder="N° Guia">\n\
                             </div>\n\
                         </div>';
-//            datosAlist += '<div><button type="button" class="btn btn-success float-right" id="btnSaveAllVentas" name="btnSaveAllVentas">Guaradar Todo</button></div>';
+            //            datosAlist += '<div><button type="button" class="btn btn-success float-right" id="btnSaveAllVentas" name="btnSaveAllVentas">Guaradar Todo</button></div>';
 
             for (i = 0; i < arregloAlista.length; i++) {
                 tmp = arregloAlista[i];
@@ -904,8 +1063,7 @@ function cargaProdAlistamiento(id_suc) {
                     //******primera fila****//
                     datosAlist += '<div class="bloque" id="blqPagina' + pag + '"><h4>HOJA ' + pag + '</h4>';
                     datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
-                        <div class="row">\n\
-                        <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                    <div class="row">\n\                         <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                         <div class="form-group col-2">\n\
                           <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
@@ -913,25 +1071,24 @@ function cargaProdAlistamiento(id_suc) {
                         <div class="form-group col-2">\n\
                           <div class="custom-control custom-switch">\n\
                           <input type="checkbox" class="custom-control-input cheBlq" vent="' + tmp.t_sal_num_venta + '" che="' + i + '" id="' + blq + '" ' + checked + '>\n\
-                          <label class="custom-control-label" for="' + blq + '">OK</label>\n\
+                    <label class="custom-control-label" for="' + blq + '">OK</label>\n\
                         </div></div></div>';
                     datosAlist += '<div class="dropdown-divider"></div>\n\
                         <div class="table-responsive text-nowrap">\n\
-                        <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
+                    <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
                         <thead><tr class="table-primary">\n\
-                            <th scope="col">VER</th>\n\
+                    <th scope="col">VER</th>\n\
                             <th scope="col">SKU</th>\n\
                             <th scope="col">UB</th>\n\
-                            <th scope="col">STOCK</th>\n\
-                            <th scope="col">UNS</th>\n\
-                            <th scope="col">TEÓRICO</th>\n\
+                    <th scope="col">STOCK</th>\n\
+                    <th scope="col">UNS</th>\n\
+                        <th scope="col">TEÓRICO</th>\n\
                             <th scope="col">PRODUCTO</th>\n\
-                            <th scope="col">COD</th>\n\
+                        <th scope="col">COD</th>\n\
                             <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
-                        </tr></thead><tbody>';
+                    </tr></thead><tbody>';
 
                     blq++;
-
                     datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
                     datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                     datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
@@ -952,24 +1109,22 @@ function cargaProdAlistamiento(id_suc) {
                         datosAlist += '</tbody></table></div>\n\
                           <div class="row justify-content-end">\n\
                           <div class="col-7">\n\
-                            <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
-                          </div>\n\
-                          <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                          </div>\n\
-                          <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
+                        <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                    </div>\n\
+                    <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                        <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                            </div>\n\
+                            <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                             <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                           </div>\n\
-                          <div class="col-2" id="inpGif' + venta + '">\n\
+                            <div class="col-2" id="inpGif' + venta + '">\n\
                           </div>\n\
-                          </div>\n\
-                        </div></div>';//fin de la tabla
+                            </div>\n\                         </div></div>';//fin de la tabla
                         datosAlist += '</div>';//fin de la pag
 
                     } else {
                         venta = tmp.t_sal_num_venta;
                     }
-
                 } else {
                     //***suiguientes filas del arreglo**//
 
@@ -995,9 +1150,9 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
                               <div class="col-7">\n\
-                                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
-                              </div>\n\
-                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                        <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                            </div>\n\
+                            <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
                                 <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
@@ -1015,9 +1170,8 @@ function cargaProdAlistamiento(id_suc) {
                               <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </div>\n\
+                                <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </div>\n\
@@ -1034,7 +1188,7 @@ function cargaProdAlistamiento(id_suc) {
 
                             datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
-                                <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                            <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                                 <div class="form-group col-2">\n\
                                   <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
@@ -1046,19 +1200,18 @@ function cargaProdAlistamiento(id_suc) {
                                 </div></div></div>';
                             datosAlist += '<div class="dropdown-divider"></div>\n\
                                 <div class="table-responsive text-nowrap">\n\
-                                <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
+                            <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
                                 <thead><tr class="table-primary">\n\
-                                    <th scope="col">VER</th>\n\
+                            <th scope="col">VER</th>\n\
                                     <th scope="col">SKU</th>\n\
-                                    <th scope="col">UB</th>\n\
+                            <th scope="col">UB</th>\n\
                                     <th scope="col">STOCK</th>\n\
-                                    <th scope="col">UNS</th>\n\
-                                    <th scope="col">TEÓRICO</th>\n\
-                                    <th scope="col">PRODUCTO</th>\n\
+                            <th scope="col">UNS</th>\n\
+                            <th scope="col">TEÓRICO</th>\n\
+                                <th scope="col">PRODUCTO</th>\n\
                                     <th scope="col">COD</th>\n\
-                                    <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
+                                <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
-
                             blq++;
 
                             datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
@@ -1079,16 +1232,16 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
                               <div class="col-7">\n\
-                                <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
-                              </div>\n\\n\
-                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </div>\n\
+                            <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                    </div>\n\\n\
+                        <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                            </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
-                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
-                              </div>\n\
+                            <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                            </div>\n\
                               <div class="col-2" id="inpGif' + venta + '">\n\
-                              </div>\n\
+                            </div>\n\
                               </div>\n\
                             </div></div>';//fin de la tabla
                             datosAlist += '</div>';//fin de la pag
@@ -1120,9 +1273,8 @@ function cargaProdAlistamiento(id_suc) {
                               <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-                              </div>\n\
+                                <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </div>\n\
@@ -1139,7 +1291,7 @@ function cargaProdAlistamiento(id_suc) {
 
                             datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
-                                <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                            <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                                 <div class="form-group col-2">\n\
                                    <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
@@ -1151,19 +1303,18 @@ function cargaProdAlistamiento(id_suc) {
                                 </div></div></div>';
                             datosAlist += '<div class="dropdown-divider"></div>\n\
                                 <div class="table-responsive text-nowrap">\n\
-                                <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
+                            <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
                                 <thead><tr class="table-primary">\n\
-                                    <th scope="col">VER</th>\n\
+                            <th scope="col">VER</th>\n\
                                     <th scope="col">SKU</th>\n\
-                                    <th scope="col">UB</th>\n\
+                            <th scope="col">UB</th>\n\
                                     <th scope="col">STOCK</th>\n\
-                                    <th scope="col">UNS</th>\n\
-                                    <th scope="col">TEÓRICO</th>\n\
-                                    <th scope="col">PRODUCTO</th>\n\
+                            <th scope="col">UNS</th>\n\
+                            <th scope="col">TEÓRICO</th>\n\
+                                <th scope="col">PRODUCTO</th>\n\
                                     <th scope="col">COD</th>\n\
-                                    <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
+                                <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
-
                             blq++;
 
                             datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
@@ -1187,28 +1338,27 @@ function cargaProdAlistamiento(id_suc) {
                 }
             }
             datosAlist += '</tbody></table></div>\n\
-              <div class="row justify-content-end">\n\
-              <div class="col-7">\n\
+            <div class="row justify-content-end">\n\
+                <div class="col-7">\n\
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
-              </div>\n\
+                        <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\               </div>\n\
               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: none;">\n\
-                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                        <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
               </div>\n\
               <div class="col-2" id="inpGif' + venta + '">\n\
-              </div>\n\
-              </div>\n\
-            </div></div>';//fin de la tabla
+                    </div>\n\
+                </div>\n\
+                </div></div>';//fin de la tabla
             datosAlist += '</div>';//fin de la pag
 
             if (pag > 1) {
                 datosAlist += '<nav aria-label="Page navigation example">\n\
-                                 <ul class="pagination justify-content-center">';
+            <ul class="pagination justify-content-center">';
                 datosAlist += '<li class="page-item disabled" id="bPrev">\n\
-                                 <a class="page-link enlace" id="btnPrev">Previous</a>\n\
-                               </li>';
+            <a class="page-link enlace" id="btnPrev">Previous</a>\n\
+            </li>';
 
                 for (i = 1; i <= pag; i++) {
                     if (i == 1) {
@@ -1220,7 +1370,7 @@ function cargaProdAlistamiento(id_suc) {
 
                 datosAlist += '<li class="page-item" id="bNext">\n\
                                  <a class="page-link enlace" id="btnNext">Next</a>\n\
-                               </li>';
+                    </li>';
                 datosAlist += '</ul></nav>';
             }
 
@@ -1237,10 +1387,10 @@ function cargaProdAlistamiento(id_suc) {
             click_No_gestionarVenta(id_suc);
             click_gestionar_Venta(id_suc);
 
-//            $("#btnSaveAllVentas").click(function () {
-//                ventasNoSelected();
-//                ventasSelected();
-//                cargaProdAlistamiento(id_suc_sel);
+            //            $("#btnSaveAllVentas").click(function () {
+            //                ventasNoSelected();
+            //                ventasSelected();
+            //                cargaProdAlistamiento(id_suc_sel);
 //            });
 
 
@@ -1255,12 +1405,11 @@ function cargaProdAlistamiento(id_suc) {
             $("#inputGuiaNum").keyup(function (e) {
                 if (e.keyCode == 13) {
                     filtro_guia = $('#inputGuiaNum').val();
-//                    alert(filtro_in);
+                    //                    alert(filtro_in);
                     if (filtro_guia === "" || filtro_guia === null) {
-
-//                        alert("No ha seleccionado un filtro valido");
+                        //                        alert("No ha seleccionado un filtro valido");
                         $("#inputGuiaNum").focus();
-//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+                        //                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
                     } else {
                         alst_guia = true;
                         cargaProdAlistamiento(id_suc_sel);
@@ -1272,8 +1421,8 @@ function cargaProdAlistamiento(id_suc) {
             }
         } else {
             $("#bloques").html("<div class='alert alert-dismissible alert-danger'>\n\
-                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
-                 <strong>No existen datos para mostrar.</strong></div>");
+ <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+    <strong>No existen datos para mostrar.</strong></div>");
         }
 
     };
@@ -1349,8 +1498,7 @@ function clickPaginasAlistPrev() {
  * @returns {undefined}
  */
 function clickPaginasAlistNext() {
-    $("#btnNext").click(function () {
-//        alert(pagina++);
+    $("#btnNext").click(function () { //        alert(pagina++);
 
         pagina = pagina++;
 
@@ -1425,22 +1573,21 @@ function clickEditProd(id_suc) {
                 </div>\n\
                 <div class="form-group col-md-3">\n\
                   <label for="inputStockAls">Stock</label>\n\
-                  <input type="text" class="form-control" id="inputStockAls" name="inputStockAls" readonly>\n\
+            <input type="text" class="form-control" id="inputStockAls" name="inputStockAls" readonly>\n\
                 </div>\n\
                 <div class="form-group col-md-3">\n\
-                  <label for="inputCantiAls">Cantidad</label>\n\
-                  <input type="text" class="form-control" id="inputCantiAls" name="inputCantiAls">\n\
-                </div>\n\
-                <div class="form-group col-md-3">\n\
-                  <label for="inputTeoAls">Teórico</label>\n\
-                  <input type="text" class="form-control" id="inputTeoAls" name="inputTeoAls" readonly>\n\
-                </div>\n\
+                <label for="inputCantiAls">Cantidad</label>\n\
+        <input type="text" class="form-control" id="inputCantiAls" name="inputCantiAls">\n\
+            </div>\n\
+        <div class="form-group col-md-3">\n\
+        <label for="inputTeoAls">Teórico</label>\n\
+            <input type="text" class="form-control" id="inputTeoAls" name="inputTeoAls" readonly>\n\
+            </div>\n\
               </div>\n\
-              <button type="submit" class="btn btn-primary" id="btnGuarProdActAlist" name="btnGuarProdActAlist">Guardar</button>\n\
-              <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\
-            </form>');
+            <button type="submit" class="btn btn-primary" id="btnGuarProdActAlist" name="btnGuarProdActAlist">Guardar</button>\n\
+                <button type="button" class="btn btn-danger float-right" id="btnElimProdActAlist" name="btnElimProdActAlist">Eliminar item</button>\n\             </form>');
 //        alert("click en " + edit_prod);
-//        form_act_est_os(arregloEstOS, actu_es_os);
+        //        form_act_est_os(arregloEstOS, actu_es_os);
         $("#btnBusSkuAlst").click(function () {
             if ($("#inputSkuAls").val().length == 0) {
                 alert("Faltan datos");
@@ -1455,7 +1602,7 @@ function clickEditProd(id_suc) {
         click_btnElim_item_alist();
 
         $("#inputCantiAls").bind('input propertychange', function () {
-//            alert($("#inputCantiAls").val());
+            //            alert($("#inputCantiAls").val());
             total = $("#inputStockAls").val();
             cantidad = $("#inputCantiAls").val();
             teorico = parseInt(total) - parseInt(cantidad);
@@ -1474,8 +1621,7 @@ function clickEditProd(id_suc) {
  * Metodo que se encarga de cambiar color al desactivar un check
  * @returns {undefined}
  */
-function checkedVenta() {
-//    $('.cheBlq').on('click', function () {
+function checkedVenta() { //    $('.cheBlq').on('click', function () {
     $('.cheBlq').click(function () {
         checket = $(this).attr("id");
         if ($("#" + checket + "").is(':checked')) {
@@ -1492,8 +1638,7 @@ function checkedVenta() {
             $("#divBtnCan" + checket + "").show();
         }
     });
-}
-/**
+} /**
  * Metodo que se encarga de realizar check en prod de una venta para alistamiento
  * @returns {undefined}
  */
@@ -1509,7 +1654,7 @@ function enterProCod() {
 
 //                        alert("No ha seleccionado un filtro valido");
                 $('#' + inp_id).focus();
-//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+                //                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
             } else {
                 $("#Check" + inp_blq + cod_pro).prop('checked', true);
 
@@ -1522,7 +1667,7 @@ function enterProCod() {
  * @returns {undefined}
  */
 function checkedItemProd() {
-//    $('.cheBlq').on('click', function () {
+    //    $('.cheBlq').on('click', function () {
     $('.cheitem').click(function () {
         checket = $(this).attr("id");
         if ($("#" + checket + "").is(':checked')) {
@@ -1576,7 +1721,7 @@ function consulta_prod_alist_sku(sku, id_suc) {
     request = "Controller/AdminC/AdministrarProd/consulta_sku_alist_controller.php";
     cadena = {"sku": sku, "id_suc": id_suc};
     metodo = function (datos) {
-//        alert(datos);
+        //        alert(datos);
         arreglo_datos_prod_sku = $.parseJSON(datos);
 
         tmp_dat_prod_sku = arreglo_datos_prod_sku[0];
@@ -1599,9 +1744,9 @@ function consulta_prod_alist_sku(sku, id_suc) {
  * @returns {undefined}
  */
 function click_btnElim_item_alist() {
-//    $("#tableEstEnv").on("click", ".eliminaee", function () {
+    //    $("#tableEstEnv").on("click", ".eliminaee", function () {
     $("#btnElimProdActAlist").click(function () {
-//        alert("elimina " + edit_prod);
+        //        alert("elimina " + edit_prod);
         mensajeConfirmarElim(elimina_item_alist);
     });
 }
@@ -1637,8 +1782,7 @@ function validarActuProdItem() {
             inputCantiAls: {
                 required: true,
                 number: true
-            }
-        },
+            }},
         submitHandler: function (form) {
             actualizarProdItemAlist();
         }
@@ -1683,12 +1827,11 @@ function actualizarProdItemAlist() {
     f_ajax(request, cadena, metodo);
 }
 /**
- * Metodo que guarda y gestiona venta de tabla salidas temp y actualiza estado en tabla est_x_aenv
- * @param {type} id_suc
+ * Metodo que guarda y gestiona venta de tabla salidas temp y actualiza estado en tabla est_x_aenv  * @param {type} id_suc
  * @returns {undefined}
  */
 function click_gestionar_Venta(id_suc) {
-//    $('.cheBlq').on('click', function () {
+    //    $('.cheBlq').on('click', function () {
     $('.ventguardar').click(function () {
         esta_venta = $(this).attr("btAddVe");
         itemNoSelected(esta_venta);
@@ -1716,11 +1859,11 @@ function enviaDatosVenta(venta, id_suc, observ) {
             elimina_item_alist_venta(venta);
             alertify.success('Venta N° ' + venta + ' Pocesada');
             cargaProdAlistamiento(id_suc_sel);
-//            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
+            //            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
         } else {
             alert(datos);
         }
-//        $("#blqProcesadas").append('<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>ORDENES DE RECOLECCIÓN FINALIZADAS</strong></div>');
+        //        $("#blqProcesadas").append('<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>ORDENES DE RECOLECCIÓN FINALIZADAS</strong></div>');
     };
     f_ajax(request, cadena, metodo);
 }
@@ -1739,12 +1882,11 @@ function enviaDatosVentaNoProcesar(venta, id_suc, observ) {
 //            alert("CORRECTO");            
             elimina_item_alist_venta(venta);
             alertify.warning('Venta N° ' + venta + ' Gestionada como No Procesada');
-            cargaProdAlistamiento(id_suc_sel);
-//            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
+            cargaProdAlistamiento(id_suc_sel); //            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
         } else {
             alert(datos);
         }
-//        $("#blqProcesadas").append('<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>ORDENES DE RECOLECCIÓN FINALIZADAS</strong></div>');
+        //        $("#blqProcesadas").append('<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>ORDENES DE RECOLECCIÓN FINALIZADAS</strong></div>');
     };
     f_ajax(request, cadena, metodo);
 }
@@ -1756,8 +1898,7 @@ function cerrar_sesiones_os() {
         $("#blqProcesadas").append('<div class="alert alert-dismissible alert-warning"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>ORDENES DE RECOLECCIÓN FINALIZADAS</strong></div>');
     };
     f_ajax(request, cadena, metodo);
-}
-/**
+} /**
  * Metodo que comprueba existencia de os para recoleccion y distribucion 
  * @param {type} venta
  * @returns {comprobar_os_creada}
@@ -1773,7 +1914,6 @@ function comprobar_os_creada(venta) {
             elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
 
             can_vent_als--;
-
             if (can_vent_als < 1) {
                 insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
                 cerrar_sesiones_os();
@@ -1781,7 +1921,6 @@ function comprobar_os_creada(venta) {
         } else if (datos == 3) {
             insertar_est_x_aenv(2, $("#inputNovedad" + venta_sale + "").val(), venta_sale, orden_serv);
             elimina_item_alist_venta(venta_sale);//elimina la seccion de una venta
-
             can_vent_als--;
 
             if (can_vent_als < 1) {
@@ -1820,7 +1959,6 @@ function ventasNoSelected() {
         checket_venta = $(this).attr("vent");//numeo de venta
 
         $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
-
         insertar_est_x_aenv(4, $("#inputNovedad" + checket_venta + "").val(), checket_venta, orden_serv);
         elimina_item_alist_venta(checket_venta);//elimina la seccion de una venta
 
@@ -1834,8 +1972,7 @@ function ventasNoSelected() {
 var contador_item = 0;
 /**
  * Metodo que determina los check no seleccionados en una venta
- * @param {type} venta
- * @returns {undefined}
+ * @param {type} venta  * @returns {undefined}
  */
 function itemNoSelected(venta) {
     $('#tab' + venta + ' :input:checkbox:not(:checked)').each(function () {
@@ -1873,8 +2010,7 @@ function elimina_item_alist_venta(venta) {
     cadena = "venta=" + venta; //envio de parametros por POST
     metodo = function (datos) {
 //        alert(datos);
-        if (datos == 1) {
-//            alertify.message('Venta ' + venta + ' procesada', 2);
+        if (datos == 1) { //            alertify.message('Venta ' + venta + ' procesada', 2);
             $("#sec" + venta + "").remove();
 
         } else {
@@ -1898,7 +2034,7 @@ function insertar_est_x_aenv(estado, novedad, venta, os_num) {
 //        alert(datos);
         if (datos == 1) {
             $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
-//            alertify.success('Estado Acualizado venta N° ' + venta, 2);
+            //            alertify.success('Estado Acualizado venta N° ' + venta, 2);
         } else {
             $("#blqProcesadas").append('<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' NO PROCESADA</strong></div>');
 //            alertify.error('Error al actualizar estado venta N° ' + venta, 5);

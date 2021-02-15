@@ -1,5 +1,7 @@
 <?php
 
+//session_start();
+
 require '../../../Class/phpspreadsheet/vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -11,7 +13,7 @@ $fecha_hora_now = date("Y-m-d H:i:s");
 
 if ($_POST) {
 
-    $xls_name = '../../../Files/Temp_alist_adm/' . $_SESSION["num_doc_cli_adm"] . '_' . $_SESSION["td_cli_adm"] . '/' . $_SESSION["name_xlsx"] . '.xlsx';
+    $xls_name = '../../../Files/Temp_alist_adm/' . $num_doc_cli . '_' . $td_cli . '/' . $name_xlsx . '.xlsx';
 
     $spreadsheet = IOFactory::load($xls_name);
     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
@@ -22,7 +24,7 @@ if ($_POST) {
 
         $aenvio_vo->setAenv_guia($sheetData[2]['A']);
         $aenvio_vo->setAenv_venta($sheetData[2]['B']);
-        $aenvio_vo->setAenv_os_id($_SESSION["os_creada"]);
+        $aenvio_vo->setAenv_os_id($num_suc);
         $aenvio_vo->setAenv_operador_id($sheetData[2]['U']);
         $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
         $aenvio_dao->insertarAlistEnvio($aenvio_vo); //guarda la primera fila del xlsx
@@ -41,7 +43,7 @@ if ($_POST) {
             if (!empty($dato_prod)) {
                 $dato_prod_dec = json_decode($dato_prod);
                 $observ = "";
-                $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $_SESSION["num_suc_adm"] . ", "
+                $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $num_suc . ", "
                         . "'" . $dato_prod_dec[0]->pro_cod . "', '" . $sheetData[$i]['A'] . "', "
                         . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
                         . "'" . $sheetData[$i]['H'] . "', '" . $sheetData[$i]['I'] . "', '" . $sheetData[$i]['J'] . "', "
@@ -57,7 +59,7 @@ if ($_POST) {
 
                     $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
                     $aenvio_vo->setAenv_venta($sheetData[$i]['B']);
-                    $aenvio_vo->setAenv_os_id($_SESSION["os_creada"]);
+                    $aenvio_vo->setAenv_os_id($os_num);
                     $aenvio_vo->setAenv_operador_id($sheetData[$i]['U']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
 
@@ -74,7 +76,7 @@ if ($_POST) {
         $obj_est_x_aenvio_dao = new Est_x_aenv_DAO();
         $novedad = "";
 
-        $obj_est_x_aenvio_dao->insertarEstados_x_AEnvio(1, $_SESSION["fecha_adm_alst"], $novedad, $_SESSION["os_creada"]); //El primer parametro es el codigo del estado
+        $obj_est_x_aenvio_dao->insertarEstados_x_AEnvio(1, $fecha_input, $novedad, $os_num); //El primer parametro es el codigo del estado
         //***insertar datos en salidas temp****
         $reg_tsal_temp = trim($reg_tsalidas_temp, ",");
         $reg_tsal_temp .= ";";
@@ -96,8 +98,8 @@ if ($_POST) {
             for ($i = 0; $i < count($no_venta); $i++) {
                 $prod_dao->elimProdTempVent($no_venta[$i]);
                 $novedad_agot = $no_sku[$i] . " NO EXISTE EN INVENTARIO";
-                $obj_est_x_aenvio_dao->insertarEstado_x_AEnvio_Venta(4, $fecha_hora_now, $novedad_agot, $no_venta[$i], $_SESSION["os_creada"]);
-                
+                $obj_est_x_aenvio_dao->insertarEstado_x_AEnvio_Venta(4, $fecha_hora_now, $novedad_agot, $no_venta[$i], $os_num);
+
                 echo '<tr class="table-danger"><td>' . $no_guia[$i] . '</td>';
                 echo '<td>' . $no_venta[$i] . '</td>';
                 echo '<td>' . $no_sku[$i] . '</td>';
@@ -116,12 +118,6 @@ if ($_POST) {
         . "<strong>Error 5, La plantilla xlsx no es la correcta!</strong>"
         . "</div>";
     }
-    unset($_SESSION["fecha_adm_alst"]);
-    unset($_SESSION["name_xlsx"]);
-    unset($_SESSION["num_doc_cli_adm"]);
-    unset($_SESSION["td_cli_adm"]);
-    unset($_SESSION["num_suc_adm"]);
-    unset($_SESSION["os_creada"]);
 //    
 } else {
     header("location../");

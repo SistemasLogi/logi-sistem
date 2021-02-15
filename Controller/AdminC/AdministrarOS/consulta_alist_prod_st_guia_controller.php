@@ -9,6 +9,7 @@ if ($_POST) {
     $stock_dao = new Stock_DAO();
     $num_guia = $_POST["inp_num_guia"];
     $id_sucursal = $_POST["inp_id_sucursal"];
+
     echo json_encode($stock_dao->consultaAlistaStockGuia($fecha_hora_now, $id_sucursal, $num_guia));
 } else {
     header("location../");

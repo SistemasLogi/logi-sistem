@@ -60,7 +60,7 @@ $(document).ready(function () {
     vista_dashboard();
 
 //    consulta_os_program_ini();
-    
+
     setInterval(refrescar_sesion, 30000);
 
 });
@@ -114,7 +114,7 @@ function f_ajax_files(request, cadena, metodo) {
             $(document).ajaxStart();
         },
         type: "POST",
-        dataType: "html",
+        dataType: "html", /*se cambia el tipo "html" por "json"*/
         processData: false,
         contentType: false,
         data: cadena,
@@ -122,8 +122,23 @@ function f_ajax_files(request, cadena, metodo) {
         success: function (datos) {
             metodo(datos);
         },
-        error: function () {
-            alert("No hay conexión");
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 0) {
+                alert('Not connect: Verify Network.');
+            } else if (jqXHR.status == 404) {
+                alert('Requested page not found [404]');
+            } else if (jqXHR.status == 500) {
+                alert('Internal Server Error [500].');
+            } else if (textStatus === 'parsererror') {
+                alert('Requested JSON parse failed.');
+            } else if (textStatus === 'timeout') {
+                alert('Time out error.');
+            } else if (textStatus === 'abort') {
+                alert('Ajax request aborted.');
+            } else {
+                alert('Uncaught Error: ' + jqXHR.responseText);
+            }
+//            alert("No hay conexión");
         }
     });
 }
@@ -2773,7 +2788,7 @@ function form_act_est_os(array, position) {
                     <div class="form-group">\n\
                         <button type="submit" class="btn btn-success" id="btnGuardaEstOS" name="btnGuardaEstOS">Finalizar Recolección <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
                     </div>\n\
-                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="3" style="display: none;" none;" readonly>\n\
+                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="3" style="display: none;" readonly>\n\
                 </fieldset>\n\
             </form></div>');
         $("#divRadios input[name='customRadio']").click(function () {
@@ -2864,13 +2879,85 @@ function form_act_est_os(array, position) {
                 <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
                 <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
                 <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p></div>');
+    } else if (tm.es_id == 5) {
+
+        $('#ModalEstOSTitle').html('PIKING');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-warning">\n\
+                 <form id="formEstOS">\n\
+                <fieldset>\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-8">\n\
+                        <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
+                    </div>\n\
+                    <div class="form-group form-group-sm col-lg-4">\n\
+                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #bcecff; display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
+                <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
+                <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
+                <b>FECHA: </b>' + formato_fec + '<br>\n\
+                <b>HORA: </b>' + formato_hor + '<br>\n\
+                <b>MENSAJERO: </b>' + tm.emp_nombre + '<br>\n\
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>\n\
+                    <div class="form-group" style="display: none;">\n\
+                        <label for="selectEmpleado">Mensajero</label>\n\
+                        <select class="form-control" id="selectEmpleado" name="selectEmpleado">\n\
+                        <option value="' + tm.td_id_men + '|' + tm.num_doc_men + '">' + tm.emp_nombre + '</option>\n\
+                        </select>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <button type="button" class="btn btn-info" id="btnEditOS" name="btnEditOS">Editar <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
+                    </div>\n\
+                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="6" readonly>\n\
+                    <div id="inf_tot_aenv"></div>\n\
+                </fieldset>\n\
+            </form></div>');
+    } else if (tm.es_id == 6) {
+
+        $('#ModalEstOSTitle').html('PAKING');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-info">\n\
+                 <form id="formEstOS">\n\
+                <fieldset>\n\
+                  <div class="row">\n\
+                    <div class="form-group form-group-sm col-lg-8">\n\
+                        <h4 class="alert-heading">Orden de Servicio N° ' + tm.os_id + '</h4>\n\
+                    </div>\n\
+                    <div class="form-group form-group-sm col-lg-4">\n\
+                        <input type="text" class="form-control" id="inpEstOrdServ" style="background-color: #bcecff; display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                    </div>\n\
+                  </div>\n\
+                <p><b>CLIENTE: </b>' + tm.cli_nombre + '<br>\n\
+                <b>DIRECCION RECOLECCIÓN: </b>' + tm.os_direccion + '<br>\n\
+                <b>CIUDAD: </b>' + tm.ciu_nombre + '<br>\n\
+                <b>FECHA: </b>' + formato_fec + '<br>\n\
+                <b>HORA: </b>' + formato_hor + '<br>\n\
+                <b>MENSAJERO: </b>' + tm.emp_nombre + '<br>\n\
+                <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>\n\
+                    <div class="form-group" style="display: none;">\n\
+                        <label for="selectEmpleado">Mensajero</label>\n\
+                        <select class="form-control" id="selectEmpleado" name="selectEmpleado">\n\
+                        <option value="' + tm.td_id_men + '|' + tm.num_doc_men + '">' + tm.emp_nombre + '</option>\n\
+                        </select>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <button type="button" class="btn btn-info" id="btnEditOS" name="btnEditOS">Editar <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
+                    </div>\n\
+                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="6" readonly>\n\
+                    <div id="inf_tot_aenv"></div>\n\
+                </fieldset>\n\
+            </form></div>');
     }
     $("#inpEstOrdServ").val(tm.os_id);
 //    $("#inpEstId").val(tm.es_id);
     $("#btnGuardaEstOS").click(function () {
         validarInsert_est_x_os();
     });
+    $("#btnEditOS").click(function () {
+        consulta_total_aenvios(tm.os_id);
+    });
 }
+
 /**
  * Metodo que llena el combo de seleccion empleado
  * @returns {undefined}
@@ -3014,6 +3101,7 @@ function consulta_dashboard_serv_card() {
 
             control_dash_serv();
             $("#cardRealizadas").click(function () {
+                $("#sectionDatOS").html("");
                 if (exist == true) {
                     consulta_dashb_serv_fil(3);
 //                    exist = false;
@@ -3029,6 +3117,7 @@ function consulta_dashboard_serv_card() {
                 }, 900);
             });
             $("#cardAsignadas").click(function () {
+                $("#sectionDatOS").html("");
                 if (exist == true) {
                     consulta_dashb_serv_fil(2);
 //                    exist = false;
@@ -3046,6 +3135,7 @@ function consulta_dashboard_serv_card() {
                 }, 900);
             });
             $("#cardNovedad").click(function () {
+                $("#sectionDatOS").html("");
                 if (exist == true) {
                     consulta_dashb_serv_fil(4);
 //                    exist = false;
@@ -3063,6 +3153,7 @@ function consulta_dashboard_serv_card() {
                 }, 900);
             });
             $("#cardProgramadas").click(function () {
+                $("#sectionDatOS").html("");
                 if (exist == true) {
                     consulta_dashb_serv_fil(1);
 //                    exist = false;
@@ -3071,6 +3162,42 @@ function consulta_dashboard_serv_card() {
                             .column(3)
                             .search('')
                             .search('PROGRAMADA')
+                            .draw();
+                }
+
+                //En esta linea me redirije al formulario con una velocodad establecida
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#tablaEstadoOS").offset().top
+                }, 900);
+            });
+            $("#cardPiking").click(function () {
+                $("#sectionDatOS").html("");
+                if (exist == true) {
+                    consulta_dashb_serv_fil(5);
+//                    exist = false;
+                } else {
+                    tablaEst_x_OS
+                            .column(3)
+                            .search('')
+                            .search('PIKING')
+                            .draw();
+                }
+
+                //En esta linea me redirije al formulario con una velocodad establecida
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#tablaEstadoOS").offset().top
+                }, 900);
+            });
+            $("#cardPaking").click(function () {
+                $("#sectionDatOS").html("");
+                if (exist == true) {
+                    consulta_dashb_serv_fil(6);
+//                    exist = false;
+                } else {
+                    tablaEst_x_OS
+                            .column(3)
+                            .search('')
+                            .search('PAKING')
                             .draw();
                 }
 
@@ -3131,7 +3258,7 @@ function refrescar_sesion() {
     request = "Controller/Login_General/refrescar_control.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
-        
+
     };
     f_ajax(request, cadena, metodo);
 }

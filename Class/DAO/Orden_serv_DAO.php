@@ -147,4 +147,32 @@ class Orden_serv_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que consulta el total de envios cargados a la orden
+     * @param type $num_os
+     * @return type
+     */
+    function consulta_total_envios($num_os) {
+        $sql = "SELECT COUNT(*) AS total, s.*, c.ciu_nombre, ts.ts_desc, te.te_desc "
+                . "FROM envio AS e, orden_serv AS s, tipo_serv AS ts, ciudad AS c, tipo_envio AS te "
+                . "WHERE ts.ts_id = s.ts_id AND e.os_id = s.os_id AND s.ciu_id = c.ciu_id AND s.te_id = te.te_id "
+                . "AND e.os_id = " . $num_os . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * Funcion que consulta el total de aenvios cargados a la orden alistamiento
+     * @param type $num_os
+     * @return type
+     */
+    function consulta_total_aenvios($num_os) {
+        $sql = "SELECT COUNT(*) AS total, s.*, c.ciu_nombre, ts.ts_desc, te.te_desc, oxs.suc_num_id  "
+                . "FROM a_envio AS e, orden_serv AS s, tipo_serv AS ts, ciudad AS c, tipo_envio AS te, os_x_suc AS oxs "
+                . "WHERE ts.ts_id = s.ts_id AND e.os_id = s.os_id AND s.ciu_id = c.ciu_id AND s.te_id = te.te_id "
+                . "AND s.os_id = oxs.os_id AND e.os_id = " . $num_os . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }

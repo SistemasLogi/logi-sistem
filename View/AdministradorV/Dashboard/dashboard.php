@@ -48,10 +48,12 @@
             </div>
         </div>
     </div>
-    <div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
+    <div class="col-lg-12" id="sectionDatOS">
+
+    </div>  
+    <div class="toast show border-primary col-lg-12 mt-2" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
         <div class="toast-header">
             <strong class="mr-auto">TABLA DIARIA DE ORDENES DE SERVICIO</strong>
-
         </div>
         <div class="toast-body">
             <div class="col-lg-12" id="tbInfoEstOS">
