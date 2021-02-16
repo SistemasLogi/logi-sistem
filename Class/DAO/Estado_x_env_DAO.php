@@ -57,6 +57,17 @@ class Estado_x_env_DAO {
     }
 
     /**
+     * Funcion que inserta un bloque de registros en tabla entradas_prod
+     * @param type $sql
+     */
+    function insertarBloqueEnTablaEstados($sql) {
+
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que actualiza estado de un registro en tabla est_x_envio
      * @param type $guia
      * @param type $estado
@@ -155,6 +166,7 @@ class Estado_x_env_DAO {
         $BD = new MySQL();
         return $BD->query($sql);
     }
+
     /**
      * Funcion que retorna datos de el ultimo estado de todos los envios segun sucursal
      * @param type $param_subquery

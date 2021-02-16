@@ -45,6 +45,17 @@ class Est_x_aenv_DAO {
     }
 
     /**
+     * Funcion que inserta un bloque de registros en tabla estados_x_aenv
+     * @param type $sql
+     */
+    function insertarBloqueEnTablaEstadosAenv($sql) {
+
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que inserta registro en tabla estados x aenvio segun una venta
      * @param type $est_id
      * @param type $fech_hora

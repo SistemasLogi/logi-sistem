@@ -4811,9 +4811,8 @@ function consulta_tabla_env_mens(value) {
                                         </div>\n\
                                     </div>\n\
                                     <button type="button" class="btn btn-outline-warning btn-sm" id="btnGuardaEstSelected" name="btnGuardaEstSelected">GUARDAR EST</button>\n\
-                                </form></div>';
+                                </form></div><div id="datosprueb"></div>';
             $("#tab_envios").html(datos_env_est);
-
             /**
              * Evento que pagina una tabla 
              */
@@ -4883,6 +4882,7 @@ function consulta_tabla_env_mens(value) {
  * @returns {undefined}
  */
 function enviosSelected() {
+    json_act_valor = '[';
     $("input:checkbox:checked").each(function () {
 
         checket_envio = $(this).parent().attr('id');//numeo de fila posicion en el arreglo
@@ -4898,11 +4898,16 @@ function enviosSelected() {
             estadoID = temp_env.exe_ee_id;
             fechaEst = temp_env.exe_fec_hora;
             novedadValor = $("#inpValorFlet").val();
-            actualiza_env_prog(guiaLogi, estadoID, fechaEst, novedadValor);
+
+            json_act_valor += '{"id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","fech":"' + fechaEst + '","nov":"' + novedadValor + '"},';
+
+//            actualiza_env_prog(guiaLogi, estadoID, fechaEst, novedadValor);
         }
 
-
     });
+    json_act_valor_new = json_act_valor.substr(0, json_act_valor.length - 1);
+    json_act_valor_new += ']';
+    actualiza_env_prog_json(json_act_valor_new);
 }
 
 /**
@@ -4927,12 +4932,29 @@ function actualiza_env_prog(guia, estado, fecha, novedad) {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que envia datos de actualizacion a php
+ * @param {type} datos_json
+ * @returns {actualiza_env_prog_json}
+ */
+function actualiza_env_prog_json(datos_json) {
+    request = "Controller/AdminC/AdministrarEnvios/actualizar_env_prog_val_flet_json_controller.php";
+    cadena = "datos=" + datos_json; //envio de parametros por POST
+    metodo = function (datos) {
+
+        alertify.success('Envios costeados');
+        consulta_tabla_env_mens(mensajero);
+
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /**
  * Metodo que determina los check seleccionados para asignacion de estados 
  * @returns {undefined}
  */
 function enviosSelectedEst() {
+    json_act_est = '[';
     $("input:checkbox:checked").each(function () {
 
         checket_envio = $(this).parent().attr('id');//numeo de venta
@@ -4948,11 +4970,14 @@ function enviosSelectedEst() {
             estadoID = $("#selectEstadEnvio").val();
             fechaEst = temp_env.exe_fec_hora;
             novedadValor = $("#areaNovedad").val();
-            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+//            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+
+            json_act_est += '{"mens":"' + mensajero + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';
         }
-
-
     });
+    json_act_est_new = json_act_est.substr(0, json_act_est.length - 1);
+    json_act_est_new += ']';
+    insert_estado_envio_asig_men_json(json_act_est_new);
 }
 
 /**
@@ -4974,6 +4999,21 @@ function insert_estado_envio_asig_men(selectMensajero, inputNumEnvi, selectEstad
         } else {
             alert(datos);
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que envia datos a php para insertar estados de envio
+ * @param {type} datos_act_est
+ * @returns {insert_estado_envio_asig_men_json}
+ */
+function insert_estado_envio_asig_men_json(datos_act_est) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php";
+    cadena = "datos_est=" + datos_act_est; //envio de parametros por POST
+    metodo = function (datos) {
+
+        alertify.success('Envios actualizados');
+        consulta_tabla_env_mens(mensajero);
     };
     f_ajax(request, cadena, metodo);
 }
@@ -5038,37 +5078,44 @@ function consulta_tabla_env_programados() {
                 if (e.keyCode == 13) {
 
                     filtro_in = $('#tableEnvProgram_filter input').val();
-//                    alert(filtro_in);
-                    if (filtro_in === "" || filtro_in === null) {
-                        alert("No ha seleccionado un filtro valido");
-//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+
+                    if (filtro_in.substr(0, 1) == "{") {
+                        dato = $.parseJSON(filtro_in);
+                        filtro_in = dato.id;
+                        $('#tableEnvProgram_filter input').val(filtro_in);
+
                     } else {
-
-                        num_filas = $("#tableEnvProgram").dataTable()._('tr', {"filter": "applied"});
-                        id = "'" + num_filas[0] + "'";//cadena de texto con la información de la fila separado por comas
-                        faccion = id.split(',');
-                        guia_enter = faccion[1];
-
-                        if (guia_enter === undefined) {
-                            alert("No se encontraron resultados");
+                        if (filtro_in === "" || filtro_in === null) {
+                            alert("No ha seleccionado un filtro valido");
+//                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
                         } else {
-                            //reset del campo de busqueda y despliegue de tabla
-                            table_env_prog.search("").draw();
-                            $("div#tableEnvProgram_filter input").val("");
+
+                            num_filas = $("#tableEnvProgram").dataTable()._('tr', {"filter": "applied"});
+                            id = "'" + num_filas[0] + "'";//cadena de texto con la información de la fila separado por comas
+                            faccion = id.split(',');
+                            guia_enter = faccion[1];
+
+                            if (guia_enter === undefined) {
+                                alert("No se encontraron resultados");
+                            } else {
+                                //reset del campo de busqueda y despliegue de tabla
+                                table_env_prog.search("").draw();
+                                $("div#tableEnvProgram_filter input").val("");
 //                            alert(guia_enter);
 
-                            if (mensajero === undefined || mensajero === '0|0') {
-                                alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
-                            } else {
-                                insertar_env_prog(guia_enter, mensajero);
-                                consulta_tabla_env_mens(mensajero);
-                                $('#fila_pro' + guia_enter + '').remove();
-                                alertify.success('Envio Guia Logi N° ' + guia_enter + ' cargado');
+                                if (mensajero === undefined || mensajero === '0|0') {
+                                    alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
+                                } else {
+                                    insertar_env_prog(guia_enter, mensajero);
+//                                consulta_tabla_env_mens(mensajero);
+                                    $('#fila_pro' + guia_enter + '').remove();
+                                    alertify.success('Envio Guia Logi N° ' + guia_enter + ' cargado');
+                                }
                             }
-                        }
 
+                        }
+                        consulta_tabla_env_programados();
                     }
-                    consulta_tabla_env_programados();
                 }
             });
 
@@ -5132,8 +5179,8 @@ function insertar_env_prog(guia, mensajero) {
         if (mensajero === undefined || mensajero === '0|0') {
 
         } else {
-            consulta_tabla_env_mens(mensajero);
             $('#fila_pro' + fil_delete + '').remove();
+            consulta_tabla_env_mens(mensajero);
         }
     };
     f_ajax(request, cadena, metodo);
@@ -5626,6 +5673,7 @@ function tabla_entrega_op() {
  * @returns {undefined}
  */
 function enviosAlistSelected() {
+    json_act_est = '[';
     $("input:checkbox:checked").each(function () {
 
         checket_envio = $(this).parent().attr('id');//numeo de fila posicion en el arreglo
@@ -5640,9 +5688,13 @@ function enviosAlistSelected() {
             guiaLogi = temp_aenv.aen_id;
             estadoID = 3;
             novedad = $("#inpObsEstAEnv").val();
-            actualiza_est_aenv_entrega(guiaLogi, estadoID, novedad);
+//            actualiza_est_aenv_entrega(guiaLogi, estadoID, novedad);
+            json_act_est += '{"id_aenv":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedad + '"},';
         }
     });
+    json_act_est_new = json_act_est.substr(0, json_act_est.length - 1);
+    json_act_est_new += ']';
+    actualiza_est_aenv_entrega_json(json_act_est_new);
 }
 
 /**
@@ -5662,6 +5714,22 @@ function actualiza_est_aenv_entrega(guia, estado, novedad) {
         } else {
             alert(datos);
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que actualiza estado de aenvio al entregar a operador obj json
+ * @param {type} datos_json
+ * @returns {undefined}
+ */
+function actualiza_est_aenv_entrega_json(datos_json) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_est_aenv_obj_json_controller.php";
+    cadena = "dat_aenv=" + datos_json; //envio de parametros por POST
+    metodo = function (datos) {
+
+        alertify.success('Envios Entregados');
+        tabla_entrega_op();
+
     };
     f_ajax(request, cadena, metodo);
 }
