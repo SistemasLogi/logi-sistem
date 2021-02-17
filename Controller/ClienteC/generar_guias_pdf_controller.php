@@ -21,7 +21,7 @@ for ($i = $inicio_array; $i < $pag_fin; $i++) {
     $pdf->AddPage(); //agregar pagina
     $pdf->SetFont('Arial', 'B', 15);
     $pdf->Image('../../img/logos/LOGO_CLAROS_500.png', 15, 12, 30);
-    barcode($file_bar_name, $code, 23, 'horizontal', 'code39', false, 1);
+    barcode($file_bar_name, $code, 25, 'horizontal', 'code128', false, 1);
     $pdf->Image($file_bar_name, 12, 30, 35);
     QRcode::png($contenido, $file_qr_name, $lavel, $tamanio, $framesize);
     $pdf->Image($file_qr_name, 165, 47, 30);

@@ -3589,6 +3589,7 @@ function validarBusSucAlistProc() {
             }
         },
         submitHandler: function (form) {
+            item_act = false;
             cargaProdAlistamiento(id_suc_sel);
         }
     });
@@ -5079,11 +5080,13 @@ function consulta_tabla_env_programados() {
 
                     filtro_in = $('#tableEnvProgram_filter input').val();
 
-                    if (filtro_in.substr(0, 1) == "{") {
+                    if (filtro_in.substr(0, 1) == "{" || filtro_in.substr(0, 1) == "[") {
                         dato = $.parseJSON(filtro_in);
                         filtro_in = dato.id;
                         $('#tableEnvProgram_filter input').val(filtro_in);
-
+                        e = $.Event('keyup');
+                        e.keyCode = 13; // enter
+                        $('#tableEnvProgram_filter input').trigger(e);
                     } else {
                         if (filtro_in === "" || filtro_in === null) {
                             alert("No ha seleccionado un filtro valido");

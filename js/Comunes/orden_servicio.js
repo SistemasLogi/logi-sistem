@@ -1002,6 +1002,7 @@ function cargaArchivo_xlsx_alist_dash() {
 var pag;
 var can_vent_als;
 var arregloAlista;
+var item_act = false;
 /*
  * Metodo que carga la vista de las ventas en proceso de alistamiento segun una sucursal
  * @param {type} id_suc
@@ -1062,7 +1063,7 @@ function cargaProdAlistamiento(id_suc) {
                 if (i === 0) {
                     //******primera fila****//
                     datosAlist += '<div class="bloque" id="blqPagina' + pag + '"><h4>HOJA ' + pag + '</h4>';
-                    datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                    datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                     <div class="row">\n\                         <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                         <div class="form-group col-2">\n\
@@ -1186,7 +1187,7 @@ function cargaProdAlistamiento(id_suc) {
                                 datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
-                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
                             <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
@@ -1289,7 +1290,7 @@ function cargaProdAlistamiento(id_suc) {
                                 datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
-                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
                             <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
@@ -1412,13 +1413,17 @@ function cargaProdAlistamiento(id_suc) {
                         //                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
                     } else {
                         alst_guia = true;
+                        item_act = true;
                         cargaProdAlistamiento(id_suc_sel);
                     }
                 }
             });
-            if (arregloAlista.length == 1) {
+            if (item_act == true) {
                 $("#inpCodProd0").focus();
             }
+//            if ($(".estblq").attr('id')== 'blqAlist0') {
+//                $("#inpCodProd0").focus();
+//            }
         } else {
             $("#bloques").html("<div class='alert alert-dismissible alert-danger'>\n\
  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
@@ -1657,6 +1662,7 @@ function enterProCod() {
                 //                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
             } else {
                 $("#Check" + inp_blq + cod_pro).prop('checked', true);
+                $('#' + inp_id).val("");
 
             }
         }
@@ -1840,6 +1846,7 @@ function click_gestionar_Venta(id_suc) {
         } else {
             $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
             enviaDatosVenta(esta_venta, id_suc, $("#inputNovedad" + esta_venta + "").val());
+            item_act = false;
         }
     });
 }
@@ -1946,7 +1953,7 @@ function click_No_gestionarVenta(id_suc) {
 
         $("#inpGif" + esta_venta).html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
         enviaDatosVentaNoProcesar(esta_venta, id_suc, $("#inputNovedad" + esta_venta + "").val());
-
+        item_act = false;
     });
 }
 /**
