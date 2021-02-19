@@ -342,7 +342,7 @@ function compararFechas() {
     }
 }
 
-
+var tot;
 /**
  * Metodo que retorna los envios cargados historicos para un mensajero
  * @returns {undefined}
@@ -356,7 +356,7 @@ function consulta_envios_historico() {
         arregloEnvHist = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEnvHist !== 0) {
-            datosEnvHist = '<div class="table-responsive text-nowrap col-lg-12">';
+            datosEnvHist = '<h4>TOTAL CONSULTA $<b class="text-primary" id="total_cons"></b></h4><div class="table-responsive text-nowrap col-lg-12">';
             datosEnvHist += '<table class="table table-sm table-bordered table table-hover">';
             datosEnvHist += '<thead>';
             datosEnvHist += '<tr class="table-primary text-primary">';
@@ -373,6 +373,7 @@ function consulta_envios_historico() {
             a = 0;
             b = 0;
             c = 0;
+            tot = 0;
             for (i = 0; i < arregloEnvHist.length; i++) {
                 tmp = arregloEnvHist[i];
                 dia = tmp.exe_fec_hora.substr(8, 2);
@@ -406,6 +407,7 @@ function consulta_envios_historico() {
                         datosEnvHist += '<tr>';
                         datosEnvHist += '<th colspan="2">SubTotal</th>';
 
+                        tot = tot + b;
                         datosEnvHist += '<th colspan="3">' + b + '</th>';
                         datosEnvHist += '</tr>';
 
@@ -432,6 +434,7 @@ function consulta_envios_historico() {
             datosEnvHist += '<tr>';
             datosEnvHist += '<th colspan="2">SubTotal</th>';
 
+            tot = tot + b;
             datosEnvHist += '<th colspan="3">' + b + '</th>';
             datosEnvHist += '</tr>';
             datosEnvHist += "</tbody></table></div>";
@@ -443,6 +446,7 @@ function consulta_envios_historico() {
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No se encontraron datos.</strong></div>");
         }
+        $("#total_cons").html(tot);
     };
     f_ajax(request, cadena, metodo);
 }
