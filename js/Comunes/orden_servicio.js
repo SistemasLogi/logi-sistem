@@ -1064,7 +1064,8 @@ function cargaProdAlistamiento(id_suc) {
                     //******primera fila****//
                     datosAlist += '<div class="bloque" id="blqPagina' + pag + '"><h4>HOJA ' + pag + '</h4>';
                     datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
-                    <div class="row">\n\                         <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
+                    <div class="row">\n\
+                        <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                         <div class="form-group col-2">\n\
                           <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
@@ -1090,7 +1091,7 @@ function cargaProdAlistamiento(id_suc) {
                     </tr></thead><tbody>';
 
                     blq++;
-                    datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                    datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                     datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                     datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                     datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
@@ -1113,14 +1114,15 @@ function cargaProdAlistamiento(id_suc) {
                         <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                     </div>\n\
                     <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                        <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                        <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                             </div>\n\
                             <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                             <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                           </div>\n\
                             <div class="col-2" id="inpGif' + venta + '">\n\
                           </div>\n\
-                            </div>\n\                         </div></div>';//fin de la tabla
+                            </div>\n\
+                          </div></div>';//fin de la tabla
                         datosAlist += '</div>';//fin de la pag
 
                     } else {
@@ -1133,7 +1135,7 @@ function cargaProdAlistamiento(id_suc) {
                         //***si es la ultima fila del arreglo**//
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
@@ -1154,7 +1156,7 @@ function cargaProdAlistamiento(id_suc) {
                         <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                             </div>\n\
                             <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                                <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                                <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
@@ -1172,7 +1174,7 @@ function cargaProdAlistamiento(id_suc) {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                                 <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
+                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </div>\n\
@@ -1215,7 +1217,7 @@ function cargaProdAlistamiento(id_suc) {
                                 </tr></thead><tbody>';
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
@@ -1236,7 +1238,7 @@ function cargaProdAlistamiento(id_suc) {
                             <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                     </div>\n\\n\
                         <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                             </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                             <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
@@ -1252,7 +1254,7 @@ function cargaProdAlistamiento(id_suc) {
 
                         if (tmp.t_sal_num_venta == venta) {
                             //***si es la misma venta de la fila anterior**//
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
@@ -1275,7 +1277,7 @@ function cargaProdAlistamiento(id_suc) {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                                 <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                            <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
+                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
                               </div>\n\
@@ -1318,7 +1320,7 @@ function cargaProdAlistamiento(id_suc) {
                                 </tr></thead><tbody>';
                             blq++;
 
-                            datosAlist += '<tr class="table-' + tema + '" id="fila' + tmp.t_csc + '">';
+                            datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
@@ -1344,7 +1346,7 @@ function cargaProdAlistamiento(id_suc) {
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
-                        <button class="btn btn-light ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\               </div>\n\
+                        <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\               </div>\n\
               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: none;">\n\
                         <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
               </div>\n\
@@ -1663,7 +1665,8 @@ function enterProCod() {
             } else {
                 $("#Check" + inp_blq + cod_pro).prop('checked', true);
                 $('#' + inp_id).val("");
-
+                filacolor = $("#Check" + inp_blq + cod_pro).closest('.estfila').attr('id');
+                $("#" + filacolor).removeAttr('class').attr('class', 'table-success border border-success estfila');
             }
         }
     });
@@ -1676,12 +1679,15 @@ function checkedItemProd() {
     //    $('.cheBlq').on('click', function () {
     $('.cheitem').click(function () {
         checket = $(this).attr("id");
+        filacolor = $("#" + checket + "").closest('.estfila').attr('id');
         if ($("#" + checket + "").is(':checked')) {
             // Hacer algo si el checkbox ha sido seleccionado
             contador_item = 0;
+            $("#" + filacolor).removeAttr('class').attr('class', 'table-success border border-success estfila');
         } else {
             // Hacer algo si el checkbox ha sido deseleccionado
             contador_item = 0;
+            $("#" + filacolor).removeAttr('class').attr('class', 'estfila');
         }
     });
 }
