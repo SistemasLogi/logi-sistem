@@ -1089,6 +1089,13 @@ function cargaProdAlistamiento(id_suc) {
                         <th scope="col">COD</th>\n\
                             <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                     </tr></thead><tbody>';
+                    if (tema == 'danger') {
+                        displ_no_proces = 'block';
+                        displ_proces = 'none';
+                    } else {
+                        displ_no_proces = 'none';
+                        displ_proces = 'block';
+                    }
 
                     blq++;
                     datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
@@ -1111,13 +1118,13 @@ function cargaProdAlistamiento(id_suc) {
                         datosAlist += '</tbody></table></div>\n\
                           <div class="row justify-content-end">\n\
                           <div class="col-7">\n\
-                        <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
+                        <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + ';" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                     </div>\n\
-                    <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                    <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + '">\n\
                         <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                             </div>\n\
-                            <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
-                            <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                            <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
+                            <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                           </div>\n\
                             <div class="col-2" id="inpGif' + venta + '">\n\
                           </div>\n\
@@ -1155,11 +1162,11 @@ function cargaProdAlistamiento(id_suc) {
                               <div class="col-7">\n\
                         <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                             </div>\n\
-                            <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                            <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
                                 <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                               </div>\n\
-                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
-                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                               </div>\n\
                               <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
@@ -1168,15 +1175,16 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '</div>';//fin de la pag
                         } else {
                             //***NO es la misma venta de la fila anterior**//
+
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
                               <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                                <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                                <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
                             <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
-                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
-                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                               </div>\n\
                               <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
@@ -1215,6 +1223,13 @@ function cargaProdAlistamiento(id_suc) {
                                     <th scope="col">COD</th>\n\
                                 <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
+                            if (tema == 'danger') {
+                                displ_no_proces = 'block';
+                                displ_proces = 'none';
+                            } else {
+                                displ_no_proces = 'none';
+                                displ_proces = 'block';
+                            }
                             blq++;
 
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
@@ -1236,12 +1251,12 @@ function cargaProdAlistamiento(id_suc) {
                               <div class="row justify-content-end">\n\
                               <div class="col-7">\n\
                             <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
-                    </div>\n\\n\
-                        <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                        </div>\n\
+                        <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
                             <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
                             </div>\n\
-                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
-                            <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
+                            <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                             </div>\n\
                               <div class="col-2" id="inpGif' + venta + '">\n\
                             </div>\n\
@@ -1271,15 +1286,16 @@ function cargaProdAlistamiento(id_suc) {
 
                         } else {
                             //***NO es la misma venta de la fila anterior**//
+
                             datosAlist += '</tbody></table></div>\n\
                               <div class="row justify-content-end">\n\
                               <div class="col-7">\n\
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
-                                <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+                                <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
                             <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
-                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: none;">\n\
-                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+                              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
+                                <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                               </div>\n\
                               <div class="col-2" id="inpGif' + venta + '">\n\
                               </div>\n\
@@ -1318,6 +1334,13 @@ function cargaProdAlistamiento(id_suc) {
                                     <th scope="col">COD</th>\n\
                                 <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
+                            if (tema == 'danger') {
+                                displ_no_proces = 'block';
+                                displ_proces = 'none';
+                            } else {
+                                displ_no_proces = 'none';
+                                displ_proces = 'block';
+                            }
                             blq++;
 
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
@@ -1345,10 +1368,10 @@ function cargaProdAlistamiento(id_suc) {
                 <div class="col-7">\n\
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
-              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '">\n\
+              <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
                         <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\               </div>\n\
-              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: none;">\n\
-                        <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Go!</button>\n\
+              <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: ' + displ_no_proces + ';">\n\
+                        <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
               </div>\n\
               <div class="col-2" id="inpGif' + venta + '">\n\
                     </div>\n\
