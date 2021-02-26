@@ -88,7 +88,7 @@ var total_stk;
 var ub_prod;
 
 /**
- * Metodo que carga a la vista la tabla la tarjeta kardex para el producto seleccionado
+ * Metodo que carga a la vista la tabla de la tarjeta kardex para el producto seleccionado
  * @param {type} cod_prod
  * @returns {undefined}
  */
@@ -96,7 +96,6 @@ function tabla_kardex_prod(cod_prod) {
     request = "Controller/AdminC/AdministrarProd/consulta_kardex_prod_controller.php";
     cadena = "procod=" + cod_prod; //envio de parametros por POST
     metodo = function (datos) {
-
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
         diasSemana = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
         arreglo_kdx_pro = $.parseJSON(datos);
@@ -182,7 +181,8 @@ function tabla_kardex_prod(cod_prod) {
 //             * Evento que pagina una tabla 
 //             */
         $('#tableKardex').DataTable({
-            "order": [[0, 'desc'], [1, 'desc']]
+//            "order": [[0, 'desc'], [1, 'desc']]
+            "order": []
         });
 
 

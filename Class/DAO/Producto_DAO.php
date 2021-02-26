@@ -286,7 +286,7 @@ class Producto_DAO {
                 . "UNION "
                 . "(SELECT p.suc_num_id, p.pro_sku, p.pro_desc, s.sal_fecha, s.pro_cod, s.sal_num_venta, s.sal_cantidad, 2 AS movimiento "
                 . "FROM salida_prod AS s, productos AS p "
-                . "WHERE s.pro_cod = '" . $cod_producto . "' AND s.pro_cod = p.pro_cod) ORDER BY ent_fecha DESC) AS TM" . $filtro . "";
+                . "WHERE s.pro_cod = '" . $cod_producto . "' AND s.pro_cod = p.pro_cod)) AS TM" . $filtro . "";
         $BD = new MySQL();
         return $BD->query($sql);
     }
