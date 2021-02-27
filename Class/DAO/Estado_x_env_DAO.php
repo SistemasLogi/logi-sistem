@@ -18,9 +18,11 @@ class Estado_x_env_DAO {
      * Funcion que inserta datos en tabla est_x_envio por consulta de orden de servocio
      * para estado programado
      * @param type $ord_ser_vo
+     * @param type $fecha_now
+     * @return type
      */
-    function insertarEstado_x_envio($ord_ser_vo) {
-        $sql = "INSERT INTO est_x_envio (SELECT e.en_id, 1 AS estado, (SELECT now()) AS fecha, '' AS novedad, "
+    function insertarEstado_x_envio($ord_ser_vo, $fecha_now) {
+        $sql = "INSERT INTO est_x_envio (SELECT e.en_id, 1 AS estado, '" . $fecha_now . "' AS fecha, '' AS novedad, "
                 . "1 AS td_id, 9874123652 AS num_doc "
                 . "FROM envio AS e WHERE os_id = " . $ord_ser_vo . ");";
         $BD = new MySQL();

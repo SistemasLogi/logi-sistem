@@ -46,7 +46,7 @@ if ($_POST) {
 
     if ($est_x_aenv_dao->insertarEstado_x_AEnvio_Venta(2, $fecha_hora, $observ_aenvio, $num_venta, $id_os_alist) == 1) {
 
-        if ($product_dao->insertarSalidaProd($num_venta) == 1) {
+        if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
             if ($tipo_serv_recolec == 1 || $tipo_serv_recolec == 2 || $tipo_serv_recolec == 3 || $tipo_serv_recolec == 4) {
                 if ($est_x_aenv_dao->insertarEstado_x_AEnvio_Venta(3, $fecha_hora, $observ_aenvio, $num_venta, $id_os_alist) == 1) {
                     $datos_os_recol = json_encode($os_dao->consulta_UltimaOS_x_ts_te($tipo_serv_recolec, $tipo_envio_recolec, $td_cliente, $num_doc_cliente));

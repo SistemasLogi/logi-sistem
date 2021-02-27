@@ -33,7 +33,7 @@ if ($_POST) {
     if ($dat_decode_pro_vent[0]->t_sal_cod_serv == 1) {
         if (isset($_SESSION['os_logi_ya'])) {
             //insertar productos en tabla de salidas
-            if ($product_dao->insertarSalidaProd($num_venta) == 1) {
+            if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
 
 
 
@@ -76,7 +76,7 @@ if ($_POST) {
         } else {
             //Si NO existe una os cargada en la variable de sesion LOGI YA
             //insertar productos en tabla de salidas
-            if ($product_dao->insertarSalidaProd($num_venta) == 1) {
+            if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
 
                 $os_vo->setCli_id($_SESSION["td_cli_adm_alst"]);
                 $os_vo->setCli_docum($_SESSION["num_doc_cli_adm_alst"]);
@@ -159,7 +159,7 @@ if ($_POST) {
     } elseif ($dat_decode_pro_vent[0]->t_sal_cod_serv == 2) {
         if (isset($_SESSION['os_normal'])) {
             //insertar productos en tabla de salidas
-            if ($product_dao->insertarSalidaProd($num_venta) == 1) {
+            if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
 
                 $env_dao = new Envio_DAO();
 
@@ -202,7 +202,7 @@ if ($_POST) {
         } else {
             //Si NO existe una os cargada en la variable de sesion os NORMAL
             //insertar productos en tabla de salidas
-            if ($product_dao->insertarSalidaProd($num_venta) == 1) {
+            if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
 
                 $os_vo->setCli_id($_SESSION["td_cli_adm_alst"]);
                 $os_vo->setCli_docum($_SESSION["num_doc_cli_adm_alst"]);
@@ -282,7 +282,7 @@ if ($_POST) {
         }
     } else {
         //insertar productos en tabla de salidas
-        if ($product_dao->insertarSalidaProd($num_venta) == 1) {
+        if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
             echo 3;
         } else {
             //error al registrar salida de producto en tabla salidas

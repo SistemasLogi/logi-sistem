@@ -135,7 +135,7 @@ if (isset($_SESSION["adminlogi"])) {
                 echo '<strong>Envios ingresados correctamente.</strong>';
                 echo "<strong>&nbsp;&nbsp;Total " . $contador . " numeros de Guia creados</strong>";
                 $est_x_env = new Estado_x_env_DAO();
-                $est_x_env->insertarEstado_x_envio($_SESSION["os_creada"]);
+                $est_x_env->insertarEstado_x_envio($_SESSION["os_creada"], $fecha_hora_now);
 
                 $envio_dao = new Envio_DAO();
                 $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($_SESSION["os_creada"], $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 1));
@@ -267,7 +267,7 @@ if (isset($_SESSION["adminlogi"])) {
                 echo '<strong>Envios ingresados correctamente.</strong>';
                 echo "<strong>&nbsp;&nbsp;Total " . $contador . " numeros de Guia creados</strong>";
                 $est_x_env = new Estado_x_env_DAO();
-                $est_x_env->insertarEstado_x_envio($_SESSION["os_creada"]);
+                $est_x_env->insertarEstado_x_envio($_SESSION["os_creada"], $fecha_hora_now);
 
                 $envio_dao = new Envio_DAO();
                 $env_ing = json_encode($envio_dao->consultaEnvIng_x_os($_SESSION["os_creada"], $_SESSION["tipo_doc"], $_SESSION["numero_doc"], 1));
