@@ -103,6 +103,17 @@ session_start();
 
                     if (!empty($datosEnvio)) {
                         $id_env_dec = json_decode($datosEnvio);
+                        $num_os = $id_env_dec[0]->os_id;
+                        $os_dao = new Orden_serv_DAO();
+
+                        $dat_suc = json_encode($os_dao->consulta_datos_suc_os($num_os));
+
+                        if (!empty($dat_suc)) {
+                            $dat_suc_dec = json_decode($dat_suc);
+                            $nombre_suc = "-" . $dat_suc_dec[0]->suc_nombre;
+                        } else {
+                            $nombre_suc = "";
+                        }
 
                         $cant_estados = count($id_env_dec); //cantidad de registros que equivalen a los estados por los que pasa el envio
                         $cant_teorico = $cant_estados;
@@ -124,7 +135,7 @@ session_start();
                                     <div class="row">
                                         <div class="alert alert-dismissible alert-warning col-lg-6">
                                             <h5><b>REMITE</b></h5>
-                                            <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_remite"><?php echo $id_env_dec[0]->cli_nombre ?></em></p>
+                                            <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_remite"><?php echo $id_env_dec[0]->cli_nombre . $nombre_suc ?></em></p>
                                             <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_remite"><?php echo $id_env_dec[0]->os_direccion ?></em></p>
                                             <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_remite"><?php echo $id_env_dec[0]->ciu_nombre ?></em></p>
                                             <p class="mb-0"><strong>TEL: </strong><em id="tel_remite"><?php echo $id_env_dec[0]->os_tel_cont ?></em></p>

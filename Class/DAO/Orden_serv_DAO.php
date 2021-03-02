@@ -175,4 +175,17 @@ class Orden_serv_DAO {
         return $BD->query($sql);
     }
 
+    /**
+     * Funcion que consulta los datos de sucursal segun num os
+     * @param type $num_os
+     * @return type
+     */
+    function consulta_datos_suc_os($num_os) {
+        $sql = "SELECT oxs.*, s.suc_nombre "
+                . "FROM os_x_suc AS oxs, sucursales AS s "
+                . "WHERE oxs.suc_num_id = s.suc_num_id AND oxs.os_id = " . $num_os . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
 }
