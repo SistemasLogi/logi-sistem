@@ -153,23 +153,23 @@ if (!isset($_SESSION["adminlogi"])) {
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample2">
                         <div class="card card-body alert-secondary" id="adminbd">
-                            <a class="dropdown-item enlace" bd="admin_ciudades">Ciudades</a>
+                            <a class="dropdown-item enlace renl" bd="admin_ciudades">Ciudades</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_doc">Tipo Documento</a>
+                            <a class="dropdown-item enlace renl" bd="admin_tipo_doc">Tipo Documento</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_serv">Tipo Servicio</a>
+                            <a class="dropdown-item enlace renl" bd="admin_tipo_serv">Tipo Servicio</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_tipo_env">Tipo Envio</a>
+                            <a class="dropdown-item enlace renl" bd="admin_tipo_env">Tipo Envio</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_serv">Estado Servicio</a>
+                            <a class="dropdown-item enlace renl" bd="admin_estado_serv">Estado Servicio</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_env">Estado Envio</a>
+                            <a class="dropdown-item enlace renl" bd="admin_estado_env">Estado Envio</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_operadores">Op. Logisticos</a>
+                            <a class="dropdown-item enlace renl" bd="admin_operadores">Op. Logisticos</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_estado_aenv">Estado Alist. Envios</a>
+                            <a class="dropdown-item enlace renl" bd="admin_estado_aenv">Estado Alist. Envios</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item enlace" bd="admin_usuarios">Usuarios del Sistema</a>
+                            <a class="dropdown-item enlace renl" bd="admin_usuarios">Usuarios del Sistema</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseEmp" role="button" aria-expanded="false" aria-controls="multiCollapseEmp">

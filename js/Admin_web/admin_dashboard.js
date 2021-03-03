@@ -53,9 +53,8 @@ $(document).ready(function () {
     $("#link_form_nuev_emp").click(function () {
         vista_form_Nuevo_Edit_Emp();
     });
-    $("#adminbd a").click(function () {
-        vista_tabla_bd(this);
-    });
+
+    click_enlace_bd();
 
     vista_dashboard();
 
@@ -838,101 +837,124 @@ function mensaje_No_Eliminado() {
               <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
               <strong>Error, registro no eliminado!</strong>.</div>");
 }
+/**
+ * Metodo que carga envio a mensajero
+ * @returns {undefined}
+ */
+function click_enlace_bd() {
 
-var ruta_vista;
+    $(".renl").click(function () {
+        ruta_vista = $(this).attr("bd");
+        vista_tabla_bd(ruta_vista);
+    });
+}
+
 /**
  * Metodo que trae vistas al conten
  * @param {type} ruta
  * @returns {undefined}
  */
 function vista_tabla_bd(ruta) {
-    this.ruta_vista = $(ruta).attr("bd");
-    request = "View/AdministradorV/" + ruta_vista + ".php";
+    request = "View/AdministradorV/" + ruta + ".php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#list-formCliente").html("");
         $("#list-formCliente").html(datos);
-        tablaGeneralCiudades();
-        combo_depto();
-        $("#btnCancelarCiu").click(function () {
-            resetFormCiudad();
-        });
-        $("#btnGuardaCiu").click(function () {
-            validarInsertCiud();
-        });
 
-        tablaGeneralTipoDoc();
-        $("#btnGuardaTipoDoc").click(function () {
-            validarInsertTd();
-        });
-        $("#btnCancelarTipoDoc").click(function () {
-            resetFormTd();
-        });
-
-        tablaGeneralTipoServ();
-        $("#btnGuardaTipoServ").click(function () {
-            validarInsertTS();
-        });
-        $("#btnCancelarTipoServ").click(function () {
-            resetFormTs();
-        });
-
-        tablaGeneralTipoEnv();
-        $("#btnGuardaTipoEnv").click(function () {
-            validarInsertTe();
-        });
-        $("#btnCancelarTipoEnv").click(function () {
-            resetFormTe();
-        });
-
-        tablaGeneralEstadoServ();
-        $("#btnGuardaEstServ").click(function () {
-            validarInsertES();
-        });
-        $("#btnCancelarEstServ").click(function () {
-            resetFormEs();
-        });
-
-        tablaGeneralEstadoEnv();
-        $("#btnGuardaEstEnv").click(function () {
-            validarInsertEe();
-        });
-        $("#btnCancelarEstEnv").click(function () {
-            resetFormEe();
-        });
-
-        tablaGeneralOperadores();
-        $("#btnGuardaOperador").click(function () {
-            validarInsertOpera();
-        });
-        $("#btnCancelarOperador").click(function () {
-            resetFormOpera();
-        });
-
-        tablaGeneralEstadoAEnv();
-        $("#btnGuardaEstAEnv").click(function () {
-            validarInsertEsae();
-        });
-        $("#btnCancelarEstAEnv").click(function () {
-            resetFormEsae();
-        });
-
-        tablaGeneral_US_Clientes();
-        vista_form_act_us_cli();
-        $('input[type=radio][name=customRadio]').change(function () {
-            if (this.value == 'clientes') {
+        switch (ruta) {
+            case 'admin_ciudades':
+                tablaGeneralCiudades();
+                combo_depto();
+                $("#btnCancelarCiu").click(function () {
+                    resetFormCiudad();
+                });
+                $("#btnGuardaCiu").click(function () {
+                    validarInsertCiud();
+                });
+                break;
+            case 'admin_tipo_doc':
+                tablaGeneralTipoDoc();
+                $("#btnGuardaTipoDoc").click(function () {
+                    validarInsertTd();
+                });
+                $("#btnCancelarTipoDoc").click(function () {
+                    resetFormTd();
+                });
+                break;
+            case 'admin_tipo_serv':
+                tablaGeneralTipoServ();
+                $("#btnGuardaTipoServ").click(function () {
+                    validarInsertTS();
+                });
+                $("#btnCancelarTipoServ").click(function () {
+                    resetFormTs();
+                });
+                break;
+            case 'admin_tipo_env':
+                tablaGeneralTipoEnv();
+                $("#btnGuardaTipoEnv").click(function () {
+                    validarInsertTe();
+                });
+                $("#btnCancelarTipoEnv").click(function () {
+                    resetFormTe();
+                });
+                break;
+            case 'admin_estado_serv':
+                tablaGeneralEstadoServ();
+                $("#btnGuardaEstServ").click(function () {
+                    validarInsertES();
+                });
+                $("#btnCancelarEstServ").click(function () {
+                    resetFormEs();
+                });
+                break;
+            case 'admin_estado_env':
+                tablaGeneralEstadoEnv();
+                $("#btnGuardaEstEnv").click(function () {
+                    validarInsertEe();
+                });
+                $("#btnCancelarEstEnv").click(function () {
+                    resetFormEe();
+                });
+                break;
+            case 'admin_operadores':
+                tablaGeneralOperadores();
+                $("#btnGuardaOperador").click(function () {
+                    validarInsertOpera();
+                });
+                $("#btnCancelarOperador").click(function () {
+                    resetFormOpera();
+                });
+                break;
+            case 'admin_estado_aenv':
+                tablaGeneralEstadoAEnv();
+                $("#btnGuardaEstAEnv").click(function () {
+                    validarInsertEsae();
+                });
+                $("#btnCancelarEstAEnv").click(function () {
+                    resetFormEsae();
+                });
+                break;
+            case 'admin_usuarios':
                 tablaGeneral_US_Clientes();
                 vista_form_act_us_cli();
-            }
-            if (this.value == 'sucursales') {
-                tablaGeneral_US_Sucursales();
-                vista_form_act_us_suc();
-            }
-            if (this.value == 'empleados') {
-                tablaGeneral_US_Empleados();
-                vista_form_act_us_emp();
-            }
-        });
+                $('input[type=radio][name=customRadio]').change(function () {
+                    if (this.value == 'clientes') {
+                        tablaGeneral_US_Clientes();
+                        vista_form_act_us_cli();
+                    }
+                    if (this.value == 'sucursales') {
+                        tablaGeneral_US_Sucursales();
+                        vista_form_act_us_suc();
+                    }
+                    if (this.value == 'empleados') {
+                        tablaGeneral_US_Empleados();
+                        vista_form_act_us_emp();
+                    }
+                });
+                break;
+        }
+
     };
     f_ajax(request, cadena, metodo);
 }
