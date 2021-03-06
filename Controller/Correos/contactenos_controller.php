@@ -15,7 +15,6 @@ if ($_POST) {
             . $_POST["txaMensaje"];
 
     $objMail->Envio_Email_Form($correo_origen, $correo_destino, $asunto, $cuerpo_mensaje, $correo_copia);
-    echo 1;
 } else {
     header("location../");
 }

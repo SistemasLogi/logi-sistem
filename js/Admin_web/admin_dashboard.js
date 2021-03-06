@@ -6437,6 +6437,7 @@ function consulta_env_cli_fact() {
             }
 
             datosEnvHistFact += "</tbody></table></div>";
+            datosEnvHistFact += '<div class="toast-header"><strong class="mr-auto">TOTAL ENVIOS POR FECHA</strong><div id="btn_xls_fac"><button type="button" class="btn btn-success float-right btn-sm" id="btnReportFacturaXlsx" name="btnReportFacturaXlsx">Descargar Informe</button></div></div>';
             $("#datosEnvFact").html(datosEnvHistFact);
 
             $('#tableEnvCliFact thead tr').clone(true).appendTo('#tableEnvCliFact thead');
@@ -6482,7 +6483,9 @@ function consulta_env_cli_fact() {
                 fixedHeader: true
             });
 
-
+            $("#btnReportFacturaXlsx").click(function () {
+                reporte_fact_Xls(cadena);
+            });
 //            clickActuEstado_OS();
         } else {
             $("#datosEnvFact").html("<div class='alert alert-dismissible alert-danger'>\n\
@@ -6709,4 +6712,32 @@ function tabla_fechas_entrada(suc, f_ini, f_fin) {
         }
     };
     f_ajax(request, cadena, metodo);
+}
+
+function reporte_fact_Xls(data) {
+//    alert(num_suc);
+    request = "Controller/AdminC/AdministrarEnvios/reporte_env_fact_controller.php";
+    cadena = data; //envio de parametros por POST
+    metodo = function (datos) {
+        rutaXLS_fact_guardado(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que proporciona la ruta y el nombre del archivo xls de fact para descargar
+ * basicamente se hace como medio de control en tiempo de ejecucion
+ * previene que se ejecute una descarga antes de crear el archivo xlsx
+ * @param {type} clienteRuta
+ * @returns {undefined}
+ */
+function rutaXLS_fact_guardado(clienteRuta) {
+    if (clienteRuta == 1) {
+        alertify.alert('Reporte no generado, error al generar el reporte').setHeader('<em> Cuidado! </em> ');
+    } else {
+        $(location).attr('href', 'Files/' + $.trim(clienteRuta) + '.xlsx');
+
+        alertify.warning('Reporte Generado!!!');
+    }
+
 }

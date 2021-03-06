@@ -43,9 +43,10 @@ function validarContactenos() {
 function enviarMail() {
     var enviando = '<div class="text-center"><img src="img/animaciones/Correo-1.gif" alt""/></div>';
     $("#mensajeContacto").html(enviando);
-    request = "Controller/Correos/Contactenos_controller.php";
+    request = "Controller/Correos/contactenos_controller.php";
     cadena = $("#formContactenos").serialize();
     metodo = function (datos) {
+        alert(datos);
         if (datos == 1) {
             $("#mensajeContacto").html("<div class='alert alert-dismissible alert-primary'>\n\
 <button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Tu Mensaje fue enviado exitosamente, nos pondremos en contacto lo mas pronto posible.</div>");
