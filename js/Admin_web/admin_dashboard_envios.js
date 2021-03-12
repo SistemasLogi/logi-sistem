@@ -819,6 +819,7 @@ function consulta_tabla_env_x_est(cliente_id, sucursal_id, id_est) {
  * @returns {undefined}
  */
 function envios_Selected_Est_dash() {
+    json_act_est = '[';
     $("input:checkbox:checked").each(function () {
 
         checket_envio = $(this).parent().attr('id');//numeo de venta
@@ -834,10 +835,14 @@ function envios_Selected_Est_dash() {
             estadoID = $("#selectEstadEnvio").val();
             mensajero = $("#selectMensajero").val();
             novedadValor = $("#areaNovedad").val();
-            insert_estado_envio_dash(mensajero, guiaLogi, estadoID, novedadValor);
-        }
 
+//            insert_estado_envio_dash(mensajero, guiaLogi, estadoID, novedadValor);
+            json_act_est += '{"mens":"' + mensajero + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';
+        }
     });
+    json_act_est_new = json_act_est.substr(0, json_act_est.length - 1);
+    json_act_est_new += ']';
+    insert_estado_envio_dash_json(json_act_est_new);
 }
 
 /**
@@ -860,6 +865,23 @@ function insert_estado_envio_dash(selectMensajero, inputNumEnvi, selectEstado, t
         } else {
             alert(datos);
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que inserta un estado en tabla estados x envio
+ * desde la vista dashboard en formato json
+ * @param {type} datos_json
+ * @returns {undefined}
+ */
+function insert_estado_envio_dash_json(datos_json) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php";
+    cadena = "datos_est=" + datos_json; //envio de parametros por POST
+    metodo = function (datos) {
+
+        alertify.success('Envios actualizados');
+        consulta_tabla_env_x_est(id_cliente_sel, id_sucursal_sel, estado_id);
+        consulta_dashboard_envios_card();
     };
     f_ajax(request, cadena, metodo);
 }

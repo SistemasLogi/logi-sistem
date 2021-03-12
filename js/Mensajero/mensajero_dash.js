@@ -192,7 +192,7 @@ function clickActuEstado_envio() {
         $('#ModalActuEstEnv').modal('toggle');
         $('#ModalEstEnvTitle').html('GESTION ENVIO');
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-primary" id="alert-color">\n\
-            <form id="formEstEnvio">\n\
+            <form method="post" enctype="multipart/form-data" id="formEstEnvio">\n\
                 <fieldset>\n\
                   <input type="text" class="form-control" style="display: none;" id="inpNumEnv" name="inpNumEnv" placeholder="N° Envio." readonly>\n\
                 <p><b>Envio N° ' + tmp.exe_en_id + '</b><br>\n\
@@ -212,6 +212,17 @@ function clickActuEstado_envio() {
                     <div class="form-group mt-3">\n\
                         <label for="txaNovedad"><b id="labeltext">Recibió</b></label>\n\
                         <textarea class="form-control" id="txaNovedad" name="txaNovedad" rows="2"></textarea>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                    <div class="input-group mb-3">\n\
+                    <div class="custom-file">\n\
+                        <input type="file" accept="image/*" capture="camera" id="inpFileFoto" name="inpFileFoto">\n\
+                        <label class="custom-file-label" for="inpFileFoto" id="textFileFoto">FOTO</label>\n\
+                    </div>\n\
+                      <div class="input-group-append">\n\
+                        <span class="input-group-text ion-android-camera"></span>\n\
+                      </div>\n\
+                    </div>\n\
                     </div>\n\
                     <div class="form-group">\n\
                         <button type="submit" class="btn btn-success" id="btnGuardaEstEnv" name="btnGuardaEstEnv">Finalizar <span class="ion-checkmark-circled" id="iconbtn" style="font-size: x-large;"></span></button>\n\
@@ -245,9 +256,22 @@ function clickActuEstado_envio() {
         $("#btnGuardaEstEnv").click(function () {
             validarInsert_est_x_env();
         });
+        nameFileFotoEntrega();
     });
 }
-
+/**
+ * Metodo que plasma nombre archivo en carga masiva envios alistamiento
+ * @returns {undefined}
+ */
+function nameFileFotoEntrega() {
+    $("#inpFileFoto").change(function () {
+        nombre = $("#inpFileFoto").val();
+        //        if (nombre.substring(3,11) == 'fakepath') {
+        //            nombre = nombre.substring(12);
+        //        }
+        $("#textFileFoto").text(nombre);
+    });
+}
 /**
  * Funcion de validacion de campos en form formEstEnvio
  * @returns {undefined}
@@ -272,7 +296,7 @@ function validarInsert_est_x_env() {
  */
 function inserta_est_x_envio() {
     request = "Controller/AdminC/AdministrarEnvios/insertar_est_env_men_controller.php";
-    cadena = $("#formEstEnvio").serialize(); //envio de parametros por POST
+    cadena = new FormData($("#formEstEnvio")[0]); //envio de parametros por POST
     metodo = function (datos) {
         if (datos == 1) {
             alertify.success('Envio Finalizado!');
@@ -285,7 +309,7 @@ function inserta_est_x_envio() {
             alertify.error('Error al Finalizar!');
         }
     };
-    f_ajax(request, cadena, metodo);
+    f_ajax_files(request, cadena, metodo);
 }
 /**
  * Metodo que retorna los datos de envios y monedero segun un rango de fechas

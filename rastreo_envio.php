@@ -85,7 +85,7 @@ session_start();
           Facts Section
         ============================-->
         <section id="facts"  class="wow fadeIn next">
-            <div class="container margen mt-4">
+            <div class="container margen mt-3">
 
                 <header class="section-header">
                     <h3>RASTREO ENVIO</h3>
@@ -125,6 +125,29 @@ session_start();
                         } else {
                             $cant_teorico = $cant_estados + 1; //cantidad teorica para visualizacion
                         }
+
+                        // Ruta del directorio donde están los archivos
+                        $path = './img/pruebas_entrega';
+
+                        // Arreglo con todos los nombres de los archivos
+                        $files = array_diff(scandir($path), array('.', '..'));
+
+                        foreach ($files as $file) {
+                            // Divides en dos el nombre de tu archivo utilizando el . 
+                            $data = explode(".", $file);
+                            // Nombre del archivo
+                            $fileName = $data[0];
+                            // Extensión del archivo 
+                            $fileExtension = $data[1];
+
+                            if ($num_envio == $fileName) {
+                                $ruta_prueba = $fileName . "." . $fileExtension;
+                                // Realizamos un break para que el ciclo se interrumpa
+                                break;
+                            } else {
+                                $ruta_prueba = "";
+                            }
+                        }
                         ?>
 
                         <div class="row col-lg-12">
@@ -134,14 +157,14 @@ session_start();
                                     <h4>Envio N° <em id="etqNumEnv"><?php echo $id_env_dec[0]->en_id ?></em></h4>
                                     <div class="row">
                                         <div class="alert alert-dismissible alert-warning col-lg-6">
-                                            <h5><b>REMITE</b></h5>
+                                            <h6><b>REMITE</b></h6>
                                             <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_remite"><?php echo $id_env_dec[0]->cli_nombre . $nombre_suc ?></em></p>
                                             <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_remite"><?php echo $id_env_dec[0]->os_direccion ?></em></p>
                                             <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_remite"><?php echo $id_env_dec[0]->ciu_nombre ?></em></p>
                                             <p class="mb-0"><strong>TEL: </strong><em id="tel_remite"><?php echo $id_env_dec[0]->os_tel_cont ?></em></p>
                                         </div>
                                         <div class="alert alert-dismissible alert-primary col-lg-6">
-                                            <h5><b>DESTINO</b></h5>
+                                            <h6><b>DESTINO</b></h6>
                                             <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_destino"><?php echo $id_env_dec[0]->en_nombre ?></em></p>
                                             <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_destino"><?php echo $id_env_dec[0]->en_direccion ?></em></p>
                                             <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_destino"><?php echo $id_env_dec[0]->en_ciudad ?></em></p>
@@ -167,7 +190,7 @@ session_start();
                                                     <?PHP
                                                     for ($i = 0; $i < $cant_teorico; $i++) {
                                                         ?>
-                                                        <th scope="col"><span class="ion-android-arrow-dropright" style="font-size: xx-large;"></span></th>
+                                                        <th scope="col"><span class="ion-android-arrow-dropright" style="font-size: large;"></span></th>
                                                         <?PHP
                                                     }
                                                     ?>
@@ -319,6 +342,17 @@ session_start();
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <?php
+                                        if (!empty($ruta_prueba)) {
+                                            ?>
+                                            <a type = "button" class = "btn btn-primary float-right" href = "./img/pruebas_entrega/<?php echo $ruta_prueba ?>" target = "_blank"><span class = "ion-android-image" style = "font-size: large;"></span> Ver Prueba de Entrega</a>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <button type = "button" class = "btn btn-primary float-right" disabled=""><span class = "ion-android-image" style = "font-size: large;"></span> Ver Prueba de Entrega</button>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
                                     <?php
                                 } else {
