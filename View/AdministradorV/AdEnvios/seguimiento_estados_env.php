@@ -25,14 +25,14 @@
             <h4>Envio N° <em id="etqNumEnv"></em></h4>
             <div class="row">
                 <div class="alert alert-dismissible alert-warning col-lg-6">
-                    <h5><b>REMITE</b></h5>
+                    <h6><b>REMITE</b></h6>
                     <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_remite"></em></p>
                     <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_remite"></em></p>
                     <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_remite"></em></p>
                     <p class="mb-0"><strong>TEL: </strong><em id="tel_remite"></em></p>
                 </div>
                 <div class="alert alert-dismissible alert-primary col-lg-6">
-                    <h5><b>DESTINO</b></h5>
+                    <h6><b>DESTINO</b></h6>
                     <p class="mb-0"><strong>NOMBRE: </strong><em id="nom_destino"></em></p>
                     <p class="mb-0"><strong>DIRECCIÓN: </strong><em id="dir_destino"></em></p>
                     <p class="mb-0"><strong>CIUDAD: </strong><em id="ciudad_destino"></em></p>
@@ -68,9 +68,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <button type="button" class="btn btn-primary float-right" id="btnPruebaEntr" name="btnPruebaEntr"><span class="ion-android-image" style="font-size: large;"></span> Ver Prueba de Entrega</button>
             </div>
             <div id="contAux">
-                
+
             </div>
         </div>
     </div>

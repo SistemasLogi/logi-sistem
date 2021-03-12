@@ -263,6 +263,11 @@ function datos_envio_seg() {
                 'order': [[0, 'desc']],
                 'scrollX': true
             });
+            tmp_envio = arregloSegEnvio[arregloSegEnvio.length - 1];
+
+            $("#btnPruebaEntr").click(function () {
+                clickPruebaEnt(tmp_envio.en_id);
+            });
 
         } else {
             alertify.alert('Numero de envio no encontrado, favor verifique e intente nuevamente').setHeader('<em> Cuidado! </em> ');
@@ -502,8 +507,27 @@ function datos_envio_seg_op() {
                 'scrollX': true
             });
 
+            tmp_envio = arregloSegEnvio[arregloSegEnvio.length - 1];
+
+            $("#btnPruebaEntr").click(function () {
+                clickPruebaEnt(tmp_envio.en_id);
+            });
         } else {
             alertify.alert('Numero de envio no encontrado, favor verifique e intente nuevamente').setHeader('<em> Cuidado! </em> ');
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+function clickPruebaEnt(num_envio) {
+    request = "Controller/AdminC/AdministrarEnvios/prueba_entr_controller.php";
+    cadena = "envio=" + num_envio; //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos != "") {
+//            $(open).attr('href', 'img/pruebas_entrega/' + datos);
+            window.open('img/pruebas_entrega/' + datos, "_blank");
+        } else {
+            alertify.alert('Prueba de entrega no encontrada').setHeader('<em> Cuidado! </em> ');
         }
     };
     f_ajax(request, cadena, metodo);

@@ -345,11 +345,11 @@ session_start();
                                         <?php
                                         if (!empty($ruta_prueba)) {
                                             ?>
-                                            <a type = "button" class = "btn btn-primary float-right" href = "./img/pruebas_entrega/<?php echo $ruta_prueba ?>" target = "_blank"><span class = "ion-android-image" style = "font-size: large;"></span> Ver Prueba de Entrega</a>
+                                            <a type="button" class="btn btn-primary float-right" href="./img/pruebas_entrega/<?php echo $ruta_prueba ?>" target="_blank"><span class="ion-android-image" style="font-size: large;"></span> Ver Prueba de Entrega</a>
                                             <?php
                                         } else {
                                             ?>
-                                            <button type = "button" class = "btn btn-primary float-right" disabled=""><span class = "ion-android-image" style = "font-size: large;"></span> Ver Prueba de Entrega</button>
+                                            <button type="button" class="btn btn-primary float-right" disabled=""><span class="ion-android-image" style="font-size: large;"></span> Ver Prueba de Entrega</button>
                                             <?php
                                         }
                                         ?>
