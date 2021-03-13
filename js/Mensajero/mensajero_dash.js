@@ -224,7 +224,7 @@ function clickActuEstado_envio() {
                       </div>\n\
                     </div>\n\
                     </div>\n\
-                    <div class="form-group">\n\
+                    <div class="form-group" id="sectionBtn">\n\
                         <button type="submit" class="btn btn-success" id="btnGuardaEstEnv" name="btnGuardaEstEnv">Finalizar <span class="ion-checkmark-circled" id="iconbtn" style="font-size: x-large;"></span></button>\n\
                     </div>\n\
                     <input type="text" class="form-control" style="display: none;" id="inpEstado" name="inpEstado" value="6" readonly>\n\
@@ -295,6 +295,7 @@ function validarInsert_est_x_env() {
  * @returns {undefined}
  */
 function inserta_est_x_envio() {
+    $('#sectionBtn').html("<img class='img-fluid' src='img/animaciones/loader.gif' alt=''/>");
     request = "Controller/AdminC/AdministrarEnvios/insertar_est_env_men_controller.php";
     cadena = new FormData($("#formEstEnvio")[0]); //envio de parametros por POST
     metodo = function (datos) {
