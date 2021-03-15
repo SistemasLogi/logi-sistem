@@ -41,6 +41,14 @@ if ($_POST) {
         
     }
     echo $es_x_env_dao->insertarEstado_x_envio_general($es_x_env_vo);
+    if (!empty($extension)) {
+        if ($extension == 'jpg' || $extension == 'png') {
+            $imagefile = '../../../img/pruebas_entrega/' . $_POST["inpNumEnv"] . '.' . $extension;
+            require '../../Imagenes/imagen_size_controller.php';
+        }
+    } else {
+        
+    }
 } else {
     header("location../");
 }
