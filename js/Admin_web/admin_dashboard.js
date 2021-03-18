@@ -5296,6 +5296,8 @@ function clickAdd_env_mensajero_temp_delete() {
                 .draw();
         alertify.warning('Envio Guia Logi N° ' + delete_envio + ' devuelto');
 //        console.log(envios);
+        index_row = table_env_no_asig.row('#fila_pro' + delete_envio).index();
+        table_env_no_asig.row(':eq(' + index_row + ')').remove().draw();
     });
 }
 var fil_delete;
