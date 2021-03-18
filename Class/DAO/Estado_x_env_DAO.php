@@ -59,7 +59,7 @@ class Estado_x_env_DAO {
     }
 
     /**
-     * Funcion que inserta un bloque de registros en tabla entradas_prod
+     * Funcion que inserta un bloque de registros en tabla estados_x_envio
      * @param type $sql
      */
     function insertarBloqueEnTablaEstados($sql) {

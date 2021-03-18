@@ -14,6 +14,7 @@ $(document).ready(function () {
     });
     $("#enlAsigMens").click(function () {
         formulario_asig_mens();
+        envios = [];
     });
 
     $("#enlFormEntregaOp").click(function () {
@@ -4721,7 +4722,7 @@ function vista_gestionar_envios() {
     f_ajax(request, cadena, metodo);
 }
 
-var mensajero;
+var mensajero = '0|0';
 /**
  * Metodo que retorna la vista de asignacion de mensajero a envios
  * @returns {undefined}
@@ -4734,6 +4735,14 @@ function formulario_asig_mens() {
 
         combo_empleados("#selectMensajero");
 
+        /**
+         * Evento que pagina una tabla 
+         */
+        table_env_no_asig = $('#tabEnvNoAsig').DataTable({
+            'scrollX': true,
+            'pageLength': 50
+        });
+
         $("#selectMensajero").change(function () {
             mensajero = $("#selectMensajero").val();
             consulta_tabla_env_mens(mensajero);
@@ -4743,7 +4752,22 @@ function formulario_asig_mens() {
             mensajero = $("#selectMensajero").val();
             consulta_tabla_env_mens(mensajero);
         });
+
+        $("#enlTabNoAsig").click(function () {
+            $("#tabla_listos_asig").show();
+            $("#tab_envios").hide();
+        });
+        $("#enlTabAsig").click(function () {
+            $("#tabla_listos_asig").hide();
+            $("#tab_envios").show();
+            consulta_tabla_env_mens(mensajero);
+        });
         consulta_tabla_env_programados();
+
+        clickAdd_env_mensajero_temp_delete();
+
+        clickAdd_env_mensajero_json();
+
     };
     f_ajax(request, cadena, metodo);
 }
@@ -5042,6 +5066,8 @@ function insert_estado_envio_asig_men_json(datos_act_est) {
 }
 
 var arreglo_env_prog;
+var table_env_prog;
+var table_env_no_asig;
 /**
  * Metodo que carga la tabla de envios programados
  * @returns {undefined}
@@ -5131,21 +5157,37 @@ function consulta_tabla_env_programados() {
                                 if (mensajero === undefined || mensajero === '0|0') {
                                     alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
                                 } else {
-                                    insertar_env_prog(guia_enter, mensajero);
-//                                consulta_tabla_env_mens(mensajero);
-                                    $('#fila_pro' + guia_enter + '').remove();
-                                    alertify.success('Envio Guia Logi N° ' + guia_enter + ' cargado');
+//                                    insertar_env_prog(guia_enter, mensajero);
+////                                consulta_tabla_env_mens(mensajero);
+//                                    $('#fila_pro' + guia_enter + '').remove();
+//                                    alertify.success('Envio Guia Logi N° ' + guia_enter + ' cargado');
+//                                    index_row = table_env_prog.row('#fila_pro' + guia_enter).index();
+                                    envios.push(guia_enter);
+
+                                    var row = table_env_prog.row($('#fila_pro' + guia_enter));
+                                    var rowNode = row.node();
+                                    row.remove();
+
+                                    table_env_no_asig
+                                            .row.add(rowNode)
+                                            .draw();
+                                    alertify.success('Envio Guia Logi N° ' + guia_enter + ' agregado');
+
+//                                    table_env_prog.row(':eq(' + index_row + ')').remove().draw();
+
                                 }
                             }
 
                         }
-                        consulta_tabla_env_programados();
+//                        consulta_tabla_env_programados();
                     }
                 }
             });
 
-            clickAdd_env_mensajero();
-            clickElim_fila();
+//            clickAdd_env_mensajero();
+            clickAdd_env_mensajero_temp();
+
+//            clickElim_fila();
         } else {
             $("#tab_envios_prog").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
@@ -5154,7 +5196,23 @@ function consulta_tabla_env_programados() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que recorre el arreglo para asignacion de envios a mensajero 
+ * @returns {undefined}
+ */
+function enviosInArray() {
+    json_env_tmp = '[';
 
+    for (var i = 0; i < envios.length; i++) {
+        json_env_tmp += '{"id_env":"' + envios[i] + '","mens":"' + mensajero + '"},';
+    }
+
+    json_env_tmp_new = json_env_tmp.substr(0, json_env_tmp.length - 1);
+    json_env_tmp_new += ']';
+//    alert(json_env_tmp_new);
+    insertar_env_prog_json(json_env_tmp_new);
+
+}
 /**
  * Metodo que carga envio a mensajero
  * @returns {undefined}
@@ -5175,6 +5233,69 @@ function clickAdd_env_mensajero() {
             $("div#tableEnvProgram_filter input").val("");
         }
 //        form_act_est_os(arreglo_env_prog, add_envio);
+    });
+}
+/**
+ * Metodo que carga envio a mensajero
+ * @returns {undefined}
+ */
+function clickAdd_env_mensajero_json() {
+//    $("#tableEnvProgram").on("click", ".addEnvio", function () {
+    $("#btnAddEnviosMens").click(function () {
+        if (mensajero === undefined || mensajero === '0|0') {
+            alertify.alert('Debe seleccionar un mensajero').setHeader('<em> Cuidado! </em> ');
+        } else {
+            enviosInArray();
+        }
+//        form_act_est_os(arreglo_env_prog, add_envio);
+    });
+}
+var envios = [];
+
+/**
+ * Metodo que mueve los envios a la tabla temporal de asignacion
+ * @returns {undefined}
+ */
+function clickAdd_env_mensajero_temp() {
+    $("#tableEnvProgram").on("click", ".addEnvio", function () {
+//    $(".actuestos").click(function () {
+        add_envio = $(this).attr("addEnv");
+
+        envios.push(add_envio);
+
+
+        var row = table_env_prog.row($(this).parents('tr'));
+        var rowNode = row.node();
+        row.remove();
+
+        table_env_no_asig
+                .row.add(rowNode)
+                .draw();
+        alertify.success('Envio Guia Logi N° ' + add_envio + ' agregado');
+//        console.log(envios);
+    });
+}
+/**
+ * Metodo que devuelve un envio a tabla programados desde la tabla de asignacion temporal
+ * @returns {undefined}
+ */
+function clickAdd_env_mensajero_temp_delete() {
+    $("#tabEnvNoAsig").on("click", ".addEnvio", function () {
+//    $(".actuestos").click(function () {
+        delete_envio = $(this).attr("addEnv");
+        ubicado = envios.indexOf(delete_envio);
+        envios.splice(ubicado, 1);
+
+
+        var row = table_env_no_asig.row($(this).parents('tr'));
+        var rowNode = row.node();
+        row.remove();
+
+        table_env_prog
+                .row.add(rowNode)
+                .draw();
+        alertify.warning('Envio Guia Logi N° ' + delete_envio + ' devuelto');
+//        console.log(envios);
     });
 }
 var fil_delete;
@@ -5207,6 +5328,25 @@ function insertar_env_prog(guia, mensajero) {
             $('#fila_pro' + fil_delete + '').remove();
             consulta_tabla_env_mens(mensajero);
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que guarda asignacion de envio programado a mensajero desde datos json
+ * @param {type} data
+ * @returns {undefined}
+ */
+function insertar_env_prog_json(data) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_est_prog_json_controller.php";
+    cadena = "data_json=" + data; //envio de parametros por POST
+    metodo = function (datos) {
+
+        alertify.success('Envios actualizados');
+        consulta_tabla_env_mens(mensajero);
+        table_env_no_asig.clear().draw();
+        envios = [];
+        consulta_tabla_env_programados();
     };
     f_ajax(request, cadena, metodo);
 }

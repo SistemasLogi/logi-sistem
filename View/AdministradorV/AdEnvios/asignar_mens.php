@@ -11,9 +11,39 @@
                 </select>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="btnSelectMens" name="btnSelectMens">BUSCAR</button>    
             </form>
-
+            <div class="mt-3">
+                <ol class="breadcrumb" style="border-radius: 0.5rem;">
+                    <li class="breadcrumb-item"><a class="enlace" id="enlTabNoAsig">POR ASIGNAR</a></li>
+                    <li class="breadcrumb-item"><a class="enlace" id="enlTabAsig">ASIGNADOS</a></li>
+                </ol>   
+            </div>            
             <div class="mt-5" id="tab_envios">
+
+            </div>
+            <div class="mt-5" id="tabla_listos_asig">
                 <div class="text-lg-center">
+
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-striped table-sm table-bordered" id="tabEnvNoAsig">
+                            <thead>
+                                <tr style="background-color: #efa31d">
+                                    <th scope="col"></th>
+                                    <th scope="col">GUIA LOGI</th>
+                                    <th scope="col">GUIA OP</th>
+                                    <th scope="col">OS</th>
+                                    <th scope="col">DIR. DESTINO</th>
+                                    <th scope="col">CIUDAD</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyTab">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-success float-left" id="btnAddEnviosMens">Asignar Envios +</button> 
+                    </div>
 
                 </div>
             </div>
