@@ -116,7 +116,7 @@ if ($_POST) {
         echo '<strong>Envios ingresados correctamente.</strong>';
         echo "<strong>&nbsp;&nbsp;Total " . ($contador + 1) . " numeros de Guia creados</strong>";
         $est_x_env = new Estado_x_env_DAO();
-        $est_x_env->insertarEstado_x_envio($id_os_cliente);
+        $est_x_env->insertarEstado_x_envio($id_os_cliente, $fecha_hora);
 
         if (isset($_SESSION["adminlogi"])) {
             $env_ing = json_encode($env_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 1));

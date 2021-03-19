@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/css/style.css</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_prog_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_aenv_obj_json_controller.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Class/DAO/Estado_x_env_DAO.php</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/insertar_est_prog_json_controller.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/View/AdministradorV/AdEnvios/asignar_mens.php</file>
             <file>file:/C:/wamp64/www/LogiClientes/js/Admin_web/admin_dashboard.js</file>
-            <file>file:/C:/wamp64/www/LogiClientes/Controller/AdminC/AdministrarEnvios/actualizar_env_prog_val_flet_json_controller.php</file>
         </group>
     </open-files>
 </project-private>
