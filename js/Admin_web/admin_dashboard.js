@@ -5113,7 +5113,7 @@ function consulta_tabla_env_programados() {
              */
             table_env_prog = $('#tableEnvProgram').DataTable({
                 'scrollX': true,
-                'pageLength': 50
+                'pageLength': 2000
             });
 
             $('div.dataTables_filter input', table_env_prog.table().container()).focus();
