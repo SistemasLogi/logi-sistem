@@ -150,22 +150,24 @@ class Estado_x_env_DAO {
         $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
                 . "(SELECT TM.*, e.en_guia, e.os_id, e.en_cantidad, e.en_nombre, e.en_direccion, e.en_telefono, "
                 . "e.en_ciudad, e.en_departamento, e.en_contiene, e.en_valor_decl, em.emp_nombre, es.ee_desc, "
-                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre "
+                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre, "
+                . "ess.exs_fecha_hora, ess.es_id "
                 . "FROM "
                 . "(SELECT T1.* FROM est_x_envio AS T1 WHERE T1.exe_fec_hora = (SELECT MAX(T2.exe_fec_hora) "
                 . "FROM est_x_envio AS T2 WHERE T1.exe_en_id = T2.exe_en_id " . $param_subquery . ") "
                 . "ORDER BY T1.exe_fec_hora DESC) AS TM, envio AS e, empleados AS em, estado_env AS es, "
-                . "orden_serv AS o, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "orden_serv AS o, est_x_serv AS ess, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
                 . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
                 . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
                 . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
-                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ess.es_id = 3  AND o.os_id = ess.os_id "
                 . "" . $param . ") AS TP "
                 . "LEFT JOIN "
                 . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "
                 . "ON TP.os_id = TS.os_id;";
 
         $BD = new MySQL();
+//        return $sql;
         return $BD->query($sql);
     }
 
@@ -180,22 +182,23 @@ class Estado_x_env_DAO {
         $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
                 . "(SELECT TM.*, e.en_guia, e.os_id, e.en_cantidad, e.en_nombre, e.en_direccion, e.en_telefono, "
                 . "e.en_ciudad, e.en_departamento, e.en_contiene, e.en_valor_decl, em.emp_nombre, es.ee_desc, "
-                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre "
+                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre, ess.exs_fecha_hora, ess.es_id "
                 . "FROM "
                 . "(SELECT T1.* FROM est_x_envio AS T1 WHERE T1.exe_fec_hora = (SELECT MAX(T2.exe_fec_hora) "
                 . "FROM est_x_envio AS T2 WHERE T1.exe_en_id = T2.exe_en_id " . $param_subquery . ") "
                 . "ORDER BY T1.exe_fec_hora DESC) AS TM, envio AS e, empleados AS em, estado_env AS es, "
-                . "orden_serv AS o, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "orden_serv AS o, est_x_serv AS ess, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
                 . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
                 . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
                 . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
-                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ess.es_id = 3 AND o.os_id = ess.os_id "
                 . "" . $param . ") AS TP "
                 . "JOIN "
                 . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "
                 . "ON TP.os_id = TS.os_id;";
 
         $BD = new MySQL();
+//        return $sql;
         return $BD->query($sql);
     }
 

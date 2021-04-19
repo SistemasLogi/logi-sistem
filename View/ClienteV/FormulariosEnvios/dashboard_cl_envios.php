@@ -9,8 +9,19 @@
 
                     </select>
                 </div>
+                <div class="col-sm-3 my-1" id="blqSucur">
+                    <label class="mr-sm-2" for="selectSuc_x_Cli">Fecha inicial</label>
+                    <input class="form-control form-control-sm" type="date" id="selectFech_ini">
+                </div>
+                <div class="col-sm-3 my-1" id="blqSucur">
+                    <label class="mr-sm-2" for="selectSuc_x_Cli">Fecha final</label>
+                    <input class="form-control form-control-sm" type="date" id="selectFech_fin">
+                </div>
                 <div class="col-auto my-1 mt-4">
                     <button type="button" class="btn btn-primary" id="btnVer">VER</button>
+                </div>
+                <div class="col-auto my-1 mt-4" id="blqBtnXlsx">
+                    <button type="button" class="btn btn-success" id="btnReportXlsx" disabled>informe xlsx</button>
                 </div>
             </div>
         </form>
@@ -32,8 +43,9 @@
         </div>
         <div class="card border-success mb-3 enlace est_envio" id="cardGestFin" elem="6" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">            
             <div class="card-header bg-success"><b class="text-light">ENTREGADOS</b><span class="ion-checkmark-circled text-light float-right" style="font-size: x-large"></span></div>
-            <div class="card-body">                
-                <span class="ion-android-search text-success" style="font-size: large"></span>
+            <div class="card-body">
+                <h5 class="card-title" style="color: #13B955; display: none;" id="cantEnvEntregados"></h5>                
+                <span class="ion-android-search text-success" style="font-size: large" id="lupaEntregados"></span>
                 <p class="card-text">Click para buscar.</p>
             </div>
         </div>

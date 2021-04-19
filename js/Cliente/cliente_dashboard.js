@@ -247,6 +247,9 @@ function segui_estado_alist_env_cl() {
     f_ajax(request, cadena, metodo);
 }
 var id_sucursal_sel = "0";
+var fech_valida = false;
+var ini_fecha = '';
+var fin_fecha = '';
 /**
  * Metodo que carga el dashboard principal de envios
  * @returns {undefined}
@@ -255,7 +258,7 @@ function vista_dashboard_envios_cl() {
     request = "View/ClienteV/FormulariosEnvios/dashboard_cl_envios.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
-//        exist = false;
+        fech_valida = false;
         $("#sectionConten").html(datos);
 
         combo_sucursal_x_dos();
@@ -265,21 +268,78 @@ function vista_dashboard_envios_cl() {
         });
 
         $("#btnVer").click(function () {
-            consulta_dashboard_envios_card_cli(id_sucursal_sel);
+
+            ini_fecha = $("#selectFech_ini").val();
+            fin_fecha = $("#selectFech_fin").val();
+
+            if (ini_fecha !== "" && fin_fecha !== "") {
+                if (ini_fecha > fin_fecha) {
+                    alertify.alert("La fecha de inicio no debe ser mayor que la fecha final, la  consulta generada no es acorde a el tiempo.").setHeader('<em> Cuidado! </em> ');
+                    consulta_dashboard_envios_card_cli(id_sucursal_sel, ini_fecha, fin_fecha);
+                    fech_valida = false;
+                    $("#btnReportXlsx").attr("disabled");
+                    $("#lupaEntregados").show();
+                    $("#cantEnvEntregados").hide();
+                } else {
+                    consulta_dashboard_envios_card_cli(id_sucursal_sel, ini_fecha, fin_fecha);
+                    fech_valida = true;
+                    $("#btnReportXlsx").removeAttr("disabled");
+                    $("#lupaEntregados").hide();
+                    $("#cantEnvEntregados").show();
+                    $("#btnReportXlsx").click(function () {
+                        reporte_envios_Xlsx(id_sucursal_sel, ini_fecha, fin_fecha);
+                    });
+                }
+            }
+
+            consulta_dashboard_envios_card_cli(id_sucursal_sel, ini_fecha, fin_fecha);
 
             if ($('#selectSuc_Cli option:selected').val() == '0') {
                 $("#lbSuc").html("");
             } else {
                 $("#lbSuc").html(' ' + $('#selectSuc_Cli option:selected').text());
             }
-
-
         });
 
         consulta_dashboard_envios_card_cl();
 
     };
     f_ajax(request, cadena, metodo);
+}
+/** 
+ * Metodo que genera un reporte en excel .xlsx de envios ingresados 
+ * segun un rango de fechas
+ * @param {type} sucursal_id
+ * @param {type} ini_fecha
+ * @param {type} fin_fecha
+ * @returns {undefined}
+ */
+function reporte_envios_Xlsx(sucursal_id, ini_fecha, fin_fecha) {
+    $("#blqBtnXlsx").html('<img class="img-fluid" src="img/animaciones/cargando4.gif" alt=""/>');
+    request = "Controller/AdminC/AdministrarEnvios/reporte_envios_cl_controller.php";
+    cadena = {"sucursal_id": sucursal_id, "ini_fecha": ini_fecha, "fin_fecha": fin_fecha}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);       
+        rutaXLS_envios_guardado(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que proporciona la ruta y el nombre del archivo xls para descargar
+ * basicamente se hace como medio de control en tiempo de ejecucion
+ * previene que se ejecute una descarga antes de crear el archivo xlsx
+ * @param {type} clienteRuta
+ * @returns {undefined}
+ */
+function rutaXLS_envios_guardado(clienteRuta) {
+    if (clienteRuta == 1) {
+        alertify.alert('Reporte no generado, error al generar el reporte').setHeader('<em> Cuidado! </em> ');
+    } else {
+        $(location).attr('href', 'Files/' + $.trim(clienteRuta) + '.xlsx');
+
+        alertify.warning('Reporte Generado!!!');
+    }
+    $("#blqBtnXlsx").html('<button type="button" class="btn btn-success" id="btnReportXlsx" disabled>informe xlsx</button>');
 }
 /**
  * Metodo que carga el dashboard principal de envios
@@ -540,6 +600,7 @@ var env_gest_fin;
 var env_solucion;
 var env_viajando_dest;
 var env_bodega_dest;
+var env_entregado;
 /**
  * Metodo que retorna la cantidad de envios segun su estado a la vista de los paneles
  * @returns {undefined}
@@ -553,6 +614,7 @@ function control_dash_envios() {
     $("#cantEnvViajDest").html(env_viajando_dest);
     $("#cantEnvNovedades").html(env_novedad);
     $("#cantEnvBodegaDest").html(env_bodega_dest);
+    $("#cantEnvEntregados").html(env_entregado);
 }
 
 /**
@@ -568,6 +630,7 @@ function control_dash_envios_reset() {
     $("#cantEnvViajDest").html("");
     $("#cantEnvNovedades").html("");
     $("#cantEnvBodegaDest").html("");
+    $("#cantEnvEntregados").html("");
 }
 
 var fech_ini;
@@ -630,12 +693,15 @@ function consulta_dashboard_envios_card_cl() {
 /**
  * Funcion que carga las acciones en los card segun cliente
  * @param {type} sucursal_id
- * @returns {consulta_dashboard_envios_card_cli}
+ * @param {type} ini_fecha
+ * @param {type} fin_fecha
+ * @returns {undefined}
  */
-function consulta_dashboard_envios_card_cli(sucursal_id) {
+function consulta_dashboard_envios_card_cli(sucursal_id, ini_fecha, fin_fecha) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_env_cli_controller.php";
-    cadena = {"sucursal_id": sucursal_id}; //envio de parametros por POST
+    cadena = {"sucursal_id": sucursal_id, "ini_fecha": ini_fecha, "fin_fecha": fin_fecha}; //envio de parametros por POST
     metodo = function (datos) {
+//        alert(datos);
         control_dash_envios_reset();
         env_program = 0;
         env_bodega_or = 0;
@@ -645,6 +711,7 @@ function consulta_dashboard_envios_card_cli(sucursal_id) {
         env_solucion = 0;
         env_viajando_dest = 0;
         env_bodega_dest = 0;
+        env_entregado = 0;
         arregloEstEnvCard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstEnvCard !== 0) {
@@ -661,6 +728,8 @@ function consulta_dashboard_envios_card_cli(sucursal_id) {
                     env_bodega_dest++;
                 } else if (tmp.exe_ee_id == 5) {
                     env_reparto++;
+                } else if (tmp.exe_ee_id == 6) {
+                    env_entregado++;
                 } else if (tmp.exe_ee_id == 8) {
                     env_novedad++;
                 } else if (tmp.exe_ee_id == 9) {
@@ -750,9 +819,13 @@ function clickPanelDashCl() {
         estado_id = $(this).attr("elem");
 
         if (estado_id == 6 || estado_id == 7 || estado_id == 11) {
-            click_modal_fech();
+            if (fech_valida == true) {
+                consulta_tabla_env_x_est_cl(estado_id, id_sucursal_sel, ini_fecha, fin_fecha);
+            } else {
+                click_modal_fech();
+            }
         } else {
-            consulta_tabla_env_x_est_cl(estado_id, id_sucursal_sel);
+            consulta_tabla_env_x_est_cl(estado_id, id_sucursal_sel, ini_fecha, fin_fecha);
         }
 
         //En esta linea me redirije al formulario con una velocodad establecida
@@ -925,6 +998,7 @@ function consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, est_env) {
                                 <th scope="col">SUCURSAL</th>\n\
                                 <th scope="col">SERVICIO</th>\n\
                                 <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">DESTINATARIO</th>\n\
                                 <th scope="col">DIRECCION</th>\n\
                                 <th scope="col">OBSERVACIONES</th>\n\
                                 </tr></thead><tbody>';
@@ -959,6 +1033,7 @@ function consulta_tabla_env_x_est_fech_cl(fech_ini, fech_fin, est_env) {
                     datos_env += '<td>' + temp.ts_desc + '</td>';
                 }
                 datos_env += '<td>' + temp.te_desc + '</td>';
+                datos_env += '<td>' + temp.en_nombre + '</td>';
                 datos_env += '<td>' + temp.en_direccion + '</td>';
                 if (temp.exe_ee_id == 5) {
                     datos_env += '<td>En Reparto</td></tr>';
@@ -1131,11 +1206,13 @@ function tabla_fechas_entrada() {
  * Metodo que carga la tabla de envios segun el estado en dashboard cliente
  * @param {type} est_env
  * @param {type} sucursal_id
- * @returns {consulta_tabla_env_x_est_cl}
+ * @param {type} ini_fecha
+ * @param {type} fin_fecha
+ * @returns {undefined}
  */
-function consulta_tabla_env_x_est_cl(est_env, sucursal_id) {
+function consulta_tabla_env_x_est_cl(est_env, sucursal_id, ini_fecha, fin_fecha) {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_id_est_controller.php";
-    cadena = {"id_est_env": est_env, "sucursal_id": sucursal_id}; //envio de parametros por POST
+    cadena = {"id_est_env": est_env, "sucursal_id": sucursal_id, "ini_fecha": ini_fecha, "fin_fecha": fin_fecha}; //envio de parametros por POST
     metodo = function (datos) {
 //        alert(datos);
         meses = new Array("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
@@ -1164,6 +1241,10 @@ function consulta_tabla_env_x_est_cl(est_env, sucursal_id) {
                 colorText = 'text-warning';
                 colorAl = 'warning';
             } else if (est_env == 5) {
+                colorTab = 'class="table-success"';
+                colorText = 'text-success';
+                colorAl = 'success';
+            } else if (est_env == 6) {
                 colorTab = 'class="table-success"';
                 colorText = 'text-success';
                 colorAl = 'success';
@@ -1197,6 +1278,7 @@ function consulta_tabla_env_x_est_cl(est_env, sucursal_id) {
                                 <th scope="col">SUCURSAL</th>\n\
                                 <th scope="col">SERVICIO</th>\n\
                                 <th scope="col">T. ENVIO</th>\n\
+                                <th scope="col">DESTINATARIO</th>\n\
                                 <th scope="col">DIRECCION</th>\n\
                                 <th scope="col">CIUDAD DEST</th>\n\
                                 <th scope="col">DPTO</th>\n\
@@ -1233,6 +1315,7 @@ function consulta_tabla_env_x_est_cl(est_env, sucursal_id) {
                     datos_env += '<td>' + temp.ts_desc + '</td>';
                 }
                 datos_env += '<td>' + temp.te_desc + '</td>';
+                datos_env += '<td>' + temp.en_nombre + '</td>';
                 datos_env += '<td>' + temp.en_direccion + '</td>';
                 datos_env += '<td>' + temp.en_ciudad + '</td>';
                 datos_env += '<td>' + temp.en_departamento + '</td>';

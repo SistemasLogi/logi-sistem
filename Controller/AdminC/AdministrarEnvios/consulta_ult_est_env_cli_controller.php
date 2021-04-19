@@ -23,10 +23,34 @@ if ($_POST) {
         }
     } elseif (isset($_SESSION["cliente_a"])) {
         $suc_id = $_POST["sucursal_id"];
+        $fecha_inicio = $_POST["ini_fecha"];
+        $fecha_final = $_POST["fin_fecha"];
+
+        $hora_desde = '00:00:00';
+        $hora_hasta = '23:59:00';
+
         if ($suc_id == '0') {
-            echo json_encode($est_env->consulta_ultimo_est_envios("", "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11) AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"], ""));
+
+            if ($fecha_inicio == '' || $fecha_final == '') {
+                echo json_encode($est_env->consulta_ultimo_est_envios("", "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11) AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"], ""));
+            } else {
+                $fecha_ini = $fecha_inicio . " " . $hora_desde;
+                $fecha_fin = $fecha_final . " " . $hora_hasta;
+
+                echo json_encode($est_env->consulta_ultimo_est_envios("", "AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"] . " AND o.os_id = ess.os_id AND ess.exs_fecha_hora BETWEEN '" . $fecha_ini . "' AND '" . $fecha_fin . "'", ""));
+
+//                echo json_encode($est_env->consulta_ultimo_est_envios("", "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11) AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"], ""));
+            }
         } else {
-            echo json_encode($est_env->consulta_ultimo_est_envios_suc("", "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11) AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"], " AND oxs.suc_num_id = " . $suc_id . ""));
+
+            if ($fecha_inicio == '' || $fecha_final == '') {
+                echo json_encode($est_env->consulta_ultimo_est_envios_suc("", "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11) AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"], " AND oxs.suc_num_id = " . $suc_id . ""));
+            } else {
+                $fecha_ini = $fecha_inicio . " " . $hora_desde;
+                $fecha_fin = $fecha_final . " " . $hora_hasta;
+
+                echo json_encode($est_env->consulta_ultimo_est_envios_suc("", "AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"] . " AND o.os_id = ess.os_id AND ess.exs_fecha_hora BETWEEN '" . $fecha_ini . "' AND '" . $fecha_fin . "'", " AND oxs.suc_num_id = " . $suc_id . ""));
+            }
         }
     } elseif (isset($_SESSION["sucursal"])) {
         echo json_encode($est_env->consulta_ultimo_est_envios_suc("", "AND (TM.exe_ee_id != 6 AND TM.exe_ee_id != 7 AND TM.exe_ee_id != 11) AND cl.cli_td_id = " . $_SESSION["tipo_doc"] . " AND cl.cli_num_doc = " . $_SESSION["numero_doc"], " AND oxs.suc_num_id = " . $_SESSION["numero_suc"] . ""));
