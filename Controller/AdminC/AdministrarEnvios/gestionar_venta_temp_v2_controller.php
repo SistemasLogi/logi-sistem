@@ -178,14 +178,14 @@ if ($_POST) {
 
             if ($es_x_serv_dao->insertar_est_x_os($es_x_serv_vo) != 1) {
                 echo 'error al finalizar alistamiento'; //error al finalizar alistamiento
+                exit();
             }
         }
-        if($product_dao->elimProdTempVent($num_venta)==1){
+        if ($product_dao->elimProdTempVent($num_venta) == 1) {
             echo 1; //orrectamente ejeutado 
-        }else{
-           echo 'error al eliminar datos en tabla temporal'; //error eliminar registros de tabla temp
+        } else {
+            echo 'error al eliminar datos en tabla temporal'; //error eliminar registros de tabla temp
         }
-        
     } else {
         echo 'error al actualizar estado a_envio a paking'; //error al actualizar estado a_envio a paking
     }
