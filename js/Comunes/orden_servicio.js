@@ -1892,7 +1892,7 @@ function enviaDatosVenta(venta, id_suc, observ) {
     metodo = function (datos) {
         if (datos == 1) {
 //            alert("CORRECTO");            
-            elimina_item_alist_venta(venta);
+//            elimina_item_alist_venta(venta);
             alertify.success('Venta N° ' + venta + ' Pocesada');
             cargaProdAlistamiento(id_suc_sel);
             //            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
