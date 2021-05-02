@@ -24,11 +24,11 @@
                 <p class="card-text">Programadas para recolección.</p>
             </div>
         </div>
-        <div class="card border-warning mb-3 enlace" id="cardPiking" elem="5" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
-            <div class="card-header"><b>EN PIKING</b><span class="ion-social-dropbox float-right" style="color: #ce8300; font-size: x-large"></span></div>
+        <div class="card border-warning mb-3 enlace" id="cardPicking" elem="5" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
+            <div class="card-header"><b>EN PICKING</b><span class="ion-social-dropbox float-right" style="color: #ce8300; font-size: x-large"></span></div>
             <div class="card-body">
-                <h4 class="card-title" style="color: #ce8300;" id="cantServPiking"></h4>
-                <p class="card-text">En proceso de piking</p>
+                <h4 class="card-title" style="color: #ce8300;" id="cantServPicking"></h4>
+                <p class="card-text">En proceso de picking</p>
             </div>
         </div>
     </div>
@@ -40,11 +40,11 @@
                 <p class="card-text">Asignadas a vehiculo.</p>
             </div>
         </div>
-        <div class="card border-info mb-3 enlace" id="cardPaking" elem="6" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
-            <div class="card-header"><b>EN PAKING</b><span class="ion-cube float-right" style="color: #2c77ff; font-size: x-large"></span></div>
+        <div class="card border-info mb-3 enlace" id="cardPacking" elem="6" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
+            <div class="card-header"><b>EN PACKING</b><span class="ion-cube float-right" style="color: #2c77ff; font-size: x-large"></span></div>
             <div class="card-body">
-                <h4 class="card-title" style="color: #2c77ff;" id="cantServPaking"></h4>
-                <p class="card-text">En proceso de paking</p>
+                <h4 class="card-title" style="color: #2c77ff;" id="cantServPacking"></h4>
+                <p class="card-text">En proceso de packing</p>
             </div>
         </div>
     </div>

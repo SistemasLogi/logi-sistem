@@ -1063,12 +1063,12 @@ function cargaProdAlistamiento(id_suc) {
                 if (i === 0) {
                     //******primera fila****//
                     datosAlist += '<div class="bloque" id="blqPagina' + pag + '"><h4>HOJA ' + pag + '</h4>';
-                    datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                    datosAlist += '<div id="sec' + tmp.t_sal_guia_num + '" secguia="' + tmp.t_sal_guia_num + '" class="est_section"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                     <div class="row">\n\
                         <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                         <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                         <div class="form-group col-2">\n\
-                          <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
+                          <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" nameinp="' + tmp.t_sal_guia_num + '" placeholder="Cod. Produto">\n\
                         </div>\n\
                         <div class="form-group col-2">\n\
                           <div class="custom-control custom-switch">\n\
@@ -1197,12 +1197,12 @@ function cargaProdAlistamiento(id_suc) {
                                 datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
-                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                            datosAlist += '<div id="sec' + tmp.t_sal_guia_num + '" secguia="' + tmp.t_sal_guia_num + '" class="est_section"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
                             <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                                 <div class="form-group col-2">\n\
-                                  <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
+                                  <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" nameinp="' + tmp.t_sal_guia_num + '" placeholder="Cod. Produto">\n\
                                 </div>\n\
                                 <div class="form-group col-2">\n\
                                   <div class="custom-control custom-switch">\n\
@@ -1308,12 +1308,12 @@ function cargaProdAlistamiento(id_suc) {
                                 datosAlist += '<div class="bloque" id="blqPagina' + pag + '" style="display: none;"><h4>HOJA ' + pag + '</h4>';
                             }
 
-                            datosAlist += '<div id="sec' + tmp.t_sal_num_venta + '"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
+                            datosAlist += '<div id="sec' + tmp.t_sal_guia_num + '" secguia="' + tmp.t_sal_guia_num + '" class="est_section"><div class="alert alert-dismissible alert-' + tema + ' col-lg-12 border-warning estblq" id="blqAlist' + blq + '" style="border-radius: 0.5rem;">\n\
                                 <div class="row">\n\
                             <div class="col-4"><strong>N° VENTA: <b class="text-primary">' + tmp.t_sal_num_venta + ' </b></strong></div>\n\
                                 <div class="col-4"><strong>N° GUIA: <b class="text-success">' + tmp.t_sal_guia_num + ' </b></strong></div>\n\
                                 <div class="form-group col-2">\n\
-                                   <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" placeholder="Cod. Produto">\n\
+                                   <input type="text" class="form-control form-control-sm inpBlq" blinp="' + blq + '" id="inpCodProd' + blq + '" nameinp="' + tmp.t_sal_guia_num + '" placeholder="Cod. Produto">\n\
                                 </div>\n\
                                 <div class="form-group col-2">\n\
                                   <div class="custom-control custom-switch">\n\
@@ -1405,6 +1405,10 @@ function cargaProdAlistamiento(id_suc) {
             can_vent_als = blq;
 //            alert(can_vent_als);
 
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#formBuscarAlistProceso").offset().top
+            }, 300);
+
             clickPaginasAlist();
             clickPaginasAlistPrev();
             clickPaginasAlistNext();
@@ -1431,15 +1435,35 @@ function cargaProdAlistamiento(id_suc) {
             $("#inputGuiaNum").keyup(function (e) {
                 if (e.keyCode == 13) {
                     filtro_guia = $('#inputGuiaNum').val();
+                    if (filtro_guia.substr(0, 1) == "{") {
+                        dato = $.parseJSON(filtro_guia);
+                        filtro_guia = dato.id;
+                    }
                     //                    alert(filtro_in);
                     if (filtro_guia === "" || filtro_guia === null) {
                         //                        alert("No ha seleccionado un filtro valido");
                         $("#inputGuiaNum").focus();
-                        //                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
+                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
                     } else {
-                        alst_guia = true;
+//                        alst_guia = true;
                         item_act = true;
-                        cargaProdAlistamiento(id_suc_sel);
+                        venta_selected = $("#sec" + filtro_guia);
+//                        $("#sec" + filtro_guia).removeClass("est_section");
+                        if ($("#sec" + filtro_guia).length) {
+                            $(".est_section").hide();
+                            $("#sec" + filtro_guia).show();
+                            $("input[nameinp=" + filtro_guia + "]").focus();
+                            $('#inputGuiaNum').val("");
+                            //En esta linea me redirije al formulario con una velocodad establecida
+                            $([document.documentElement, document.body]).animate({
+                                scrollTop: $("#sec" + filtro_guia).offset().top
+                            }, 300);
+                        } else {
+                            alertify.alert('El numero de guia no se encuentra en este proceso o ya ha sido procesada').setHeader('<em> Cuidado! </em> ');
+                            $('#inputGuiaNum').val("");
+                        }
+
+//                        cargaProdAlistamiento(id_suc_sel);
                     }
                 }
             });
@@ -1951,7 +1975,7 @@ function comprobar_os_creada(venta) {
 
             can_vent_als--;
             if (can_vent_als < 1) {
-                insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+                insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS packing
                 cerrar_sesiones_os();
             }
         } else if (datos == 3) {
@@ -1960,7 +1984,7 @@ function comprobar_os_creada(venta) {
             can_vent_als--;
 
             if (can_vent_als < 1) {
-                insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+                insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS packing
                 cerrar_sesiones_os();
             }
         } else {
@@ -2001,7 +2025,7 @@ function ventasNoSelected() {
         can_vent_als--;
 
         if (can_vent_als < 1) {
-            insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS paking
+            insertar_est_x_os_alist(orden_serv, 6);//actualizacion de estado OS packing
         }
     });
 }

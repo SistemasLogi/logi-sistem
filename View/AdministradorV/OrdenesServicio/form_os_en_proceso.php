@@ -15,7 +15,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <button type="submit" class="btn btn-primary mt-4" id="btnBuscarSucAlist" name="btnBuscarSucAlist">BUSACAR</button>
+                                <button type="submit" class="btn btn-primary mt-4" id="btnBuscarSucAlist" name="btnBuscarSucAlist">BUSCAR</button>
                             </div>
                         </div>                        
                     </form>

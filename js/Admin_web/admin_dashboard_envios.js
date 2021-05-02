@@ -151,24 +151,24 @@ function control_dash_envios_reset() {
     $("#cantEnvBodegaDest").html("");
 }
 
-var alst_piking;
-var alst_paking;
+var alst_picking;
+var alst_packing;
 /**
  * Metodo que retorna la cantidad de envios segun su estado a la vista de los paneles
  * alistamiento
  * @returns {undefined}
  */
 function control_dash_alist() {
-    $("#cantEnvPiking").html(alst_piking);
-    $("#cantEnvPaking").html(alst_paking);
+    $("#cantEnvPicking").html(alst_picking);
+    $("#cantEnvPacking").html(alst_packing);
 }
 /**
  * Metodo que resetea los paneles alistamiento
  * @returns {undefined}
  */
 function control_dash_alist_reset() {
-    $("#cantEnvPiking").html("");
-    $("#cantEnvPaking").html("");
+    $("#cantEnvPicking").html("");
+    $("#cantEnvPacking").html("");
 }
 
 /**
@@ -230,8 +230,8 @@ function consulta_dashboard_alist_card() {
     request = "Controller/AdminC/AdministrarEnvios/consulta_ult_est_aenvio_controller.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
-        alst_piking = 0;
-        alst_paking = 0;
+        alst_picking = 0;
+        alst_packing = 0;
         arregloEstAlsCard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstAlsCard !== 0) {
@@ -239,9 +239,9 @@ function consulta_dashboard_alist_card() {
             for (i = 0; i < arregloEstAlsCard.length; i++) {
                 tmp = arregloEstAlsCard[i];
                 if (tmp.esae_id == 1) {
-                    alst_piking++;
+                    alst_picking++;
                 } else if (tmp.esae_id == 2) {
-                    alst_paking++;
+                    alst_packing++;
                 }
             }
             control_dash_alist();
@@ -1108,8 +1108,8 @@ function consulta_dashboard_alist_card_cli(cliente_id, sucursal_id) {
     metodo = function (datos) {
 
         control_dash_alist_reset();
-        alst_piking = 0;
-        alst_paking = 0;
+        alst_picking = 0;
+        alst_packing = 0;
         arregloEstAlsCard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstAlsCard !== 0) {
@@ -1117,9 +1117,9 @@ function consulta_dashboard_alist_card_cli(cliente_id, sucursal_id) {
             for (i = 0; i < arregloEstAlsCard.length; i++) {
                 tmp = arregloEstAlsCard[i];
                 if (tmp.esae_id == 1) {
-                    alst_piking++;
+                    alst_picking++;
                 } else if (tmp.esae_id == 2) {
-                    alst_paking++;
+                    alst_packing++;
                 }
             }
             control_dash_alist();

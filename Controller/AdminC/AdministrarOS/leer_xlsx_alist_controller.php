@@ -47,7 +47,7 @@ if ($_POST) {
                 $os_id = json_decode($json_id_os);
 
                 $es_x_serv_vo->setOrden_id($os_id[0]->os_id);
-                $es_x_serv_vo->setEstado_id(5); //predefinido 5 piking            
+                $es_x_serv_vo->setEstado_id(5); //predefinido 5 picking            
                 $es_x_serv_vo->setFecha_hora($_SESSION["fecha_adm_alst"]);
                 $es_x_serv_vo->setNovedad("");
                 $es_x_serv_vo->setTd_mensajero(1); //cc usuario global LOGI

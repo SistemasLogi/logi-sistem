@@ -2589,8 +2589,8 @@ var serv_program;
 var serv_asignado;
 var serv_exitoso;
 var serv_novedad;
-var serv_piking;
-var serv_paking;
+var serv_picking;
+var serv_packing;
 var arregloEstOS;
 var arregloEstOScard;
 var tablaEst_x_OS;
@@ -2608,8 +2608,8 @@ function consulta_dashboard_serv() {
         serv_asignado = 0;
         serv_exitoso = 0;
         serv_novedad = 0;
-        serv_piking = 0;
-        serv_paking = 0;
+        serv_picking = 0;
+        serv_packing = 0;
         arregloEstOS = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstOS !== 0) {
@@ -2698,8 +2698,8 @@ function control_dash_serv() {
     $("#cantServConNov").html(serv_novedad);
     $("#cantServProgram").html(serv_program);
     $("#cantServAsignados").html(serv_asignado);
-    $("#cantServPiking").html(serv_piking);
-    $("#cantServPaking").html(serv_paking);
+    $("#cantServPicking").html(serv_picking);
+    $("#cantServPacking").html(serv_packing);
 }
 
 /**
@@ -2904,7 +2904,7 @@ function form_act_est_os(array, position) {
                 <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p></div>');
     } else if (tm.es_id == 5) {
 
-        $('#ModalEstOSTitle').html('PIKING');
+        $('#ModalEstOSTitle').html('PICKING');
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-warning">\n\
                  <form id="formEstOS">\n\
                 <fieldset>\n\
@@ -2938,7 +2938,7 @@ function form_act_est_os(array, position) {
             </form></div>');
     } else if (tm.es_id == 6) {
 
-        $('#ModalEstOSTitle').html('PAKING');
+        $('#ModalEstOSTitle').html('PACKING');
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-info">\n\
                  <form id="formEstOS">\n\
                 <fieldset>\n\
@@ -3098,8 +3098,8 @@ function consulta_dashboard_serv_card() {
         serv_asignado = 0;
         serv_exitoso = 0;
         serv_novedad = 0;
-        serv_piking = 0;
-        serv_paking = 0;
+        serv_picking = 0;
+        serv_packing = 0;
         arregloEstOScard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstOScard !== 0) {
@@ -3116,9 +3116,9 @@ function consulta_dashboard_serv_card() {
                 } else if (tmp.es_id == 4) {
                     serv_novedad++;
                 } else if (tmp.es_id == 5) {
-                    serv_piking++;
+                    serv_picking++;
                 } else if (tmp.es_id == 6) {
-                    serv_paking++;
+                    serv_packing++;
                 }
             }
 
@@ -3193,7 +3193,7 @@ function consulta_dashboard_serv_card() {
                     scrollTop: $("#tablaEstadoOS").offset().top
                 }, 900);
             });
-            $("#cardPiking").click(function () {
+            $("#cardPicking").click(function () {
                 $("#sectionDatOS").html("");
                 if (exist == true) {
                     consulta_dashb_serv_fil(5);
@@ -3202,7 +3202,7 @@ function consulta_dashboard_serv_card() {
                     tablaEst_x_OS
                             .column(3)
                             .search('')
-                            .search('PIKING')
+                            .search('PICKING')
                             .draw();
                 }
 
@@ -3211,7 +3211,7 @@ function consulta_dashboard_serv_card() {
                     scrollTop: $("#tablaEstadoOS").offset().top
                 }, 900);
             });
-            $("#cardPaking").click(function () {
+            $("#cardPacking").click(function () {
                 $("#sectionDatOS").html("");
                 if (exist == true) {
                     consulta_dashb_serv_fil(6);
@@ -3220,7 +3220,7 @@ function consulta_dashboard_serv_card() {
                     tablaEst_x_OS
                             .column(3)
                             .search('')
-                            .search('PAKING')
+                            .search('PACKING')
                             .draw();
                 }
 
@@ -5699,7 +5699,7 @@ function tablaGeneralEmpleadosActivos() {
 var arreglo_hist_est_aenv;
 /**
  * Metodo que carga a la vista la tabla general de los envios pendientes por entregar a operador
- * en estado 2 paking 
+ * en estado 2 packing 
  * @returns {tabla_productos_suc}
  */
 function tabla_entrega_op() {

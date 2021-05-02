@@ -187,7 +187,7 @@ if ($_POST) {
             echo 'error al eliminar datos en tabla temporal'; //error eliminar registros de tabla temp
         }
     } else {
-        echo 'error al actualizar estado a_envio a paking'; //error al actualizar estado a_envio a paking
+        echo 'error al actualizar estado a_envio a packing'; //error al actualizar estado a_envio a paking
     }
 } else {
     header("location../");

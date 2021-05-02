@@ -71,8 +71,8 @@ function datos_orden_serv_seg() {
                 $("#icon_x_proceso").html("<td><span class='ion-social-dropbox' style='font-size: xxx-large; color: #d68800;'></span></td>\n\
                         <td class='text-center'><span class='ion-cube' style='font-size: xxx-large; color: #0062dc;'></span></td>\n\
                         <td><span class='ion-android-car float-right' style='font-size: xxx-large; color: #007930;'></span></td>");
-                $("#titleProcess").html("<th scope='col'>PIKING</th>\n\
-                        <th class='text-center' scope='col'>PAKING</th>\n\
+                $("#titleProcess").html("<th scope='col'>PICKING</th>\n\
+                        <th class='text-center' scope='col'>PACKING</th>\n\
                         <th class='text-right' scope='col'>ENTREGADO OPERADOR</th>");
             }
 

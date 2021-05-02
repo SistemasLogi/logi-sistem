@@ -44,7 +44,7 @@ if ($_POST) {
             $es_x_serv_vo->setNum_doc_mensajero(9874123652); //num predefinido usuario global LOGI
 
             if ($os_id[0]->ts_id == 4 || $os_id[0]->ts_id == 5) {
-                $es_x_serv_vo->setEstado_id(5); //predefinido  5 piking
+                $es_x_serv_vo->setEstado_id(5); //predefinido  5 picking
                 $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
             } else {
                 $es_x_serv_vo->setEstado_id(1); //predefinido 1 programada
