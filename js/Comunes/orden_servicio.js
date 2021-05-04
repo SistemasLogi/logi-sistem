@@ -1009,23 +1009,24 @@ var item_act = false;
  * @returns {cargaProdAlistamiento}
  */
 function cargaProdAlistamiento(id_suc) {
-    if (alst_guia == true) {
-        if (filtro_guia.substr(0, 1) == "{") {
-            dato = $.parseJSON(filtro_guia);
-            filtro_guia = dato.id;
-        }
-        request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_st_guia_controller.php";
-        cadena = {"inp_id_sucursal": id_suc, "inp_num_guia": filtro_guia};
-        alst_guia = false;
-        filtro_guia = "";
-    } else {
-        request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_stock_controller.php";
-        cadena = {"inp_id_sucursal": id_suc};
-    }
+//    if (alst_guia == true) {
+//        if (filtro_guia.substr(0, 1) == "{") {
+//            dato = $.parseJSON(filtro_guia);
+//            filtro_guia = dato.id;
+//        }
+//        request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_st_guia_controller.php";
+//        cadena = {"inp_id_sucursal": id_suc, "inp_num_guia": filtro_guia};
+//        alst_guia = false;
+//        filtro_guia = "";
+//    } else {
+    $("#bloques").html('<img src="img/animaciones/loader.gif" alt=""/>');
+    request = "Controller/AdminC/AdministrarOS/consulta_alist_prod_stock_controller.php";
+    cadena = {"inp_id_sucursal": id_suc};
+//    }
 
     metodo = function (datos) {
         //        $("#blqPagina1").html(datos);
-
+//        alert(datos);
         arregloAlista = $.parseJSON(datos);
 
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
@@ -1034,6 +1035,7 @@ function cargaProdAlistamiento(id_suc) {
             venta = 0;
             blq = 0;
             pag = 1;
+//            icon = "";
             datosAlist = '<div class="form-group row" id="formBuscaGuiaOp">\n\
                     <label for="inputGuiaNum" class="col-sm-1 col-form-label">Buscar</label>\n\
                     <div class="col-sm-3">\n\
@@ -1053,6 +1055,7 @@ function cargaProdAlistamiento(id_suc) {
                     checked = '';
                 } else if (tmp.t_sal_cantidad >= 2) {
                     tema = 'info';
+                    icon = '<span class="ion-android-cloud-done text-success"></span>';
                     checked = 'checked = ""';
                 } else {
                     tema = 'warning';
@@ -1439,6 +1442,14 @@ function cargaProdAlistamiento(id_suc) {
                         dato = $.parseJSON(filtro_guia);
                         filtro_guia = dato.id;
                     }
+                    if (filtro_guia.substr(0, 1) == "0") {
+                        filtro_guia = filtro_guia.substr(1);
+                        if (filtro_guia.length > 20) {
+
+                            filtro_guia = filtro_guia.substr(10, 12);
+//                            alert(filtro_guia);
+                        }
+                    }
                     //                    alert(filtro_in);
                     if (filtro_guia === "" || filtro_guia === null) {
                         //                        alert("No ha seleccionado un filtro valido");
@@ -1451,6 +1462,7 @@ function cargaProdAlistamiento(id_suc) {
 //                        $("#sec" + filtro_guia).removeClass("est_section");
                         if ($("#sec" + filtro_guia).length) {
                             $(".est_section").hide();
+                            $(".bloque").show();
                             $("#sec" + filtro_guia).show();
                             $("input[nameinp=" + filtro_guia + "]").focus();
                             $('#inputGuiaNum').val("");
@@ -1918,7 +1930,7 @@ function enviaDatosVenta(venta, id_suc, observ) {
 //            alert("CORRECTO");            
 //            elimina_item_alist_venta(venta);
             alertify.success('Venta N° ' + venta + ' Pocesada');
-            cargaProdAlistamiento(id_suc_sel);
+            cargaProdAlistamiento(id_suc);
             //            $("#blqProcesadas").append('<div class="alert alert-dismissible alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>VENTA N° ' + venta + ' PROCESADA</strong></div>');
         } else {
             alert(datos);

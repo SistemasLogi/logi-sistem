@@ -183,6 +183,9 @@ if ($_POST) {
         }
         if ($product_dao->elimProdTempVent($num_venta) == 1) {
             echo 1; //orrectamente ejeutado 
+
+//            $stock_dao = new Stock_DAO();
+//            echo json_encode($stock_dao->consultaAlistaStock($fecha_hora, $num_sucursal));
         } else {
             echo 'error al eliminar datos en tabla temporal'; //error eliminar registros de tabla temp
         }

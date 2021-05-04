@@ -3618,7 +3618,7 @@ function validarBusSucAlistProc() {
     });
 }
 
-var alst_guia = false;
+//var alst_guia = false;
 var filtro_guia;
 /**
  * Metodo que trae a la vista el contenido de botones de actualizacion de estados os
