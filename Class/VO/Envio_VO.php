@@ -33,6 +33,7 @@ class Envio_VO {
     private $novedad;
     private $contenido;
     private $valor_declarado;
+    private $num_venta;
 
     function getValor_declarado() {
         return $this->valor_declarado;
@@ -118,6 +119,10 @@ class Envio_VO {
         return $this->contenido;
     }
 
+    function getNum_venta() {
+        return $this->num_venta;
+    }
+
     function setId_envio($id_envio) {
         $this->id_envio = $id_envio;
     }
@@ -184,6 +189,10 @@ class Envio_VO {
 
     function setContenido($contenido) {
         $this->contenido = $contenido;
+    }
+
+    function setNum_venta($num_venta) {
+        $this->num_venta = $num_venta;
     }
 
 }

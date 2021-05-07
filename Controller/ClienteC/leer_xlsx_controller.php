@@ -30,6 +30,8 @@ if (isset($_SESSION["adminlogi"])) {
 
             for ($i = 2; $i <= count($sheetData); $i++) {
 
+                $obj_env_vo->setNum_venta(0);
+
                 $obj_env_vo->setNum_guia($sheetData[$i]['A']);
                 $obj_env_vo->setNombre(str_replace("'", '\\\'', $sheetData[$i]['B']));
                 $obj_env_vo->setNum_orden_serv($_SESSION["os_creada"]);
@@ -91,7 +93,8 @@ if (isset($_SESSION["adminlogi"])) {
                             . "" . $obj_env_vo->getAncho_cm() . "," . $obj_env_vo->getLargo_cm() . ",'" . $obj_env_vo->getTrayecto() . "',"
                             . "'" . $obj_env_vo->getNombre() . "','" . $obj_env_vo->getDireccion() . "','" . $obj_env_vo->getTelefono() . "',"
                             . "'" . $obj_env_vo->getCiudad_dest() . "','" . $obj_env_vo->getDepto_dest() . "',"
-                            . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ")";
+                            . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ","
+                            . "" . $obj_env_vo->getNum_venta() . ")";
 
                     $reg_buenos++;
                 }
@@ -201,6 +204,7 @@ if (isset($_SESSION["adminlogi"])) {
                 $obj_env_vo->setContenido($sheetData[$i]['G']);
                 $obj_env_vo->setNovedad($sheetData[$i]['H']);
                 $obj_env_vo->setValor_declarado(0);
+                $obj_env_vo->setNum_venta(0);
 
                 if (empty($obj_env_vo->getNombre()) || empty($obj_env_vo->getDireccion()) || empty($obj_env_vo->getCiudad_dest()) || empty($obj_env_vo->getDepto_dest())) {
                     if (empty($obj_env_vo->getNombre())) {
@@ -223,7 +227,8 @@ if (isset($_SESSION["adminlogi"])) {
                             . "" . $obj_env_vo->getAncho_cm() . "," . $obj_env_vo->getLargo_cm() . ",'" . $obj_env_vo->getTrayecto() . "',"
                             . "'" . $obj_env_vo->getNombre() . "','" . $obj_env_vo->getDireccion() . "','" . $obj_env_vo->getTelefono() . "',"
                             . "'" . $obj_env_vo->getCiudad_dest() . "','" . $obj_env_vo->getDepto_dest() . "',"
-                            . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ")";
+                            . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ","
+                            . "" . $obj_env_vo->getNum_venta() . ")";
 
                     $reg_buenos++;
                 }
