@@ -34,6 +34,7 @@ class Envio_VO {
     private $contenido;
     private $valor_declarado;
     private $num_venta;
+    private $recaudo;
 
     function getValor_declarado() {
         return $this->valor_declarado;
@@ -123,6 +124,10 @@ class Envio_VO {
         return $this->num_venta;
     }
 
+    function getRecaudo() {
+        return $this->recaudo;
+    }
+
     function setId_envio($id_envio) {
         $this->id_envio = $id_envio;
     }
@@ -193,6 +198,10 @@ class Envio_VO {
 
     function setNum_venta($num_venta) {
         $this->num_venta = $num_venta;
+    }
+
+    function setRecaudo($recaudo) {
+        $this->recaudo = $recaudo;
     }
 
 }

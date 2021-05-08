@@ -36,6 +36,7 @@ if ($_POST) {
     $env_vo->setNovedad($_POST["inputObserv"]);
     $env_vo->setContenido($_POST["inputContenido"]);
     $env_vo->setValor_declarado(0);
+    $env_vo->setNum_venta(0);
 
     $id_os_cliente = $_POST["inputNumOrdServ"];
 
@@ -61,6 +62,7 @@ if ($_POST) {
                 $env_vo->setNovedad($_POST["inputObserv$ind"]);
                 $env_vo->setContenido($_POST["inputContenido$ind"]);
                 $env_vo->setValor_declarado(0);
+                $env_vo->setNum_venta(0);
 
                 $env_dao->insertarEnvio($env_vo);
             }

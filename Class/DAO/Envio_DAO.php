@@ -45,7 +45,7 @@ class Envio_DAO {
                 . "'" . $obj_env_vo->getNombre() . "','" . $obj_env_vo->getDireccion() . "','" . $obj_env_vo->getTelefono() . "',"
                 . "'" . $obj_env_vo->getCiudad_dest() . "','" . $obj_env_vo->getDepto_dest() . "',"
                 . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ","
-                . "" . $obj_env_vo->getNum_venta() . ")";
+                . "" . $obj_env_vo->getNum_venta() . ", " . $obj_env_vo->getRecaudo() . ")";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);
@@ -61,7 +61,7 @@ class Envio_DAO {
         $sql = "INSERT INTO envio "
                 . "SELECT null AS id, t_sal_guia_num, " . $num_os . " AS os, t_sal_cant_env, t_sal_peso, t_sal_alto, t_sal_ancho, "
                 . "t_sal_largo, 'URBANO' AS trayecto, t_sal_nom_dest, t_sal_direc_dest, t_sal_tel_destino, "
-                . "t_sal_ciudad, t_sal_depto, t_sal_observ_env, t_sal_contiene, t_sal_val_decl, t_sal_num_venta "
+                . "t_sal_ciudad, t_sal_depto, t_sal_observ_env, t_sal_contiene, t_sal_val_decl, t_sal_num_venta, t_sal_recaudo_en "
                 . "FROM salidas_prod_temp  WHERE t_sal_num_venta = " . $num_venta . " GROUP BY t_sal_num_venta;";
         $BD = new MySQL();
 //        return $sql;

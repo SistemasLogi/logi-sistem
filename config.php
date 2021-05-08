@@ -38,6 +38,7 @@ require $r_r . 'Class/VO/AEnvio_VO.php';
 require $r_r . 'Class/VO/Est_x_aenv_VO.php';
 require $r_r . 'Class/VO/Stock_VO.php';
 require $r_r . 'Class/VO/Cargo_VO.php';
+require $r_r . 'Class/VO/Tipo_pago_VO.php';
 
 /* * Clases de tipo DAO* */
 require $r_r . 'Class/DAO/Cliente_DAO.php';
@@ -62,11 +63,12 @@ require $r_r . 'Class/DAO/AEnvio_DAO.php';
 require $r_r . 'Class/DAO/Est_x_aenv_DAO.php';
 require $r_r . 'Class/DAO/Stock_DAO.php';
 require $r_r . 'Class/DAO/Cargo_DAO.php';
+require $r_r . 'Class/DAO/Tipo_pago_DAO.php';
 
 /* * Clase PDF * */
 require $r_r . 'Class/PDF/fpdf/fpdf.php';
-/**Clase Email**/
+/* * Clase Email* */
 require $r_r . 'Class/EMAIL/Envio_MAIL.php';
-/**Clase QR**/
+/* * Clase QR* */
 require $r_r . 'Class/QR/phpqrcode/qrlib.php';
 ?>

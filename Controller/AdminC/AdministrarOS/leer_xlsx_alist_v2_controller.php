@@ -45,10 +45,10 @@ if ($_POST) {
                         . "'" . $dato_prod_dec[0]->pro_cod . "', '" . $sheetData[$i]['A'] . "', "
                         . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
                         . "'" . $sheetData[$i]['H'] . "', '" . $sheetData[$i]['I'] . "', '" . $sheetData[$i]['J'] . "', "
-                        . "" . $sheetData[$i]['F'] . ", " . $sheetData[$i]['V'] . ", " . $sheetData[$i]['K'] . ", "
+                        . "" . $sheetData[$i]['F'] . ", " . $sheetData[$i]['W'] . ", " . $sheetData[$i]['K'] . ", "
                         . "" . $sheetData[$i]['L'] . ", " . $sheetData[$i]['M'] . ", " . $sheetData[$i]['N'] . ", "
                         . "" . $sheetData[$i]['O'] . ", '" . $sheetData[$i]['P'] . "', '" . $sheetData[$i]['Q'] . "', "
-                        . "'" . $sheetData[$i]['R'] . "', " . $sheetData[$i]['S'] . ", '" . $sheetData[$i]['T'] . "'),";
+                        . "'" . $sheetData[$i]['R'] . "', " . $sheetData[$i]['S'] . ", '" . $sheetData[$i]['T'] . "', " . $sheetData[$i]['U'] . "),";
 
                 if ($guia_num == $sheetData[$i]['A']) {
                     
@@ -58,7 +58,7 @@ if ($_POST) {
                     $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
                     $aenvio_vo->setAenv_venta($sheetData[$i]['B']);
                     $aenvio_vo->setAenv_os_id($_SESSION["os_creada"]);
-                    $aenvio_vo->setAenv_operador_id($sheetData[$i]['U']);
+                    $aenvio_vo->setAenv_operador_id($sheetData[$i]['V']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
 
                     $aenvio_dao->insertarAlistEnvio($aenvio_vo);
@@ -97,7 +97,7 @@ if ($_POST) {
                 $prod_dao->elimProdTempVent($no_venta[$i]);
                 $novedad_agot = $no_sku[$i] . " NO EXISTE EN INVENTARIO";
                 $obj_est_x_aenvio_dao->insertarEstado_x_AEnvio_Venta(4, $fecha_hora_now, $novedad_agot, $no_venta[$i], $_SESSION["os_creada"]);
-                
+
                 echo '<tr class="table-danger"><td>' . $no_guia[$i] . '</td>';
                 echo '<td>' . $no_venta[$i] . '</td>';
                 echo '<td>' . $no_sku[$i] . '</td>';

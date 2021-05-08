@@ -29,6 +29,7 @@ function formulario_recolec() {
             elimina_formularios_envio();
         });
         combo_ciudad("#selectCiudDestino");
+        combo_tipo_pago("#selectTipoPago");
         seleccionCargaEnvios();
         $("#blqSelectModoCarga").hide();
 
@@ -53,6 +54,25 @@ function combo_ciudad(select) {
         for (i = 0; i < arreglo.length; i++) {
             temp = arreglo[i];
             datouscombo += '<option value="' + temp.ciu_id + '">' + temp.ciu_nombre + "</option>";
+        }
+        $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que llena el combo de seleccion tipo pago
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_tipo_pago(select) {
+    request = "Controller/AdminC/AdministrarBD/consulta_tipo_pago_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.tpa_id + '">' + temp.tpa_tipo + "</option>";
         }
         $(select).html(datouscombo);
     };
@@ -271,6 +291,7 @@ function formulario_carga_envios() {
             elimina_formularios_envio();
         });
         combo_ciudad("#selectCiudDestino");
+        combo_tipo_pago("#selectTipoPago");
         seleccionCargaEnvios();
 
         $("#btnGMasEnvDoc").click(function () {
@@ -447,7 +468,8 @@ function formularios_envio() {
         $('#f' + contador + '').html('<strong class="mr-auto">Sección ' + parseInt(contador + 1) + '</strong><div class="toast show border-primary" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
                             <div class="toast-body row">\n\
                             <div class="form-group form-group-sm col-lg-4">\n\
-                                <label for="inputNombreDestino' + contador + '">Nombre destinatario</label>\n\                                 <input type="text" class="form-control form-control-sm" id="inputNombreDestino' + contador + '" name="inputNombreDestino' + contador + '" placeholder="Nombre Destinatario" required>\n\
+                                <label for="inputNombreDestino' + contador + '">Nombre destinatario</label>\n\
+                                <input type="text" class="form-control form-control-sm" id="inputNombreDestino' + contador + '" name="inputNombreDestino' + contador + '" placeholder="Nombre Destinatario" required>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-4">\n\
                                 <label for="inputDirDestino' + contador + '">Dirección destino</label>\n\
@@ -458,7 +480,8 @@ function formularios_envio() {
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="selectCiudDestino' + contador + '">Ciudad Destino</label>\n\
-                                <select class="form-control form-control-sm" id="selectCiudDestino' + contador + '" name="selectCiudDestino' + contador + '">\n\                                 </select>\n\
+                                <select class="form-control form-control-sm" id="selectCiudDestino' + contador + '" name="selectCiudDestino' + contador + '">\n\
+                                </select>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="inputCantidadEnv' + contador + '">Cantidad</label>\n\
@@ -484,31 +507,66 @@ function formularios_envio() {
                                 <label for="inputLargo' + contador + '">Largo cm</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputLargo' + contador + '" name="inputLargo' + contador + '" placeholder="Largo cm">\n\
                             </div>\n\
-                            <div class="form-group form-group-sm col-lg-4" id="blqContenido' + contador + '">\n\
+                            <div class="form-group form-group-sm col-lg-6" id="blqContenido' + contador + '">\n\
                                 <label for="inputContenido' + contador + '">Dice Contener</label>\n\
                                 <textarea class="form-control form-control-sm" id="inputContenido' + contador + '" name="inputContenido' + contador + '" rows="1"></textarea>\n\
                             </div>\n\
-                           <div class="form-group form-group-sm col-lg-3" id="blqValorDecl' + contador + '">\n\
+                            <div class="form-group form-group-sm col-lg-6" id="blqObserv' + contador + '">\n\
+                                <label for="inputObserv' + contador + '">Observaciones/Complemento</label>\n\
+                                <textarea class="form-control form-control-sm" id="inputObserv' + contador + '" name="inputObserv' + contador + '" rows="1"></textarea>\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-3" id="blqRecaudo' + contador + '">\n\
+                                <label class="control-label" for="inputRecaudo' + contador + '">Recaudo</label>\n\
+                                <div class="form-group">\n\
+                                    <div class="input-group mb-3 input-group-sm">\n\
+                                        <div class="input-group-prepend">\n\
+                                            <span class="input-group-text">$</span>\n\
+                                        </div>\n\
+                                        <input type="number" class="form-control form-control-sm" id="inputRecaudo' + contador + '" name="inputRecaudo' + contador + '" aria-label="Amount (to the nearest dollar)">\n\
+                                        <div class="input-group-append">\n\
+                                            <span class="input-group-text">m/c</span>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-3">\n\
+                                <label for="selectTipoPago' + contador + '">Tipo Pago</label>\n\
+                                <select class="form-control form-control-sm" id="selectTipoPago' + contador + '" name="selectTipoPago' + contador + '">\n\
+                                </select>\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-3" id="blqValorTipoPago' + contador + '">\n\
+                                <label class="control-label" for="inputValorTipoPago' + contador + '">Valor Pago</label>\n\
+                                <div class="form-group">\n\
+                                    <div class="input-group mb-3 input-group-sm">\n\
+                                        <div class="input-group-prepend">\n\
+                                            <span class="input-group-text">$</span>\n\
+                                        </div>\n\
+                                        <input type="number" class="form-control form-control-sm" id="inputValorTipoPago' + contador + '" name="inputValorTipoPago' + contador + '" aria-label="Amount (to the nearest dollar)">\n\
+                                        <div class="input-group-append">\n\
+                                            <span class="input-group-text">m/c</span>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-3" id="blqValorDecl' + contador + '">\n\
                                 <label class="control-label" for="inputValorDecl' + contador + '">Valor Declarado</label>\n\
                                 <div class="form-group">\n\
                                     <div class="input-group mb-3 input-group-sm">\n\
                                         <div class="input-group-prepend">\n\
                                             <span class="input-group-text">$</span>\n\
-        </div>\n\
-        <input type="number" class="form-control form-control-sm" id="inputValorDecl' + contador + '" name="inputValorDecl' + contador + '" aria-label="Amount (to the nearest dollar)">\n\
-        <div class="input-group-append">\n\
-        <span class="input-group-text">m/c</span>\n\
-        </div>\n\
-        </div>\n\
-        </div>\n\
-    </div>\n\
- <div class="form-group form-group-sm col-lg-5" id="blqObserv' + contador + '">\n\
-<label for="inputObserv' + contador + '">Observaciones/Recaudo</label>\n\
-        <textarea class="form-control form-control-sm" id="inputObserv' + contador + '" name="inputObserv' + contador + '" rows="1"></textarea>\n\
-                            </div></div></div>');         //en esta parte se agrega el elemento div contenedor para otro formulario
+                                        </div>\n\
+                                        <input type="number" class="form-control form-control-sm" id="inputValorDecl' + contador + '" name="inputValorDecl' + contador + '" aria-label="Amount (to the nearest dollar)">\n\
+                                        <div class="input-group-append">\n\
+                                            <span class="input-group-text">m/c</span>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div></div></div>');
+        //en esta parte se agrega el elemento div contenedor para otro formulario
         $("#parentControl").append('<div id="f' + parseInt(contador + 1) + '" class="alert alert-dismissible alert-primary col-lg-12 border-light" style="border-radius: 0.5rem;"></div>');
         combo_tipo_envio('#selectTipEnvio' + contador + '');
         combo_ciudad('#selectCiudDestino' + contador + '');
+        combo_tipo_pago('#selectTipoPago' + contador + '');
         $("#inputContador").val(parseInt(contador));
         bloquearCampoNumEnvios(id_tipo_envio, '#inputCantidadEnv' + contador + '');
     } else {

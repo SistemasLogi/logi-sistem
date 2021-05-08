@@ -60,6 +60,7 @@ if ($_POST) {
     } else {
         $env_vo->setValor_declarado(0);
     }
+    $env_vo->setNum_venta(0);
     $id_os_cliente = $_POST["inputNumOrdServ"];
 
     if ($env_dao->insertarEnvio($env_vo) == 1) {
@@ -108,6 +109,7 @@ if ($_POST) {
                 } else {
                     $env_vo->setValor_declarado(0);
                 }
+                $env_vo->setNum_venta(0);
 
                 $env_dao->insertarEnvio($env_vo);
             }

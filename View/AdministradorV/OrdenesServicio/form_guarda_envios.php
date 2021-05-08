@@ -6,7 +6,7 @@
     <div class="toast-body row">
         <div class="alert alert-dismissible alert-primary col-lg-12">
             <div class="toast show border-warning col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
-                
+
                 <div id="divMensaje">
 
                 </div>
@@ -83,9 +83,47 @@
                                     <label for="inputLargo">Largo cm</label>
                                     <input type="number" class="form-control form-control-sm" id="inputLargo" name="inputLargo" placeholder="Largo cm">
                                 </div>
-                                <div class="form-group form-group-sm col-lg-4" id="blqContenido">
+                                <div class="form-group form-group-sm col-lg-6" id="blqContenido">
                                     <label for="inputContenido">Dice Contener</label>
                                     <textarea class="form-control form-control-sm" id="inputContenido" name="inputContenido" rows="1"></textarea>
+                                </div>                               
+                                <div class="form-group form-group-sm col-lg-6" id="blqObserv">
+                                    <label for="inputObserv">Observaciones/Complemento</label>
+                                    <textarea class="form-control form-control-sm" id="inputObserv" name="inputObserv" rows="1"></textarea>
+                                </div>
+                                <div class="form-group form-group-sm col-lg-3" id="blqRecaudo">
+                                    <label class="control-label" for="inputRecaudo">Recaudo</label>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3 input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" class="form-control form-control-sm" id="inputRecaudo" name="inputRecaudo" aria-label="Amount (to the nearest dollar)">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">m/c</span>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="form-group form-group-sm col-lg-3">
+                                    <label for="selectTipoPago">Tipo Pago</label>
+                                    <select class="form-control form-control-sm" id="selectTipoPago" name="selectTipoPago">
+
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-sm col-lg-3" id="blqValorTipoPago">
+                                    <label class="control-label" for="inputValorTipoPago">Valor Pago</label>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3 input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" class="form-control form-control-sm" id="inputValorTipoPago" name="inputValorTipoPago" aria-label="Amount (to the nearest dollar)">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">m/c</span>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </div>
                                 <div class="form-group form-group-sm col-lg-3" id="blqValorDecl">
                                     <label class="control-label" for="inputValorDecl">Valor Declarado</label>
@@ -100,11 +138,7 @@
                                             </div>
                                         </div>
                                     </div>  
-                                </div>
-                                <div class="form-group form-group-sm col-lg-5" id="blqObserv">
-                                    <label for="inputObserv">Observaciones/Recaudo</label>
-                                    <textarea class="form-control form-control-sm" id="inputObserv" name="inputObserv" rows="1"></textarea>
-                                </div>
+                                </div>                                
                             </div>                    
                         </div>
                     </div>

@@ -85,10 +85,10 @@ if ($_POST) {
                                     . "'" . $dato_prod_dec[0]->pro_cod . "', '" . $sheetData[$i]['A'] . "', "
                                     . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
                                     . "'" . $sheetData[$i]['H'] . "', '" . $sheetData[$i]['I'] . "', '" . $sheetData[$i]['J'] . "', "
-                                    . "" . $sheetData[$i]['F'] . ", " . $sheetData[$i]['V'] . ", " . $sheetData[$i]['K'] . ", "
+                                    . "" . $sheetData[$i]['F'] . ", " . $sheetData[$i]['W'] . ", " . $sheetData[$i]['K'] . ", "
                                     . "" . $sheetData[$i]['L'] . ", " . $sheetData[$i]['M'] . ", " . $sheetData[$i]['N'] . ", "
                                     . "" . $sheetData[$i]['O'] . ", '" . $sheetData[$i]['P'] . "', '" . $sheetData[$i]['Q'] . "', "
-                                    . "'" . $sheetData[$i]['R'] . "', " . $sheetData[$i]['S'] . ", '" . $sheetData[$i]['T'] . "'),";
+                                    . "'" . $sheetData[$i]['R'] . "', " . $sheetData[$i]['S'] . ", '" . $sheetData[$i]['T'] . "', " . $sheetData[$i]['U'] . "),";
 
                             if ($guia_num == $sheetData[$i]['A']) {
                                 
@@ -98,7 +98,7 @@ if ($_POST) {
                                 $aenvio_vo->setAenv_guia($sheetData[$i]['A']);
                                 $aenvio_vo->setAenv_venta($sheetData[$i]['B']);
                                 $aenvio_vo->setAenv_os_id($os_id[0]->os_id);
-                                $aenvio_vo->setAenv_operador_id($sheetData[$i]['U']);
+                                $aenvio_vo->setAenv_operador_id($sheetData[$i]['V']);
                                 $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
 
                                 $aenvio_dao->insertarAlistEnvio($aenvio_vo);
