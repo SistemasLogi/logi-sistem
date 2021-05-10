@@ -72,7 +72,11 @@ if (isset($_SESSION["adminlogi"])) {
                     $obj_env_vo->setValor_declarado(0);
                 }
                 $obj_env_vo->setNovedad($sheetData[$i]['N']);
-                $obj_env_vo->setRecaudo($sheetData[$i]['O']);
+                if (is_numeric($sheetData[$i]['O'])) {
+                    $obj_env_vo->setRecaudo($sheetData[$i]['O']);
+                } else {
+                    $obj_env_vo->setRecaudo(0);
+                }
 
                 if (empty($obj_env_vo->getNombre()) || empty($obj_env_vo->getDireccion()) || empty($obj_env_vo->getCiudad_dest()) || empty($obj_env_vo->getDepto_dest())) {
                     if (empty($obj_env_vo->getNombre())) {

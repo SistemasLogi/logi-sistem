@@ -35,6 +35,8 @@ class Envio_VO {
     private $valor_declarado;
     private $num_venta;
     private $recaudo;
+    private $tipo_pag_id;
+    private $valor_pago;
 
     function getValor_declarado() {
         return $this->valor_declarado;
@@ -128,6 +130,14 @@ class Envio_VO {
         return $this->recaudo;
     }
 
+    function getTipo_pag_id() {
+        return $this->tipo_pag_id;
+    }
+
+    function getValor_pago() {
+        return $this->valor_pago;
+    }
+
     function setId_envio($id_envio) {
         $this->id_envio = $id_envio;
     }
@@ -202,6 +212,14 @@ class Envio_VO {
 
     function setRecaudo($recaudo) {
         $this->recaudo = $recaudo;
+    }
+
+    function setTipo_pag_id($tipo_pag_id) {
+        $this->tipo_pag_id = $tipo_pag_id;
+    }
+
+    function setValor_pago($valor_pago) {
+        $this->valor_pago = $valor_pago;
     }
 
 }
