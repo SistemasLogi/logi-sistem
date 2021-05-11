@@ -20,7 +20,9 @@ class AEnvio_DAO {
      */
     function insertarAlistEnvio($obj_aenv_vo) {
         $sql = "INSERT INTO a_envio VALUES (null,'" . $obj_aenv_vo->getAenv_guia() . "', " . $obj_aenv_vo->getAenv_venta() . ", " . $obj_aenv_vo->getAenv_os_id() . ", "
-                . "" . $obj_aenv_vo->getAenv_operador_id() . ", " . $obj_aenv_vo->getAenv_cantidad() . ");";
+                . "" . $obj_aenv_vo->getAenv_operador_id() . ", " . $obj_aenv_vo->getAenv_cantidad() . ", '" . $obj_aenv_vo->getAenv_nombre() . "', "
+                . "'" . $obj_aenv_vo->getAenv_direccion() . "', '" . $obj_aenv_vo->getAenv_telefono() . "', '" . $obj_aenv_vo->getAenv_ciudad() . "', "
+                . "'" . $obj_aenv_vo->getAenv_depto() . "', '" . $obj_aenv_vo->getAenv_observacion() . "', " . $obj_aenv_vo->getAenv_valor_flet() . ");";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);

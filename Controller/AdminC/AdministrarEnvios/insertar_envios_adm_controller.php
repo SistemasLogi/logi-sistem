@@ -61,6 +61,17 @@ if ($_POST) {
         $env_vo->setValor_declarado(0);
     }
     $env_vo->setNum_venta(0);
+    if (is_numeric($_POST["inputRecaudo"])) {
+        $env_vo->setRecaudo($_POST["inputRecaudo"]);
+    } else {
+        $env_vo->setRecaudo(0);
+    }
+    $env_vo->setTipo_pag_id($_POST["selectTipoPago"]);
+    if (is_numeric($_POST["inputValorTipoPago"])) {
+        $env_vo->setValor_pago($_POST["inputValorTipoPago"]);
+    } else {
+        $env_vo->setValor_pago(0);
+    }
     $id_os_cliente = $_POST["inputNumOrdServ"];
 
     if ($env_dao->insertarEnvio($env_vo) == 1) {
@@ -110,6 +121,17 @@ if ($_POST) {
                     $env_vo->setValor_declarado(0);
                 }
                 $env_vo->setNum_venta(0);
+                if (is_numeric($_POST["inputRecaudo$ind"])) {
+                    $env_vo->setRecaudo($_POST["inputRecaudo$ind"]);
+                } else {
+                    $env_vo->setRecaudo(0);
+                }
+                $env_vo->setTipo_pag_id($_POST["selectTipoPago$ind"]);
+                if (is_numeric($_POST["inputValorTipoPago$ind"])) {
+                    $env_vo->setValor_pago($_POST["inputValorTipoPago$ind"]);
+                } else {
+                    $env_vo->setValor_pago(0);
+                }
 
                 $env_dao->insertarEnvio($env_vo);
             }

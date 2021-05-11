@@ -21,6 +21,13 @@ class AEnvio_VO {
     private $aenv_os_id;
     private $aenv_operador_id;
     private $aenv_cantidad;
+    private $aenv_nombre;
+    private $aenv_direccion;
+    private $aenv_telefono;
+    private $aenv_ciudad;
+    private $aenv_depto;
+    private $aenv_observacion;
+    private $aenv_valor_flet;
 
     function getAenv_venta() {
         return $this->aenv_venta;
@@ -50,6 +57,34 @@ class AEnvio_VO {
         return $this->aenv_cantidad;
     }
 
+    function getAenv_nombre() {
+        return $this->aenv_nombre;
+    }
+
+    function getAenv_direccion() {
+        return $this->aenv_direccion;
+    }
+
+    function getAenv_telefono() {
+        return $this->aenv_telefono;
+    }
+
+    function getAenv_ciudad() {
+        return $this->aenv_ciudad;
+    }
+
+    function getAenv_depto() {
+        return $this->aenv_depto;
+    }
+
+    function getAenv_observacion() {
+        return $this->aenv_observacion;
+    }
+
+    function getAenv_valor_flet() {
+        return $this->aenv_valor_flet;
+    }
+
     function setAenv_id($aenv_id) {
         $this->aenv_id = $aenv_id;
     }
@@ -68,6 +103,34 @@ class AEnvio_VO {
 
     function setAenv_cantidad($aenv_cantidad) {
         $this->aenv_cantidad = $aenv_cantidad;
+    }
+
+    function setAenv_nombre($aenv_nombre) {
+        $this->aenv_nombre = $aenv_nombre;
+    }
+
+    function setAenv_direccion($aenv_direccion) {
+        $this->aenv_direccion = $aenv_direccion;
+    }
+
+    function setAenv_telefono($aenv_telefono) {
+        $this->aenv_telefono = $aenv_telefono;
+    }
+
+    function setAenv_ciudad($aenv_ciudad) {
+        $this->aenv_ciudad = $aenv_ciudad;
+    }
+
+    function setAenv_depto($aenv_depto) {
+        $this->aenv_depto = $aenv_depto;
+    }
+
+    function setAenv_observacion($aenv_observacion) {
+        $this->aenv_observacion = $aenv_observacion;
+    }
+
+    function setAenv_valor_flet($aenv_valor_flet) {
+        $this->aenv_valor_flet = $aenv_valor_flet;
     }
 
 }

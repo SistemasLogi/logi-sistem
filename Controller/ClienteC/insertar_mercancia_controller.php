@@ -37,6 +37,9 @@ if ($_POST) {
     $env_vo->setContenido($_POST["inputContenido"]);
     $env_vo->setValor_declarado($_POST["inputValorDecl"]);
     $env_vo->setNum_venta(0);
+    $env_vo->setRecaudo($_POST["inputRecaudo"]);
+    $env_vo->setTipo_pag_id($_POST["selectTipoPago"]);
+    $env_vo->setValor_pago($_POST["inputValorTipoPago"]);
 
     $id_os_cliente = $_POST["inputNumOrdServ"];
 
@@ -63,6 +66,9 @@ if ($_POST) {
                 $env_vo->setContenido($_POST["inputContenido$ind"]);
                 $env_vo->setValor_declarado($_POST["inputValorDecl$ind"]);
                 $env_vo->setNum_venta(0);
+                $env_vo->setRecaudo($_POST["inputRecaudo$ind"]);
+                $env_vo->setTipo_pag_id($_POST["selectTipoPago$ind"]);
+                $env_vo->setValor_pago($_POST["inputValorTipoPago$ind"]);
 
                 $env_dao->insertarEnvio($env_vo);
             }

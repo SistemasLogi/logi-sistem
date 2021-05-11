@@ -56,6 +56,16 @@ if (isset($_SESSION["adminlogi"])) {
                 $obj_env_vo->setNovedad($sheetData[$i]['N']);
                 $obj_env_vo->setNum_venta(0);
                 $obj_env_vo->setRecaudo($sheetData[$i]['O']);
+                if ($sheetData[$i]['P'] == 1 || $sheetData[$i]['P'] == 2 || $sheetData[$i]['P'] == 3) {
+                    $obj_env_vo->setTipo_pag_id($sheetData[$i]['P']);
+                } else {
+                    $obj_env_vo->setTipo_pag_id(3);
+                }
+                if (is_numeric($sheetData[$i]['Q'])) {
+                    $obj_env_vo->setValor_pago($sheetData[$i]['Q']);
+                } else {
+                    $obj_env_vo->setValor_pago(0);
+                }
 
                 if (empty($obj_env_vo->getNombre()) || empty($obj_env_vo->getDireccion()) || empty($obj_env_vo->getCiudad_dest()) || empty($obj_env_vo->getDepto_dest())) {
                     if (empty($obj_env_vo->getNombre())) {
@@ -79,7 +89,8 @@ if (isset($_SESSION["adminlogi"])) {
                             . "'" . $obj_env_vo->getNombre() . "','" . $obj_env_vo->getDireccion() . "','" . $obj_env_vo->getTelefono() . "',"
                             . "'" . $obj_env_vo->getCiudad_dest() . "','" . $obj_env_vo->getDepto_dest() . "',"
                             . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ","
-                            . "" . $obj_env_vo->getNum_venta() . ", " . $obj_env_vo->getRecaudo() . ")";
+                            . "" . $obj_env_vo->getNum_venta() . ", " . $obj_env_vo->getRecaudo() . ", " . $obj_env_vo->getTipo_pag_id() . ", "
+                            . "" . $obj_env_vo->getValor_pago() . ")";
 
                     $reg_buenos++;
                 }
