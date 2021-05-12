@@ -2244,6 +2244,7 @@ function tablaGeneral_US_Empleados() {
             datosUserEmp = "<table class='table table-responsive-sm table-hover table-bordered table-fixed' id='tableUsEmp'>\n\
                              <thead><tr class='thead-light'>\n\
                              <th scope='col'>NOMBRE</th>\n\
+                             <th scope='col'>ESTADO</th>\n\
                              <th scope='col'>NUM. DOC</th>\n\
                              <th scope='col'>USUARIOS</th>\n\
                              <th scope='col'>ACT. PASS</th>\n\
@@ -2251,6 +2252,11 @@ function tablaGeneral_US_Empleados() {
             for (i = 0; i < arregloUser.length; i++) {
                 tmp = arregloUser[i];
                 datosUserEmp += '<tr class="table-warning" id="fila' + i + '"><td>' + tmp.emp_nombre + "</td>";
+                if (tmp.esu_id == 1) {
+                    datosUserEmp += '<td style="background-color: #5deca0;">ACTIVO</td>';
+                } else {
+                    datosUserEmp += '<td style="background-color: #efabab;">INACTIVO</td>';
+                }
                 datosUserEmp += '<td>' + tmp.ue_num_doc + '</td>';
                 datosUserEmp += '<td>' + tmp.ue_usuario + '</td>';
 //                datosUser += '<td><img src="img/iconos/editar_46x46.png" alt=""/ class="enlace img-responsive actualizaesae" actuesae="' + i + '"></td></tr>';
@@ -2321,6 +2327,7 @@ function clickActualizaEmpUs() {
         $("#inpNumeroEmp").val(tmpo.ue_num_doc);
         $("#inpNombreEmp").val(tmpo.emp_nombre);
         $("#inpUsuarioEmp").val(tmpo.ue_usuario);
+        $("#selectEstadoUsu").val(tmpo.esu_id);
 
         $([document.documentElement, document.body]).animate({
             scrollTop: $("#page-content-wrapper").offset().top
@@ -2345,9 +2352,6 @@ function validarActuUsEmp() {
                 required: true
             },
             inpUsuarioEmp: {
-                required: true
-            },
-            inpPassEmp: {
                 required: true
             }
         },

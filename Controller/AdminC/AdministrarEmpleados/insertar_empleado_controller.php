@@ -20,6 +20,7 @@ if ($_POST) {
     $empleado_vo->setEmp_celular($_POST["inputCelEmp"]);
     $empleado_vo->setEmp_direccion($_POST["inputDirEmp"]);
     $empleado_vo->setEmp_correo($_POST["inputEmailEmp"]);
+    $empleado_vo->setEmp_estado(1);
 
     $upass_vo->setTipo_doc($_POST["selectTipDoc"]);
     $upass_vo->setNum_doc($_POST["inputNumEmp"]);

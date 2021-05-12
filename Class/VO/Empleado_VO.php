@@ -21,6 +21,7 @@ class Empleado_VO {
     private $emp_celular;
     private $emp_direccion;
     private $emp_correo;
+    private $emp_estado;
 
     function getEmp_tipo_doc() {
         return $this->emp_tipo_doc;
@@ -50,6 +51,10 @@ class Empleado_VO {
         return $this->emp_correo;
     }
 
+    function getEmp_estado() {
+        return $this->emp_estado;
+    }
+
     function setEmp_tipo_doc($emp_tipo_doc) {
         $this->emp_tipo_doc = $emp_tipo_doc;
     }
@@ -76,6 +81,10 @@ class Empleado_VO {
 
     function setEmp_correo($emp_correo) {
         $this->emp_correo = $emp_correo;
+    }
+
+    function setEmp_estado($emp_estado) {
+        $this->emp_estado = $emp_estado;
     }
 
 }

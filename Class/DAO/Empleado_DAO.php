@@ -46,7 +46,7 @@ class Empleado_DAO {
     function insertarEmpleado($empleado_vo) {
         $sql = "INSERT INTO empleados VALUES (" . $empleado_vo->getEmp_tipo_doc() . ", " . $empleado_vo->getEmp_numero_doc() . ", "
                 . "'" . $empleado_vo->getEmp_nombre() . "', '" . $empleado_vo->getEmp_telefono() . "', '" . $empleado_vo->getEmp_celular() . "', "
-                . "'" . $empleado_vo->getEmp_direccion() . "','" . $empleado_vo->getEmp_correo() . "')";
+                . "'" . $empleado_vo->getEmp_direccion() . "','" . $empleado_vo->getEmp_correo() . "', " . $empleado_vo->getEmp_estado() . ")";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);
@@ -102,7 +102,7 @@ class Empleado_DAO {
      * @param type $cliente_vo
      */
     function consultarEmpleadosUsuarios() {
-        $sql = "SELECT em.emp_nombre, ue.* "
+        $sql = "SELECT em.emp_nombre, em.esu_id, ue.* "
                 . "FROM empleados AS em, usuario_emp_pass AS ue "
                 . "WHERE em.emp_td_id = ue.ue_td_id AND em.emp_num_doc = ue.ue_num_doc;";
         $BD = new MySQL();

@@ -23,6 +23,13 @@
                 <input type="password" class="form-control form-control-sm" id="inpPassEmp" name="inpPassEmp" placeholder="Password">
             </div>
         </div>
+        <div class="form-group col-md-12">
+            <label for="selectEstadoUsu">Estado</label>
+            <select class="form-control form-control-sm" id="selectEstadoUsu" name="selectEstadoUsu">
+                <option value="1">ACTIVO</option>
+                <option value="2">INACTIVO</option>
+            </select>
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-light border-success" id="btnActuUsuEmp" name="btnActuUsuEmp">Actualizar</button>
             <button type="button" class="btn btn-light border-dark" id="btnCancelUsuEmp" name="btnCancelUsuEmp">Cancelar</button>                   

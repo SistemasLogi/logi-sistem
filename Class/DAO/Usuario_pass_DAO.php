@@ -56,7 +56,18 @@ class Usuario_pass_DAO {
         $sql = "UPDATE usuario_emp_pass SET ue_usuario = '" . $usu_pass_vo->getUsuario() . "', ue_password = '" . $usu_pass_vo->getPassword() . "' "
                 . "WHERE ue_td_id = " . $usu_pass_vo->getTipo_doc() . " AND ue_num_doc = " . $usu_pass_vo->getNum_doc() . ";";
         $BD = new MySQL();
-        echo $BD->execute_query($sql);
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que actualiza el estado de un empleado
+     * @param type $usu_pass_vo
+     * @param type $estado
+     */
+    function actualizarEstadoEmpleado($usu_pass_vo, $estado) {
+        $sql = "UPDATE empleados SET esu_id = " . $estado . " WHERE emp_td_id = " . $usu_pass_vo->getTipo_doc() . " AND emp_num_doc = " . $usu_pass_vo->getNum_doc() . ";";
+        $BD = new MySQL();
+        return $BD->execute_query($sql);
     }
 
     /**
