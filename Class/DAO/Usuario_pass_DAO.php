@@ -94,7 +94,7 @@ class Usuario_pass_DAO {
         $sql = "SELECT e.*, ue.car_id, ue.ue_usuario, ue.ue_password, d.td_sigla, c.car_nombre "
                 . "FROM empleados AS e, usuario_emp_pass AS ue, tipo_doc AS d, cargo AS c "
                 . "WHERE e.emp_td_id = ue.ue_td_id  AND e.emp_num_doc = ue.ue_num_doc "
-                . "AND e.emp_td_id = d.td_id AND ue.car_id = c.car_id "
+                . "AND e.emp_td_id = d.td_id AND ue.car_id = c.car_id AND e.esu_id = 1 "
                 . "AND ue.ue_usuario =  '" . $usuario . "';";
         $BD = new MySQL();
         return $BD->query($sql);

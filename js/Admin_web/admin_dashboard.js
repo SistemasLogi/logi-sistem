@@ -43,6 +43,9 @@ $(document).ready(function () {
     $("#link_vista_informes_envios").click(function () {
         vista_informes_envios();
     });
+    $("#link_form_carga_pruebas").click(function () {
+        vista_form_carga_pruebas();
+    });
 
     //*Este menu es gestionar del almacen*//
     $("#link_gest_almacen").click(function () {
@@ -5905,6 +5908,86 @@ function actualiza_est_aenv_entrega_json(datos_json) {
     f_ajax(request, cadena, metodo);
 }
 
+/**
+ * Metodo que carga form para carga masiva de pruebas de entrega
+ * @returns {undefined}
+ */
+function vista_form_carga_pruebas() {
+    request = "View/AdministradorV/AdEnvios/form_carga_pruebas.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html("");
+        $("#list-formCliente").html(datos);
+
+        nameFileCargaPruebas();
+
+        $("#btnGuardarPruebas").click(function () {
+            validarPrebasEntrega();
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que plasma nombre archivo en carga masiva envios documentos
+ * @returns {undefined}
+ */
+function nameFileCargaPruebas() {
+    $("#inpFileMasPruebas").change(function () {
+        if ($("#inpFileMasPruebas").get(0).files.length !== 0) {
+            $("#inpFileMasPruebas").addClass("is-valid");
+            $("#textFileMasPruebas").addClass("text-success");
+            $("#textFileMasPruebas").text("Archivos listos para cargar");
+        } else {
+            $("#inpFileMasPruebas").removeClass("is-valid");
+            $("#textFileMasPruebas").removeClass("text-success");
+            $("#textFileMasPruebas").text("No se han seleccionado archivos...");
+        }
+    });
+}
+
+/**
+ * Metodo de validacion de carga pruebas de entrega
+ * @returns {undefined}
+ */
+function validarPrebasEntrega() {
+    $("#formCargaPruebas").validate({
+        errorLabelContainer: '#errorTxt',
+        rules: {
+            'inpFileMasPruebas[]': {
+                required: true
+            }
+        },
+        messages: {
+            'inpFileMasPruebas[]': {
+                required: "CAMPO REQUERIDO"
+            }
+        },
+        submitHandler: function (form) {
+            cargaPruebasEntregaFile();
+        }
+    });
+}
+/**
+ * Metodo que se encarga de guardar ficheros en carpeta de pruebas de entrega
+ * @returns {undefined}
+ */
+function cargaPruebasEntregaFile() {
+    var creando = "<div class='col-lg-3'><span>Loading...</span></div>\n\
+                    <div class='col-lg-4'><img class='img-fluid' src='img/animaciones/masivo_mensajeria3.gif' alt=''/></div>\n\
+                    <div class='col-lg-5'><span>Epere un momento por favor</span></div>";
+    $("#changePruebasEntrega").html(creando);
+    request = "Controller/AdminC/AdministrarEnvios/carga_pruebas_entrega_controller.php";
+    cadena = new FormData($("#formCargaPruebas")[0]);
+    metodo = function (datos) {
+        $("#textFileMasPruebas").html("");
+        limpiarFormulario("#formCargaPruebas");
+
+        $("#changePruebasEntrega").html(datos);
+    };
+    f_ajax_files(request, cadena, metodo);
+}
 /****************************************************************
  * Metodos de Informes de envios
  * 

@@ -117,6 +117,8 @@ if (!isset($_SESSION["adminlogi"])) {
                             <a class="dropdown-item enlace" id="enlSeguimientoEnv">Rastreo Envios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_informes_envios">Informes</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_form_carga_pruebas">Carga de Pruebas Entrega</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">
