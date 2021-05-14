@@ -100,7 +100,7 @@ class Est_x_aenv_DAO {
                 . "os.cli_num_doc, cl.cli_nombre, oxs.suc_num_id, suc.suc_nombre "
                 . "FROM "
                 . "(SELECT T1.* FROM est_x_aenv AS T1 WHERE T1.exae_fecha_hora = (SELECT MAX(T2.exae_fecha_hora) "
-                . "FROM est_x_aenv AS T2 WHERE T1.aen_id = T2.aen_id)  AND T1.esae_id = (SELECT MAX(T2.esae_id) FROM est_x_aenv AS T2 WHERE T1.aen_id = T2.aen_id) "
+                . "FROM est_x_aenv AS T2 WHERE T1.aen_id = T2.aen_id) "
                 . "ORDER BY T1.exae_fecha_hora DESC) AS TM, estados_aenv AS es, a_envio AS ae, operador AS op, orden_serv AS os, "
                 . "clientes AS cl, os_x_suc AS oxs, sucursales AS suc "
                 . "WHERE TM.esae_id = es.esae_id AND TM.aen_id = ae.aen_id AND ae.ope_id = op.ope_id AND ae.os_id = os.os_id "
