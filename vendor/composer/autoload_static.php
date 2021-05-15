@@ -29,6 +29,10 @@ class ComposerStaticInitd619f5d6946c2401704bc120a4929e0b
         array (
             'GraphQL\\' => 8,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -59,6 +63,10 @@ class ComposerStaticInitd619f5d6946c2401704bc120a4929e0b
         'GraphQL\\' => 
         array (
             0 => __DIR__ . '/..' . '/webonyx/graphql-php/src',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/ApiGraphQL',
         ),
     );
 

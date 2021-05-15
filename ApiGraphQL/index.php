@@ -1,6 +1,6 @@
 <?php
 
-require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -20,3 +20,5 @@ $capsule->addConnection([
 $capsule->setAsGlobal();
 
 $capsule->bootEloquent();
+
+require 'graphql/boot.php';

@@ -1139,17 +1139,17 @@ function cargaProdAlistamiento(id_suc) {
                     datosAlist += '<div class="dropdown-divider"></div>\n\
                         <div class="table-responsive text-nowrap">\n\
                     <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
-                        <thead><tr class="table-primary">\n\
-                    <th scope="col">VER</th>\n\
-                            <th scope="col">SKU</th>\n\
-                            <th scope="col">UB</th>\n\
-                    <th scope="col">STOCK</th>\n\
-                    <th scope="col">UNS</th>\n\
-                        <th scope="col">TEÓRICO</th>\n\
-                            <th scope="col">PRODUCTO</th>\n\
+                    <thead><tr class="table-primary">\n\
+                        <th scope="col">VER</th>\n\
+                        <th scope="col">SKU</th>\n\
+                        <th scope="col">UB</th>\n\
+                        <th scope="col">UNS</th>\n\
+                        <th scope="col">PRODUCTO</th>\n\
                         <th scope="col">COD</th>\n\
-                            <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
-                    </tr></thead><tbody>';
+                        <th scope="col">STOCK</th>\n\
+                        <th scope="col">TEÓRICO</th>\n\
+                        <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
+                        </tr></thead><tbody>';
                     if (tema == 'danger') {
                         displ_no_proces = 'block';
                         displ_proces = 'none';
@@ -1163,15 +1163,15 @@ function cargaProdAlistamiento(id_suc) {
                     datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                     datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                     datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
-                    datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                     if (tmp.t_sal_cantidad >= 2) {
                         datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
                     } else {
                         datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                     }
-                    datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                     datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                     datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
+                    datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                    datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                     datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                     if (i === arregloAlista[arregloAlista.length - 1]) {
@@ -1273,15 +1273,15 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '<div class="dropdown-divider"></div>\n\
                                 <div class="table-responsive text-nowrap">\n\
                             <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
-                                <thead><tr class="table-primary">\n\
-                            <th scope="col">VER</th>\n\
-                                    <th scope="col">SKU</th>\n\
-                            <th scope="col">UB</th>\n\
-                                    <th scope="col">STOCK</th>\n\
-                            <th scope="col">UNS</th>\n\
-                            <th scope="col">TEÓRICO</th>\n\
+                            <thead><tr class="table-primary">\n\
+                                <th scope="col">VER</th>\n\
+                                <th scope="col">SKU</th>\n\
+                                <th scope="col">UB</th>\n\
+                                <th scope="col">UNS</th>\n\
                                 <th scope="col">PRODUCTO</th>\n\
-                                    <th scope="col">COD</th>\n\
+                                <th scope="col">COD</th>\n\
+                                <th scope="col">STOCK</th>\n\
+                                <th scope="col">TEÓRICO</th>\n\
                                 <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
                             if (tema == 'danger') {
@@ -1297,15 +1297,15 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
-                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
-                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
@@ -1384,15 +1384,15 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '<div class="dropdown-divider"></div>\n\
                                 <div class="table-responsive text-nowrap">\n\
                             <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
-                                <thead><tr class="table-primary">\n\
-                            <th scope="col">VER</th>\n\
-                                    <th scope="col">SKU</th>\n\
-                            <th scope="col">UB</th>\n\
-                                    <th scope="col">STOCK</th>\n\
-                            <th scope="col">UNS</th>\n\
-                            <th scope="col">TEÓRICO</th>\n\
+                            <thead><tr class="table-primary">\n\
+                                <th scope="col">VER</th>\n\
+                                <th scope="col">SKU</th>\n\
+                                <th scope="col">UB</th>\n\
+                                <th scope="col">UNS</th>\n\
                                 <th scope="col">PRODUCTO</th>\n\
-                                    <th scope="col">COD</th>\n\
+                                <th scope="col">COD</th>\n\
+                                <th scope="col">STOCK</th>\n\
+                                <th scope="col">TEÓRICO</th>\n\
                                 <th scope="col"><span class="ion-android-clipboard"></span></th>\n\
                                 </tr></thead><tbody>';
                             if (tema == 'danger') {
@@ -1408,15 +1408,15 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
-                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
-                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             venta = tmp.t_sal_num_venta;

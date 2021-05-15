@@ -13,5 +13,6 @@ return array(
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
     'GraphQL\\' => array($vendorDir . '/webonyx/graphql-php/src'),
+    'App\\' => array($baseDir . '/ApiGraphQL'),
     '' => array($vendorDir . '/nesbot/carbon/src'),
 );
