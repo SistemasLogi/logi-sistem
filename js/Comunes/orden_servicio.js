@@ -1207,15 +1207,15 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
-                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
-                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                             datosAlist += '</tbody></table></div>\n\
@@ -1334,15 +1334,15 @@ function cargaProdAlistamiento(id_suc) {
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
-                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
                             if (tmp.t_sal_cantidad >= 2) {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
                                 datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
                             }
-                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
+                            datosAlist += '<td id="td4' + tmp.t_csc + '">' + tmp.total + '</td>';
+                            datosAlist += '<td id="td6' + tmp.t_csc + '">' + tmp.estimado + '</td>';
                             datosAlist += '<td class="enlace editProduc" id="producto' + i + '" edPro="' + tmp.t_csc + '">' + icon + '</td></tr>';
 
                         } else {

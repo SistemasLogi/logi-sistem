@@ -16,12 +16,19 @@ $rootQuery = new ObjectType([
         'empleado' => [
             'type' => $empleadoType,
             'args' => [
-                'emp_td_id' => Type::int(),
-                'emp_num_doc' => Type::int()
+                'emp_td_id' => Type::int()
             ],
             'resolve' => function ($root, $args) {
-                $empleado = Empleado::find($args["emp_td_id"], $args["emp_num_doc"])->toArray();
+//                $empleado = Empleado::find($args["emp_td_id"], $args["emp_num_doc"])->toArray();
+                $empleado = Empleado::where('emp_td_id', "=", $args["emp_td_id"])->get()->toArray();
                 return $empleado;
+            }
+        ],
+        'empleados' => [
+            'type' => Type::listOf($empleadoType),
+            'resolve' => function ($root, $args) {
+                $empleados = Empleado::get()->toArray();
+                return $empleados;
             }
         ]
     ]

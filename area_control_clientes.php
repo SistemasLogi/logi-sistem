@@ -76,7 +76,7 @@ if (!isset($_SESSION["sucursal"])) {
                 <!--<div class="sidebar-heading">Start Bootstrap </div>-->
                 <img src="img/sucursales/<?php echo $_SESSION["numero_suc"]; ?>.png" alt="" title="" />
                 <div class="dropdown-divider border-primary"></div>
-                <h4 class="card-title" style="color: #D6D6D6;"><?php // echo $_SESSION["sucursal"];                ?></h4>
+                <h4 class="card-title" style="color: #D6D6D6;"><?php // echo $_SESSION["sucursal"];                 ?></h4>
                 <!--<div class="dropdown-divider"></div>-->
 
                 <div class="list-group list-group-flush">
@@ -86,8 +86,8 @@ if (!isset($_SESSION["sucursal"])) {
                     </a>
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body alert-secondary">
-                            <!--                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
-                                                        <div class="dropdown-divider"></div>-->
+                            <a class="dropdown-item enlace" id="enlFormRecoleccion">Solicitar Recolección</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="enlSeguimientoOS">Seguimiento OS</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="enlHistorialOS">Historial</a>
@@ -133,7 +133,7 @@ if (!isset($_SESSION["sucursal"])) {
                         <span class="ion-android-menu"></span>
                     </button>
                     <img id="inicio" src="img/logos/LOGO_CLARO_77x36.png" alt=""/>                    
-                    <!--<samp class="navbar-brand"><?php // echo $_SESSION["sucursal"]; ?></samp>-->
+                    <!--<samp class="navbar-brand"><?php // echo $_SESSION["sucursal"];  ?></samp>-->
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -168,7 +168,7 @@ if (!isset($_SESSION["sucursal"])) {
                         <div id="sectionConten" data-spy="scroll">                                
 
                             <div class="card border-primary mb-3" style="max-width: 100%; border-radius: 0.5rem;">
-                                <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php // echo $_SESSION["nombre_cli"];                ?></legend></strong></div>
+                                <div class="card-header"><strong class="mr-auto"><legend class="mr-auto">BIENVENIDO <?php // echo $_SESSION["nombre_cli"];                 ?></legend></strong></div>
                                 <div class="card-body">
                                     <img class="img-fluid" src="img/sucursales/FONDO/<?php echo $_SESSION["numero_suc"]; ?>.png" alt=""/>
                                 </div>
