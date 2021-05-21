@@ -23,6 +23,15 @@ class Tipo_serv_DAO {
         $BD = new MySQL();
         return $BD->query($sql);
     }
+    /**
+     * Funcion que consulta la informacion en tabla tipo_serv vista cliente
+     * @return type
+     */
+    function consultaTipoServCl() {
+        $sql = "SELECT * FROM tipo_serv WHERE ts_id = 1 || ts_id = 2;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
 
     /**
      * Funcion que inserta o actualiza un registro en tabla tipo_serv

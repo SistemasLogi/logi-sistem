@@ -1,5 +1,5 @@
 /**
- * Metodo que trae a la vista el formulario de recoleccion
+ * Metodo que trae a la vista el formulario de recoleccion cliente y sucursal
  * @returns {undefined}
  */
 function formulario_recolec() {
@@ -7,36 +7,37 @@ function formulario_recolec() {
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
         $("#sectionConten").html(datos);
-        combo_ciudad("#selectCiudad");
-        combo_tipo_envio("#selectTipEnvio");
-        $("#btnGenOrdServ").click(function () {
+        combo_ciudad("#selCiudad");
+        combo_tipo_envio_cl("#selEnvio");
+        combo_tipo_serv("#selServi");
+
+        $("#btnGuardaOS").click(function () {
             validarOrdServ();
         });
-        $("#btnCancelarOrd").click(function () {
-            resetFormOrdServ();
-            formulario_recolec();
-        });
-        $("#btnAgreEnv").click(function () {
-            formularioEnvios();
-        });
-        $("#btnMas").click(function () {
-            formularios_envio();
-        });
-        $("#btnGuardarFin").click(function () {
-            validarFormEnvios();
-        });
-        $("#btnMenos").click(function () {
-            elimina_formularios_envio();
-        });
-        combo_ciudad("#selectCiudDestino");
-        combo_tipo_pago("#selectTipoPago");
-        seleccionCargaEnvios();
-        $("#blqSelectModoCarga").hide();
 
-        $("#btnGMasEnvDoc").click(function () {
-            validarMasivoEnvios();
-        });
-        nameFileCargaMasEnvDoc();
+
+//        $("#btnCancelarOrd").click(function () {
+//            resetFormOrdServ();
+//            formulario_recolec();
+//        });
+//        $("#btnAgreEnv").click(function () {
+//            formularioEnvios();
+//        });
+//        $("#btnMas").click(function () {
+//            formularios_envio();
+//        });
+//        $("#btnGuardarFin").click(function () {
+//            validarFormEnvios();
+//        });
+//        $("#btnMenos").click(function () {
+//            elimina_formularios_envio();
+//        });
+//        seleccionCargaEnvios();
+//
+//        $("#btnGMasEnvDoc").click(function () {
+//            validarMasivoEnvios();
+//        });
+//        nameFileCargaMasEnvDoc();
     };
     f_ajax(request, cadena, metodo);
 }
@@ -98,6 +99,46 @@ function combo_tipo_envio(select) {
     };
     f_ajax(request, cadena, metodo);
 }
+
+/**
+ * Metodo que llena el combo de seleccion tipo envio
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_tipo_envio_cl(select) {
+    request = "Controller/ClienteC/con_tipo_env_cl_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.te_id + '">' + temp.te_desc + "</option>";
+        }
+        $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que llena el combo de seleccion tipo servicio
+ * @param {type} select
+ * @returns {undefined}
+ */
+function combo_tipo_serv(select) {
+    request = "Controller/ClienteC/con_tipo_serv_cl_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo = $.parseJSON(datos);
+        datouscombo = "";
+        for (i = 0; i < arreglo.length; i++) {
+            temp = arreglo[i];
+            datouscombo += '<option value="' + temp.ts_id + '">' + temp.ts_desc + "</option>";
+        }
+        $(select).html(datouscombo);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
 /**
  * Metodo que permite validar campos en formulario orden servicio
  * @returns {undefined}
@@ -105,8 +146,11 @@ function combo_tipo_envio(select) {
 function validarOrdServ() {
     $("#formOrdenServ").validate({
         rules: {
-            inputDir: {
+            inpDirec: {
                 required: true
+            },
+            inpTel: {
+                digits: true
             }
         },
         submitHandler: function (form) {
@@ -122,6 +166,17 @@ function validarFormEnvios() {
         submitHandler: function (form) {
 //            alert("Enviados");
             insertarEnvios_v2();
+        }
+    });
+}
+function validarFormEnvios_cl_suc() {
+
+//    campo = "inputDirDestino1: {required: true}";
+
+    $("#formEnvios").validate({
+        submitHandler: function (form) {
+//            alert("Enviados");
+            insertarEnvios_v2_cl();
         }
     });
 }
@@ -178,35 +233,9 @@ function insertar_orden_serv() {
     metodo = function (datos) {
 //        alert(datos);
         if (datos == 1) {
-            numero_orden_serv();
-            ciudad = $("#selectCiudad option:selected").text();
-            direccion = $("#inputDir").val();
-            tipo_envio = $("#selectTipEnvio option:selected").text();
-            if ($('#inpCheckLogiYa').prop('checked')) {
-                tipo_servi = "<b>LOGI YA!!</b>";
-            } else {
-                tipo_servi = "MENSAJERIA";
-            }
             limpiarFormulario("#formOrdenServ");
-            $("#blqinputDir").hide();
-            $("#blqselectCiudad").hide();
-            $("#blqinputPerContacto").hide();
-            $("#blqinputTele").hide();
-            $("#lbTitleSection").html("");
-            $("#btnGenOrdServ").hide();
-            $("#btnCancelarOrd").hide();
-            $("#formOrdenServ").hide();
-            $("#instruccionNuevo").show();
+            formulario_carga_envios_cl_suc();
             alertify.success('Orden Creada!');
-            $("#divMensaje").html("<legend id='legTitulo'></legend>\n\
-                  <strong>Lugar de Recolección: </strong>" + direccion + " " + ciudad + "<br>\n\
-                  <strong>Tipo de Envio: </strong>" + tipo_envio + "<br>\n\
-                  <strong>Tipo Servicio: </strong>" + tipo_servi + "\n\
-                  <div class='alert alert-dismissible alert-warning border-warning' id='mensajeCompletar' style='border-radius: 0.5rem;'><strong>Orden de Recolección creada,</strong> por favor diligencie los datos de envio.</div>");
-            $("#formDescEnvios").show();
-            resetMostrarCampos(tipo_envio, "#blqPeso", "#blqAlto", "#blqAncho", "#blqLargo", "#blqContenido", "#blqValorDecl", "#blqObserv", "#inputCantidadEnv");
-            $("#blqCargaExcel").hide();
-            $("#blqSelectModoCarga").show();
         } else if (datos == 2) {
 //            alert(datos);
             $("#divMensaje").html("<div class='alert alert-dismissible alert-warning col-lg-12'><strong>error al guardar estado de orden de servicio, </strong>la orden fue creada</div> ");
@@ -298,6 +327,34 @@ function formulario_carga_envios() {
             validarMasivoEnvios();
         });
         nameFileCargaMasEnvDoc();
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que trae a la vista el formulario de carga de envios vista cliente y sucursal
+ * @returns {undefined}
+ */
+function formulario_carga_envios_cl_suc() {
+    request = "View/AdministradorV/OrdenesServicio/form_guarda_env_cli_suc.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#divMensaje").html(datos);
+        $("#sectionContenClSuc").hide();
+        $("#inputContador").val(parseInt(contador_cl_suc));
+
+        $("#btnMas").click(function () {
+            formularios_envio_cl();
+        });
+        $("#btnMenos").click(function () {
+            elimina_formularios_envio_cl();
+        });
+
+        $("#btnGuardarFin").click(function () {
+            validarFormEnvios_cl_suc();
+        });
+
+        combo_ciudad("#selectCiudDestino");
+        combo_tipo_pago("#selectTipoPago");
     };
     f_ajax(request, cadena, metodo);
 }
@@ -575,6 +632,51 @@ function formularios_envio() {
 
 }
 /**
+ * Variable global que almacena la cantidad de campos agregados al formulario
+ * @type Number
+ */
+var contador_cl_suc = 0;
+/**
+ * Metodo que agrega seccion de campos en formulario en la vista cliente y sucursal
+ * @returns {undefined}
+ */
+function formularios_envio_cl() {
+    if (contador_cl_suc <= 8) {
+        contador_cl_suc += 1;
+        $('#sec' + contador_cl_suc + '').html('<div class="form-group form-group-sm col-lg-2">\n\
+                                <label for="inputCantidadEnv' + contador_cl_suc + '">Cantidad</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputCantidadEnv' + contador_cl_suc + '" name="inputCantidadEnv' + contador_cl_suc + '" placeholder="N° Envios" required>\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2">\n\
+                                <label for="inputRefGuia' + contador_cl_suc + '">Referencia</label>\n\
+                                <input type="text" class="form-control form-control-sm" id="inputRefGuia' + contador_cl_suc + '" name="inputRefGuia' + contador_cl_suc + '" placeholder="Referencia">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2" id="blqPeso' + contador_cl_suc + '">\n\
+                                <label for="inputPeso' + contador_cl_suc + '">Peso Kg</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputPeso' + contador_cl_suc + '" name="inputPeso' + contador_cl_suc + '" placeholder="Peso Kg">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2" id="blqAlto' + contador_cl_suc + '">\n\
+                                <label for="inputAlto' + contador_cl_suc + '">Alto cm</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputAlto' + contador_cl_suc + '" name="inputAlto' + contador_cl_suc + '" placeholder="Alto cm">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2" id="blqAncho' + contador_cl_suc + '">\n\
+                                <label for="inputAncho' + contador_cl_suc + '">Ancho cm</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputAncho' + contador_cl_suc + '" name="inputAncho' + contador_cl_suc + '" placeholder="Ancho cm">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2" id="blqLargo' + contador_cl_suc + '">\n\
+                                <label for="inputLargo' + contador_cl_suc + '">Largo cm</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputLargo' + contador_cl_suc + '" name="inputLargo' + contador_cl_suc + '" placeholder="Largo cm">\n\
+                            </div>');
+        //en esta parte se agrega el elemento div contenedor para otro formulario
+        $("#parentSec").append('<div id="sec' + parseInt(contador_cl_suc + 1) + '" class="row px-3"></div>');
+
+        $("#inputContador").val(parseInt(contador_cl_suc));
+    } else {
+        alertify.alert("MAXIMO EXCEDIDO", "Maximo 10 Formularios, para mas envios diligencie la plantilla de excel.");
+    }
+
+}
+/**
  * Metodo que elimina un formulario en la vista
  * @returns {undefined}
  */
@@ -585,6 +687,21 @@ function elimina_formularios_envio() {
         contador -= 1;
         $("#parentControl").append('<div id="f' + parseInt(contador + 1) + '" class="alert alert-dismissible alert-primary col-lg-12 border-light" style="border-radius: 0.5rem;"></div>');
         $("#inputContador").val(parseInt(contador));
+    } else {
+        alert("No existe elemento para eliminar");
+    }
+}
+/**
+ * Metodo que elimina una seccion de campos en el formulario en vista cliente y sucursal
+ * @returns {undefined}
+ */
+function elimina_formularios_envio_cl() {
+    if (contador_cl_suc >= 1) {
+        $('#sec' + contador_cl_suc + '').remove();
+        $('#sec' + parseInt(contador_cl_suc + 1) + '').remove();
+        contador_cl_suc -= 1;
+        $("#parentSec").append('<div id="sec' + parseInt(contador_cl_suc + 1) + '" class="row px-3"></div>');
+        $("#inputContador").val(parseInt(contador_cl_suc));
     } else {
         alert("No existe elemento para eliminar");
     }
@@ -817,6 +934,48 @@ function insertarEnvios_v2() {
             $("#inputNumOS").val(num_os);
 
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que inserta envios o mercancia en las tablas correspondientes
+ * las funciones de php requieren en algunos casos de la sesión activa
+ * @returns {undefined}
+ */
+function insertarEnvios_v2_cl() {
+    request = "Controller/ClienteC/insertar_envios_cl_suc_controller.php";
+    cadena = $("#formEnvios").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (datos == 1) {
+            alert("INGRESADO");
+        } else {
+            alert("NO INGRESADOS");
+        }
+
+//        $("#changeEnviosMens").html(datos);
+//
+//        if ($("#tableEnvios").length > 0) {
+//            /**
+//             * Evento que pagina una tabla 
+//             */
+//            $('#tableEnvios').DataTable({
+//                'scrollX': true
+//            });
+//
+//            limpiarFormulario("#formEnvios");
+//            $("#formEnvios").hide();
+//            $("#blqSelectModoCarga").hide();
+//            $("#mensajeCompletar").hide();
+//
+//            pagInicio = $("#inputHojaDesde").val();
+//            pagFin = $("#inputHojaHasta").val();
+//            cargaRango();
+//            $("#btnGenImp").click(function () {
+//                validarImprimirRem();
+//            });
+//            $("#inputNumOS").val(num_os);
+//        }
     };
     f_ajax(request, cadena, metodo);
 }

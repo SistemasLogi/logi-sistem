@@ -56,6 +56,21 @@ class Orden_serv_DAO {
     }
 
     /**
+     * Funcion que consulta datos del ultimo registro en orden_serv segun cliente
+     * vista cliente y sucursal
+     * @return type
+     */
+    function consulta_datos_UltimaOS_cl_suc($tipoDoc, $numDoc) {
+        $sql = "SELECT o.*, c.ciu_nombre, ts.ts_desc, te.te_desc "
+                . "FROM orden_serv AS o, ciudad AS c, tipo_serv AS ts, tipo_envio AS te "
+                . "WHERE o.os_id = (SELECT MAX(os_id) AS num FROM orden_serv WHERE cli_td_id =  " . $tipoDoc . " AND cli_num_doc = " . $numDoc . ") "
+                . "AND o.ciu_id = c.ciu_id "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que consulta datos del ultimo registro en orden_serv
      * @return type
      */

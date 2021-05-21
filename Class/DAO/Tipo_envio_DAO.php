@@ -23,6 +23,15 @@ class Tipo_envio_DAO {
         $BD = new MySQL();
         return $BD->query($sql);
     }
+    /**
+     * Funcion que consulta la informacion en tabla tipo_envio vista cliente
+     * @return type
+     */
+    function consultaTipoEnvCli() {
+        $sql = "SELECT * FROM tipo_envio WHERE te_id != 3 && te_id != 4;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
 
     /**
      * Funcion que inserta o actualiza un registro en tabla tipo_env
