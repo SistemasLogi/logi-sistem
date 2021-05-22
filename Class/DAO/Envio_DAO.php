@@ -15,7 +15,7 @@ class Envio_DAO {
 
     //put your code here
     /**
-     * funcion que retorna la informacion de envios por numero de orden de servicio
+     * funcion que retorna la informacion de envios por numero de orden de servicio cliente y estado
      * @param type $num_os
      * @param type $td_id
      * @param type $num_doc
@@ -30,6 +30,35 @@ class Envio_DAO {
                 . "AND o.cli_num_doc = c.cli_num_doc AND o.os_id = " . $num_os . " AND es.exe_en_id = e.en_id "
                 . "AND es.exe_ee_id = ee.ee_id AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id "
                 . "AND es.exe_ee_id = " . $exe . " AND c.cli_td_id = " . $td_id . " AND c.cli_num_doc = " . $num_doc . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * funcion que retorna los envios en estado 1 para imprimir guia
+     * @param type $td_id_cl
+     * @param type $num_doc_cl
+     * @param type $suc_num
+     * @return type
+     */
+    function consulta_env_reimp_guias($td_id_cl, $num_doc_cl, $suc_num) {
+        $sql = "SELECT TP.*, TS.suc_num_id, TS.suc_nombre FROM "
+                . "(SELECT TM.*, e.en_guia, e.en_novedad, o.os_id, e.en_cantidad, e.en_nombre, e.en_direccion, e.en_telefono, "
+                . "e.en_ciudad, e.en_departamento, e.en_contiene, e.en_valor_decl, em.emp_nombre, es.ee_desc, "
+                . "o.ts_id, ts.ts_desc, o.te_id, te.te_desc, o.cli_td_id, o.cli_num_doc, cl.cli_nombre, ess.exs_fecha_hora, ess.es_id "
+                . "FROM "
+                . "(SELECT T1.* FROM est_x_envio AS T1 WHERE T1.exe_fec_hora = (SELECT MAX(T2.exe_fec_hora) "
+                . "FROM est_x_envio AS T2 WHERE T1.exe_en_id = T2.exe_en_id ) "
+                . "ORDER BY T1.exe_fec_hora DESC) AS TM, envio AS e, empleados AS em, estado_env AS es, "
+                . "orden_serv AS o, est_x_serv AS ess, tipo_serv AS ts, tipo_envio AS te, clientes AS cl "
+                . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
+                . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND o.os_id = ess.os_id "
+                . "AND TM.exe_ee_id = 1  AND cl.cli_td_id = " . $td_id_cl . " AND cl.cli_num_doc = " . $num_doc_cl . ") AS TP "
+                . "JOIN "
+                . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id AND oxs.suc_num_id = " . $suc_num . ") AS TS "
+                . "ON TP.os_id = TS.os_id GROUP BY TP.exe_en_id DESC;";
         $BD = new MySQL();
         return $BD->query($sql);
     }

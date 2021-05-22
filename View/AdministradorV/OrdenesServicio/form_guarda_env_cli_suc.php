@@ -146,7 +146,8 @@
                 <div class="form-group col-lg-12 mr-auto">
                     <?php echo $btn_mas ?>
                     <?php echo $btn_menos ?>
-                    <button type="submit" class="btn btn-success" id="btnGuardarFin" name="btnGuardarFin"><strong>FINALIZAR</strong></button>
+                    <button type="submit" class="btn btn-success" id="btnGuardarFin" name="btnGuardarFin"><strong>GENERAR GUIA</strong></button>
+                    <button type="button" class="btn btn-primary float-right" id="btnNuevoServ" name="btnNuevoServ" disabled><strong>NUEVO SERVICIO</strong></button>
                     <div class="form-group form-group-sm col-lg-3" id="blqCantGuias" style="display: none;">
                         <label for="inputContador">cantidad Envios</label>
                         <input type="number" class="form-control form-control-sm" id="inputContador" name="inputContador">

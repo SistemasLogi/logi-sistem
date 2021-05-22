@@ -947,35 +947,28 @@ function insertarEnvios_v2_cl() {
     cadena = $("#formEnvios").serialize(); //envio de parametros por POST
     metodo = function (datos) {
 
-        if (datos == 1) {
-            alert("INGRESADO");
+        if (datos == 2) {
+            alert("error al insertar estado envio");
+        } else if (datos == 3) {
+            alert("error al insertar envio");
         } else {
-            alert("NO INGRESADOS");
-        }
+            $("#changeEnviosMens").html(datos);
+            $("#btnNuevoServ").prop('disabled', false);
+            $("#btnNuevoServ").click(function () {
+                resetFormOrdServ();
+                formulario_recolec();
+            });
+            $(".form-control").prop("readonly", true);
 
-//        $("#changeEnviosMens").html(datos);
-//
-//        if ($("#tableEnvios").length > 0) {
-//            /**
-//             * Evento que pagina una tabla 
-//             */
-//            $('#tableEnvios').DataTable({
-//                'scrollX': true
-//            });
-//
-//            limpiarFormulario("#formEnvios");
-//            $("#formEnvios").hide();
-//            $("#blqSelectModoCarga").hide();
-//            $("#mensajeCompletar").hide();
-//
-//            pagInicio = $("#inputHojaDesde").val();
-//            pagFin = $("#inputHojaHasta").val();
-//            cargaRango();
-//            $("#btnGenImp").click(function () {
-//                validarImprimirRem();
-//            });
-//            $("#inputNumOS").val(num_os);
-//        }
+            $("#btnGuardarFin").click(false);
+            $("#btnGuardarFin").prop('disabled', true);
+
+            $("#btnMas").click(false);
+            $("#btnMas").prop('disabled', true);
+
+            $("#btnMenos").click(false);
+            $("#btnMenos").prop('disabled', true);
+        }
     };
     f_ajax(request, cadena, metodo);
 }
@@ -2346,6 +2339,71 @@ function insertar_est_x_os_alist(os_num, estado) {
             alertify.success('Estado Acualizado OS N° ' + os_num, 2);
         } else {
             alertify.error('Error al actualizar estado OS N° ' + os_num, 5);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que trae tabla de envios en estado inicial para impresion de guias
+ * @returns {undefined}
+ */
+function tabla_imp_guias_suc() {
+    request = "Controller/ClienteC/consulta_env_imp_guias_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloOS_cli = $.parseJSON(datos);
+//        alert(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloOS_cli !== 0) {
+            datosOS_cli = "<div class='table-responsive text-nowrap' id='tablaEstadoOS'><table class='table table-striped table-sm table-bordered' id='tableEstOS'>\n\
+                             <thead><tr style='background-color: #9bb5ff'>\n\
+                             <th scope='col'></th>\n\
+                             <th scope='col'>GUIA LOGI</th>\n\
+                             <th scope='col'>GUIA OP</th>\n\
+                             <th scope='col'>FECHA</th>\n\
+                             <th scope='col'>DESTINATARIO</th>\n\
+                             <th scope='col'>DIRECCION DESTINO</th>\n\
+                             <th scope='col'>TELEFONO</th>\n\
+                             <th scope='col'>CIUDAD DES.</th>\n\
+                             <th scope='col'>DEPTO</th>\n\
+                             <th scope='col'>OBS / COMPLEMENTO</th>\n\
+                             <th scope='col'>SERVICIO</th>\n\
+                             <th scope='col'>T. ENVIO</th>\n\
+                             <th scope='col'>CLIENTE</th>\n\
+                             <th scope='col'>SUC.</th>\n\
+                             </tr></thead><tbody>";
+            for (i = 0; i < arregloOS_cli.length; i++) {
+                tmp = arregloOS_cli[i];
+                datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-document" style="color: #fb972e;"></span></td>';
+
+                datosOS_cli += '<td>' + tmp.exe_en_id + "</td>";
+                datosOS_cli += '<td>' + tmp.en_guia + '</td>';
+                datosOS_cli += '<td>' + tmp.exs_fecha_hora + '</td>';
+                datosOS_cli += '<td>' + tmp.en_nombre + '</td>';
+                datosOS_cli += '<td>' + tmp.en_direccion + '</td>';
+                datosOS_cli += '<td>' + tmp.en_telefono + '</td>';
+                datosOS_cli += '<td>' + tmp.en_ciudad + '</td>';
+                datosOS_cli += '<td>' + tmp.en_departamento + '</td>';
+                datosOS_cli += '<td>' + tmp.en_novedad + '</td>';
+                datosOS_cli += '<td>' + tmp.ts_desc + '</td>';
+                datosOS_cli += '<td>' + tmp.te_desc + '</td>';
+                datosOS_cli += '<td>' + tmp.cli_nombre + '</td>';
+                datosOS_cli += '<td>' + tmp.suc_nombre + '</td></tr>';
+            }
+            datosOS_cli += '</tbody></table></div><div id="info_env_os"></div>';
+            $("#sectionConten").html(datosOS_cli);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            $('#tableEstOS').DataTable({
+                'scrollX': true
+            });
+            clickInformacionOS();
+        } else {
+            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
         }
     };
     f_ajax(request, cadena, metodo);

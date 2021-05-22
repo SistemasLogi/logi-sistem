@@ -102,6 +102,8 @@ if (!isset($_SESSION["sucursal"])) {
                             <a class="dropdown-item enlace" id="enlSeguimientoEnv">Rastreo Envios</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_vista_dashboard_envios_suc">DashBoard Envios</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_vista_tabla_imp_guias">Reimprimir Guias</a>
                         </div>
                     </div>
                     <a class="list-group-item list-group-item-action bg-light text-dark nav-link dropdown-toggle" data-toggle="collapse" href="#multiCollapseALM" role="button" aria-expanded="false" aria-controls="multiCollapseALM">

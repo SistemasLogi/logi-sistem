@@ -31,6 +31,10 @@ $(document).ready(function () {
         vista_dashboard_envios_suc();
     });
 
+    $("#link_vista_tabla_imp_guias").click(function () {
+        tabla_imp_guias_suc();
+    });
+
     $("#link_stock_cl").click(function () {
         vista_stock_cl();
     });

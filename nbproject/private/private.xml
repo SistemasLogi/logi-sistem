@@ -9,9 +9,10 @@
             <file>file:/C:/wamp64/www/logi-sistem/Class/DAO/Orden_serv_DAO.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/js/Comunes/orden_servicio.js</file>
             <file>file:/C:/wamp64/www/logi-sistem/View/AdministradorV/OrdenesServicio/form_guarda_env_cli_suc.php</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Class/DAO/Estado_x_env_DAO.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/js/Admin_web/admin_dashboard.js</file>
             <file>file:/C:/wamp64/www/logi-sistem/Controller/Login_General/login_control.php</file>
-            <file>file:/C:/wamp64/www/logi-sistem/View/AdministradorV/OrdenesServicio/form_guarda_envios.php</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Controller/ClienteC/insertar_envios_cl_suc_controller.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarEnvios/insertar_envios_adm_controller.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/Controller/ClienteC/insertar_ord_serv_controller.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/Controller/ClienteC/con_tipo_serv_cl_controller.php</file>

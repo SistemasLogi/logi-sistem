@@ -123,23 +123,18 @@ if ($_POST) {
     $env_vo->setLargo_cm($aprox_promed);
 
 
-    $env_dao->insertarEnvio($env_vo);
-//        echo '<strong>Envios ingresados correctamente.</strong>';
-//        echo "<strong>&nbsp;&nbsp;Total " . ($contador + 1) . " numeros de Guia creados</strong>";
-    $est_x_env = new Estado_x_env_DAO();
-    $est_x_env->insertarEstado_x_envio($id_os_cliente, $fecha_hora);
-//        if (isset($_SESSION["adminlogi"])) {
-//            $env_ing = json_encode($env_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["td_cli_adm"], $_SESSION["num_doc_cli_adm"], 1));
-//        } else {
-//            $env_ing = json_encode($env_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["tipo_doc"], $_SESSION["numero_doc"], 1));
-//        }
-//
-//        $array = json_decode($env_ing);
-//        require '../../ClienteC/consulta_env_ingresados_controller.php';
-    echo 1;
-
-
-
+    if ($env_dao->insertarEnvio($env_vo) == 1) {
+        $est_x_env = new Estado_x_env_DAO();
+        if ($est_x_env->insertarEstado_x_envio($id_os_cliente, $fecha_hora) == 1) {
+            $env_ing_enc = json_encode($env_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["tipo_doc"], $_SESSION["numero_doc"], 1));
+            $array = json_decode($env_ing_enc);
+            require './ruta_guia_pdf_param_cl_suc_controller.php';
+        } else {
+            echo 2; //error al insertar estado envio
+        }
+    } else {
+        echo 3; //error al insertar envio
+    }
 //    echo $es_x_serv_dao->insertar_est_x_os($es_x_serv_vo);
 } else {
     header("location../");
