@@ -2374,7 +2374,7 @@ function tabla_imp_guias_suc() {
                              </tr></thead><tbody>";
             for (i = 0; i < arregloOS_cli.length; i++) {
                 tmp = arregloOS_cli[i];
-                datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-document" style="color: #fb972e;"></span></td>';
+                datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.exe_en_id + '"><span class="ion-document" style="color: #fb972e;"></span></td>';
 
                 datosOS_cli += '<td>' + tmp.exe_en_id + "</td>";
                 datosOS_cli += '<td>' + tmp.en_guia + '</td>';
@@ -2390,7 +2390,7 @@ function tabla_imp_guias_suc() {
                 datosOS_cli += '<td>' + tmp.cli_nombre + '</td>';
                 datosOS_cli += '<td>' + tmp.suc_nombre + '</td></tr>';
             }
-            datosOS_cli += '</tbody></table></div><div id="info_env_os"></div>';
+            datosOS_cli += '</tbody></table></div><div id="enc_guia_num"></div><div id="info_env_os"></div>';
             $("#sectionConten").html(datosOS_cli);
 
             /**
@@ -2399,12 +2399,41 @@ function tabla_imp_guias_suc() {
             $('#tableEstOS').DataTable({
                 'scrollX': true
             });
-            clickInformacionOS();
+            clickInfoEnvOs();
         } else {
             $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que devuelve el formulario para actualizar el estado
+ * formulario ciudad
+ * @returns {undefined}
+ */
+function clickInfoEnvOs() {
+    $("#tableEstOS").on("click", ".actuestos", function () {
+//    $(".actuestos").click(function () {
+        guia_num = $(this).attr("act");
+//        $('#mod-dalog').removeClass('modal-lg');
+//        $('#ModalActuEstOS').modal('toggle');
+        $("#info_env_os").html("");
+        $("#enc_guia_num").html("<strong>GUIA N° " + guia_num + "</strong>");
+        imprime_guia_logi(guia_num);
+    });
+}
+/**
+ * Metodo que envia parametros de envio e imprime guia logi
+ * @param {type} num_guia
+ * @returns {undefined}
+ */
+function imprime_guia_logi(num_guia) {
+    request = "Controller/ClienteC/ruta_guia_pdf_param_controller.php";
+    cadena = {"inputNumEnvi": num_guia}; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#info_env_os").html(datos);
     };
     f_ajax(request, cadena, metodo);
 }
