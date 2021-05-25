@@ -2355,26 +2355,31 @@ function tabla_imp_guias_suc() {
 //        alert(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloOS_cli !== 0) {
-            datosOS_cli = "<div class='table-responsive text-nowrap' id='tablaEstadoOS'><table class='table table-striped table-sm table-bordered' id='tableEstOS'>\n\
-                             <thead><tr style='background-color: #9bb5ff'>\n\
-                             <th scope='col'></th>\n\
-                             <th scope='col'>GUIA LOGI</th>\n\
-                             <th scope='col'>GUIA OP</th>\n\
-                             <th scope='col'>FECHA</th>\n\
-                             <th scope='col'>DESTINATARIO</th>\n\
-                             <th scope='col'>DIRECCION DESTINO</th>\n\
-                             <th scope='col'>TELEFONO</th>\n\
-                             <th scope='col'>CIUDAD DES.</th>\n\
-                             <th scope='col'>DEPTO</th>\n\
-                             <th scope='col'>OBS / COMPLEMENTO</th>\n\
-                             <th scope='col'>SERVICIO</th>\n\
-                             <th scope='col'>T. ENVIO</th>\n\
-                             <th scope='col'>CLIENTE</th>\n\
-                             <th scope='col'>SUC.</th>\n\
-                             </tr></thead><tbody>";
+            datosOS_cli = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                                <div class="toast-header">\n\
+                                    <strong class="mr-auto">REIMPRIMIR GUIAS</strong>\n\
+                                </div><div class="toast-body row">\n\
+                          <div class="alert alert-dismissible alert-secondary col-lg-12" style="border-radius: 0.5rem;">\n\
+                          <div class="table-responsive text-nowrap" id="tablaEstadoOS"><table class="table table-striped table-sm table-bordered" id="tableEstOS">\n\
+                                 <thead><tr style="background-color: #9bb5ff">\n\
+                                 <th scope="col"></th>\n\
+                                 <th scope="col">GUIA LOGI</th>\n\
+                                 <th scope="col">GUIA OP</th>\n\
+                                 <th scope="col">FECHA</th>\n\
+                                 <th scope="col">DESTINATARIO</th>\n\
+                                 <th scope="col">DIRECCION DESTINO</th>\n\
+                                 <th scope="col">TELEFONO</th>\n\
+                                 <th scope="col">CIUDAD DES.</th>\n\
+                                 <th scope="col">DEPTO</th>\n\
+                                 <th scope="col">OBS / COMPLEMENTO</th>\n\
+                                 <th scope="col">SERVICIO</th>\n\
+                                 <th scope="col">T. ENVIO</th>\n\
+                                 <th scope="col">CLIENTE</th>\n\
+                                 <th scope="col">SUC.</th>\n\
+                                 </tr></thead><tbody>';
             for (i = 0; i < arregloOS_cli.length; i++) {
                 tmp = arregloOS_cli[i];
-                datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.exe_en_id + '"><span class="ion-document" style="color: #fb972e;"></span></td>';
+                datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.exe_en_id + '"><span class="ion-document-text text-primary" style="font-size: large;"></span></td>';
 
                 datosOS_cli += '<td>' + tmp.exe_en_id + "</td>";
                 datosOS_cli += '<td>' + tmp.en_guia + '</td>';
@@ -2390,7 +2395,7 @@ function tabla_imp_guias_suc() {
                 datosOS_cli += '<td>' + tmp.cli_nombre + '</td>';
                 datosOS_cli += '<td>' + tmp.suc_nombre + '</td></tr>';
             }
-            datosOS_cli += '</tbody></table></div><div id="enc_guia_num"></div><div id="info_env_os"></div>';
+            datosOS_cli += '</tbody></table></div></div></div><div id="enc_guia_num"></div><div id="info_env_os"></div>';
             $("#sectionConten").html(datosOS_cli);
 
             /**

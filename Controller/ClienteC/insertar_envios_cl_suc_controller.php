@@ -28,8 +28,10 @@ if ($_POST) {
         $cantidad_cont = 1;
     }
     if (is_numeric($_POST["inputPeso"])) {
+        $peso_item = $_POST["inputPeso"];
         $peso_cont = $_POST["inputPeso"] * $cantidad_cont;
     } else {
+        $peso_item = 1;
         $peso_cont = 1;
     }
     if (is_numeric($_POST["inputAlto"])) {
@@ -75,6 +77,12 @@ if ($_POST) {
     $vol_cubico = $alto_cont * $ancho_cont * $largo_cont * $cantidad_cont;
     $total_vol_cub = $vol_cubico;
 
+    $cantidad[0] = $cantidad_cont;
+    $peso[0] = $peso_item;
+    $alto[0] = $alto_cont;
+    $ancho[0] = $ancho_cont;
+    $largo[0] = $largo_cont;
+
     if ($contador > 0) {
         for ($i = 0; $i < $contador; $i++) {
             $ind = $i + 1;
@@ -87,8 +95,10 @@ if ($_POST) {
                 $cantidad_cont = $cantidad_cont + 1;
             }
             if (is_numeric($_POST["inputPeso$ind"])) {
+                $peso_item = $_POST["inputPeso$ind"];
                 $peso_cont = $peso_cont + ($_POST["inputPeso$ind"] * $cantidad_item);
             } else {
+                $peso_item = 1;
                 $peso_cont = $peso_cont + 1;
             }
             if (is_numeric($_POST["inputAlto$ind"])) {
@@ -109,6 +119,12 @@ if ($_POST) {
 
             $vol_cubico_ciclo = $alto_cont_ciclo * $ancho_cont_ciclo * $largo_cont_ciclo * $cantidad_item;
             $total_vol_cub = $total_vol_cub + $vol_cubico_ciclo;
+
+            $cantidad[$ind] = $cantidad_item;
+            $peso[$ind] = $peso_item;
+            $alto[$ind] = $alto_cont_ciclo;
+            $ancho[$ind] = $ancho_cont_ciclo;
+            $largo[$ind] = $largo_cont_ciclo;
         }
     }
 
@@ -128,6 +144,22 @@ if ($_POST) {
         if ($est_x_env->insertarEstado_x_envio($id_os_cliente, $fecha_hora) == 1) {
             $env_ing_enc = json_encode($env_dao->consultaEnvIng_x_os($id_os_cliente, $_SESSION["tipo_doc"], $_SESSION["numero_doc"], 1));
             $array = json_decode($env_ing_enc);
+
+            $guia_logi = $array[0]->en_id;
+
+            $sql_detalle = "INSERT INTO detalle_envios VALUES ";
+
+            $sql_detalle_env = "";
+
+            for ($i = 0; $i < count($cantidad); $i++) {
+                $sql_detalle_env .= "(null, " . $guia_logi . ", " . $cantidad[$i] . ", " . $peso[$i] . ", " . $largo[$i] . ", " . $ancho[$i] . ", " . $alto[$i] . "),";
+            }
+
+            //***insertar datos en salidas temp****
+            $reg_det_env = trim($sql_detalle_env, ",");
+            $reg_det_env .= ";";
+            $env_dao->insertarBloqueEnTablaDetalle($sql_detalle . $reg_det_env);
+
             require './ruta_guia_pdf_param_cl_suc_controller.php';
         } else {
             echo 2; //error al insertar estado envio

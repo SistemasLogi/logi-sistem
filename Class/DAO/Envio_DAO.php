@@ -82,6 +82,17 @@ class Envio_DAO {
     }
 
     /**
+     * Funcion que inserta un bloque de registros en tabla detalle_envio
+     * @param type $sql
+     */
+    function insertarBloqueEnTablaDetalle($sql) {
+
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que inserta un registro en tabla envio a partir de una consulta
      * @param type $num_os
      * @param type $num_venta
