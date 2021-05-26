@@ -2408,7 +2408,7 @@ function tabla_imp_guias_suc() {
             });
             clickInfoEnvOs();
         } else {
-            $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
+            $("#sectionConten").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }
