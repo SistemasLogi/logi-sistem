@@ -233,17 +233,17 @@ function consulta_tabla_os_hist(value) {
             for (i = 0; i < arregloOS_cli.length; i++) {
                 tmp = arregloOS_cli[i];
                 if (tmp.es_id == 1) {
-                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-android-contact" style="color: #fb972e;"></span></td>';
+                    datosOS_cli += '<tr class="table-sm id="fila' + i + '"><td class="enlace actuestos infoenvi" infenv="' + tmp.os_id + '" act="' + tmp.os_id + '"><span class="ion-android-contact" style="color: #fb972e;"></span></td>';
                 } else if (tmp.es_id == 2) {
-                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-android-car" style="color: #0d40ff;"></span></td>';
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos infoenvi" infenv="' + tmp.os_id + '" act="' + tmp.os_id + '"><span class="ion-android-car" style="color: #0d40ff;"></span></td>';
                 } else if (tmp.es_id == 3) {
-                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-checkmark-circled" style="color: #13b955;"></span></td>';
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos infoenvi" infenv="' + tmp.os_id + '" act="' + tmp.os_id + '"><span class="ion-checkmark-circled" style="color: #13b955;"></span></td>';
                 } else if (tmp.es_id == 4) {
-                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-close-circled" style="color: #ff5757;"></span></td>';
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos infoenvi" infenv="' + tmp.os_id + '" act="' + tmp.os_id + '"><span class="ion-close-circled" style="color: #ff5757;"></span></td>';
                 } else if (tmp.es_id == 5) {
-                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-social-dropbox" style="color: #fb972e;"></span></td>';
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos infoenvi" infenv="' + tmp.os_id + '" act="' + tmp.os_id + '"><span class="ion-social-dropbox" style="color: #fb972e;"></span></td>';
                 } else if (tmp.es_id == 6) {
-                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + tmp.os_id + '"><span class="ion-cube" style="color: #0d40ff;"></span></td>';
+                    datosOS_cli += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos infoenvi" infenv="' + tmp.os_id + '" act="' + tmp.os_id + '"><span class="ion-cube" style="color: #0d40ff;"></span></td>';
                 }
                 datosOS_cli += '<td>' + tmp.os_id + "</td>";
                 datosOS_cli += '<td>' + tmp.exs_fecha_hora + '</td>';
@@ -282,7 +282,7 @@ function consulta_tabla_os_hist(value) {
             $('#tableEstOS').DataTable({
                 'scrollX': true
             });
-            clickInformacionOS();
+            clickInfoEnv_os();
         } else {
             $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\

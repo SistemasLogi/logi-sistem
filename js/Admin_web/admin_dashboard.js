@@ -2624,6 +2624,7 @@ function consulta_dashboard_serv() {
                              <thead><tr style='background-color: #13b955'>\n\
                              <th scope='col'></th>\n\
                              <th scope='col'>N° ORDEN</th>\n\
+                             <th scope='col'></th>\n\
                              <th scope='col'>FECHA</th>\n\
                              <th scope='col'>ESTADO</th>\n\
                              <th scope='col'>DOC CLIENTE</th>\n\
@@ -2649,6 +2650,7 @@ function consulta_dashboard_serv() {
                     datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-cube" style="color: #0d40ff;"></span></td>';
                 }
                 datosEstOS += '<td>' + tmp.os_id + "</td>";
+                datosEstOS += '<td class="enlace infoenvi" infenv="' + tmp.os_id + '"><span class="ion-email-unread" style="color: #13b955;"></span></td>';
                 datosEstOS += '<td>' + tmp.exs_fecha_hora + '</td>';
                 if (tmp.es_id == 1) {
                     datosEstOS += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
@@ -2688,6 +2690,7 @@ function consulta_dashboard_serv() {
             });
 
             clickActuEstado_OS();
+            clickInfoEnv_os();
         } else {
             $("#tableEstOS").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\

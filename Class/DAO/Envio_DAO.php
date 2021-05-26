@@ -35,6 +35,22 @@ class Envio_DAO {
     }
 
     /**
+     * funcion que retorna la informacion de envios por numero de orden de servicio
+     * @param type $num_os
+     * @return type
+     */
+    function consultaInfoEnviosOS($num_os) {
+        $sql = "SELECT e.*, o.*, c.*, es.exe_fec_hora, ee.ee_desc, ee.ee_id, cd.ciu_nombre, d.*, dt.*, ts.ts_desc, te.te_desc "
+                . "FROM envio AS e, orden_serv AS o, clientes AS c, est_x_envio "
+                . "AS es, estado_env AS ee, ciudad AS cd, departamento AS d, detalle_envios AS dt, tipo_serv AS ts, tipo_envio AS te "
+                . "WHERE e.os_id = o.os_id AND o.cli_td_id = c.cli_td_id "
+                . "AND o.cli_num_doc = c.cli_num_doc AND o.os_id = " . $num_os . " AND es.exe_en_id = e.en_id "
+                . "AND es.exe_ee_id = ee.ee_id AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id AND dt.en_id = e.en_id AND o.ts_id = ts.ts_id AND o.te_id = te.te_id;";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * funcion que retorna los envios en estado 1 para imprimir guia
      * @param type $td_id_cl
      * @param type $num_doc_cl

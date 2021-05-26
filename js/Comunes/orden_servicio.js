@@ -6,6 +6,8 @@ function formulario_recolec() {
     request = "View/ClienteV/form_solic_recoleccion.php";
     cadena = "a=1"; //envio de parametros por POST
     metodo = function (datos) {
+        $("#sec1").html("");
+        contador_cl_suc = 0;
         $("#sectionConten").html(datos);
         combo_ciudad("#selCiudad");
         combo_tipo_envio_cl("#selEnvio");
@@ -652,19 +654,19 @@ function formularios_envio_cl() {
                                 <input type="text" class="form-control form-control-sm" id="inputRefGuia' + contador_cl_suc + '" name="inputRefGuia' + contador_cl_suc + '" placeholder="Referencia">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqPeso' + contador_cl_suc + '">\n\
-                                <label for="inputPeso' + contador_cl_suc + '">Peso Kg</label>\n\
+                                <label for="inputPeso' + contador_cl_suc + '">Peso Kg  /x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputPeso' + contador_cl_suc + '" name="inputPeso' + contador_cl_suc + '" placeholder="Peso Kg">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqAlto' + contador_cl_suc + '">\n\
-                                <label for="inputAlto' + contador_cl_suc + '">Alto cm</label>\n\
+                                <label for="inputAlto' + contador_cl_suc + '">Alto cm  /x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputAlto' + contador_cl_suc + '" name="inputAlto' + contador_cl_suc + '" placeholder="Alto cm">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqAncho' + contador_cl_suc + '">\n\
-                                <label for="inputAncho' + contador_cl_suc + '">Ancho cm</label>\n\
+                                <label for="inputAncho' + contador_cl_suc + '">Ancho cm  /x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputAncho' + contador_cl_suc + '" name="inputAncho' + contador_cl_suc + '" placeholder="Ancho cm">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqLargo' + contador_cl_suc + '">\n\
-                                <label for="inputLargo' + contador_cl_suc + '">Largo cm</label>\n\
+                                <label for="inputLargo' + contador_cl_suc + '">Largo cm  /x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputLargo' + contador_cl_suc + '" name="inputLargo' + contador_cl_suc + '" placeholder="Largo cm">\n\
                             </div>');
         //en esta parte se agrega el elemento div contenedor para otro formulario
@@ -2439,6 +2441,160 @@ function imprime_guia_logi(num_guia) {
     cadena = {"inputNumEnvi": num_guia}; //envio de parametros por POST
     metodo = function (datos) {
         $("#info_env_os").html(datos);
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que devuelve tabla de informacion de envios
+ * formulario ciudad
+ * @returns {undefined}
+ */
+function clickInfoEnv_os() {
+    $("#tableEstOS").on("click", ".infoenvi", function () {
+//    $(".actuestos").click(function () {
+        $('#ModalActuEstOS').modal('toggle');
+        $('#mod-dalog').addClass('modal-lg');
+        $('#ModalEstOSTitle').html('Detalle de envios por OS');
+        num_os_info = $(this).attr("infenv");
+
+        tabla_info_env_os(num_os_info);
+    });
+}
+
+/**
+ * Metodo que trae tabla de envios cargados en orden de servicio
+ * @param {type} num_os
+ * @returns {undefined}
+ */
+function tabla_info_env_os(num_os) {
+    request = "Controller/AdminC/AdministrarEnvios/con_detalle_env_os_controller.php";
+    cadena = {"num_os": num_os}; //envio de parametros por POST
+    metodo = function (datos) {
+        arreglo_inf_env = $.parseJSON(datos);
+        tmp_inf = arreglo_inf_env[0];
+//        alert(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_inf_env !== 0) {
+            datos_kdx = '<div class="toast-body row"><div class="alert alert-dismissible alert-secondary col-lg-12 border-primary" style="border-radius: 0.5rem;">\n\
+                             <div class="table-responsive text-nowrap col-lg-12">\n\
+                             <table class="table table-striped table-sm table-bordered text-center col-lg-12" id="tableDetEnv">\n\
+                             <thead>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">GUIA LOGI N°</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_id + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">OP N°</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_guia + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">FECHA</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.exe_fec_hora + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">SERVICIO</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.ts_desc + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">T. ENVIO</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.te_desc + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">VALOR FLETE</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_valor_pago + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">OS N°</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.os_id + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">TOTAL UN</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_cantidad + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">VALOR DECLARADO</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_valor_decl + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">TOTAL VOL</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + Math.pow(tmp_inf.en_alto, 3) + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">TOTAL KG</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_peso + '</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">VALOR RECAUDO</th>\n\
+                                <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_recaudo + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">OBSERVACION SERV</th>\n\
+                                <th scope="col" colspan="5">' + tmp_inf.os_observacion + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">CLIENTE</th>\n\
+                                <th scope="col" colspan="5">' + tmp_inf.cli_nombre + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" colspan="3" class="table-primary">DESTINO</th>\n\
+                                <th scope="col" colspan="3" style="background-color: #ffd388;">REMITE</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #e0cff9;">NOMBRE</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.en_nombre + '</th>\n\
+                                <th scope="col" class="table-warning">NOMBRE</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.cli_nombre + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #e0cff9;">DIRECCION</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.en_direccion + '</th>\n\
+                                <th scope="col" class="table-warning">DIRECCION</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.os_direccion + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #e0cff9;">CIUDAD</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.en_ciudad + '</th>\n\
+                                <th scope="col" class="table-warning">CIUDAD</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.ciu_nombre + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #e0cff9;">TEL</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.en_telefono + '</th>\n\
+                                <th scope="col" class="table-warning">TEL</th>\n\
+                                <th scope="col" colspan="2">' + tmp_inf.cli_tel + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">OBSERVACION ENV</th>\n\
+                                <th scope="col" colspan="5">' + tmp_inf.en_novedad + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" style="background-color: #bda4e8;">DICE CONTENER</th>\n\
+                                <th scope="col" colspan="5">' + tmp_inf.en_contiene + '</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" colspan="6" class="table-danger">DETALLE UNIDADES</th>\n\
+                            </tr>\n\
+                            <tr>\n\
+                                <th scope="col" class="table-primary">ENVIO N°</th>\n\
+                                <th scope="col" class="table-primary">CANTIDAD</th>\n\
+                                <th scope="col" class="table-primary">PESO</th>\n\
+                                <th scope="col" class="table-primary">ALTO</th>\n\
+                                <th scope="col" class="table-primary">ANCHO</th>\n\
+                                <th scope="col" class="table-primary">LARGO</th>\n\
+                            </tr>\n\
+                            </thead><tbody>';
+            for (i = 0; i < arreglo_inf_env.length; i++) {
+                tmp = arreglo_inf_env[i];
+
+
+                datos_kdx += '<tr id="fila' + i + '">';
+                datos_kdx += '<td>' + tmp.en_id + '</td>';
+                datos_kdx += '<td>' + tmp.det_cantidad + '</td>';
+                datos_kdx += '<td>' + tmp.det_peso + '</td>';
+                datos_kdx += '<td>' + tmp.det_alto + '</td>';
+                datos_kdx += '<td>' + tmp.det_ancho + '</td>';
+                datos_kdx += '<td>' + tmp.det_largo + '</td></tr>';
+            }
+            datos_kdx += '</tbody></table></div></div></div>';
+            $('#body_mod_os').html(datos_kdx);
+
+            /**
+             * Evento que pagina una tabla 
+             */
+            $('#tableDetEnv').DataTable({
+                //            "order": [[0, 'desc'], [1, 'desc']]
+                "order": []
+            });
+        } else {
+            $("#body_mod_os").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
     };
     f_ajax(request, cadena, metodo);
 }
