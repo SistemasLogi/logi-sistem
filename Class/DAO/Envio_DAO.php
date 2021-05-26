@@ -45,7 +45,7 @@ class Envio_DAO {
                 . "AS es, estado_env AS ee, ciudad AS cd, departamento AS d, detalle_envios AS dt, tipo_serv AS ts, tipo_envio AS te "
                 . "WHERE e.os_id = o.os_id AND o.cli_td_id = c.cli_td_id "
                 . "AND o.cli_num_doc = c.cli_num_doc AND o.os_id = " . $num_os . " AND es.exe_en_id = e.en_id "
-                . "AND es.exe_ee_id = ee.ee_id AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id AND dt.en_id = e.en_id AND o.ts_id = ts.ts_id AND o.te_id = te.te_id;";
+                . "AND es.exe_ee_id = ee.ee_id AND cd.ciu_id = o.ciu_id AND cd.dep_id = d.dep_id AND dt.en_id = e.en_id AND o.ts_id = ts.ts_id AND o.te_id = te.te_id AND ee.ee_id = 1;";
         $BD = new MySQL();
         return $BD->query($sql);
     }
