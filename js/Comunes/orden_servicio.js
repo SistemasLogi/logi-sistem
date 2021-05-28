@@ -654,19 +654,19 @@ function formularios_envio_cl() {
                                 <input type="text" class="form-control form-control-sm" id="inputRefGuia' + contador_cl_suc + '" name="inputRefGuia' + contador_cl_suc + '" placeholder="Referencia">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqPeso' + contador_cl_suc + '">\n\
-                                <label for="inputPeso' + contador_cl_suc + '">Peso Kg  /x und</label>\n\
+                                <label for="inputPeso' + contador_cl_suc + '">Peso  / x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputPeso' + contador_cl_suc + '" name="inputPeso' + contador_cl_suc + '" placeholder="Peso Kg">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqAlto' + contador_cl_suc + '">\n\
-                                <label for="inputAlto' + contador_cl_suc + '">Alto cm  /x und</label>\n\
+                                <label for="inputAlto' + contador_cl_suc + '">Alto cm  / x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputAlto' + contador_cl_suc + '" name="inputAlto' + contador_cl_suc + '" placeholder="Alto cm">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqAncho' + contador_cl_suc + '">\n\
-                                <label for="inputAncho' + contador_cl_suc + '">Ancho cm  /x und</label>\n\
+                                <label for="inputAncho' + contador_cl_suc + '">Ancho cm  / x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputAncho' + contador_cl_suc + '" name="inputAncho' + contador_cl_suc + '" placeholder="Ancho cm">\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2" id="blqLargo' + contador_cl_suc + '">\n\
-                                <label for="inputLargo' + contador_cl_suc + '">Largo cm  /x und</label>\n\
+                                <label for="inputLargo' + contador_cl_suc + '">Largo cm  / x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputLargo' + contador_cl_suc + '" name="inputLargo' + contador_cl_suc + '" placeholder="Largo cm">\n\
                             </div>');
         //en esta parte se agrega el elemento div contenedor para otro formulario
@@ -2493,7 +2493,7 @@ function tabla_info_env_os(num_os) {
                                 <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.ts_desc + '</th>\n\
                                 <th scope="col" style="background-color: #bda4e8;">T. ENVIO</th>\n\
                                 <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.te_desc + '</th>\n\
-                                <th scope="col" style="background-color: #bda4e8;">VALOR FLETE</th>\n\
+                                <th scope="col" style="background-color: #bda4e8;">VALOR SERVICIO</th>\n\
                                 <th scope="col" style="background-color: #e0cff9;">' + tmp_inf.en_valor_pago + '</th>\n\
                             </tr>\n\
                             <tr>\n\

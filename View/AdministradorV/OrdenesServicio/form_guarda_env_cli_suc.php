@@ -77,19 +77,19 @@
                                             <input type="text" class="form-control form-control-sm" id="inputRefGuia" name="inputRefGuia" placeholder="Referencia">
                                         </div>
                                         <div class="form-group form-group-sm col-lg-2" id="blqPeso">
-                                            <label for="inputPeso">Peso Kg  /x und</label>
+                                            <label for="inputPeso">Peso Kg  / x und</label>
                                             <input type="number" class="form-control form-control-sm" id="inputPeso" name="inputPeso" placeholder="Peso Kg">
                                         </div>
                                         <div class="form-group form-group-sm col-lg-2" id="blqAlto">
-                                            <label for="inputAlto">Alto cm  /x und</label>
+                                            <label for="inputAlto">Alto cm  / x und</label>
                                             <input type="number" class="form-control form-control-sm" id="inputAlto" name="inputAlto" placeholder="Alto cm">
                                         </div>
                                         <div class="form-group form-group-sm col-lg-2" id="blqAncho">
-                                            <label for="inputAncho">Ancho cm  /x und</label>
+                                            <label for="inputAncho">Ancho cm  / x und</label>
                                             <input type="number" class="form-control form-control-sm" id="inputAncho" name="inputAncho" placeholder="Ancho cm">
                                         </div>
                                         <div class="form-group form-group-sm col-lg-2" id="blqLargo">
-                                            <label for="inputLargo">Largo cm  /x und</label>
+                                            <label for="inputLargo">Largo cm  / x und</label>
                                             <input type="number" class="form-control form-control-sm" id="inputLargo" name="inputLargo" placeholder="Largo cm">
                                         </div>
                                         <div id="sec1" class="row px-3">

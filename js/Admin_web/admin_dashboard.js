@@ -46,6 +46,9 @@ $(document).ready(function () {
     $("#link_form_carga_pruebas").click(function () {
         vista_form_carga_pruebas();
     });
+    $("#link_form_editar_env").click(function () {
+        vista_form_editar_env();
+    });
 
     //*Este menu es gestionar del almacen*//
     $("#link_gest_almacen").click(function () {
@@ -164,6 +167,7 @@ function limpiarFormulario(formulario) {
             case 'date':
             case 'file':
             case 'time':
+            case 'number':
                 $(this).val('');
                 break;
             case 'checkbox':
@@ -5931,6 +5935,32 @@ function vista_form_carga_pruebas() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que carga form para carga masiva de pruebas de entrega
+ * @returns {undefined}
+ */
+function vista_form_editar_env() {
+    request = "View/AdministradorV/AdEnvios/form_edit_envios.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        $("#list-formCliente").html("");
+        $("#list-formCliente").html(datos);
+        combo_ciudad("#selectCiuRemite");
+        combo_tipo_envio("#selectTipoEnvi");
+        combo_tipo_serv("#selectTipoServi");
+
+//        nameFileCargaPruebas();
+//
+        $("#btnBuscaGuia").click(function () {
+            validarGuiaBuscar();
+        });
+        $("#btnGuardarCambio").click(function () {
+            validarGuardaCambiosEnv();
+        });
+
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /**
  * Metodo que plasma nombre archivo en carga masiva envios documentos
@@ -5949,7 +5979,61 @@ function nameFileCargaPruebas() {
         }
     });
 }
+/**
+ * Metodo que retorna datos de envio a editar
+ * @returns {undefined}
+ */
+function consulta_env_editar() {
+    request = "Controller/AdminC/AdministrarEnvios/cons_envio_editar_controller.php";
+    cadena = $("#formBuscarEnv").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
 
+        arregloEnvEdit = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvEdit !== 0) {
+            tmp_env_edit = arregloEnvEdit[0];
+
+            $("#inputNumGuiaLogi").val(tmp_env_edit.en_id);
+            $("#inputNumGuiaLogi").prop("readonly", true);
+            $("#inputNumOs").val(tmp_env_edit.os_id);
+            $("#inputNumOs").prop("readonly", true);
+            $('#selectTipoServi option[value="' + tmp_env_edit.ts_id + '"]').attr('selected', true);
+            $('#selectTipoEnvi option[value="' + tmp_env_edit.te_id + '"]').attr('selected', true);
+            $("#inputGuiaOp").val(tmp_env_edit.en_guia);
+            $("#inputObservServi").val(tmp_env_edit.os_observacion);
+            $("#inputRecaudo").val(tmp_env_edit.en_recaudo);
+            $("#inputValorDecl").val(tmp_env_edit.en_valor_decl);
+            $("#inputValPago").val(tmp_env_edit.en_valor_pago);
+            $("#inputContenido").val(tmp_env_edit.en_contiene);
+            $("#inputObservEnvio").val(tmp_env_edit.en_novedad);
+            $("#inputNombreRemite").val(tmp_env_edit.cli_nombre);
+            $("#inputDirRemite").val(tmp_env_edit.os_direccion);
+            $("#inputTeleRemite").val(tmp_env_edit.os_tel_cont);
+            $('#selectCiuRemite option[value="' + tmp_env_edit.ciu_id + '"]').attr('selected', true);
+            $("#inputNombreDestino").val(tmp_env_edit.en_nombre);
+            $("#inputDirDestino").val(tmp_env_edit.en_direccion);
+            $("#inputTeleDestino").val(tmp_env_edit.en_telefono);
+            $("#inputCiudDestino").val(tmp_env_edit.en_ciudad);
+            $("#inputDptoDestino").val(tmp_env_edit.en_departamento);
+
+            $("#btnDetalle").click(function () {
+                if ($("#inputNumGuiaLogi").val(tmp_env_edit.en_id) == "") {
+                    alertify.alert("No hay datos de envio para buscar").setHeader('<em> Cuidado! </em> ');
+                } else {
+                    consulta_env_detalle(tmp_env_edit.en_id);
+                }
+
+            });
+
+
+        } else {
+            alertify.alert("El numero ingresado no se encuentra en la Base de Datos").setHeader('<em> Cuidado! </em> ');
+            limpiarFormulario("#formEditEnvio");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
 /**
  * Metodo de validacion de carga pruebas de entrega
  * @returns {undefined}
@@ -5971,6 +6055,144 @@ function validarPrebasEntrega() {
             cargaPruebasEntregaFile();
         }
     });
+}
+/**
+ * Metodo de validacion de busqueda guia
+ * @returns {undefined}
+ */
+function validarGuiaBuscar() {
+    $("#formBuscarEnv").validate({
+        errorLabelContainer: '#errorTxt',
+        rules: {
+            inputNumGuia: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            consulta_env_editar();
+        }
+    });
+}
+/**
+ * Metodo de validacion de guardado de cambios en envio y os
+ * @returns {undefined}
+ */
+function validarGuardaCambiosEnv() {
+    $("#formEditEnvio").validate({
+        rules: {
+            inputNumGuiaLogi: {
+                required: true
+            },
+            inputNumOs: {
+                required: true
+            },
+            inputDirRemite: {
+                required: true
+            },
+            inputNombreDestino: {
+                required: true
+            },
+            inputDirDestino: {
+                required: true
+            },
+            inputCiudDestino: {
+                required: true
+            },
+            inputDptoDestino: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+            actualizarEnvDatosGuia();
+        }
+    });
+}
+
+/**
+ * Metodo que actualiza datos de una orden de servicio
+ * @returns {undefined}
+ */
+function actualizarEnvDatosGuia() {
+    request = "Controller/AdminC/AdministrarEnvios/actualizar_envio_dat_guia_controller.php";
+    cadena = $("#formEditEnvio").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Envio Actualizado!!');
+            limpiarFormulario("#formEditEnvio");
+            $("#contDetalle").html("");
+        } else {
+            alertify.error('No se pudo realizar la Actualización! ' + datos);
+//            alert(datos);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que retorna detalle de envio
+ * @param {type} num_guia
+ * @returns {undefined}
+ */
+function consulta_env_detalle(num_guia) {
+    request = "Controller/AdminC/AdministrarEnvios/cons_detalle_envio_controller.php";
+    cadena = {"NumGuiaLogi": num_guia}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+
+        arregloEnvDet = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloEnvDet !== 0) {
+            items = arregloEnvDet.length;
+            dat_det = '<form id="formDetalleEnvEdit">\n\
+                <fieldset>\n\
+                    <div class="alert alert-dismissible alert-primary col-lg-12 border-light" style="border-radius: 0.5rem;">\n\
+                        <div class="toast show border-primary" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-body row">\n\
+                                <div id="parentSec">\n\
+                                    <div id="sec" class="row px-3">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputItemId" name="inputItemId" value="' + items + '" style="display: none;">';
+            for (i = 0; i < arregloEnvDet.length; i++) {
+                tmp = arregloEnvDet[i];
+
+                dat_det += '<div class="form-group form-group-sm col-lg-4">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputItemId' + i + '" name="inputItemId" value="' + tmp.id + '"  style="display: none;">\n\
+                                <label for="inputCantidadEnv' + i + '">Cantidad</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputCantidadEnv' + i + '" name="inputCantidadEnv' + i + '" value="' + tmp.det_cantidad + '">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2">\n\
+                                <label for="inputPeso' + i + '">Peso Kg  / x und</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputPeso' + i + '" name="inputPeso' + i + '" value="' + tmp.det_peso + '">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2">\n\
+                                <label for="inputAlto' + i + '">Alto cm  / x und</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputAlto' + i + '" name="inputAlto' + i + '" value="' + tmp.det_alto + '">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2">\n\
+                                <label for="inputAncho' + i + '">Ancho cm  / x und</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputAncho' + i + '" name="inputAncho' + i + '" value="' + tmp.det_ancho + '">\n\
+                            </div>\n\
+                            <div class="form-group form-group-sm col-lg-2">\n\
+                                <label for="inputLargo' + i + '">Largo cm  / x und</label>\n\
+                                <input type="number" class="form-control form-control-sm" id="inputLargo' + i + '" name="inputLargo' + i + '" value="' + tmp.det_largo + '">\n\
+                            </div>';
+            }
+            dat_det += '<div class="form-group col-lg-12 mr-auto">\n\
+                                            <button type="button" class="btn btn-warning" id="btnDetalle" name="btnDetalle"><strong>Guardar Cambis Detalle</strong></button>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>\n\
+                        </div>\n\
+                    </div>\n\
+                </fieldset>\n\
+            </form>';
+            $("#contDetalle").html(dat_det);
+
+        } else {
+            alertify.alert("El numero ingresado no se encuentra en la Base de Datos").setHeader('<em> Cuidado! </em> ');
+            limpiarFormulario("#formEditEnvio");
+        }
+    };
+    f_ajax(request, cadena, metodo);
 }
 /**
  * Metodo que se encarga de guardar ficheros en carpeta de pruebas de entrega

@@ -51,6 +51,31 @@ class Envio_DAO {
     }
 
     /**
+     * funcion que retorna la informacion de envio segun numero de guia logi
+     * @param type $num_logi
+     * @return type
+     */
+    function consultaInfoEnvioAll($num_logi) {
+        $sql = "SELECT e.*, o.ciu_id, o.os_direccion, o.os_tel_cont, o.os_observacion, c.*, ts.*, te.* "
+                . "FROM envio AS e, orden_serv AS o, clientes AS c, tipo_serv AS ts, tipo_envio AS te "
+                . "WHERE e.os_id = o.os_id AND o.cli_td_id = c.cli_td_id AND o.cli_num_doc = c.cli_num_doc "
+                . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id AND e.en_id = " . $num_logi . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
+     * funcion que retorna detalle de envio segun numero de guia logi
+     * @param type $num_logi
+     * @return type
+     */
+    function consultaDetalleEnvio($num_logi) {
+        $sql = "SELECT * FROM detalle_envios WHERE en_id = " . $num_logi . ";";
+        $BD = new MySQL();
+        return $BD->query($sql);
+    }
+
+    /**
      * funcion que retorna los envios en estado 1 para imprimir guia
      * @param type $td_id_cl
      * @param type $num_doc_cl
@@ -92,6 +117,30 @@ class Envio_DAO {
                 . "'" . $obj_env_vo->getNovedad() . "','" . $obj_env_vo->getContenido() . "'," . $obj_env_vo->getValor_declarado() . ","
                 . "" . $obj_env_vo->getNum_venta() . ", " . $obj_env_vo->getRecaudo() . ", " . $obj_env_vo->getTipo_pag_id() . ", "
                 . "" . $obj_env_vo->getValor_pago() . ")";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que actualiza datos de envio
+     * @param type $obj_env_vo
+     * @return type
+     */
+    function actualizarEnvio($obj_env_vo) {
+        $sql = "UPDATE envio SET "
+                . "en_guia = " . $obj_env_vo->getNum_guia() . ", "
+                . "en_nombre = '" . $obj_env_vo->getNombre() . "', "
+                . "en_direccion = '" . $obj_env_vo->getDireccion() . "', "
+                . "en_telefono = '" . $obj_env_vo->getTelefono() . "', "
+                . "en_ciudad = '" . $obj_env_vo->getCiudad_dest() . "', "
+                . "en_departamento = '" . $obj_env_vo->getDepto_dest() . "', "
+                . "en_novedad = '" . $obj_env_vo->getNovedad() . "', "
+                . "en_contiene = '" . $obj_env_vo->getContenido() . "', "
+                . "en_valor_decl = " . $obj_env_vo->getValor_declarado() . ", "
+                . "en_recaudo = " . $obj_env_vo->getRecaudo() . ", "
+                . "en_valor_pago = " . $obj_env_vo->getValor_pago() . " "
+                . "WHERE en_id = " . $obj_env_vo->getId_envio() . ";";
         $BD = new MySQL();
 //        return $sql;
         return $BD->execute_query($sql);

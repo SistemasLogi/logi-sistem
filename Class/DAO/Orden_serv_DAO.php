@@ -117,6 +117,25 @@ class Orden_serv_DAO {
     }
 
     /**
+     * Funcion que actualiza una orden de servicio
+     * @param type $ordenServ_vo
+     * @return type
+     */
+    function actualizarOS_edit_env($ordenServ_vo) {
+        $sql = "UPDATE orden_serv SET "
+                . "ciu_id = " . $ordenServ_vo->getCod_ciudad() . ", "
+                . "os_direccion = '" . $ordenServ_vo->getDireccion() . "', "
+                . "os_tel_cont = '" . $ordenServ_vo->getTelefono() . "', "
+                . "ts_id = " . $ordenServ_vo->getTipo_serv_id() . ", "
+                . "te_id = " . $ordenServ_vo->getTipo_env_id() . ", "
+                . "os_observacion = '" . $ordenServ_vo->getObservacion() . "' "
+                . "WHERE orden_serv.os_id = " . $ordenServ_vo->getNumero() . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que inserta un registro en tabla os_x_suc
      * @param type $num_os
      * @param type $num_suc
