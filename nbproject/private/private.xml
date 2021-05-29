@@ -3,14 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarEnvios/con_detalle_env_os_controller.php</file>
-            <file>file:/C:/wamp64/www/logi-sistem/js/Comunes/seguimiento_os.js</file>
-            <file>file:/C:/wamp64/www/logi-sistem/js/Comunes/kardex_prod.js</file>
+            <file>file:/C:/wamp64/www/logi-sistem/View/AdministradorV/AdEnvios/form_edit_envios.php</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarEnvios/cons_envio_editar_controller.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/Class/DAO/Envio_DAO.php</file>
-            <file>file:/C:/wamp64/www/logi-sistem/js/Cliente/cliente_dashboard.js</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarEnvios/cons_detalle_envio_controller.php</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarEnvios/actualizar_envio_dat_guia_controller.php</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Class/DAO/Orden_serv_DAO.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/js/Comunes/orden_servicio.js</file>
             <file>file:/C:/wamp64/www/logi-sistem/View/AdministradorV/OrdenesServicio/form_guarda_env_cli_suc.php</file>
             <file>file:/C:/wamp64/www/logi-sistem/js/Admin_web/admin_dashboard.js</file>
+            <file>file:/C:/wamp64/www/logi-sistem/admin_logi.php</file>
         </group>
     </open-files>
 </project-private>

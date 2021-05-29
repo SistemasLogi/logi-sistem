@@ -32,19 +32,23 @@
                         <strong class="mr-auto">Envio 1</strong>
                         <div class="toast show border-primary" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">
                             <div class="toast-body row">
-                                <div class="form-group form-group-sm col-lg-4">
+                                <div class="form-group form-group-sm col-lg-6">
                                     <label for="inputNombreDestino">Nombre destinatario</label>
                                     <input type="text" class="form-control form-control-sm" id="inputNombreDestino" name="inputNombreDestino" placeholder="Nombre Destinatario" required>
                                 </div>
-                                <div class="form-group form-group-sm col-lg-4">
+                                <div class="form-group form-group-sm col-lg-6">
                                     <label for="inputDirDestino">Dirección destino</label>
                                     <input type="text" class="form-control form-control-sm" id="inputDirDestino" name="inputDirDestino" placeholder="Dirección Destinatario" required>
                                 </div>
-                                <div class="form-group form-group-sm col-lg-2">
+                                <div class="form-group form-group-sm col-lg-4">
+                                    <label for="inputRefGuia">Referencia</label>
+                                    <input type="text" class="form-control form-control-sm" id="inputRefGuia" name="inputRefGuia" placeholder="Referencia">
+                                </div>
+                                <div class="form-group form-group-sm col-lg-4">
                                     <label for="inputTeleDestino">Teléfono Destino</label>
                                     <input type="number" class="form-control form-control-sm" id="inputTeleDestino" name="inputTeleDestino" placeholder="Telefono Destinatario">
                                 </div>
-                                <div class="form-group form-group-sm col-lg-2">
+                                <div class="form-group form-group-sm col-lg-4">
                                     <label for="selectCiudDestino">Ciudad Destino</label>
                                     <select class="form-control form-control-sm" id="selectCiudDestino" name="selectCiudDestino">
 
@@ -52,9 +56,9 @@
                                 </div>
 
 
-                                <div id="parentSec">
-                                    <div id="sec" class="row px-3">
-                                        <div class="form-group form-group-sm col-lg-2">
+                                <div id="parentSec" class="col-lg-12">
+                                    <div id="sec" class="row">
+                                        <div class="form-group form-group-sm col-lg-3">
                                             <label for="inputCantidadEnv">Cantidad</label>
                                             <?php
                                             if ($_SESSION["tiped_os_cli_suc"] == 1) {
@@ -72,11 +76,7 @@
                                             }
                                             ?>
                                         </div>
-                                        <div class="form-group form-group-sm col-lg-2">
-                                            <label for="inputRefGuia">Referencia</label>
-                                            <input type="text" class="form-control form-control-sm" id="inputRefGuia" name="inputRefGuia" placeholder="Referencia">
-                                        </div>
-                                        <div class="form-group form-group-sm col-lg-2" id="blqPeso">
+                                        <div class="form-group form-group-sm col-lg-3" id="blqPeso">
                                             <label for="inputPeso">Peso Kg  / x und</label>
                                             <input type="number" class="form-control form-control-sm" id="inputPeso" name="inputPeso" placeholder="Peso Kg">
                                         </div>
@@ -91,10 +91,10 @@
                                         <div class="form-group form-group-sm col-lg-2" id="blqLargo">
                                             <label for="inputLargo">Largo cm  / x und</label>
                                             <input type="number" class="form-control form-control-sm" id="inputLargo" name="inputLargo" placeholder="Largo cm">
-                                        </div>
-                                        <div id="sec1" class="row px-3">
+                                        </div>                                        
+                                    </div>
+                                    <div id="sec1" class="row">
 
-                                        </div>
                                     </div>
                                 </div>
 

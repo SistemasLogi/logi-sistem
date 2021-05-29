@@ -11,7 +11,7 @@ if ($_POST) {
 
     $json_env = json_encode($est_env->consultaEnv_x_id($env_id));
     $array = json_decode($json_env);
-    
+
     $pag_fin = count($array);
 
     $num_doc_client = $array[0]->cli_num_doc;
@@ -81,7 +81,10 @@ if ($_POST) {
         . "</div>";
     } else {
         echo "<div class='alert alert-dismissible alert-success'>"
-        . "<a href='Files/GuiasPDF_temp/" . $num_doc_client . "_" . $tipo_docum_cli . "/" . $num_doc_client . ".pdf' class='alert-link' target='_blank'>Click AQUI para descargar</a>."
+        . "<a href='Files/GuiasPDF_temp/" . $num_doc_client . "_" . $tipo_docum_cli . "/" . $num_doc_client . ".pdf' class='alert-link' target='_blank'>Click AQUI para descargar pdf</a>."
+        . "</div>"
+        . "<div class='alert alert-dismissible alert-warning'>"
+        . "<a href='http://www.grupologi.co/rastreo_envio.php?EnvNum=" . $code . "' class='alert-link' target='_blank'>Sigue tu envio en <b class='text-info'>www.grupologi.co/rastreo_envio.php?EnvNum=" . $code . "</b></a>"
         . "</div>";
     }
 } else {

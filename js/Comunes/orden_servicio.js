@@ -645,15 +645,11 @@ var contador_cl_suc = 0;
 function formularios_envio_cl() {
     if (contador_cl_suc <= 8) {
         contador_cl_suc += 1;
-        $('#sec' + contador_cl_suc + '').html('<div class="form-group form-group-sm col-lg-2">\n\
+        $('#sec' + contador_cl_suc + '').html('<div class="form-group form-group-sm col-lg-3">\n\
                                 <label for="inputCantidadEnv' + contador_cl_suc + '">Cantidad</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputCantidadEnv' + contador_cl_suc + '" name="inputCantidadEnv' + contador_cl_suc + '" placeholder="N° Envios" required>\n\
                             </div>\n\
-                            <div class="form-group form-group-sm col-lg-2">\n\
-                                <label for="inputRefGuia' + contador_cl_suc + '">Referencia</label>\n\
-                                <input type="text" class="form-control form-control-sm" id="inputRefGuia' + contador_cl_suc + '" name="inputRefGuia' + contador_cl_suc + '" placeholder="Referencia">\n\
-                            </div>\n\
-                            <div class="form-group form-group-sm col-lg-2" id="blqPeso' + contador_cl_suc + '">\n\
+                            <div class="form-group form-group-sm col-lg-3" id="blqPeso' + contador_cl_suc + '">\n\
                                 <label for="inputPeso' + contador_cl_suc + '">Peso  / x und</label>\n\
                                 <input type="number" class="form-control form-control-sm" id="inputPeso' + contador_cl_suc + '" name="inputPeso' + contador_cl_suc + '" placeholder="Peso Kg">\n\
                             </div>\n\
@@ -670,7 +666,7 @@ function formularios_envio_cl() {
                                 <input type="number" class="form-control form-control-sm" id="inputLargo' + contador_cl_suc + '" name="inputLargo' + contador_cl_suc + '" placeholder="Largo cm">\n\
                             </div>');
         //en esta parte se agrega el elemento div contenedor para otro formulario
-        $("#parentSec").append('<div id="sec' + parseInt(contador_cl_suc + 1) + '" class="row px-3"></div>');
+        $("#parentSec").append('<div id="sec' + parseInt(contador_cl_suc + 1) + '" class="row"></div>');
 
         $("#inputContador").val(parseInt(contador_cl_suc));
     } else {

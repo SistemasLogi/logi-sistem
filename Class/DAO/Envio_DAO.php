@@ -147,6 +147,42 @@ class Envio_DAO {
     }
 
     /**
+     * Funcion que actualiza datos de detalle de envio
+     * @param type $obj_env_vo
+     * @return type
+     */
+    function actualizarDetalleEnvio($cantidad, $peso, $largo, $ancho, $alto, $id) {
+        $sql = "UPDATE detalle_envios SET "
+                . "det_cantidad = " . $cantidad . ", "
+                . "det_peso = " . $peso . ", "
+                . "det_largo = " . $largo . ", "
+                . "det_ancho = " . $ancho . ", "
+                . "det_alto = " . $alto . " "
+                . "WHERE id = " . $id . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
+     * Funcion que actualiza datos de envio
+     * @param type $obj_env_vo
+     * @return type
+     */
+    function actualizarDimensionesEnvio($obj_env_vo) {
+        $sql = "UPDATE envio SET "
+                . "en_cantidad = " . $obj_env_vo->getCantidad() . ", "
+                . "en_peso = " . $obj_env_vo->getPeso_kg() . ", "
+                . "en_alto = " . $obj_env_vo->getAlto_cm() . ", "
+                . "en_ancho = " . $obj_env_vo->getAncho_cm() . ", "
+                . "en_largo = " . $obj_env_vo->getLargo_cm() . " "
+                . "WHERE en_id = " . $obj_env_vo->getId_envio() . ";";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->execute_query($sql);
+    }
+
+    /**
      * Funcion que inserta un bloque de registros en tabla detalle_envio
      * @param type $sql
      */

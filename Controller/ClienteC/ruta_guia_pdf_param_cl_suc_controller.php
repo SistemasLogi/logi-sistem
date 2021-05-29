@@ -67,10 +67,13 @@ require './guias_pdf_final_param_controller.php';
 
 if (isset($_SESSION["adminlogi"])) {
     echo "<div class='alert alert-dismissible alert-success'>"
-    . "<a href='Files/GuiasPDF_temp_adm/" . $num_doc_client . "_" . $tipo_docum_cli . "/" . $num_doc_client . ".pdf' class='alert-link' target='_blank'>Click AQUI para descargar</a>."
+    . "<a href='Files/GuiasPDF_temp_adm/" . $num_doc_client . "_" . $tipo_docum_cli . "/" . $num_doc_client . ".pdf' class='alert-link' target='_blank'>Click AQUI para descargar pdf</a>."
     . "</div>";
 } else {
     echo "<div class='alert alert-dismissible alert-success'>"
-    . "<a href='Files/GuiasPDF_temp/" . $num_doc_client . "_" . $tipo_docum_cli . "/" . $num_doc_client . ".pdf' class='alert-link' target='_blank'>Click AQUI para descargar</a>."
+    . "<a href='Files/GuiasPDF_temp/" . $num_doc_client . "_" . $tipo_docum_cli . "/" . $num_doc_client . ".pdf' class='alert-link' target='_blank'>Click AQUI para descargar pdf</a>."
+    . "</div>"
+    . "<div class='alert alert-dismissible alert-warning'>"
+    . "<a href='http://www.grupologi.co/rastreo_envio.php?EnvNum=" . $code . "' class='alert-link' target='_blank'>Sigue tu envio en <b class='text-info'>www.grupologi.co/rastreo_envio.php?EnvNum=" . $code . "</b></a>"
     . "</div>";
 }

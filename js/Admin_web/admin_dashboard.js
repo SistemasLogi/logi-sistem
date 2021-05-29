@@ -5952,10 +5952,29 @@ function vista_form_editar_env() {
 //        nameFileCargaPruebas();
 //
         $("#btnBuscaGuia").click(function () {
+            arregloEnvEdit = "";
+            limpiarFormulario("#formEditEnvio");
+            $("#contDetalle").html("");
             validarGuiaBuscar();
         });
         $("#btnGuardarCambio").click(function () {
             validarGuardaCambiosEnv();
+        });
+
+        $("#btnDetalle").click(function () {
+
+            if (arregloEnvEdit.length === 0) {
+                alertify.alert("No hay datos de envio para buscar").setHeader('<em> Cuidado! </em> ');
+            } else {
+                temp = arregloEnvEdit[0];
+                if (temp.en_id == "" || temp.en_id == 0) {
+                    alertify.alert("No hay datos de envio para buscar").setHeader('<em> Cuidado! </em> ');
+                } else {
+                    consulta_env_detalle(temp.en_id);
+                }
+            }
+
+
         });
 
     };
@@ -5979,6 +5998,8 @@ function nameFileCargaPruebas() {
         }
     });
 }
+
+var arregloEnvEdit;
 /**
  * Metodo que retorna datos de envio a editar
  * @returns {undefined}
@@ -6016,16 +6037,6 @@ function consulta_env_editar() {
             $("#inputTeleDestino").val(tmp_env_edit.en_telefono);
             $("#inputCiudDestino").val(tmp_env_edit.en_ciudad);
             $("#inputDptoDestino").val(tmp_env_edit.en_departamento);
-
-            $("#btnDetalle").click(function () {
-                if ($("#inputNumGuiaLogi").val(tmp_env_edit.en_id) == "") {
-                    alertify.alert("No hay datos de envio para buscar").setHeader('<em> Cuidado! </em> ');
-                } else {
-                    consulta_env_detalle(tmp_env_edit.en_id);
-                }
-
-            });
-
 
         } else {
             alertify.alert("El numero ingresado no se encuentra en la Base de Datos").setHeader('<em> Cuidado! </em> ');
@@ -6107,6 +6118,18 @@ function validarGuardaCambiosEnv() {
         }
     });
 }
+/**
+ * Metodo de validacion formulario de actualizacion detalle envios
+ * @returns {undefined}
+ */
+function validarGuardaCambiosEnvDet() {
+
+    $("#formDetalleEnvEdit").validate({
+        submitHandler: function (form) {
+            actualizarDetalleEnvios();
+        }
+    });
+}
 
 /**
  * Metodo que actualiza datos de una orden de servicio
@@ -6118,11 +6141,34 @@ function actualizarEnvDatosGuia() {
     metodo = function (datos) {
         if (datos == 1) {
             alertify.success('Envio Actualizado!!');
+            arregloEnvEdit = "";
             limpiarFormulario("#formEditEnvio");
             $("#contDetalle").html("");
         } else {
             alertify.error('No se pudo realizar la Actualización! ' + datos);
 //            alert(datos);
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que actualiza datos de una orden de servicio
+ * @returns {undefined}
+ */
+function actualizarDetalleEnvios() {
+    request = "Controller/AdminC/AdministrarEnvios/actualizar_det_env_controller.php";
+    cadena = $("#formDetalleEnvEdit").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+
+        if (datos == 1) {
+            alertify.success('Detalles de Envio Actualizado!!');
+            arregloEnvEdit = "";
+            limpiarFormulario("#formEditEnvio");
+            $("#contDetalle").html("");
+        } else {
+            alertify.error('No se pudo realizar la Actualización! ' + datos);
+            alert(datos);
+            $("#datDetControl").html(datos);
         }
     };
     f_ajax(request, cadena, metodo);
@@ -6149,34 +6195,35 @@ function consulta_env_detalle(num_guia) {
                             <div class="toast-body row">\n\
                                 <div id="parentSec">\n\
                                     <div id="sec" class="row px-3">\n\
-                                <input type="number" class="form-control form-control-sm" id="inputItemId" name="inputItemId" value="' + items + '" style="display: none;">';
+                                <input type="number" class="form-control form-control-sm" id="inputCuenta" name="inputCuenta" value="' + items + '" style="display: none;">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputNumEnvLogi" name="inputNumEnvLogi" value="' + num_guia + '" style="display: none;">';
             for (i = 0; i < arregloEnvDet.length; i++) {
                 tmp = arregloEnvDet[i];
 
-                dat_det += '<div class="form-group form-group-sm col-lg-4">\n\
-                                <input type="number" class="form-control form-control-sm" id="inputItemId' + i + '" name="inputItemId" value="' + tmp.id + '"  style="display: none;">\n\
+                dat_det += '<div class="form-group form-group-sm col-lg-3">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputItemId' + i + '" name="inputItemId' + i + '" value="' + tmp.id + '" style="display: none;">\n\
                                 <label for="inputCantidadEnv' + i + '">Cantidad</label>\n\
-                                <input type="number" class="form-control form-control-sm" id="inputCantidadEnv' + i + '" name="inputCantidadEnv' + i + '" value="' + tmp.det_cantidad + '">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputCantidadEnv' + i + '" name="inputCantidadEnv' + i + '" value="' + tmp.det_cantidad + '" required>\n\
                             </div>\n\
-                            <div class="form-group form-group-sm col-lg-2">\n\
+                            <div class="form-group form-group-sm col-lg-3">\n\
                                 <label for="inputPeso' + i + '">Peso Kg  / x und</label>\n\
-                                <input type="number" class="form-control form-control-sm" id="inputPeso' + i + '" name="inputPeso' + i + '" value="' + tmp.det_peso + '">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputPeso' + i + '" name="inputPeso' + i + '" value="' + tmp.det_peso + '" required>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="inputAlto' + i + '">Alto cm  / x und</label>\n\
-                                <input type="number" class="form-control form-control-sm" id="inputAlto' + i + '" name="inputAlto' + i + '" value="' + tmp.det_alto + '">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputAlto' + i + '" name="inputAlto' + i + '" value="' + tmp.det_alto + '" required>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="inputAncho' + i + '">Ancho cm  / x und</label>\n\
-                                <input type="number" class="form-control form-control-sm" id="inputAncho' + i + '" name="inputAncho' + i + '" value="' + tmp.det_ancho + '">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputAncho' + i + '" name="inputAncho' + i + '" value="' + tmp.det_ancho + '" required>\n\
                             </div>\n\
                             <div class="form-group form-group-sm col-lg-2">\n\
                                 <label for="inputLargo' + i + '">Largo cm  / x und</label>\n\
-                                <input type="number" class="form-control form-control-sm" id="inputLargo' + i + '" name="inputLargo' + i + '" value="' + tmp.det_largo + '">\n\
+                                <input type="number" class="form-control form-control-sm" id="inputLargo' + i + '" name="inputLargo' + i + '" value="' + tmp.det_largo + '" required>\n\
                             </div>';
             }
             dat_det += '<div class="form-group col-lg-12 mr-auto">\n\
-                                            <button type="button" class="btn btn-warning" id="btnDetalle" name="btnDetalle"><strong>Guardar Cambis Detalle</strong></button>\n\
+                                            <button type="submit" class="btn btn-warning" id="btnGuardaCambioDet" name="btnGuardaCambioDet"><strong>Guardar Cambios Detalle</strong></button>\n\
                                         </div>\n\
                                     </div>\n\
                                 </div>\n\
@@ -6184,8 +6231,12 @@ function consulta_env_detalle(num_guia) {
                         </div>\n\
                     </div>\n\
                 </fieldset>\n\
-            </form>';
+            </form><div id="datDetControl"></div>';
             $("#contDetalle").html(dat_det);
+
+            $("#btnGuardaCambioDet").click(function () {
+                validarGuardaCambiosEnvDet();
+            });
 
         } else {
             alertify.alert("El numero ingresado no se encuentra en la Base de Datos").setHeader('<em> Cuidado! </em> ');
