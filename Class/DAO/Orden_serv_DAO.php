@@ -45,6 +45,24 @@ class Orden_serv_DAO {
     }
 
     /**
+     * Funcion que consulta la informacion de servicios asignados a mensajeros
+     * @param type $tipoDoc
+     * @param type $numDoc
+     * @param type $fecha
+     * @return type
+     */
+    function consulta_ult_os_dash_mens($tipoDoc, $numDoc, $fecha) {
+        $sql = "SELECT es.*, os.os_direccion, os.os_tel_cont, os.os_observacion "
+                . "FROM est_x_serv AS es, orden_serv AS os "
+                . "WHERE os.os_id = es.os_id "
+                . "AND es.td_id_men = " . $tipoDoc . " AND es.num_doc_men = " . $numDoc . " "
+                . "AND es.exs_fecha_hora >= '" . $fecha . "';";
+        $BD = new MySQL();
+//        return $sql;
+        return $BD->query($sql);
+    }
+
+    /**
      * Funcion que consulta el numero de id del ultimo registro en orden_serv
      * por cliente 
      * @return type

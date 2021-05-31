@@ -11,11 +11,13 @@ $(document).ready(function () {
 
     $("#enlEnvHoy").click(function () {
         consulta_envios_diarios();
+        consulta_servicios_diarios();
     });
     $("#enlSelectEnv").click(function () {
         consulta_envios_x_fecha();
     });
     consulta_envios_diarios();
+    consulta_servicios_diarios();
     consulta_monedero();
     setInterval(refrescar_sesion, 30000);
 });
@@ -159,6 +161,175 @@ function consulta_envios_diarios() {
         }
     };
     f_ajax(request, cadena, metodo);
+}
+var arregloServDia;
+/**
+ * Metodo que retorna los servicios cargados al dia para un mensajero
+ * @returns {undefined}
+ */
+function consulta_servicios_diarios() {
+    request = "Controller/AdminC/AdministrarOS/cons_serv_mens_controller.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+        arregloServDia = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arregloServDia !== 0) {
+            datosServDia = "";
+            var estado_serv;
+            for (i = 0; i < arregloServDia.length; i++) {
+                tmp = arregloServDia[i];
+                estado_serv = tmp.es_id;
+                if (tmp.es_id == 2) {
+                    datosServDia += '<div class="alert alert-dismissible alert-info" id="accordion" style="border-radius: 0.5rem;">';
+                    datosServDia += '<div class="card alert-info" style="border-radius: 0.5rem;">';
+                    datosServDia += '<div class="card-header" id="heading' + i + '">';
+                    datosServDia += '<div class="table-responsive text-nowrap col-lg-12">';
+                    datosServDia += '<table class="table table-sm table-hover btn btn-link servicioAsig" osasig="' + tmp.os_id + '" data-toggle="collapse" data-target="#collapse' + i + '" aria-expanded="true" aria-controls="collapse' + i + '">';
+                    datosServDia += '<thead>';
+                    datosServDia += '<tr class="table-info text-primary">';
+                    datosServDia += '<th scope="col">Servicio Nº</th>';
+                    datosServDia += '<th scope="col">Dirección</th>';
+                    datosServDia += '<th scope="col">Telefono</th>';
+                    datosServDia += '<th scope="col">Observaciones</th>';
+                    datosServDia += '</tr>';
+                    datosServDia += '</thead>';
+                    datosServDia += '<tbody>';
+                    datosServDia += '<tr>';
+                    datosServDia += '<th>' + tmp.os_id + '</th>';
+                    datosServDia += '<td>' + tmp.os_direccion + '</td>';
+                    datosServDia += '<td>' + tmp.os_tel_cont + '</td>';
+                    datosServDia += '<td>' + tmp.os_observacion + '</td>';
+                    datosServDia += '</tr>';
+                    datosServDia += '</tbody>';
+                    datosServDia += '</table>';
+                    datosServDia += '</div>';
+                    datosServDia += '</div>';
+                    datosServDia += '<div id="collapse' + i + '" class="collapse" aria-labelledby="heading' + i + '" data-parent="#accordion">';
+                    datosServDia += '<div class="card-body" id="cont' + tmp.os_id + '">';
+                    datosServDia += '</div>';
+                    datosServDia += '</div>';
+                    datosServDia += '</div>';
+                    datosServDia += '</div>';
+                } else if (tmp.es_id == 3) {
+                    datosServDia += '<div class="alert alert-dismissible alert-success" style="border-radius: 0.5rem;">';
+                    datosServDia += 'Servicio N° <strong>' + tmp.os_id + ' </strong> en ' + tmp.os_direccion + ' Realizado';
+                    datosServDia += '</div>';
+                } else if (tmp.es_id == 4) {
+                    datosServDia += '<div class="alert alert-dismissible alert-warning" style="border-radius: 0.5rem;">';
+                    datosServDia += 'Servicio N° <strong>' + tmp.os_id + ' </strong> en ' + tmp.os_direccion + ' Cancelado o con Novedad';
+                    datosServDia += '</div>';
+                }
+
+
+            }
+            $("#tabServDia").html(datosServDia);
+
+            clickGestServicio();
+        } else {
+            $("#tabServDia").html("");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga tabla de envios asignados a recoleccion por os
+ * @param {type} value
+ * @returns {undefined}
+ */
+function consulta_tabla_env_mens(value) {
+    request = "Controller/AdminC/AdministrarEnvios/cons_env_x_os_recoleccion_controller.php";
+    cadena = {"num_os": value}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        arreglo_env_est = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_env_est !== 0) {
+            datos_env_est = '<div class="table-responsive text-nowrap" id="tablaEstadoEnv"><table class="table table-striped table-sm table-bordered" id="tableEstEnvio">\n\
+                             <thead><tr class="">\n\
+                             <th scope="col">CHECK</th>\n\
+                             <th scope="col">GUIA LOGI</th>\n\
+                             <th scope="col">GUIA OP</th>\n\
+                             <th scope="col">CANTIDAD</th>\n\
+                             <th scope="col">PESO Kg</th>\n\
+                             <th scope="col">DIR. DESTINO</th>\n\
+                             <th scope="col">CIUDAD</th>\n\
+                             <th scope="col">OS</th>\n\
+                             </tr></thead><tbody>';
+            for (i = 0; i < arreglo_env_est.length; i++) {
+                tmp = arreglo_env_est[i];
+
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '">';
+                datos_env_est += '<td id="' + i + '"><input type="checkbox" class="cheitem" id="Check' + tmp.en_id + '" checked="true"></td>';
+                datos_env_est += '<td>' + tmp.en_id + '</td>';
+                datos_env_est += '<td>' + tmp.en_guia + '</td>';
+                datos_env_est += '<td>' + tmp.en_cantidad + '</td>';
+                datos_env_est += '<td>' + tmp.en_peso + '</td>';
+                datos_env_est += '<td>' + tmp.en_direccion + '</td>';
+                datos_env_est += '<td>' + tmp.en_ciudad + '</td>';
+                datos_env_est += '<td>' + tmp.os_id + '</td></tr>';
+            }
+            datos_env_est += "</tbody></table></div>";
+            datos_env_est += '<div>\n\
+                                <form class="form-inline form-group-sm mt-2" id="formColectaEnvio" name="formColectaEnvio"><b>Observaciones:</b>\n\
+                                    <textarea class="form-control" id="txaEnvColect" name="txaEnvColect" rows="1"></textarea>\n\
+                                    <button type="button" class="btn btn-success btn-sm" id="btnGuardaSelectEnv" name="btnGuardaSelectEnv">FINALIZAR <span class="ion-checkmark-circled" id="iconbtn"></span></button>\n\
+                                </form></div>';
+
+            $("#cont" + value).html(datos_env_est);
+
+
+            //**Metodos de formulario asignar valor**//
+            $("#btnGuardaSelectEnv").click(function () {
+                enviosSelected();
+                limpiarFormulario("#formFlete");
+
+            });
+
+            /**evento enter desde elemento input**/
+            $("#inpValorFlet").keypress(function (e) {
+                var code = (e.keyCode ? e.keyCode : e.which);
+                if (code == 13) {
+                    enviosSelected();
+                    limpiarFormulario("#formFlete");
+                    return false;
+                }
+            });
+
+
+            $("#btnGuardaEstSelected").click(function () {
+
+//                alert($("#selectEstadEnvio").val());
+
+                if ($("#selectEstadEnvio").val() == 0) {
+                    alertify.alert('Debe seleccionar un estado').setHeader('<em> Cuidado! </em> ');
+                } else {
+                    enviosSelectedEst();
+                    limpiarFormulario("#formAsigEstEnv");
+                }
+            });
+
+        } else {
+            $("#tab_envios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+
+/**
+ * Metodo que carga el modal con formulario para seleccion de producto en alistamiento 
+ * @returns {undefined}
+ */
+function clickGestServicio() {
+    $(".servicioAsig").click(function () {
+        os_asig = $(this).attr("osasig");
+//        consulta_prod_alist(edit_prod);
+//        edit_prod = $(this).attr("id");
+        consulta_tabla_env_mens(os_asig);
+
+    });
 }
 /**
  * Metodo que retorna los datos de pago a mensajero
