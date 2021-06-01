@@ -2782,6 +2782,9 @@ function form_act_est_os(array, position) {
                 </fieldset>\n\
             </form></div>');
         combo_emp();
+        $("#btnGuardaEstOS").click(function () {
+            validarInsert_est_x_os();
+        });
     } else if (tm.es_id == 2) {
         $('#ModalEstOSTitle').html('FINALIZAR RECOLECCIÓN');
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-info">\n\
@@ -2802,6 +2805,7 @@ function form_act_est_os(array, position) {
                 <b>HORA: </b>' + formato_hor + '<br>\n\
                 <b>MENSAJERO: </b>' + tm.emp_nombre + '<br>\n\
                 <b>OBSERVACIONES: </b>' + tm.exs_novedad + '</p>\n\
+                    <div id="tabEnvDia"></div>\n\
                     <div class="form-group" style="display: none;">\n\
                         <label for="selectEmpleado">Mensajero</label>\n\
                         <select class="form-control" id="selectEmpleado" name="selectEmpleado">\n\
@@ -2822,7 +2826,7 @@ function form_act_est_os(array, position) {
                         <label for="txaNovedad">Novedad</label>\n\
                         <textarea class="form-control" id="txaNovedad" name="txaNovedad" rows="2"></textarea>\n\
                     </div>\n\
-                    <div class="form-group">\n\
+                    <div class="form-group" id="btnColecta"  style="display: none;">\n\
                         <button type="submit" class="btn btn-success" id="btnGuardaEstOS" name="btnGuardaEstOS">Finalizar Recolección <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
                     </div>\n\
                     <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="3" style="display: none;" readonly>\n\
@@ -2834,13 +2838,22 @@ function form_act_est_os(array, position) {
                 $("#inpEstado").val("3");
                 $("#btnGuardaEstOS").removeClass("btn-danger");
                 $("#btnGuardaEstOS").addClass("btn-success");
+                $("#btnColecta").hide();
+                $(".cheitem").prop("disabled", false);
             } else if (est === "2") {
                 $("#inpEstado").val("4");
                 $("#btnGuardaEstOS").removeClass("btn-success");
                 $("#btnGuardaEstOS").addClass("btn-danger");
+                $("#btnColecta").show();
+                $(".cheitem").removeAttr("checked");
+                $(".cheitem").prop("disabled", true);
             }
         });
-
+        consulta_tabla_env_mens_os_recolec(tm.os_id);
+        $("#btnGuardaEstOS").click(function () {
+            enviosSelectedRecoleccion();
+            validarInsert_est_x_os();
+        });
     } else if (tm.es_id == 3) {
 
         $('#ModalEstOSTitle').html('REALIZADA');
@@ -2898,6 +2911,7 @@ function form_act_est_os(array, position) {
         $("#btnGuarEstAct").click(function () {
             validarAct_est_x_os();
         });
+
     } else if (tm.es_id == 4) {
 
         $('#ModalEstOSTitle').html('CANCELADA');
@@ -2987,14 +3001,94 @@ function form_act_est_os(array, position) {
     }
     $("#inpEstOrdServ").val(tm.os_id);
 //    $("#inpEstId").val(tm.es_id);
-    $("#btnGuardaEstOS").click(function () {
-        validarInsert_est_x_os();
-    });
     $("#btnEditOS").click(function () {
         consulta_total_aenvios(tm.os_id);
     });
 }
+/**
+ * Metodo que carga tabla de envios asignados a recoleccion por os
+ * @param {type} value
+ * @returns {undefined}
+ */
+function consulta_tabla_env_mens_os_recolec(value) {
+    request = "Controller/AdminC/AdministrarEnvios/cons_env_x_os_recoleccion_controller.php";
+    cadena = {"num_os": value}; //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        arreglo_env_est = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_env_est !== 0) {
+            datos_env_est = '<div class="table-responsive text-nowrap" id="tablaEstadoEnv"><table class="table table-striped table-sm table-bordered" id="tableEstEnvio">\n\
+                             <thead><tr class="">\n\
+                             <th scope="col">CHECK</th>\n\
+                             <th scope="col">GUIA LOGI</th>\n\
+                             <th scope="col">GUIA OP</th>\n\
+                             <th scope="col">CANTIDAD</th>\n\
+                             <th scope="col">PESO Kg</th>\n\
+                             <th scope="col">DIR. DESTINO</th>\n\
+                             <th scope="col">CIUDAD</th>\n\
+                             <th scope="col">OS</th>\n\
+                             </tr></thead><tbody>';
+            for (i = 0; i < arreglo_env_est.length; i++) {
+                tmp = arreglo_env_est[i];
 
+                datos_env_est += '<tr class="table-sm" id="fila' + i + '">';
+                datos_env_est += '<td id="' + i + '"><input type="checkbox" class="cheitem" colecta="' + tmp.en_id + '" id="Check' + tmp.en_id + '"></td>';
+                datos_env_est += '<td>' + tmp.en_id + '</td>';
+                datos_env_est += '<td>' + tmp.en_guia + '</td>';
+                datos_env_est += '<td>' + tmp.en_cantidad + '</td>';
+                datos_env_est += '<td>' + tmp.en_peso + '</td>';
+                datos_env_est += '<td>' + tmp.en_direccion + '</td>';
+                datos_env_est += '<td>' + tmp.en_ciudad + '</td>';
+                datos_env_est += '<td>' + tmp.os_id + '</td></tr>';
+            }
+            datos_env_est += "</tbody></table></div>";
+
+
+            $("#tabEnvDia").html(datos_env_est);
+
+        } else {
+            $("#tab_envios").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+        $(".cheitem").click(function () {
+            $("#btnColecta").show();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
+var recolec_selected = 0;
+/**
+ * Metodo que determina los check seleccionados para asignacion de valor flete 
+ * @returns {undefined}
+ */
+function enviosSelectedRecoleccion() {
+    json_act_est = '[';
+
+    $("input:checkbox:checked").each(function () {
+
+        checket_envio = $(this).attr('colecta');//numeo de fila posicion en el arreglo
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+
+            guiaLogi = checket_envio;
+            estadoID = 13;//estado colectado
+            mens_logi = '1|9874123652';
+            novedadValor = "";
+//            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+
+            json_act_est += '{"mens":"' + mens_logi + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';
+            recolec_selected++;
+        }
+
+    });
+    json_act_valor_new = json_act_est.substr(0, json_act_est.length - 1);
+    json_act_valor_new += ']';
+    insert_estado_envio_recolect_json(json_act_valor_new);
+}
 /**
  * Metodo que llena el combo de seleccion empleado
  * @returns {undefined}
@@ -5075,6 +5169,20 @@ function insert_estado_envio_asig_men_json(datos_act_est) {
 
         alertify.success('Envios actualizados');
         consulta_tabla_env_mens(mensajero);
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que envia datos a php para insertar estados de envio
+ * @param {type} datos_act_est
+ * @returns {insert_estado_envio_asig_men_json}
+ */
+function insert_estado_envio_recolect_json(datos_act_est) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php";
+    cadena = "datos_est=" + datos_act_est; //envio de parametros por POST
+    metodo = function (datos) {
+
+        alertify.success('Envios actualizados');
     };
     f_ajax(request, cadena, metodo);
 }

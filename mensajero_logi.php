@@ -121,9 +121,6 @@ if (!isset($_SESSION["mensajero_logi"])) {
                                     <div id="tabEnvDia">
 
                                     </div>
-                                    <div id="tabServDiaFin">
-
-                                    </div>
                                 </div>
                             </div>                            
                         </div>

@@ -177,48 +177,49 @@ function consulta_servicios_diarios() {
             datosServDia = "";
             var estado_serv;
             for (i = 0; i < arregloServDia.length; i++) {
+
                 tmp = arregloServDia[i];
-                estado_serv = tmp.es_id;
                 if (tmp.es_id == 2) {
-                    datosServDia += '<div class="alert alert-dismissible alert-info" id="accordion" style="border-radius: 0.5rem;">';
-                    datosServDia += '<div class="card alert-info" style="border-radius: 0.5rem;">';
-                    datosServDia += '<div class="card-header" id="heading' + i + '">';
-                    datosServDia += '<div class="table-responsive text-nowrap col-lg-12">';
-                    datosServDia += '<table class="table table-sm table-hover btn btn-link servicioAsig" osasig="' + tmp.os_id + '" data-toggle="collapse" data-target="#collapse' + i + '" aria-expanded="true" aria-controls="collapse' + i + '">';
-                    datosServDia += '<thead>';
-                    datosServDia += '<tr class="table-info text-primary">';
-                    datosServDia += '<th scope="col">Servicio Nº</th>';
-                    datosServDia += '<th scope="col">Dirección</th>';
-                    datosServDia += '<th scope="col">Telefono</th>';
-                    datosServDia += '<th scope="col">Observaciones</th>';
-                    datosServDia += '</tr>';
-                    datosServDia += '</thead>';
-                    datosServDia += '<tbody>';
-                    datosServDia += '<tr>';
-                    datosServDia += '<th>' + tmp.os_id + '</th>';
-                    datosServDia += '<td>' + tmp.os_direccion + '</td>';
-                    datosServDia += '<td>' + tmp.os_tel_cont + '</td>';
-                    datosServDia += '<td>' + tmp.os_observacion + '</td>';
-                    datosServDia += '</tr>';
-                    datosServDia += '</tbody>';
-                    datosServDia += '</table>';
-                    datosServDia += '</div>';
-                    datosServDia += '</div>';
-                    datosServDia += '<div id="collapse' + i + '" class="collapse" aria-labelledby="heading' + i + '" data-parent="#accordion">';
-                    datosServDia += '<div class="card-body" id="cont' + tmp.os_id + '">';
-                    datosServDia += '</div>';
-                    datosServDia += '</div>';
-                    datosServDia += '</div>';
-                    datosServDia += '</div>';
+                    temaColor = 'info';
                 } else if (tmp.es_id == 3) {
-                    datosServDia += '<div class="alert alert-dismissible alert-success" style="border-radius: 0.5rem;">';
-                    datosServDia += 'Servicio N° <strong>' + tmp.os_id + ' </strong> en ' + tmp.os_direccion + ' Realizado';
-                    datosServDia += '</div>';
+                    temaColor = 'success';
                 } else if (tmp.es_id == 4) {
-                    datosServDia += '<div class="alert alert-dismissible alert-warning" style="border-radius: 0.5rem;">';
-                    datosServDia += 'Servicio N° <strong>' + tmp.os_id + ' </strong> en ' + tmp.os_direccion + ' Cancelado o con Novedad';
+                    temaColor = 'warning';
+                }
+
+                datosServDia += '<div class="alert alert-dismissible alert-' + temaColor + '" style="border-radius: 0.5rem;">';
+                datosServDia += '<div class="row">';
+                datosServDia += '<div class="col-5">';
+                datosServDia += '<h6 class="alert-heading text-nowrap">N° Servicio: <b class="text-primary">' + tmp.os_id + '</b></h6>';
+                datosServDia += '</div>';
+                if (tmp.es_id == 2) {
+                    datosServDia += '<div class="col-6">';
+                    datosServDia += '<button type="button" class="btn btn-primary btn-sm float-right actserv" serv="' + i + '" id="' + tmp.os_id + '">Gestión</button>';
                     datosServDia += '</div>';
                 }
+                datosServDia += '</div>';
+                datosServDia += '<div class="table-responsive text-nowrap col-lg-12">';
+                datosServDia += '<table class="table table-sm table table-hover">';
+                datosServDia += '<thead>';
+                datosServDia += '<tr class="table-' + temaColor + ' text-primary">';
+                datosServDia += '<tr class="table-info text-primary">';
+                datosServDia += '<th scope="col">Servicio Nº</th>';
+                datosServDia += '<th scope="col">Dirección</th>';
+                datosServDia += '<th scope="col">Telefono</th>';
+                datosServDia += '<th scope="col">Observaciones</th>';
+                datosServDia += '</tr>';
+                datosServDia += '</thead>';
+                datosServDia += '<tbody>';
+                datosServDia += '<tr>';
+                datosServDia += '<th>' + tmp.os_id + '</th>';
+                datosServDia += '<td>' + tmp.os_direccion + '</td>';
+                datosServDia += '<td>' + tmp.os_tel_cont + '</td>';
+                datosServDia += '<td>' + tmp.os_observacion + '</td>';
+                datosServDia += '</tr>';
+                datosServDia += '</tbody>';
+                datosServDia += '</table>';
+                datosServDia += '</div>';
+                datosServDia += '</div>';
 
 
             }
@@ -237,7 +238,7 @@ function consulta_servicios_diarios() {
  * @param {type} value
  * @returns {undefined}
  */
-function consulta_tabla_env_mens(value) {
+function consulta_tabla_env_mens_os_recolec(value) {
     request = "Controller/AdminC/AdministrarEnvios/cons_env_x_os_recoleccion_controller.php";
     cadena = {"num_os": value}; //envio de parametros por POST
     metodo = function (datos) {
@@ -323,11 +324,66 @@ function consulta_tabla_env_mens(value) {
  * @returns {undefined}
  */
 function clickGestServicio() {
-    $(".servicioAsig").click(function () {
-        os_asig = $(this).attr("osasig");
-//        consulta_prod_alist(edit_prod);
-//        edit_prod = $(this).attr("id");
-        consulta_tabla_env_mens(os_asig);
+    $(".actserv").click(function () {
+        actu_es_serv = $(this).attr("serv");
+
+        tmp = arregloServDia[actu_es_serv];
+
+        $('#mod-dalog').removeClass('modal-lg');
+        $('#ModalActuEstEnv').modal('toggle');
+        $('#ModalEstEnvTitle').html('GESTION SERVICIO');
+        $('#body_mod_os').html('<div class="alert alert-dismissible alert-info" id="alert-color">\n\
+            <form id="formEstOS">\n\
+                <fieldset>\n\
+                  <input type="text" class="form-control" style="display: none;" id="inpNumEnv" name="inpNumEnv" placeholder="N° Envio." readonly>\n\
+                <p><b>Servicio N° ' + tmp.os_id + '</b><br>\n\
+                <b>Dirección: ' + tmp.os_direccion + '</b><br>\n\
+                <b>Nombre Cliente: ' + tmp.cli_nombre + '</b><br>\n\
+                <b>Observaciones: ' + tmp.os_observacion + '</b><br>\n\
+                    <div id="tabEnvDia"></div>\n\
+                    <div id="divRadios">\n\
+                    <div class="custom-control custom-radio">\n\
+                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1" checked="">\n\
+                      <label class="custom-control-label" for="customRadio1">Realizada con Exito</label>\n\
+                    </div>\n\
+                    <div class="custom-control custom-radio">\n\
+                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="2">\n\
+                      <label class="custom-control-label" for="customRadio2">No se pudo Realizar</label>\n\
+                    </div>\n\
+                    </div>\n\
+                    <div class="form-group">\n\
+                        <label for="txaNovedad">Novedad</label>\n\
+                        <textarea class="form-control" id="txaNovedad" name="txaNovedad" rows="2"></textarea>\n\
+                    </div>\n\
+                    <div class="form-group" id="btnColecta"  style="display: none;">\n\
+                        <button type="submit" class="btn btn-success" id="btnGuardaEstOS" name="btnGuardaEstOS">Finalizar Recolección <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
+                    </div>\n\
+                    <input type="text" class="form-control" style="display: none;" id="inpEstado" name="inpEstado" value="6" readonly>\n\
+                    </fieldset>\n\
+            </form></div>');
+        $("#divRadios input[name='customRadio']").click(function () {
+            est = $("input:radio[name=customRadio]:checked").val();
+            if (est === "1") {
+                $("#inpEstado").val("3");
+                $("#btnGuardaEstOS").removeClass("btn-danger");
+                $("#btnGuardaEstOS").addClass("btn-success");
+                $("#btnColecta").hide();
+                $(".cheitem").prop("disabled", false);
+            } else if (est === "2") {
+                $("#inpEstado").val("4");
+                $("#btnGuardaEstOS").removeClass("btn-success");
+                $("#btnGuardaEstOS").addClass("btn-danger");
+                $("#btnColecta").show();
+                $(".cheitem").removeAttr("checked");
+                $(".cheitem").prop("disabled", true);
+            }
+        });
+
+
+
+
+
+        consulta_tabla_env_mens_os_recolec(os_asig);
 
     });
 }
@@ -370,6 +426,7 @@ function clickActuEstado_envio() {
                 <b>Guia OP <em style="color: #0a8802;">' + tmp.en_guia + '</em></b><br>\n\
                 <b>Dirección: ' + tmp.en_direccion + '</b><br>\n\
                 <b>Nombre: ' + tmp.en_nombre + '</b><br>\n\
+                <b>Telefono: ' + tmp.en_telefono + '</b><br>\n\
                     <div id="divRadios">\n\
                     <div class="custom-control custom-radio">\n\
                       <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1" checked="">\n\
@@ -400,7 +457,7 @@ function clickActuEstado_envio() {
                     </div>\n\
                     <input type="text" class="form-control" style="display: none;" id="inpEstado" name="inpEstado" value="6" readonly>\n\
                     </fieldset>\n\
-            </form>');
+            </form></div>');
         $("#divRadios input[name='customRadio']").click(function () {
             est = $("input:radio[name=customRadio]:checked").val();
             if (est === "1") {

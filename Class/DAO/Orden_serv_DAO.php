@@ -52,11 +52,11 @@ class Orden_serv_DAO {
      * @return type
      */
     function consulta_ult_os_dash_mens($tipoDoc, $numDoc, $fecha) {
-        $sql = "SELECT es.*, os.os_direccion, os.os_tel_cont, os.os_observacion "
-                . "FROM est_x_serv AS es, orden_serv AS os "
+        $sql = "SELECT es.*, os.os_direccion, os.os_tel_cont, os.os_observacion, cl.cli_nombre "
+                . "FROM est_x_serv AS es, orden_serv AS os, clientes AS cl "
                 . "WHERE os.os_id = es.os_id "
-                . "AND es.td_id_men = " . $tipoDoc . " AND es.num_doc_men = " . $numDoc . " "
-                . "AND es.exs_fecha_hora >= '" . $fecha . "';";
+                . "AND es.td_id_men = " . $tipoDoc . " AND es.num_doc_men = " . $numDoc . " AND os.cli_td_id = cl.cli_td_id AND os.cli_num_doc = cl.cli_num_doc "
+                . "AND es.exs_fecha_hora >= '" . $fecha . "' AND es.exs_fecha_hora = (SELECT MAX(T1.exs_fecha_hora)FROM est_x_serv AS T1 WHERE es.os_id = T1.os_id);";
         $BD = new MySQL();
 //        return $sql;
         return $BD->query($sql);

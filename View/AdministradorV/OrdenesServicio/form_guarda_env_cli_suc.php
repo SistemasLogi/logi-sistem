@@ -40,9 +40,9 @@
                                     <label for="inputDirDestino">Dirección destino</label>
                                     <input type="text" class="form-control form-control-sm" id="inputDirDestino" name="inputDirDestino" placeholder="Dirección Destinatario" required>
                                 </div>
-                                <div class="form-group form-group-sm col-lg-4">
+                                <div class="form-group form-group-sm col-lg-4" style="display: none;">
                                     <label for="inputRefGuia">Referencia</label>
-                                    <input type="text" class="form-control form-control-sm" id="inputRefGuia" name="inputRefGuia" placeholder="Referencia">
+                                    <input type="text" class="form-control form-control-sm" id="inputRefGuia" name="inputRefGuia" placeholder="Referencia" readonly="">
                                 </div>
                                 <div class="form-group form-group-sm col-lg-4">
                                     <label for="inputTeleDestino">Teléfono Destino</label>
@@ -53,6 +53,34 @@
                                     <select class="form-control form-control-sm" id="selectCiudDestino" name="selectCiudDestino">
 
                                     </select>
+                                </div>
+                                <div class="form-group form-group-sm col-lg-2" id="blqRecaudo">
+                                    <label class="control-label" for="inputRecaudo">Recaudo</label>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3 input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" class="form-control form-control-sm" id="inputRecaudo" name="inputRecaudo" aria-label="Amount (to the nearest dollar)">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">m/c</span>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="form-group form-group-sm col-lg-2" id="blqValorDecl">
+                                    <label class="control-label" for="inputValorDecl">Valor Declarado</label>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3 input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" class="form-control form-control-sm" id="inputValorDecl" name="inputValorDecl" aria-label="Amount (to the nearest dollar)">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">m/c</span>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </div>
 
 
@@ -99,42 +127,14 @@
                                 </div>
 
 
-                                <div class="form-group form-group-sm col-lg-4" id="blqContenido">
+                                <div class="form-group form-group-sm col-lg-6" id="blqContenido">
                                     <label for="inputContenido">Dice Contener</label>
                                     <textarea class="form-control form-control-sm" id="inputContenido" name="inputContenido" rows="1"></textarea>
                                 </div>                               
-                                <div class="form-group form-group-sm col-lg-4" id="blqObserv">
+                                <div class="form-group form-group-sm col-lg-6" id="blqObserv">
                                     <label for="inputObserv">Observaciones/Complemento</label>
                                     <textarea class="form-control form-control-sm" id="inputObserv" name="inputObserv" rows="1"></textarea>
-                                </div>
-                                <div class="form-group form-group-sm col-lg-2" id="blqRecaudo">
-                                    <label class="control-label" for="inputRecaudo">Recaudo</label>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3 input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-                                            <input type="number" class="form-control form-control-sm" id="inputRecaudo" name="inputRecaudo" aria-label="Amount (to the nearest dollar)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">m/c</span>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="form-group form-group-sm col-lg-2" id="blqValorDecl">
-                                    <label class="control-label" for="inputValorDecl">Valor Declarado</label>
-                                    <div class="form-group">
-                                        <div class="input-group mb-3 input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">$</span>
-                                            </div>
-                                            <input type="number" class="form-control form-control-sm" id="inputValorDecl" name="inputValorDecl" aria-label="Amount (to the nearest dollar)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">m/c</span>
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>                                
+                                </div>                                                                
                             </div>                    
                         </div>
                     </div>
