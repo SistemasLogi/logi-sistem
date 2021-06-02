@@ -10,6 +10,8 @@ $(document).ready(function () {
     });
 
     $("#enlEnvHoy").click(function () {
+        $("#tabServDia").show();
+        $("#tabServOkDia").show();
         consulta_envios_diarios();
         consulta_servicios_diarios();
     });
@@ -317,7 +319,7 @@ function consulta_tabla_env_mens_os_recolec(value) {
                 tmp = arreglo_env_est[i];
 
                 datos_env_est += '<tr class="table-sm" id="fila' + i + '">';
-                datos_env_est += '<td id="' + i + '"><input type="checkbox" class="cheitem" id="Check' + tmp.en_id + '"></td>';
+                datos_env_est += '<td id="' + i + '"><input type="checkbox" class="cheitem" colecta="' + tmp.en_id + '" id="Check' + tmp.en_id + '"></td>';
                 datos_env_est += '<td>' + tmp.en_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_guia + '</td>';
                 datos_env_est += '<td>' + tmp.en_cantidad + '</td>';
@@ -412,8 +414,8 @@ function clickGestServicio() {
             enviosSelectedRecoleccion();
             validarInsert_est_x_os();
         });
-
     });
+
 }
 
 /**
@@ -507,8 +509,12 @@ function insert_estado_envio_recolect_json(datos_act_est) {
     request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php";
     cadena = {"datos_est": datos_act_est}; //envio de parametros por POST
     metodo = function (datos) {
-        alert(datos);
-        alertify.success('Envios actualizados');
+        if (datos == 1) {
+            alertify.success('Envios actualizados');
+        } else {
+            alertify.error('Error al actualizar envio');
+        }
+
     };
     f_ajax(request, cadena, metodo);
 }
@@ -675,6 +681,8 @@ function consulta_envios_x_fecha() {
     metodo = function (datos) {
 
         $("#tabEnvDia").html(datos);
+        $("#tabServDia").hide();
+        $("#tabServOkDia").hide();
 
         $("#btnBusEnvFec").click(function () {
             validarFechaManifiesto();

@@ -65,8 +65,8 @@ class Estado_x_env_DAO {
     function insertarBloqueEnTablaEstados($sql) {
 
         $BD = new MySQL();
-        return $sql;
-//        return $BD->execute_query($sql);
+//        return $sql;
+        return $BD->execute_query($sql);
     }
 
     /**

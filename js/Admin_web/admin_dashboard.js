@@ -3068,12 +3068,12 @@ function enviosSelectedRecoleccion() {
 
     $("input:checkbox:checked").each(function () {
 
-        checket_envio = $(this).attr('colecta');//numeo de fila posicion en el arreglo
+        checket_envio = $(this).attr("colecta");//numeo de fila posicion en el arreglo
 //
         if (typeof (checket_envio) === 'undefined') {
 
         } else {
-
+            alert(checket_envio);
             guiaLogi = checket_envio;
             estadoID = 13;//estado colectado
             mens_logi = '1|9874123652';
@@ -5199,8 +5199,12 @@ function insert_estado_envio_recolect_json(datos_act_est) {
     request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php";
     cadena = "datos_est=" + datos_act_est; //envio de parametros por POST
     metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Envios actualizados');
+        } else {
+            alertify.error('No se actualizo el envio ' + datos);
+        }
 
-        alertify.success('Envios actualizados');
     };
     f_ajax(request, cadena, metodo);
 }
