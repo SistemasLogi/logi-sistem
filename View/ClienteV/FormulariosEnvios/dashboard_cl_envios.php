@@ -53,7 +53,7 @@
         <div class="card border-primary mb-3 enlace est_envio" id="cardColectados" elem="13" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">            
             <div class="card-header alert-secondary"><b>COLECTADOS</b><span class="ion-ios-filing float-right" style="font-size: x-large"></span></div>
             <div class="card-body">                
-                <h5 class="card-title" style="color: #593196;" id="cantEnvColectados">0</h5>
+                <h5 class="card-title" style="color: #593196;" id="cantEnvColectados"></h5>
                 <p class="card-text">Colectados</p>
             </div>
         </div>

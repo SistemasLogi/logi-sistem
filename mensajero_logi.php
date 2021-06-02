@@ -121,6 +121,9 @@ if (!isset($_SESSION["mensajero_logi"])) {
                                     <div id="tabEnvDia">
 
                                     </div>
+                                    <div id="tabServOkDia">
+
+                                    </div>
                                 </div>
                             </div>                            
                         </div>

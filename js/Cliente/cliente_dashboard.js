@@ -605,6 +605,7 @@ var env_solucion;
 var env_viajando_dest;
 var env_bodega_dest;
 var env_entregado;
+var env_colectados;
 /**
  * Metodo que retorna la cantidad de envios segun su estado a la vista de los paneles
  * @returns {undefined}
@@ -619,6 +620,7 @@ function control_dash_envios() {
     $("#cantEnvNovedades").html(env_novedad);
     $("#cantEnvBodegaDest").html(env_bodega_dest);
     $("#cantEnvEntregados").html(env_entregado);
+    $("#cantEnvColectados").html(env_colectados);
 }
 
 /**
@@ -635,6 +637,7 @@ function control_dash_envios_reset() {
     $("#cantEnvNovedades").html("");
     $("#cantEnvBodegaDest").html("");
     $("#cantEnvEntregados").html("");
+    $("#cantEnvColectados").html("");
 }
 
 var fech_ini;
@@ -658,6 +661,7 @@ function consulta_dashboard_envios_card_cl() {
         env_solucion = 0;
         env_viajando_dest = 0;
         env_bodega_dest = 0;
+        env_colectados = 0;
         arregloEstEnvCard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstEnvCard !== 0) {
@@ -680,6 +684,8 @@ function consulta_dashboard_envios_card_cl() {
                     env_gest_fin++;
                 } else if (tmp.exe_ee_id == 10) {
                     env_solucion++;
+                } else if (tmp.exe_ee_id == 13) {
+                    env_colectados++;
                 }
             }
 
@@ -716,6 +722,7 @@ function consulta_dashboard_envios_card_cli(sucursal_id, ini_fecha, fin_fecha) {
         env_viajando_dest = 0;
         env_bodega_dest = 0;
         env_entregado = 0;
+        env_colectados = 0;
         arregloEstEnvCard = $.parseJSON(datos);
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloEstEnvCard !== 0) {
@@ -740,6 +747,8 @@ function consulta_dashboard_envios_card_cli(sucursal_id, ini_fecha, fin_fecha) {
                     env_gest_fin++;
                 } else if (tmp.exe_ee_id == 10) {
                     env_solucion++;
+                } else if (tmp.exe_ee_id == 13) {
+                    env_colectados++;
                 }
             }
 
@@ -1264,6 +1273,10 @@ function consulta_tabla_env_x_est_cl(est_env, sucursal_id, ini_fecha, fin_fecha)
                 colorTab = 'class="bg-info"';
                 colorText = 'text-info';
                 colorAl = 'info';
+            } else if (est_env == 13) {
+                colorTab = 'style="background-color: #e7e0f3; color: #584b6e;"';
+                colorText = 'text-primary';
+                colorAl = 'primary';
             }
             datos_env = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
                             <div class="toast-header">\n\

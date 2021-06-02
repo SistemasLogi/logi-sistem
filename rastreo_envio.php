@@ -319,6 +319,10 @@ session_start();
                                                         ?>
                                                         <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-android-cancel" style="font-size: xx-large; color: #b90808;"></span></a></td>
                                                         <?php
+                                                    }else if ($id_env_dec[$i]->ee_id == 13) {
+                                                        ?>
+                                                        <td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="<?php echo $id_env_dec[$i]->ee_desc ?>" data-content="<?php echo $id_env_dec[$i]->exe_novedad ?>"><span class="ion-ios-filing" style="font-size: xx-large; color: #4e0144;"></span></a></td>
+                                                        <?php
                                                     }
                                                     ?>
                                                     <?PHP

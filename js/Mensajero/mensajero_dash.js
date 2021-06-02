@@ -175,55 +175,111 @@ function consulta_servicios_diarios() {
         /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
         if (arregloServDia !== 0) {
             datosServDia = "";
+            datosServOkDia = "";
             var estado_serv;
             for (i = 0; i < arregloServDia.length; i++) {
 
                 tmp = arregloServDia[i];
                 if (tmp.es_id == 2) {
                     temaColor = 'info';
-                } else if (tmp.es_id == 3) {
-                    temaColor = 'success';
-                } else if (tmp.es_id == 4) {
-                    temaColor = 'warning';
-                }
-
-                datosServDia += '<div class="alert alert-dismissible alert-' + temaColor + '" style="border-radius: 0.5rem;">';
-                datosServDia += '<div class="row">';
-                datosServDia += '<div class="col-5">';
-                datosServDia += '<h6 class="alert-heading text-nowrap">N° Servicio: <b class="text-primary">' + tmp.os_id + '</b></h6>';
-                datosServDia += '</div>';
-                if (tmp.es_id == 2) {
+                    datosServDia += '<div class="alert alert-dismissible alert-' + temaColor + '" style="border-radius: 0.5rem;">';
+                    datosServDia += '<div class="row">';
+                    datosServDia += '<div class="col-5">';
+                    datosServDia += '<h6 class="alert-heading text-nowrap">N° Servicio: <b class="text-primary">' + tmp.os_id + '</b></h6>';
+                    datosServDia += '</div>';
                     datosServDia += '<div class="col-6">';
                     datosServDia += '<button type="button" class="btn btn-primary btn-sm float-right actserv" serv="' + i + '" id="' + tmp.os_id + '">Gestión</button>';
                     datosServDia += '</div>';
-                }
-                datosServDia += '</div>';
-                datosServDia += '<div class="table-responsive text-nowrap col-lg-12">';
-                datosServDia += '<table class="table table-sm table table-hover">';
-                datosServDia += '<thead>';
-                datosServDia += '<tr class="table-' + temaColor + ' text-primary">';
-                datosServDia += '<tr class="table-info text-primary">';
-                datosServDia += '<th scope="col">Servicio Nº</th>';
-                datosServDia += '<th scope="col">Dirección</th>';
-                datosServDia += '<th scope="col">Telefono</th>';
-                datosServDia += '<th scope="col">Observaciones</th>';
-                datosServDia += '</tr>';
-                datosServDia += '</thead>';
-                datosServDia += '<tbody>';
-                datosServDia += '<tr>';
-                datosServDia += '<th>' + tmp.os_id + '</th>';
-                datosServDia += '<td>' + tmp.os_direccion + '</td>';
-                datosServDia += '<td>' + tmp.os_tel_cont + '</td>';
-                datosServDia += '<td>' + tmp.os_observacion + '</td>';
-                datosServDia += '</tr>';
-                datosServDia += '</tbody>';
-                datosServDia += '</table>';
-                datosServDia += '</div>';
-                datosServDia += '</div>';
+                    datosServDia += '</div>';
+                    datosServDia += '<div class="table-responsive text-nowrap col-lg-12">';
+                    datosServDia += '<table class="table table-sm table table-hover">';
+                    datosServDia += '<thead>';
+                    datosServDia += '<tr class="table-' + temaColor + ' text-primary">';
+                    datosServDia += '<tr class="table-info text-primary">';
+                    datosServDia += '<th scope="col">Servicio Nº</th>';
+                    datosServDia += '<th scope="col">Dirección</th>';
+                    datosServDia += '<th scope="col">Telefono</th>';
+                    datosServDia += '<th scope="col">Observaciones</th>';
+                    datosServDia += '</tr>';
+                    datosServDia += '</thead>';
+                    datosServDia += '<tbody>';
+                    datosServDia += '<tr>';
+                    datosServDia += '<th>' + tmp.os_id + '</th>';
+                    datosServDia += '<td>' + tmp.os_direccion + '</td>';
+                    datosServDia += '<td>' + tmp.os_tel_cont + '</td>';
+                    datosServDia += '<td>' + tmp.os_observacion + '</td>';
+                    datosServDia += '</tr>';
+                    datosServDia += '</tbody>';
+                    datosServDia += '</table>';
+                    datosServDia += '</div>';
+                    datosServDia += '</div>';
+                } else if (tmp.es_id == 3) {
+                    temaColor = 'success';
 
+                    datosServOkDia += '<div class="alert alert-dismissible alert-' + temaColor + '" style="border-radius: 0.5rem;">';
+                    datosServOkDia += '<div class="row">';
+                    datosServOkDia += '<div class="col-5">';
+                    datosServOkDia += '<h6 class="alert-heading text-nowrap">N° Servicio: <b class="text-primary">' + tmp.os_id + '</b></h6>';
+                    datosServOkDia += '</div>';
+                    datosServOkDia += '</div>';
+                    datosServOkDia += '<div class="table-responsive text-nowrap col-lg-12">';
+                    datosServOkDia += '<table class="table table-sm table table-hover">';
+                    datosServOkDia += '<thead>';
+                    datosServOkDia += '<tr class="table-' + temaColor + ' text-primary">';
+                    datosServOkDia += '<tr class="table-info text-primary">';
+                    datosServOkDia += '<th scope="col">Servicio Nº</th>';
+                    datosServOkDia += '<th scope="col">Dirección</th>';
+                    datosServOkDia += '<th scope="col">Telefono</th>';
+                    datosServOkDia += '<th scope="col">Observaciones</th>';
+                    datosServOkDia += '</tr>';
+                    datosServOkDia += '</thead>';
+                    datosServOkDia += '<tbody>';
+                    datosServOkDia += '<tr>';
+                    datosServOkDia += '<th>' + tmp.os_id + '</th>';
+                    datosServOkDia += '<td>' + tmp.os_direccion + '</td>';
+                    datosServOkDia += '<td>' + tmp.os_tel_cont + '</td>';
+                    datosServOkDia += '<td>' + tmp.os_observacion + '</td>';
+                    datosServOkDia += '</tr>';
+                    datosServOkDia += '</tbody>';
+                    datosServOkDia += '</table>';
+                    datosServOkDia += '</div>';
+                    datosServOkDia += '</div>';
+                } else if (tmp.es_id == 4) {
+                    temaColor = 'warning';
+
+                    datosServOkDia += '<div class="alert alert-dismissible alert-' + temaColor + '" style="border-radius: 0.5rem;">';
+                    datosServOkDia += '<div class="row">';
+                    datosServOkDia += '<div class="col-5">';
+                    datosServOkDia += '<h6 class="alert-heading text-nowrap">N° Servicio: <b class="text-primary">' + tmp.os_id + '</b></h6>';
+                    datosServOkDia += '</div>';
+                    datosServOkDia += '</div>';
+                    datosServOkDia += '<div class="table-responsive text-nowrap col-lg-12">';
+                    datosServOkDia += '<table class="table table-sm table table-hover">';
+                    datosServOkDia += '<thead>';
+                    datosServOkDia += '<tr class="table-' + temaColor + ' text-primary">';
+                    datosServOkDia += '<tr class="table-info text-primary">';
+                    datosServOkDia += '<th scope="col">Servicio Nº</th>';
+                    datosServOkDia += '<th scope="col">Dirección</th>';
+                    datosServOkDia += '<th scope="col">Telefono</th>';
+                    datosServOkDia += '<th scope="col">Observaciones</th>';
+                    datosServOkDia += '</tr>';
+                    datosServOkDia += '</thead>';
+                    datosServOkDia += '<tbody>';
+                    datosServOkDia += '<tr>';
+                    datosServOkDia += '<th>' + tmp.os_id + '</th>';
+                    datosServOkDia += '<td>' + tmp.os_direccion + '</td>';
+                    datosServOkDia += '<td>' + tmp.os_tel_cont + '</td>';
+                    datosServOkDia += '<td>' + tmp.os_observacion + '</td>';
+                    datosServOkDia += '</tr>';
+                    datosServOkDia += '</tbody>';
+                    datosServOkDia += '</table>';
+                    datosServOkDia += '</div>';
+                    datosServOkDia += '</div>';
+                }
 
             }
             $("#tabServDia").html(datosServDia);
+            $("#tabServOkDia").html(datosServOkDia);
 
             clickGestServicio();
         } else {
@@ -261,7 +317,7 @@ function consulta_tabla_env_mens_os_recolec(value) {
                 tmp = arreglo_env_est[i];
 
                 datos_env_est += '<tr class="table-sm" id="fila' + i + '">';
-                datos_env_est += '<td id="' + i + '"><input type="checkbox" class="cheitem" id="Check' + tmp.en_id + '" checked="true"></td>';
+                datos_env_est += '<td id="' + i + '"><input type="checkbox" class="cheitem" id="Check' + tmp.en_id + '"></td>';
                 datos_env_est += '<td>' + tmp.en_id + '</td>';
                 datos_env_est += '<td>' + tmp.en_guia + '</td>';
                 datos_env_est += '<td>' + tmp.en_cantidad + '</td>';
@@ -271,50 +327,17 @@ function consulta_tabla_env_mens_os_recolec(value) {
                 datos_env_est += '<td>' + tmp.os_id + '</td></tr>';
             }
             datos_env_est += "</tbody></table></div>";
-            datos_env_est += '<div>\n\
-                                <form class="form-inline form-group-sm mt-2" id="formColectaEnvio" name="formColectaEnvio"><b>Observaciones:</b>\n\
-                                    <textarea class="form-control" id="txaEnvColect" name="txaEnvColect" rows="1"></textarea>\n\
-                                    <button type="button" class="btn btn-success btn-sm" id="btnGuardaSelectEnv" name="btnGuardaSelectEnv">FINALIZAR <span class="ion-checkmark-circled" id="iconbtn"></span></button>\n\
-                                </form></div>';
 
-            $("#cont" + value).html(datos_env_est);
-
-
-            //**Metodos de formulario asignar valor**//
-            $("#btnGuardaSelectEnv").click(function () {
-                enviosSelected();
-                limpiarFormulario("#formFlete");
-
-            });
-
-            /**evento enter desde elemento input**/
-            $("#inpValorFlet").keypress(function (e) {
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 13) {
-                    enviosSelected();
-                    limpiarFormulario("#formFlete");
-                    return false;
-                }
-            });
-
-
-            $("#btnGuardaEstSelected").click(function () {
-
-//                alert($("#selectEstadEnvio").val());
-
-                if ($("#selectEstadEnvio").val() == 0) {
-                    alertify.alert('Debe seleccionar un estado').setHeader('<em> Cuidado! </em> ');
-                } else {
-                    enviosSelectedEst();
-                    limpiarFormulario("#formAsigEstEnv");
-                }
-            });
+            $("#tabEnvRecolectDia").html(datos_env_est);
 
         } else {
-            $("#tab_envios").html("<div class='alert alert-dismissible alert-danger'>\n\
+            $("#tabEnvRecolectDia").html("<div class='alert alert-dismissible alert-danger'>\n\
                  <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
                  <strong>No existen datos para mostrar.</strong></div>");
         }
+        $(".cheitem").click(function () {
+            $("#btnColecta").show();
+        });
     };
     f_ajax(request, cadena, metodo);
 }
@@ -335,12 +358,13 @@ function clickGestServicio() {
         $('#body_mod_os').html('<div class="alert alert-dismissible alert-info" id="alert-color">\n\
             <form id="formEstOS">\n\
                 <fieldset>\n\
-                  <input type="text" class="form-control" style="display: none;" id="inpNumEnv" name="inpNumEnv" placeholder="N° Envio." readonly>\n\
+                <input type="text" class="form-control" id="inpEstOrdServ" style="display: none;" name="inpEstOrdServ" placeholder="Cod." readonly>\n\
+                 <input type="text" class="form-control" style="display: none;" id="inpNumEnv" name="inpNumEnv" placeholder="N° Envio." readonly>\n\
                 <p><b>Servicio N° ' + tmp.os_id + '</b><br>\n\
                 <b>Dirección: ' + tmp.os_direccion + '</b><br>\n\
                 <b>Nombre Cliente: ' + tmp.cli_nombre + '</b><br>\n\
                 <b>Observaciones: ' + tmp.os_observacion + '</b><br>\n\
-                    <div id="tabEnvDia"></div>\n\
+                    <div id="tabEnvRecolectDia"></div>\n\
                     <div id="divRadios">\n\
                     <div class="custom-control custom-radio">\n\
                       <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1" checked="">\n\
@@ -355,10 +379,10 @@ function clickGestServicio() {
                         <label for="txaNovedad">Novedad</label>\n\
                         <textarea class="form-control" id="txaNovedad" name="txaNovedad" rows="2"></textarea>\n\
                     </div>\n\
-                    <div class="form-group" id="btnColecta"  style="display: none;">\n\
+                    <div class="form-group" id="btnColecta" style="display: none;">\n\
                         <button type="submit" class="btn btn-success" id="btnGuardaEstOS" name="btnGuardaEstOS">Finalizar Recolección <span class="ion-checkmark-circled" style="font-size: x-large;"></span></button>\n\
                     </div>\n\
-                    <input type="text" class="form-control" style="display: none;" id="inpEstado" name="inpEstado" value="6" readonly>\n\
+                    <input type="text" class="form-control" id="inpEstado" name="inpEstado" value="3" style="display: none;" readonly>\n\
                     </fieldset>\n\
             </form></div>');
         $("#divRadios input[name='customRadio']").click(function () {
@@ -367,25 +391,126 @@ function clickGestServicio() {
                 $("#inpEstado").val("3");
                 $("#btnGuardaEstOS").removeClass("btn-danger");
                 $("#btnGuardaEstOS").addClass("btn-success");
+                $("#alert-color").removeClass("alert-danger");
+                $("#alert-color").addClass("alert-info");
                 $("#btnColecta").hide();
                 $(".cheitem").prop("disabled", false);
             } else if (est === "2") {
                 $("#inpEstado").val("4");
                 $("#btnGuardaEstOS").removeClass("btn-success");
                 $("#btnGuardaEstOS").addClass("btn-danger");
+                $("#alert-color").removeClass("alert-info");
+                $("#alert-color").addClass("alert-danger");
                 $("#btnColecta").show();
                 $(".cheitem").removeAttr("checked");
                 $(".cheitem").prop("disabled", true);
             }
         });
-
-
-
-
-
-        consulta_tabla_env_mens_os_recolec(os_asig);
+        $("#inpEstOrdServ").val(tmp.os_id);
+        consulta_tabla_env_mens_os_recolec(tmp.os_id);
+        $("#btnGuardaEstOS").click(function () {
+            enviosSelectedRecoleccion();
+            validarInsert_est_x_os();
+        });
 
     });
+}
+
+/**
+ * Funcion de validacion para envio de est_x_os
+ * @returns {undefined}
+ */
+function validarInsert_est_x_os() {
+    $("#formEstOS").validate({
+        rules: {
+            inpEstOrdServ: {
+                required: true
+            }
+        },
+        submitHandler: function (form) {
+
+            inserta_est_x_ordServ();
+        }
+    });
+}
+/**
+ * Funcion que inserta un registro en tabla est_x_os
+ * @returns {undefined}
+ */
+function inserta_est_x_ordServ() {
+    request = "Controller/AdminC/AdministrarOS/insertar_es_x_os_mens_controller.php";
+    cadena = $("#formEstOS").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+        if (datos == 1) {
+            alertify.success('Registro actualizado!');
+            consulta_servicios_diarios();
+            $("#btnCloseModal").trigger("click");
+        } else {
+//            alert(datos);
+            alertify.error('No actualizado!');
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que determina los check seleccionados para actualizacion de recoleccion
+ * @returns {undefined}
+ */
+function enviosSelectedRecoleccion() {
+    json_act_est = '[';
+
+    $("input:checkbox:checked").each(function () {
+
+        checket_envio = $(this).attr('colecta');//numeo de fila posicion en el arreglo
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+
+            guiaLogi = checket_envio;
+            estadoID = 13;//estado colectado
+            mens_logi = '1|9874123652';
+            novedadValor = "";
+//            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+
+            json_act_est += '{"mens":"' + mens_logi + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';
+        }
+
+    });
+    $("input:checkbox:not(:checked)").each(function () {
+        checket_envio = $(this).attr('colecta');//numeo de fila posicion en el arreglo
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+
+            guiaLogi = checket_envio;
+            estadoID = 12;//estado colectado
+            mens_logi = '1|9874123652';
+            novedadValor = "CANCELADO";
+//            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+
+            json_act_est += '{"mens":"' + mens_logi + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';
+        }
+
+    });
+    json_act_valor_new = json_act_est.substr(0, json_act_est.length - 1);
+    json_act_valor_new += ']';
+    insert_estado_envio_recolect_json(json_act_valor_new);
+}
+/**
+ * Metodo que envia datos a php para insertar estados de envio
+ * @param {type} datos_act_est
+ * @returns {insert_estado_envio_asig_men_json}
+ */
+function insert_estado_envio_recolect_json(datos_act_est) {
+    request = "Controller/AdminC/AdministrarEnvios/insertar_estado_envio_json_controller.php";
+    cadena = {"datos_est": datos_act_est}; //envio de parametros por POST
+    metodo = function (datos) {
+        alert(datos);
+        alertify.success('Envios actualizados');
+    };
+    f_ajax(request, cadena, metodo);
 }
 /**
  * Metodo que retorna los datos de pago a mensajero

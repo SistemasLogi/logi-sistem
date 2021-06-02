@@ -158,6 +158,11 @@ function datos_envio_seg() {
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
                     hora_est += '<td id="hor_asig">' + timeString + '</td>';
                     desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
+                } else if (tmp_est.ee_id == 13) {
+                    iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-ios-filing" style="font-size: xx-large; color: #4e0144;"></span></a></td>';
+                    fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 }
             }
 
@@ -398,6 +403,11 @@ function datos_envio_seg_op() {
                     desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
                 } else if (tmp_est.ee_id == 12) {
                     iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-android-cancel" style="font-size: xx-large; color: #b90808;"></span></a></td>';
+                    fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
+                    hora_est += '<td id="hor_asig">' + timeString + '</td>';
+                    desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';
+                } else if (tmp_est.ee_id == 13) {
+                    iconos += '<td><a tabindex="0" class="enlace" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="' + tmp_est.ee_desc + '" data-content="' + tmp_est.exe_novedad + '"><span class="ion-ios-filing" style="font-size: xx-large; color: #4e0144;"></span></a></td>';
                     fecha_est += '<td id="fec_asig">' + fe.getDate() + " de " + meses[fe.getMonth()] + " de " + fe.getFullYear() + '</td>';
                     hora_est += '<td id="hor_asig">' + timeString + '</td>';
                     desc_est += '<td id="nov_env">' + tmp_est.ee_desc + '</td>';

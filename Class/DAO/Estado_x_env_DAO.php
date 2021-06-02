@@ -65,8 +65,8 @@ class Estado_x_env_DAO {
     function insertarBloqueEnTablaEstados($sql) {
 
         $BD = new MySQL();
-//        return $sql;
-        return $BD->execute_query($sql);
+        return $sql;
+//        return $BD->execute_query($sql);
     }
 
     /**
@@ -160,7 +160,7 @@ class Estado_x_env_DAO {
                 . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
                 . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
                 . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
-                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ess.es_id = 3  AND o.os_id = ess.os_id "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ess.es_id = (SELECT MAX(TS.es_id)FROM est_x_serv AS TS WHERE ess.os_id = TS.os_id) AND ess.es_id <= 3 AND o.os_id = ess.os_id "
                 . "" . $param . ") AS TP "
                 . "LEFT JOIN "
                 . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "
@@ -191,7 +191,7 @@ class Estado_x_env_DAO {
                 . "WHERE TM.exe_en_id = e.en_id AND em.emp_td_id = TM.td_id_men "
                 . "AND em.emp_num_doc = TM.num_doc_men AND TM.exe_ee_id = es.ee_id AND e.os_id = o.os_id "
                 . "AND o.ts_id = ts.ts_id AND o.te_id = te.te_id "
-                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ess.es_id = 3 AND o.os_id = ess.os_id "
+                . "AND cl.cli_td_id = o.cli_td_id AND cl.cli_num_doc = o.cli_num_doc AND ess.es_id = (SELECT MAX(TS.es_id)FROM est_x_serv AS TS WHERE ess.os_id = TS.os_id) AND ess.es_id <= 3 AND o.os_id = ess.os_id "
                 . "" . $param . ") AS TP "
                 . "JOIN "
                 . "(SELECT oxs.*, suc.suc_nombre FROM os_x_suc AS oxs, sucursales AS suc WHERE oxs.suc_num_id = suc.suc_num_id" . $sucursal . ") AS TS "

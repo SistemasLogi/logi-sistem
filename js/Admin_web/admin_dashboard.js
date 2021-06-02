@@ -3060,7 +3060,7 @@ function consulta_tabla_env_mens_os_recolec(value) {
 }
 var recolec_selected = 0;
 /**
- * Metodo que determina los check seleccionados para asignacion de valor flete 
+ * Metodo que determina los check seleccionados para actualizacion de recoleccion
  * @returns {undefined}
  */
 function enviosSelectedRecoleccion() {
@@ -3078,6 +3078,24 @@ function enviosSelectedRecoleccion() {
             estadoID = 13;//estado colectado
             mens_logi = '1|9874123652';
             novedadValor = "";
+//            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
+
+            json_act_est += '{"mens":"' + mens_logi + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';
+            recolec_selected++;
+        }
+
+    });
+    $("input:checkbox:not(:checked)").each(function () {
+        checket_envio = $(this).attr('colecta');//numeo de fila posicion en el arreglo
+//
+        if (typeof (checket_envio) === 'undefined') {
+
+        } else {
+
+            guiaLogi = checket_envio;
+            estadoID = 12;//estado colectado
+            mens_logi = '1|9874123652';
+            novedadValor = "CANCELADO";
 //            insert_estado_envio_asig_men(mensajero, guiaLogi, estadoID, novedadValor);
 
             json_act_est += '{"mens":"' + mens_logi + '","id_env":"' + guiaLogi + '","id_est":"' + estadoID + '","nov":"' + novedadValor + '"},';

@@ -8,7 +8,7 @@ if ($_POST) {
 //    $num_d = 162534495867; //Mensajero Logi
 //    $est_id = 3; //programado
 
-    echo json_encode($est_env->consultaEnv_x_Estado(" AND (TM.exe_ee_id = 1 || TM.exe_ee_id = 2 || TM.exe_ee_id = 8 || TM.exe_ee_id = 10);"));
+    echo json_encode($est_env->consultaEnv_x_Estado(" AND (TM.exe_ee_id = 2 || TM.exe_ee_id = 8 || TM.exe_ee_id = 10 || TM.exe_ee_id = 13);"));
 } else {
     header("location../");
 }

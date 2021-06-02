@@ -31,7 +31,7 @@ if ($_POST) {
     $reg_total_est = trim($reg_est_env, ",");
     $reg_total_est .= ";";
 
-    $es_x_env_dao->insertarBloqueEnTablaEstados($sql_est_env . $reg_total_est);
+    echo $es_x_env_dao->insertarBloqueEnTablaEstados($sql_est_env . $reg_total_est);
 } else {
     header("location../");
 }
