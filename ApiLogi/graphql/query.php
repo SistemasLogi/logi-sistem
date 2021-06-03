@@ -14,13 +14,14 @@ $rootQuery = new ObjectType([
     'name' => 'Query',
     'fields' => [
         'empleado' => [
-            'type' => $empleadoType,
+            'type' => Type::listOf($empleadoType),
             'args' => [
-                'emp_td_id' => Type::int()
+                'emp_td_id' => Type::int(),
+                'emp_num_doc' => Type::string()
             ],
             'resolve' => function ($root, $args) {
 //                $empleado = Empleado::find($args["emp_td_id"], $args["emp_num_doc"])->toArray();
-                $empleado = Empleado::where('emp_td_id', "=", $args["emp_td_id"])->get()->toArray();
+                $empleado = Empleado::where('emp_td_id', "=", $args["emp_td_id"])->where('emp_num_doc', "=", $args["emp_num_doc"])->get()->toArray();
                 return $empleado;
             }
         ],

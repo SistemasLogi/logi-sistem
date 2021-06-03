@@ -22,9 +22,11 @@ class Empleado extends Model {
     protected $table = "empleados";
     public $timestamp = false;
     protected $fillable = ['emp_td_id', 'emp_num_doc', 'emp_nombre', 'emp_tel', 'emp_cel', 'emp_direccion', 'emp_email', 'esu_id'];
+    protected $primary_key = ['emp_td_id', 'emp_num_doc'];
+    public $incrementing = false;
 
-    public function est_x_envio() {
-        return $this->hasMany(Est_x_envio::class);
+    public function estado_x_envio() {
+        return $this->hasMany(Est_x_envio::class, ['td_id_men', 'num_doc_men']);
     }
 
 }

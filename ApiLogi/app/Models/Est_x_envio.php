@@ -21,9 +21,11 @@ class Est_x_envio extends Model {
     protected $table = "est_x_envio";
     public $timestamp = false;
     protected $fillable = ['exe_en_id', 'exe_ee_id', 'exe_fec_hora', 'exe_novedad', 'td_id_men', 'num_doc_men'];
+    protected $primary_key = ['exe_en_id', 'exe_ee_id', 'exe_fec_hora'];
+    public $incrementing = false;
 
     public function estado_env() {
-        return $this->belongsTo(Estado_env::class);
+        return $this->belongsTo(Empleado::class, ['emp_td_id', 'emp_num_doc'], ['emp_td_id', 'emp_num_doc']);
     }
 
 }
