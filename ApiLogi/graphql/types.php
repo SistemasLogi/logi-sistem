@@ -8,6 +8,7 @@
 
 use App\Models\Est_x_envio;
 use App\Models\Stock;
+use App\Models\Productos;
 use App\Models\Salida_producto;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
@@ -53,13 +54,32 @@ $est_x_envioType = new ObjectType([
 $stockType = new ObjectType([
     'name' => 'stock',
     'description' => 'tipo de dato stock productos',
-    'fields' => [
-        'suc_num_id' => Type::int(),
-        'pro_cod' => Type::string(),
-        'stk_fecha' => Type::string(),
-        'stk_cantidad' => Type::int(),
-        'stk_observaciones' => Type::string()
-    ]
+    'fields' => function ()use(&$productosType, &$salida_productoType) {
+        return [
+            'suc_num_id' => Type::int(),
+            'pro_cod' => Type::string(),
+            'stk_fecha' => Type::string(),
+            'stk_cantidad' => Type::int(),
+            'stk_observaciones' => Type::string(),
+            'producto' => [
+                'type' => Type::listOf($productosType),
+                'resolve' => function ($root, $args) {
+                    $stock_prod = Productos::where('suc_num_id', "=", $root['suc_num_id'])->where('pro_cod', "=", $root['pro_cod'])->get()->toArray();
+                    return $stock_prod;
+                }
+            ],
+            'salidas' => [
+                'type' => Type::listOf($salida_productoType),
+                'resolve' => function ($root, $args) {
+                    $stock_prod = Salida_producto::where('suc_num_id', "=", $root['suc_num_id'])
+                                    ->where('pro_cod', "=", $root['pro_cod'])
+                                    ->where('sal_fecha', ">", $root['stk_fecha'])
+                                    ->get()->toArray();
+                    return $stock_prod;
+                }
+            ]
+        ];
+    }
         ]);
 
 $salida_productoType = new ObjectType([
@@ -93,15 +113,6 @@ $productosType = new ObjectType([
                 'resolve' => function ($root, $args) {
                     $stock_prod = Stock::where('suc_num_id', "=", $root['suc_num_id'])->where('pro_cod', "=", $root['pro_cod'])->get()->toArray();
                     return $stock_prod;
-                }
-            ],
-            'salidas' => [
-                'type' => Type::listOf($salida_productoType),
-                'resolve' => function ($root, $args) {
-                    $salida_prod = Salida_producto::where('suc_num_id', "=", $root['suc_num_id'])
-                                    ->where('pro_cod', "=", $root['pro_cod'])
-                                    ->get()->toArray();
-                    return $salida_prod;
                 }
             ]
         ];
