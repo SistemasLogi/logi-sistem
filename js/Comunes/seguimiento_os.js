@@ -47,6 +47,7 @@ function datos_orden_serv_seg() {
 
             $("#fec_asig").html("");
             $("#men_asig").html("");
+            $("#dat_men_asig").html("");
 
 
             $("#os_num_fin").html("");
@@ -55,6 +56,7 @@ function datos_orden_serv_seg() {
             $("#novedad_fin").html("");
             $("#fec_fin").html("");
             $("#men_fin").html("");
+            $("#dat_men_fin").html("");
 
             $("#btnActuOS_prog").prop("disabled", true);
             $("#btnActuOS_asig").prop("disabled", true);
@@ -132,6 +134,7 @@ function datos_orden_serv_seg() {
             $("#progress_bar").css('width', '53%');
             $("#progress_bar").html('Asignada  a vehículo');
             $("#men_asig").html(est_dos.emp_nombre);
+            $("#dat_men_asig").html('Vehiculo: ' + est_dos.emp_email);
 
             $("#btnActuOS_prog").prop("disabled", true);
             $("#btnActuOS_asig").prop("disabled", false);
@@ -173,6 +176,7 @@ function datos_orden_serv_seg() {
                 $("#progress_bar").css('width', '100%');
                 $("#progress_bar").html('Realizada Exitosamente');
                 $("#men_fin").html(est_tres.emp_nombre);
+                $("#dat_men_fin").html('Vehiculo: ' + est_tres.emp_email);
 
             } else if (est_tres.es_id == 4) {
 

@@ -44,6 +44,11 @@
                         <td class="text-center" id="men_asig"></td>
                         <td class="text-right" id="men_fin"></td>
                     </tr>
+                    <tr class="table-sm">
+                        <td id="datCli"></td>
+                        <td class="text-center" id="dat_men_asig"></td>
+                        <td class="text-right" id="dat_men_fin"></td>
+                    </tr>
                     <tr>
                         <td colspan="3">
                             <div class="progress" style="height:20px; border-radius: 0.7rem;">

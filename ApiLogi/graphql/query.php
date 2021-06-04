@@ -7,6 +7,7 @@
  */
 
 use App\Models\Empleado;
+use App\Models\Productos;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -30,6 +31,13 @@ $rootQuery = new ObjectType([
             'resolve' => function ($root, $args) {
                 $empleados = Empleado::get()->toArray();
                 return $empleados;
+            }
+        ],
+        'productos' => [
+            'type' => Type::listOf($productosType),
+            'resolve' => function ($root, $args) {
+                $productos_list = Productos::get()->toArray();
+                return $productos_list;
             }
         ]
     ]

@@ -26,7 +26,7 @@ class Empleado extends Model {
     public $incrementing = false;
 
     public function estado_x_envio() {
-        return $this->hasMany(Est_x_envio::class, ['td_id_men', 'num_doc_men']);
+        return $this->hasMany(Est_x_envio::class, ['td_id_men', 'num_doc_men']);//el segundo parametro es la llave foranea en la tabla de la relacion
     }
 
 }

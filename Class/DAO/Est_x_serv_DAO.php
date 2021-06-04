@@ -62,7 +62,7 @@ class Est_x_serv_DAO {
      */
     function consultaSeguimientoEstadoOS($param) {
         $sql = "SELECT exs.*, o.cli_td_id, o.cli_num_doc, cl.cli_nombre, o.os_direccion, o.os_tel_cont, o.ts_id, ts.ts_desc, "
-                . "o.te_id, te.te_desc, em.emp_nombre, es.es_desc, o.ciu_id, ciu.ciu_nombre "
+                . "o.te_id, te.te_desc, em.emp_nombre, em.emp_num_doc, em.emp_email, es.es_desc, o.ciu_id, ciu.ciu_nombre "
                 . "FROM est_x_serv AS exs, orden_serv AS o, clientes AS cl, tipo_serv AS ts, tipo_envio AS te, empleados AS em, estado_serv AS es, ciudad AS ciu "
                 . "WHERE exs.os_id = o.os_id AND o.cli_td_id = cl.cli_td_id AND o.cli_num_doc = cl.cli_num_doc AND o.ts_id = ts.ts_id "
                 . "AND o.te_id = te.te_id AND exs.td_id_men = em.emp_td_id AND exs.num_doc_men = em.emp_num_doc AND es.es_id = exs.es_id AND o.ciu_id = ciu.ciu_id AND exs.os_id = " . $param . " "
