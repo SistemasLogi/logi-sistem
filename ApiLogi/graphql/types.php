@@ -10,6 +10,7 @@ use App\Models\Est_x_envio;
 use App\Models\Stock;
 use App\Models\Productos;
 use App\Models\Salida_producto;
+use Illuminate\Support\Facades\DB;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 

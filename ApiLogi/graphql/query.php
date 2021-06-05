@@ -43,8 +43,11 @@ $rootQuery = new ObjectType([
         ],
         'stock' => [
             'type' => Type::listOf($stockType),
+            'args' => [
+                'suc_num_id' => Type::int()
+            ],
             'resolve' => function ($root, $args) {
-                $productos_list = Stock::get()->toArray();
+                $productos_list = Stock::where('suc_num_id', "=", $args["suc_num_id"])->get()->toArray();
                 return $productos_list;
             }
         ]
