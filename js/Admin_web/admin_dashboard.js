@@ -3073,7 +3073,7 @@ function enviosSelectedRecoleccion() {
         if (typeof (checket_envio) === 'undefined') {
 
         } else {
-            alert(checket_envio);
+//            alert(checket_envio);
             guiaLogi = checket_envio;
             estadoID = 13;//estado colectado
             mens_logi = '1|9874123652';

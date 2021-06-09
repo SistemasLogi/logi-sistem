@@ -98,6 +98,18 @@ $salida_productoType = new ObjectType([
     ]
         ]);
 
+$entrada_productoType = new ObjectType([
+    'name' => 'entrada_prod',
+    'description' => 'tipo de dato entrada productos',
+    'fields' => [
+        'ent_fecha' => Type::string(),
+        'suc_num_id' => Type::int(),
+        'pro_cod' => Type::string(),
+        'ent_cantidad' => Type::int(),
+        'ent_detalle' => Type::string()
+    ]
+        ]);
+
 $productosType = new ObjectType([
     'name' => 'productos',
     'description' => 'tipo de dato productos',
