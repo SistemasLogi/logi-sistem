@@ -40,10 +40,10 @@
                 <p class="card-text">Asignadas a vehiculo.</p>
             </div>
         </div>
-        <div class="card border-info mb-3 enlace" id="cardPacking" elem="6" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
-            <div class="card-header"><b>EN PACKING</b><span class="ion-cube float-right" style="color: #2c77ff; font-size: x-large"></span></div>
-            <div class="card-body">
-                <h4 class="card-title" style="color: #2c77ff;" id="cantServPacking"></h4>
+        <div class="card border-success mb-3 enlace" id="cardPacking" elem="6" style="max-width: 20rem; border: 3px solid rgba(0, 0, 0, 0.125); border-radius: 0.3rem;">
+            <div class="card-header"><b>EN PACKING</b><span class="ion-cube float-right" style="color: #009e3f; font-size: x-large"></span></div>
+            <div class="card-body alert-success">
+                <h4 class="card-title" style="color: #009e3f;" id="cantServPacking"></h4>
                 <p class="card-text">En proceso de packing</p>
             </div>
         </div>

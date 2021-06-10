@@ -2651,7 +2651,7 @@ function consulta_dashboard_serv() {
                 } else if (tmp.es_id == 5) {
                     datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-social-dropbox" style="color: #ce8300;"></span></td>';
                 } else if (tmp.es_id == 6) {
-                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-cube" style="color: #0d40ff;"></span></td>';
+                    datosEstOS += '<tr class="table-sm" id="fila' + i + '"><td class="enlace actuestos" act="' + i + '"><span class="ion-cube" style="color: #009e3f;"></span></td>';
                 }
                 datosEstOS += '<td>' + tmp.os_id + "</td>";
                 datosEstOS += '<td class="enlace infoenvi" infenv="' + tmp.os_id + '"><span class="ion-email-unread" style="color: #13b955;"></span></td>';
@@ -2672,7 +2672,7 @@ function consulta_dashboard_serv() {
                     datosEstOS += '<td style="background-color: #fea;">' + tmp.es_desc + '</td>';
 //                    serv_novedad++;
                 } else if (tmp.es_id == 6) {
-                    datosEstOS += '<td style="background-color: #82dcff;">' + tmp.es_desc + '</td>';
+                    datosEstOS += '<td style="background-color: #b0ffc5;">' + tmp.es_desc + '</td>';
 //                    serv_novedad++;
                 }
                 datosEstOS += '<td>' + tmp.cli_num_doc + '</td>';

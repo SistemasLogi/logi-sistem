@@ -3,6 +3,9 @@
 date_default_timezone_set('America/Bogota');
 $fecha_hora = date("Y-m-d H:i:s");
 
+$fecha_hora_mas = strtotime('+1 minute', strtotime($fecha_hora));
+$fecha_hora_increment = date('Y-m-d H:i:s', $fecha_hora_mas);
+
 if ($_POST) {
 
     require '../../../config.php';
@@ -48,7 +51,7 @@ if ($_POST) {
 
         if ($product_dao->insertarSalidaProd($num_venta, $fecha_hora) == 1) {
             if ($tipo_serv_recolec == 1 || $tipo_serv_recolec == 2 || $tipo_serv_recolec == 3 || $tipo_serv_recolec == 4) {
-                if ($est_x_aenv_dao->insertarEstado_x_AEnvio_Venta(3, $fecha_hora, $observ_aenvio, $num_venta, $id_os_alist) == 1) {
+                if ($est_x_aenv_dao->insertarEstado_x_AEnvio_Venta(3, $fecha_hora_increment, $observ_aenvio, $num_venta, $id_os_alist) == 1) {
                     $datos_os_recol = json_encode($os_dao->consulta_UltimaOS_x_ts_te($tipo_serv_recolec, $tipo_envio_recolec, $td_cliente, $num_doc_cliente));
                     if (!empty($datos_os_recol)) {
                         $datos_os_recolDecod = json_decode($datos_os_recol);
@@ -183,7 +186,6 @@ if ($_POST) {
         }
         if ($product_dao->elimProdTempVent($num_venta) == 1) {
             echo 1; //orrectamente ejeutado 
-
 //            $stock_dao = new Stock_DAO();
 //            echo json_encode($stock_dao->consultaAlistaStock($fecha_hora, $num_sucursal));
         } else {
