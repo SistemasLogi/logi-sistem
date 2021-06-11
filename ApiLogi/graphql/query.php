@@ -11,6 +11,7 @@ use App\Models\Productos;
 use App\Models\Stock;
 use App\Models\Salida_producto;
 use App\Models\Entrada_producto;
+use App\Models\Sucursal;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -70,6 +71,13 @@ $rootQuery = new ObjectType([
             ],
             'resolve' => function ($root, $args) {
                 $entradas_list = Entrada_producto::where('suc_num_id', "=", $args["suc_num_id"])->get()->toArray();
+                return $entradas_list;
+            }
+        ],
+        'cliente_suc' => [
+            'type' => Type::listOf($sucursalType),
+            'resolve' => function ($root, $args) {
+                $entradas_list = Sucursal::get()->toArray();
                 return $entradas_list;
             }
         ]

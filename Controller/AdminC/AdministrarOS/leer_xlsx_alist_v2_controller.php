@@ -68,6 +68,13 @@ if ($_POST) {
                     $aenvio_vo->setAenv_os_id($_SESSION["os_creada"]);
                     $aenvio_vo->setAenv_operador_id($sheetData[$i]['Y']);
                     $aenvio_vo->setAenv_cantidad(1); //**predeterminado 1 por guia
+                    $aenvio_vo->setAenv_nombre($sheetData[$i]['I']);
+                    $aenvio_vo->setAenv_direccion($sheetData[$i]['J']);
+                    $aenvio_vo->setAenv_telefono($sheetData[$i]['K']);
+                    $aenvio_vo->setAenv_ciudad($sheetData[$i]['Q']);
+                    $aenvio_vo->setAenv_depto($sheetData[$i]['R']);
+                    $aenvio_vo->setAenv_observacion($sheetData[$i]['F']);
+                    $aenvio_vo->setAenv_valor_flet(0);
 
                     $aenvio_dao->insertarAlistEnvio($aenvio_vo);
                 }

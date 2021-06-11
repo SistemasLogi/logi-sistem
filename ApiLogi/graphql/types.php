@@ -132,3 +132,19 @@ $productosType = new ObjectType([
         ];
     }
         ]);
+
+$sucursalType = new ObjectType([
+    'name' => 'sucursales',
+    'description' => 'tipo de dato sucursales cliente',
+    'fields' => [
+        'suc_num_id' => Type::int(),
+        'cli_td_id' => Type::int(),
+        'cli_num_doc' => Type::string(),
+        'suc_nombre' => Type::string(),
+        'suc_direccion' => Type::string(),
+        'suc_ciudad' => Type::string(),
+        'suc_tel' => Type::string(),
+        'suc_usuario' => Type::string(),
+        'suc_password' => Type::string()
+    ]
+        ]);

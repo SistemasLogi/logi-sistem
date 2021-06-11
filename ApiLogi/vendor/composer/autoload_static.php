@@ -29,6 +29,10 @@ class ComposerStaticInitf8795f58c24597349dc21e67a1e17a30
         array (
             'GraphQL\\' => 8,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -63,6 +67,10 @@ class ComposerStaticInitf8795f58c24597349dc21e67a1e17a30
         'GraphQL\\' => 
         array (
             0 => __DIR__ . '/..' . '/webonyx/graphql-php/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'App\\' => 
         array (
