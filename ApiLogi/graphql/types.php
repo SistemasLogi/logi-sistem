@@ -113,7 +113,7 @@ $entrada_productoType = new ObjectType([
 $productosType = new ObjectType([
     'name' => 'productos',
     'description' => 'tipo de dato productos',
-    'fields' => function ()use(&$stockType, &$salida_productoType) {
+    'fields' => function ()use(&$stockType) {
         return[
             'suc_num_id' => Type::int(),
             'pro_cod' => Type::string(),
@@ -146,5 +146,33 @@ $sucursalType = new ObjectType([
         'suc_tel' => Type::string(),
         'suc_usuario' => Type::string(),
         'suc_password' => Type::string()
+    ]
+        ]);
+
+
+$clienteType = new ObjectType([
+    'name' => 'clientes',
+    'description' => 'tipo de dato cliente',
+    'fields' => [
+        'cli_td_id' => Type::int(),
+        'cli_num_doc' => Type::string(),
+        'cli_nombre' => Type::string(),
+        'cli_tel' => Type::string(),
+        'cli_cel' => Type::string(),
+        'cli_direccion' => Type::string(),
+        'cli_per_cont' => Type::string()
+    ]
+        ]);
+
+
+$empleado_passType = new ObjectType([
+    'name' => 'usuario_emp_pass',
+    'description' => 'tipo de dato empleado password',
+    'fields' => [
+        'ue_td_id' => Type::int(),
+        'ue_num_doc' => Type::string(),
+        'car_id' => Type::int(),
+        'ue_usuario' => Type::string(),
+        'ue_password' => Type::string()
     ]
         ]);

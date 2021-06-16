@@ -11,7 +11,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Description of Empleado
+ * Description of Empleado_pass
  *
  * @author ANDRES
  */
@@ -26,7 +26,7 @@ class Empleado_pass extends Model {
     public $incrementing = false;
 
     public function estado_x_envio() {
-        return $this->belongsTo(Empleado::class, ['emp_td_id', 'emp_num_doc']); //el segundo parametro es la llave foranea en la tabla de la relacion
+//        return $this->belongsTo(Empleado::class, ['emp_td_id', 'emp_num_doc']); //el segundo parametro es la llave foranea en la tabla de la relacion
     }
 
 }

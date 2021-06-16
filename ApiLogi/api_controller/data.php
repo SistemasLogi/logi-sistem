@@ -1,10 +1,12 @@
 <?php
-if(!isset($_GET['t'])) die('Debe especificar el token');
+
+if (!isset($_GET['t']))
+    die('Debe especificar el token');
 
 $token = $_GET['t'];
 
-var_dump(
-    Auth::GetData(
-        $token
-    )
+$datos = Auth::GetData(
+                $token
 );
+
+echo $datos->role;

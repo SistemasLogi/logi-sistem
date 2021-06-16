@@ -7,11 +7,13 @@
  */
 
 use App\Models\Empleado;
+use App\Models\Empleado_pass;
 use App\Models\Productos;
 use App\Models\Stock;
 use App\Models\Salida_producto;
 use App\Models\Entrada_producto;
 use App\Models\Sucursal;
+use App\Models\Cliente;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
@@ -34,6 +36,16 @@ $rootQuery = new ObjectType([
             'type' => Type::listOf($empleadoType),
             'resolve' => function ($root, $args) {
                 $empleados = Empleado::get()->toArray();
+                return $empleados;
+            }
+        ],
+        'emp_pass' => [
+            'type' => Type::listOf($empleado_passType),
+            'args' => [
+                'usuario' => Type::string()
+            ],
+            'resolve' => function ($root, $args) {
+                $empleados = Empleado_pass::where('ue_usuario', "=", $args['usuario'])->get()->toArray();
                 return $empleados;
             }
         ],
@@ -77,8 +89,15 @@ $rootQuery = new ObjectType([
         'cliente_suc' => [
             'type' => Type::listOf($sucursalType),
             'resolve' => function ($root, $args) {
-                $entradas_list = Sucursal::get()->toArray();
-                return $entradas_list;
+                $sucursales_list = Sucursal::get()->toArray();
+                return $sucursales_list;
+            }
+        ],
+        'cliente' => [
+            'type' => Type::listOf($clienteType),
+            'resolve' => function ($root, $args) {
+                $clientes_list = Cliente::get()->toArray();
+                return $clientes_list;
             }
         ]
     ]
