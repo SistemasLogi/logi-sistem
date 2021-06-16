@@ -19,6 +19,7 @@ class Usuario_pass_VO {
     private $tipo_usu;
     private $usuario;
     private $password;
+    private $role;
 
     function getTipo_doc() {
         return $this->tipo_doc;
@@ -40,6 +41,10 @@ class Usuario_pass_VO {
         return $this->password;
     }
 
+    function getRole() {
+        return $this->role;
+    }
+
     function setTipo_doc($tipo_doc) {
         $this->tipo_doc = $tipo_doc;
     }
@@ -58,6 +63,10 @@ class Usuario_pass_VO {
 
     function setPassword($password) {
         $this->password = $password;
+    }
+
+    function setRole($role) {
+        $this->role = $role;
     }
 
 }
