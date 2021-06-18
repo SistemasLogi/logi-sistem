@@ -51,10 +51,10 @@ if ($_POST) {
                 $reg_tsalidas_temp .= "(null, '" . $fecha_hora_now . "', " . $_SESSION["num_suc_adm"] . ", "
                         . "'" . $dato_prod_dec[0]->pro_cod . "', '" . $sheetData[$i]['A'] . "', "
                         . "" . $sheetData[$i]['B'] . ", " . $sheetData[$i]['D'] . ", '" . $observ . "', "
-                        . "'" . $sheetData[$i]['I'] . "', '" . $sheetData[$i]['J'] . "', '" . $sheetData[$i]['K'] . "', "
+                        . "'" . str_replace("'", "", $sheetData[$i]['I']) . "', '" . str_replace("'", "", $sheetData[$i]['J']) . "', '" . $sheetData[$i]['K'] . "', "
                         . "" . $sheetData[$i]['G'] . ", " . $sheetData[$i]['Z'] . ", " . $sheetData[$i]['L'] . ", "
                         . "" . $sheetData[$i]['M'] . ", " . $sheetData[$i]['N'] . ", " . $sheetData[$i]['O'] . ", "
-                        . "" . $sheetData[$i]['P'] . ", '" . $sheetData[$i]['Q'] . "', '" . $sheetData[$i]['R'] . "', "
+                        . "" . $sheetData[$i]['P'] . ", '" . str_replace("'", "", $sheetData[$i]['Q']) . "', '" . str_replace("'", "", $sheetData[$i]['R']) . "', "
                         . "'" . $sheetData[$i]['S'] . "', " . $sheetData[$i]['T'] . ", '" . $sheetData[$i]['U'] . "', "
                         . "" . $sheetData[$i]['V'] . ", " . $sheetData[$i]['W'] . ", " . $sheetData[$i]['X'] . "),";
 
