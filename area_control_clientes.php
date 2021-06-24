@@ -119,6 +119,8 @@ if (!isset($_SESSION["sucursal"])) {
                             <a class="dropdown-item enlace" id="link_seg_aenv_cl">Seguimiento Alistamiento</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item enlace" id="link_ent_suc">Entradas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item enlace" id="link_rot_inv">Rotación Inventario</a>
                         </div>
                     </div>
                 </div>

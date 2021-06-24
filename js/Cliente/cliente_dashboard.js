@@ -53,6 +53,10 @@ $(document).ready(function () {
         vista_busca_entrada();
     });
 
+    $("#link_rot_inv").click(function () {
+        vista_rep_rot_inv();
+    });
+
     $("#link_seg_aenv_cl").click(function () {
         segui_estado_alist_env_cl();
     });
@@ -472,6 +476,23 @@ function vista_busca_entrada() {
     };
     f_ajax(request, cadena, metodo);
 }
+/**
+ * Metodo que carga el dashboard principal de envios para una sucursal
+ * @returns {undefined}
+ */
+function vista_rep_rot_inv() {
+    request = "View/SucursalV/form_rotacion_inv.php";
+    cadena = "a=1"; //envio de parametros por POST
+    metodo = function (datos) {
+//        exist = false;
+        $("#sectionConten").html(datos);
+
+        $("#btnRangoFechas").click(function () {
+            validar_fechas_rot_inv();
+        });
+    };
+    f_ajax(request, cadena, metodo);
+}
 
 /**
  * Metodo que retorna los datos a combo sucursales por cliente seleccionado
@@ -594,6 +615,41 @@ function verificaFechasEnt() {
         $("#mensaje").html("La fecha inicial no puede ser mayor que la final");
     } else {
         tabla_fechas_entrada();
+    }
+}
+/**
+ * Metodo que valida datos del formulario para generar reporte por fechas entrada
+ * @returns {undefined}
+ */
+function validar_fechas_rot_inv() {
+    $("#formRotacionInv").validate({
+        rules: {
+            inpFechaIni: {
+                required: true,
+                date: true
+            },
+            inpFechaFin: {
+                required: true,
+                date: true
+            }
+        },
+        submitHandler: function (form) {
+            verificaFechasRotacion();
+        }
+    });
+}
+
+/**
+ * Metodo que permite controlar que la fecha inicial sea menor a la final para reporte entradas
+ * @returns {undefined}
+ */
+function verificaFechasRotacion() {
+    var fInicial = $("#inpFechaIni").val();
+    var fFinal = $("#inpFechaFin").val();
+    if (fInicial > fFinal) {
+        $("#mensaje").html("La fecha inicial no puede ser mayor que la final");
+    } else {
+        tabla_fechas_rot_inv();
     }
 }
 var env_program;
@@ -1204,6 +1260,63 @@ function tabla_fechas_entrada() {
              * Evento que pagina una tabla 
              */
             var table = $('#tableEntSucDet').DataTable({
+                'scrollX': true
+            });
+
+        } else {
+            $("#tabla_Ent_Suc").html("<div class='alert alert-dismissible alert-danger'>\n\
+                 <button type='button' class='close' data-dismiss='alert'>&times;</button>\n\
+                 <strong>No existen datos para mostrar.</strong></div>");
+        }
+    };
+    f_ajax(request, cadena, metodo);
+}
+/**
+ * Metodo que carga la tabla de envios segun rango fechas de entrada
+ * @returns {tabla_detalle_entrada}
+ */
+function tabla_fechas_rot_inv() {
+    request = "Controller/AdminC/AdministrarProd/consulta_rotacion_inv_controller.php";
+    cadena = $("#formRotacionInv").serialize(); //envio de parametros por POST
+    metodo = function (datos) {
+//        alert(datos);
+        arreglo_entr = $.parseJSON(datos);
+        /*Aqui se determina si la consulta retorna datos, de ser asi se genera vista de tabla, de lo contrario no*/
+        if (arreglo_entr !== 0) {
+            datos_entr = '<div class="toast show border-primary col-lg-12" role="alert" aria-live="assertive" aria-atomic="true" style="max-width: 100%; border-radius: 0.5rem;">\n\
+                            <div class="toast-header">\n\
+                            <strong class="mr-auto" id="title_env_est">TABLA GENERAL DE ENTRADAS</strong>\n\
+                            </div>\n\
+                            <div class="toast-body">\n\
+                            <div class="table-responsive text-nowrap col-lg-12" id="tbRotInvent">\n\
+                            <table class="table table-striped table-sm table-bordered" id="tableRotInv">\n\
+                            <thead><tr class="table-secondary">\n\
+                                <th scope="col">CODIGO</th>\n\
+                                <th scope="col">SKU</th>\n\
+                                <th scope="col">DESCRIPCION</th>\n\
+                                <th scope="col">SALIDAS</th>\n\
+                                <th scope="col">SUC CLIENTE</th>\n\
+                                </tr></thead><tbody>';
+
+            for (i = 0; i < arreglo_entr.length; i++) {
+                temp = arreglo_entr[i];
+
+                datos_entr += '<tr class="table-sm fila="' + i + '">';
+                datos_entr += '<td>' + temp.pro_cod + '</td>';
+                datos_entr += '<td>' + temp.pro_sku + '</td>';
+                datos_entr += '<td>' + temp.pro_desc + '</td>';
+                datos_entr += '<td>' + temp.t_salidas + '</td>';
+                datos_entr += '<td>' + temp.suc_nombre + '</td>';
+            }
+            datos_entr += "</tbody></table></div></div></div>";
+
+
+            $("#tabla_rot_inv_suc").html(datos_entr);
+            /**
+             * Evento que pagina una tabla 
+             */
+            var table = $('#tableRotInv').DataTable({
+                'order': [[3, 'desc']],
                 'scrollX': true
             });
 

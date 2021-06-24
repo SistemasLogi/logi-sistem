@@ -17,7 +17,8 @@
                         <b>Rango Fechas :</b>
                         <input class="form-control form-control-sm mr-sm-2" type="date" id="inpFechaInicio" name="inpFechaInicio">
                         <input class="form-control form-control-sm mr-sm-2" type="date" id="inpFechaFin" name="inpFechaFin">
-                        <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaFechEnt" name="btnBuscaFechEnt">BUSCAR</button>    
+                        <button type="submit" class="btn btn-outline-primary btn-sm" id="btnBuscaFechEnt" name="btnBuscaFechEnt">BUSCAR</button>  
+                        <div id="mensaje"></div>
                     </form>
                 </div>
             </div>
