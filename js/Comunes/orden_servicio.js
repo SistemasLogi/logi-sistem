@@ -1291,6 +1291,7 @@ function cargaProdAlistamiento(id_suc) {
                     <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
                     <thead><tr class="table-primary">\n\
                         <th scope="col">VER</th>\n\
+                        <th scope="col">CAN</th>\n\
                         <th scope="col">SKU</th>\n\
                         <th scope="col">UB</th>\n\
                         <th scope="col">UNS</th>\n\
@@ -1311,6 +1312,7 @@ function cargaProdAlistamiento(id_suc) {
                     blq++;
                     datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                     datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                    datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
                     datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                     datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                     if (tmp.t_sal_cantidad >= 2) {
@@ -1355,6 +1357,7 @@ function cargaProdAlistamiento(id_suc) {
                             //***si es la misma venta de la fila anterior**//
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
@@ -1425,6 +1428,7 @@ function cargaProdAlistamiento(id_suc) {
                             <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
                             <thead><tr class="table-primary">\n\
                                 <th scope="col">VER</th>\n\
+                                <th scope="col">CAN</th>\n\
                                 <th scope="col">SKU</th>\n\
                                 <th scope="col">UB</th>\n\
                                 <th scope="col">UNS</th>\n\
@@ -1445,6 +1449,7 @@ function cargaProdAlistamiento(id_suc) {
 
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
@@ -1482,6 +1487,7 @@ function cargaProdAlistamiento(id_suc) {
                             //***si es la misma venta de la fila anterior**//
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
@@ -1536,6 +1542,7 @@ function cargaProdAlistamiento(id_suc) {
                             <table class="table table-hover table-sm table-fixed" id="tab' + tmp.t_sal_num_venta + '">\n\
                             <thead><tr class="table-primary">\n\
                                 <th scope="col">VER</th>\n\
+                                <th scope="col">CAN</th>\n\
                                 <th scope="col">SKU</th>\n\
                                 <th scope="col">UB</th>\n\
                                 <th scope="col">UNS</th>\n\
@@ -1556,6 +1563,7 @@ function cargaProdAlistamiento(id_suc) {
 
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {

@@ -122,7 +122,7 @@ if ($_POST) {
             $ub_pro = $datosDecode[$i]->pro_ubicacion;
             $total_pro = $datosDecode[$i]->total;
 
-            $objPhpexcel->getActiveSheet()->setCellValue('A' . $fila, $codigo_pro);
+            $objPhpexcel->getActiveSheet()->setCellValue('A' . $fila, trim($codigo_pro));
             $objPhpexcel->getActiveSheet()->setCellValue('B' . $fila, $sku_pro);
             $objPhpexcel->getActiveSheet()->setCellValue('C' . $fila, $desc_pro);
             $objPhpexcel->getActiveSheet()->setCellValue('D' . $fila, $ub_pro);

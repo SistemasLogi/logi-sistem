@@ -377,22 +377,27 @@ class Producto_DAO {
      * @param type $num_suc
      * @param type $fec_ini
      * @param type $fec_fin
+     * @param type $fec_actual
      * @return type
      */
-    function consultaFechasRotacionInv($num_suc, $fec_ini, $fec_fin) {
+    function consultaFechasRotacionInv($num_suc, $fec_ini, $fec_fin, $fec_actual) {
         $sql = "SELECT TM.*, suc.suc_nombre, cl.cli_td_id, cl.cli_num_doc, cl.cli_nombre FROM "
-                . "(SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas "
+                . "(SELECT T1.*, IFNULL(T2.salidas,0) AS t_salidas, IFNULL(T3.salidas,0) AS r_salidas, (T1.stk_cantidad - IFNULL(T2.salidas,0)) AS total "
                 . "FROM "
                 . "(SELECT p.pro_sku, p.pro_desc, p.pro_ubicacion, s.* "
-                . "FROM stock AS s, productos AS p WHERE p.pro_cod = s.pro_cod AND p.suc_num_id = s.suc_num_id  AND p.suc_num_id = " . $num_suc . ") "
-                . "AS T1 "
+                . "FROM stock AS s, productos AS p WHERE p.pro_cod = s.pro_cod AND p.suc_num_id = s.suc_num_id  AND p.suc_num_id = " . $num_suc . ") AS T1 "
+                . "LEFT JOIN"
+                . "(SELECT pro_cod, SUM(sal_cantidad) AS salidas "
+                . "FROM salida_prod AS sa "
+                . "WHERE suc_num_id = " . $num_suc . " "
+                . "AND sal_fecha > (SELECT stk_fecha FROM stock AS sk WHERE sa.pro_cod = sk.pro_cod) "
+                . "AND sal_fecha < '" . $fec_actual . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod "
                 . "LEFT JOIN "
                 . "(SELECT pro_cod, SUM(sal_cantidad) AS salidas "
                 . "FROM salida_prod AS sa "
                 . "WHERE suc_num_id = " . $num_suc . " "
                 . "AND sal_fecha > '" . $fec_ini . "' "
-                . "AND sal_fecha < '" . $fec_fin . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod) "
-                . "AS TM, sucursales AS suc, clientes AS cl "
+                . "AND sal_fecha < '" . $fec_fin . "' GROUP BY pro_cod) AS T3 ON T1.pro_cod = T3.pro_cod) AS TM, sucursales AS suc, clientes AS cl "
                 . "WHERE TM.suc_num_id = suc.suc_num_id AND suc.cli_td_id = cl.cli_td_id AND suc.cli_num_doc = cl.cli_num_doc ORDER BY TM.t_salidas DESC;";
 //        return $sql;
         $BD = new MySQL();

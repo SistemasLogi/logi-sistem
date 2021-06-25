@@ -1276,6 +1276,7 @@ function tabla_fechas_entrada() {
  * @returns {tabla_detalle_entrada}
  */
 function tabla_fechas_rot_inv() {
+    $("#tabla_rot_inv_suc").html("<div class='col-lg-12'><img class='img-fluid' src='img/animaciones/loading.gif' alt=''/></div>");
     request = "Controller/AdminC/AdministrarProd/consulta_rotacion_inv_controller.php";
     cadena = $("#formRotacionInv").serialize(); //envio de parametros por POST
     metodo = function (datos) {
@@ -1295,7 +1296,7 @@ function tabla_fechas_rot_inv() {
                                 <th scope="col">SKU</th>\n\
                                 <th scope="col">DESCRIPCION</th>\n\
                                 <th scope="col">SALIDAS</th>\n\
-                                <th scope="col">SUC CLIENTE</th>\n\
+                                <th scope="col">STOCK ACTUAL</th>\n\
                                 </tr></thead><tbody>';
 
             for (i = 0; i < arreglo_entr.length; i++) {
@@ -1305,8 +1306,8 @@ function tabla_fechas_rot_inv() {
                 datos_entr += '<td>' + temp.pro_cod + '</td>';
                 datos_entr += '<td>' + temp.pro_sku + '</td>';
                 datos_entr += '<td>' + temp.pro_desc + '</td>';
-                datos_entr += '<td>' + temp.t_salidas + '</td>';
-                datos_entr += '<td>' + temp.suc_nombre + '</td>';
+                datos_entr += '<td class="text-center">' + temp.r_salidas + '</td>';
+                datos_entr += '<td class="text-center" style="background-color: #d7ecde;">' + temp.total + '</td>';
             }
             datos_entr += "</tbody></table></div></div></div>";
 
