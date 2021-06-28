@@ -93,6 +93,29 @@ $rootQuery = new ObjectType([
                 return $sucursales_list;
             }
         ],
+        'cliente_suc_log' => [
+            'type' => Type::listOf($sucursalType),
+            'args' => [
+                'suc_usuario' => Type::string(),
+                'suc_password' => Type::string()
+            ],
+            'resolve' => function ($root, $args) {
+                $usuario_suc = Sucursal::where('suc_usuario', "=", $args["suc_usuario"])->get();
+
+                if (password_verify($args["suc_password"], $usuario_suc[0]->suc_password) == TRUE) {
+//
+//                    $id_doc = $usuario_suc[0]->cli_td_id;
+//                    $num_doc = $usuario_suc[0]->cli_num_doc;
+//                    $role = 'sucursal';
+//                    $id_role = $usuario_suc[0]->suc_num_id;
+//                    require '../../ApiLogi/index.php';
+//                    $usuario_suc .= Sucursal::selectRaw('' . $token . ' as token')->get();
+                    return $usuario_suc->toArray();
+                } else {
+                    
+                }
+            }
+        ],
         'cliente' => [
             'type' => Type::listOf($clienteType),
             'resolve' => function ($root, $args) {

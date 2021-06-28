@@ -145,7 +145,8 @@ $sucursalType = new ObjectType([
         'suc_ciudad' => Type::string(),
         'suc_tel' => Type::string(),
         'suc_usuario' => Type::string(),
-        'suc_password' => Type::string()
+        'suc_password' => Type::string(),
+        'token' => Type::string()
     ]
         ]);
 
