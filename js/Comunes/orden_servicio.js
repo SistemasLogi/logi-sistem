@@ -1312,13 +1312,13 @@ function cargaProdAlistamiento(id_suc) {
                     blq++;
                     datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                     datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
-                    datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '"></td>';
+                    datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" value="0"></td>';
                     datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                     datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                     if (tmp.t_sal_cantidad >= 2) {
-                        datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                        datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></h4></td>';
                     } else {
-                        datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                        datosAlist += '<td id="td5' + tmp.t_csc + '"><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></td>';
                     }
                     datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                     datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
@@ -1357,13 +1357,13 @@ function cargaProdAlistamiento(id_suc) {
                             //***si es la misma venta de la fila anterior**//
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
-                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" value="0"></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></td>';
                             }
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
@@ -1396,7 +1396,8 @@ function cargaProdAlistamiento(id_suc) {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                                 <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
-                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
+                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                              </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                               </div>\n\
@@ -1449,13 +1450,13 @@ function cargaProdAlistamiento(id_suc) {
 
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
-                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" value="0"></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></td>';
                             }
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
@@ -1487,13 +1488,13 @@ function cargaProdAlistamiento(id_suc) {
                             //***si es la misma venta de la fila anterior**//
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
-                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" value="0"></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></td>';
                             }
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
@@ -1510,7 +1511,8 @@ function cargaProdAlistamiento(id_suc) {
                                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
                               </div>\n\
                                 <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
-                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\                               </div>\n\
+                            <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+                              </div>\n\
                               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '" style="display: ' + displ_no_proces + ';">\n\
                                 <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
                               </div>\n\
@@ -1563,13 +1565,13 @@ function cargaProdAlistamiento(id_suc) {
 
                             datosAlist += '<tr class="table-' + tema + ' estfila" id="fila' + tmp.t_csc + '">';
                             datosAlist += '<td id="tdcheck' + tmp.t_csc + '" elch="' + (parseInt(blq) - 1) + '"><input type="checkbox" class="cheitem" id="Check' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
-                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" required></td>';
+                            datosAlist += '<td id="tdcant' + tmp.t_csc + '" elcan="' + (parseInt(blq) - 1) + '"><input type="text" class="inpeitem form-control form-control-sm" id="inpcant' + (parseInt(blq) - 1) + tmp.pro_cod + '" value="0"></td>';
                             datosAlist += '<td id="td1' + tmp.t_csc + '">' + tmp.pro_sku + '</td>';
                             datosAlist += '<td id="td3' + tmp.t_csc + '" style="background-color: #ddb6f7"><b>' + tmp.pro_ubicacion + '</b></td>';
                             if (tmp.t_sal_cantidad >= 2) {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b>' + tmp.t_sal_cantidad + '</b></h4></td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><h4><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></h4></td>';
                             } else {
-                                datosAlist += '<td id="td5' + tmp.t_csc + '">' + tmp.t_sal_cantidad + '</td>';
+                                datosAlist += '<td id="td5' + tmp.t_csc + '"><b id="und' + (parseInt(blq) - 1) + tmp.pro_cod + '">' + tmp.t_sal_cantidad + '</b></td>';
                             }
                             datosAlist += '<td id="td7' + tmp.t_csc + '">' + tmp.pro_desc + '</td>';
                             datosAlist += '<td id="td2' + tmp.t_csc + '">' + tmp.pro_cod + '</td>';
@@ -1588,7 +1590,8 @@ function cargaProdAlistamiento(id_suc) {
                 <input class="form-control form-control-sm" type="text" id="inputNovedad' + venta + '" name="inputNovedad' + venta + '" placeholder="Novedad">\n\
               </div>\n\
               <div class="col-3" id="divBtn' + (parseInt(blq) - 1) + '" style="display: ' + displ_proces + ';">\n\
-                        <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\               </div>\n\
+                        <button class="btn btn-success ventguardar" type="button" btAddVe="' + venta + '" id="btnGuardVent' + venta + '" name="btnGuardVent' + venta + '">Go!</button>\n\
+              </div>\n\
               <div class="col-3" id="divBtnCan' + (parseInt(blq) - 1) + '"  style="display: ' + displ_no_proces + ';">\n\
                         <button class="btn btn-danger ventcancel" type="button" btCanVe="' + venta + '" id="btnCancelVent' + venta + '" name="btnCancelVent' + venta + '">Stop!</button>\n\
               </div>\n\
@@ -1938,10 +1941,24 @@ function enterProCod() {
                 $('#' + inp_id).focus();
                 //                        alertify.alert('No ha seleccionado un filtro valido').setHeader('<em> Cuidado! </em> ');
             } else {
-                $("#Check" + inp_blq + cod_pro).prop('checked', true);
-                $('#' + inp_id).val("");
-                filacolor = $("#Check" + inp_blq + cod_pro).closest('.estfila').attr('id');
-                $("#" + filacolor).removeAttr('class').attr('class', 'table-success border border-success estfila');
+
+                cant_und = $("#inpcant" + inp_blq + cod_pro).val();
+                $("#inpcant" + inp_blq + cod_pro).val(parseInt(cant_und) + 1);
+                if ($("#inpcant" + inp_blq + cod_pro).val() > 0) {
+                    $("#inpcant" + inp_blq + cod_pro).css('background-color', '#b7f9d1');
+                } else {
+                    $("#inpcant" + inp_blq + cod_pro).css('background-color', '#fff');
+                }
+                if ($("#und" + inp_blq + cod_pro).html() == $("#inpcant" + inp_blq + cod_pro).val()) {
+                    $("#Check" + inp_blq + cod_pro).prop('checked', true);
+                    $('#' + inp_id).val("");
+                    filacolor = $("#Check" + inp_blq + cod_pro).closest('.estfila').attr('id');
+                    $("#" + filacolor).removeAttr('class').attr('class', 'table-success border border-success estfila');
+                } else {
+                    $('#' + inp_id).val("");
+                    $('#' + inp_id).focus();
+                }
+
             }
         }
     });

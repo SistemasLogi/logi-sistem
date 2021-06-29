@@ -169,7 +169,7 @@ class Producto_DAO {
                 . "AND sal_fecha > (SELECT stk_fecha FROM stock AS sk WHERE sa.pro_cod = sk.pro_cod) "
                 . "AND sal_fecha < '" . $fec_hor_actual . "' GROUP BY pro_cod) AS T2 ON T1.pro_cod = T2.pro_cod) "
                 . "AS TM, sucursales AS suc, clientes AS cl "
-                . "WHERE TM.suc_num_id = suc.suc_num_id AND suc.cli_td_id = cl.cli_td_id AND suc.cli_num_doc = cl.cli_num_doc;";
+                . "WHERE TM.suc_num_id = suc.suc_num_id AND suc.cli_td_id = cl.cli_td_id AND suc.cli_num_doc = cl.cli_num_doc ORDER BY TM.pro_cod ASC;";
         $BD = new MySQL();
         return $BD->query($sql);
     }

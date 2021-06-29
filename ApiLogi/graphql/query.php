@@ -103,14 +103,20 @@ $rootQuery = new ObjectType([
                 $usuario_suc = Sucursal::where('suc_usuario', "=", $args["suc_usuario"])->get();
 
                 if (password_verify($args["suc_password"], $usuario_suc[0]->suc_password) == TRUE) {
+                    require 'auth.php';
+                    $token = Auth::SignIn([
+                                'id_doc' => $usuario_suc[0]->cli_td_id,
+                                'num_doc' => $usuario_suc[0]->cli_num_doc,
+                                'role' => 'sucursal',
+                                'id_role' => $usuario_suc[0]->suc_num_id
+                    ]);
 //
 //                    $id_doc = $usuario_suc[0]->cli_td_id;
 //                    $num_doc = $usuario_suc[0]->cli_num_doc;
 //                    $role = 'sucursal';
 //                    $id_role = $usuario_suc[0]->suc_num_id;
-//                    require '../../ApiLogi/index.php';
-//                    $usuario_suc .= Sucursal::selectRaw('' . $token . ' as token')->get();
-                    return $usuario_suc->toArray();
+                    $usuario_suc_tok = Sucursal::selectRaw("*, '" . $token . "' as token")->where('suc_usuario', "=", $args["suc_usuario"])->get();
+                    return $usuario_suc_tok->toArray();
                 } else {
                     
                 }
