@@ -18,6 +18,17 @@ $schema = new Schema([
         ]);
 
 try {
+    $headers = Apache_request_headers();
+    $headers_enc = json_encode($headers);
+    $headers_dec = json_decode($headers_enc, TRUE);
+
+    $header_token = $headers_dec["Authorization"];
+
+    require 'controllers/data.php';
+
+
+
+
     $rawInput = file_get_contents('php://input');
     $input = json_decode($rawInput, TRUE);
     $query = $input['query'];

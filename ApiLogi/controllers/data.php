@@ -3,7 +3,7 @@
 require_once '../vendor/autoload.php';
 require_once '../auth.php';
 
-$token = $_POST['token'];
+$token = $header_token;
 
 $datos = Auth::GetData(
                 $token
