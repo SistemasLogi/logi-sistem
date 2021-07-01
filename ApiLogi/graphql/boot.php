@@ -22,19 +22,58 @@ try {
     $headers_enc = json_encode($headers);
     $headers_dec = json_decode($headers_enc, TRUE);
 
-    $header_token = $headers_dec["Authorization"];
+    if (array_key_exists('Authorization', $headers_dec)) {
+        if (isset($headers_dec["Authorization"])) {
+            // do something
+            $header_token = $headers_dec["Authorization"];
 
-    require 'controllers/data.php';
+            if ($header_token !== 'undefined') {
 
+                $rawInput = file_get_contents('php://input');
+                $input = json_decode($rawInput, TRUE);
+                $query = $input['query'];
+                $result = GraphQL::executeQuery($schema, $query);
 
+                $output = $result->toArray();
+                
+                
+//                require_once 'auth.php';
+//
+//                $datos = Auth::GetData(
+//                                $header_token
+//                );
+//
+//                $output = [
+//                    'error' => [
+//                        'id_role' => $datos->id_role,
+//                        'role' => $datos->role,
+//                        'num_doc' => $datos->num_doc,
+//                        'id_doc' => $datos->id_doc
+//                    ]
+//                ];
+            } else {
+                $output = [
+                    'error' => [
+                        'message' => 'token no definido'
+                    ]
+                ];
+            }
+        } else {
+            $output = [
+                'error' => [
+                    'message' => 'token no es valido'
+                ]
+            ];
+        }
+    } else {
+        $output = [
+            'error' => [
+                'message' => 'usuario no autorizado'
+            ]
+        ];
+    }
 
-
-    $rawInput = file_get_contents('php://input');
-    $input = json_decode($rawInput, TRUE);
-    $query = $input['query'];
-    $result = GraphQL::executeQuery($schema, $query);
-
-    $output = $result->toArray();
+//    require 'controllers/data.php';
 } catch (Exception $exc) {
     $output = [
         'error' => [
