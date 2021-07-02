@@ -11,6 +11,7 @@ use GraphQL\Type\Schema;
 
 require ('types.php');
 require ('query.php');
+require_once 'auth.php';
 
 $schema = new Schema([
     'query' => $rootQuery,
@@ -29,22 +30,43 @@ try {
 
             if ($header_token !== 'undefined') {
 
-                $rawInput = file_get_contents('php://input');
-                $input = json_decode($rawInput, TRUE);
-                $query = $input['query'];
-                $result = GraphQL::executeQuery($schema, $query);
+//                $rawInput = file_get_contents('php://input');
+//                $input = json_decode($rawInput, TRUE);
+//                $query = $input['query'];
+//                $result = GraphQL::executeQuery($schema, $query);
+//
+//                $output = $result->toArray();
 
-                $output = $result->toArray();
-                
-                
-//                require_once 'auth.php';
-//
-//                $datos = Auth::GetData(
-//                                $header_token
-//                );
-//
+
+
+                $datos = Auth::GetData(
+                                $header_token
+                );
+
+                if (isset($datos)) {
+                    $rawInput = file_get_contents('php://input');
+                    $input = json_decode($rawInput, TRUE);
+                    $query = $input['query'];
+                    $result = GraphQL::executeQuery($schema, $query);
+
+//                    $output = $result->toArray();
+
+                    $output = [
+                        'data' => [
+                            $datos
+                        ]
+                    ];
+                } else {
+                    $output = [
+                        'data' => [
+                            'vacio'
+                        ]
+                    ];
+                }
+
+
 //                $output = [
-//                    'error' => [
+//                    'data' => [
 //                        'id_role' => $datos->id_role,
 //                        'role' => $datos->role,
 //                        'num_doc' => $datos->num_doc,
@@ -53,21 +75,21 @@ try {
 //                ];
             } else {
                 $output = [
-                    'error' => [
+                    'error_1' => [
                         'message' => 'token no definido'
                     ]
                 ];
             }
         } else {
             $output = [
-                'error' => [
+                'error_2' => [
                     'message' => 'token no es valido'
                 ]
             ];
         }
     } else {
         $output = [
-            'error' => [
+            'error_4' => [
                 'message' => 'usuario no autorizado'
             ]
         ];
@@ -76,7 +98,7 @@ try {
 //    require 'controllers/data.php';
 } catch (Exception $exc) {
     $output = [
-        'error' => [
+        'error_6' => [
             'message' => $exc->getMessage()
         ]
     ];

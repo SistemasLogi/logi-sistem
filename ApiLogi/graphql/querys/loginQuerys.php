@@ -31,7 +31,7 @@ $loginQuerys = [
             $usuario_suc = Sucursal::where('suc_usuario', "=", $args["suc_usuario"])->get();
 
             if (password_verify($args["suc_password"], $usuario_suc[0]->suc_password) == TRUE) {
-                require 'auth.php';
+//                require 'auth.php';
                 $token = Auth::SignIn([
                             'id_doc' => $usuario_suc[0]->cli_td_id,
                             'num_doc' => $usuario_suc[0]->cli_num_doc,

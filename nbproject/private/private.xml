@@ -3,11 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarEnvios/reporte_envios_cl_controller.php</file>
-            <file>file:/C:/wamp64/www/logi-sistem/js/Comunes/kardex_prod.js</file>
-            <file>file:/C:/wamp64/www/logi-sistem/Controller/AdminC/AdministrarProd/reporte_stock_inv_suc_controller.php</file>
-            <file>file:/C:/wamp64/www/logi-sistem/js/Comunes/orden_servicio.js</file>
-            <file>file:/C:/wamp64/www/logi-sistem/Class/DAO/Producto_DAO.php</file>
+            <file>file:/C:/wamp64/www/logi-sistem/Controller/Login_General/log_aut_control.php</file>
         </group>
     </open-files>
 </project-private>
