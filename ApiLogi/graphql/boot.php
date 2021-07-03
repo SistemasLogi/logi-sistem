@@ -5,16 +5,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+session_start();
 
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
 
 require ('types.php');
 require ('query.php');
+require ('query_log.php');
 require_once 'auth.php';
 
 $schema = new Schema([
     'query' => $rootQuery,
+    'mutations' => null
+        ]);
+
+$schemaLog = new Schema([
+    'query' => $rootQueryLog,
     'mutations' => null
         ]);
 
@@ -30,18 +37,14 @@ try {
 
             if ($header_token !== 'undefined') {
 
-//                $rawInput = file_get_contents('php://input');
-//                $input = json_decode($rawInput, TRUE);
-//                $query = $input['query'];
-//                $result = GraphQL::executeQuery($schema, $query);
-//
-//                $output = $result->toArray();
-
-
 
                 $datos = Auth::GetData(
                                 $header_token
                 );
+                $_SESSION['id_role'] = $datos->id_role;
+                $_SESSION['role'] = $datos->role;
+                $_SESSION['num_doc'] = $datos->num_doc;
+                $_SESSION['id_doc'] = $datos->id_doc;
 
                 if (isset($datos)) {
                     $rawInput = file_get_contents('php://input');
@@ -49,13 +52,13 @@ try {
                     $query = $input['query'];
                     $result = GraphQL::executeQuery($schema, $query);
 
-//                    $output = $result->toArray();
+                    $output = $result->toArray();
 
-                    $output = [
-                        'data' => [
-                            $datos
-                        ]
-                    ];
+//                    $output = [
+//                        'data' => [
+//                            $datos
+//                        ]
+//                    ];
                 } else {
                     $output = [
                         'data' => [
@@ -88,11 +91,21 @@ try {
             ];
         }
     } else {
-        $output = [
-            'error_4' => [
-                'message' => 'usuario no autorizado'
-            ]
-        ];
+
+        try {
+            $rawInput = file_get_contents('php://input');
+            $input = json_decode($rawInput, TRUE);
+            $query = $input['query'];
+            $result = GraphQL::executeQuery($schemaLog, $query);
+
+            $output = $result->toArray();
+        } catch (Exception $ex) {
+            $output = [
+                'error_4' => [
+                    'message' => 'usuario no autorizado'
+                ]
+            ];
+        }
     }
 
 //    require 'controllers/data.php';

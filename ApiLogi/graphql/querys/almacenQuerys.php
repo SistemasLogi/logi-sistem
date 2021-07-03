@@ -22,11 +22,11 @@ $almacenQuerys = [
     ],
     'stock' => [
         'type' => Type::listOf($stockType),
-        'args' => [
-            'suc_num_id' => Type::int()
-        ],
+//        'args' => [
+//            'suc_num_id' => Type::int()
+//        ],
         'resolve' => function ($root, $args) {
-            $productos_list = Stock::where('suc_num_id', "=", $args["suc_num_id"])->get()->toArray();
+            $productos_list = Stock::where('suc_num_id', "=", $_SESSION['id_role'])->get()->toArray();
             return $productos_list;
         }
     ],
