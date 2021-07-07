@@ -14,11 +14,24 @@ $loginQuerys = [
     'emp_pass' => [
         'type' => Type::listOf($empleado_passType),
         'args' => [
-            'usuario' => Type::string()
+            'usuario' => Type::string(),
+            'password' => Type::string()
         ],
         'resolve' => function ($root, $args) {
-            $empleados = Empleado_pass::where('ue_usuario', "=", $args['usuario'])->get()->toArray();
-            return $empleados;
+            $us_emp = Empleado_pass::where('ue_usuario', "=", $args['usuario'])->get();
+
+            if (password_verify($args["password"], $us_emp[0]->ue_password) == TRUE) {
+                $token = Auth::SignIn([
+                            'id_doc' => $us_emp[0]->ue_td_id,
+                            'num_doc' => $us_emp[0]->ue_num_doc,
+                            'role' => 'empleado',
+                            'id_role' => $us_emp[0]->car_id
+                ]);
+                $us_emp_tok = Empleado_pass::selectRaw("*, '" . $token . "' as token")->where('ue_usuario', "=", $args["usuario"])->get();
+                return $us_emp_tok->toArray();
+            } else {
+                
+            }
         }
     ],
     'cliente_suc_log' => [
@@ -31,18 +44,12 @@ $loginQuerys = [
             $usuario_suc = Sucursal::where('suc_usuario', "=", $args["suc_usuario"])->get();
 
             if (password_verify($args["suc_password"], $usuario_suc[0]->suc_password) == TRUE) {
-//                require 'auth.php';
                 $token = Auth::SignIn([
                             'id_doc' => $usuario_suc[0]->cli_td_id,
                             'num_doc' => $usuario_suc[0]->cli_num_doc,
                             'role' => 'sucursal',
                             'id_role' => $usuario_suc[0]->suc_num_id
                 ]);
-//
-//                    $id_doc = $usuario_suc[0]->cli_td_id;
-//                    $num_doc = $usuario_suc[0]->cli_num_doc;
-//                    $role = 'sucursal';
-//                    $id_role = $usuario_suc[0]->suc_num_id;
                 $usuario_suc_tok = Sucursal::selectRaw("*, '" . $token . "' as token")->where('suc_usuario', "=", $args["suc_usuario"])->get();
                 return $usuario_suc_tok->toArray();
             } else {

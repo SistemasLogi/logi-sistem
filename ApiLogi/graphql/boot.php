@@ -13,6 +13,7 @@ use GraphQL\Type\Schema;
 require ('types.php');
 require ('query.php');
 require ('query_log.php');
+require ('query_suc.php');
 require_once 'auth.php';
 
 $schema = new Schema([
@@ -22,6 +23,11 @@ $schema = new Schema([
 
 $schemaLog = new Schema([
     'query' => $rootQueryLog,
+    'mutations' => null
+        ]);
+
+$schemaSuc = new Schema([
+    'query' => $rootQuerySuc,
     'mutations' => null
         ]);
 
@@ -47,12 +53,42 @@ try {
                 $_SESSION['id_doc'] = $datos->id_doc;
 
                 if (isset($datos)) {
+
                     $rawInput = file_get_contents('php://input');
                     $input = json_decode($rawInput, TRUE);
                     $query = $input['query'];
-                    $result = GraphQL::executeQuery($schema, $query);
 
-                    $output = $result->toArray();
+                    switch ($datos->role) {
+                        case 'sucursal':
+                            $result = GraphQL::executeQuery($schemaSuc, $query);
+                            $output = $result->toArray();
+                            break;
+
+                        case 'empleado':
+                            switch ($datos->id_role) {
+                                case 1://administrador
+                                    $result = GraphQL::executeQuery($schema, $query);
+                                    $output = $result->toArray();
+
+                                    break;
+                                
+                                case 2://mensajero
+//                                    $result = GraphQL::executeQuery($schema, $query);
+//                                    $output = $result->toArray();
+
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                            
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
 
 //                    $output = [
 //                        'data' => [

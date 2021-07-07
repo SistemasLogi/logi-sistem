@@ -27,11 +27,27 @@ $empleadoType = new ObjectType([
             'emp_direccion' => Type::string(),
             'emp_email' => Type::string(),
             'esu_id' => Type::int(),
-            'est_x_envios' => [
+            'est_reparto' => [
                 "type" => Type::listOf($est_x_envioType),
                 "resolve" => function ($root, $args) {
 //                $empleadoId = [$root['emp_td_id'],$root['emp_num_doc']];
                     $emp_est_env = Est_x_envio::where('td_id_men', "=", $root['emp_td_id'])->where('num_doc_men', "=", $root['emp_num_doc'])->where('exe_ee_id', "=", '5')->get()->toArray();
+                    return $emp_est_env;
+                }
+            ],
+            'est_entregado' => [
+                "type" => Type::listOf($est_x_envioType),
+                "resolve" => function ($root, $args) {
+//                $empleadoId = [$root['emp_td_id'],$root['emp_num_doc']];
+                    $emp_est_env = Est_x_envio::where('td_id_men', "=", $root['emp_td_id'])->where('num_doc_men', "=", $root['emp_num_doc'])->where('exe_ee_id', "=", '6')->get()->toArray();
+                    return $emp_est_env;
+                }
+            ],
+            'est_novedad' => [
+                "type" => Type::listOf($est_x_envioType),
+                "resolve" => function ($root, $args) {
+//                $empleadoId = [$root['emp_td_id'],$root['emp_num_doc']];
+                    $emp_est_env = Est_x_envio::where('td_id_men', "=", $root['emp_td_id'])->where('num_doc_men', "=", $root['emp_num_doc'])->where('exe_ee_id', "=", '8')->get()->toArray();
                     return $emp_est_env;
                 }
             ]
@@ -174,6 +190,7 @@ $empleado_passType = new ObjectType([
         'ue_num_doc' => Type::string(),
         'car_id' => Type::int(),
         'ue_usuario' => Type::string(),
-        'ue_password' => Type::string()
+        'ue_password' => Type::string(),
+        'token' => Type::string()
     ]
         ]);

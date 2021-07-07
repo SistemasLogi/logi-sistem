@@ -8,16 +8,16 @@
 
 use GraphQL\Type\Definition\ObjectType;
 
-require ('querys/almacenQuerys.php');
 require ('querys/clientesQuerys.php');
 require ('querys/empleadoQuerys.php');
 require ('querys/loginQuerys.php');
 require ('querys/sucursalQuerys.php');
+require ('querys/adminQuerys.php');
 
 $queryes = array();
 $queryes += $empleadoQuerys;
+$queryes += $adminQuerys;
 $queryes += $loginQuerys;
-$queryes += $almacenQuerys;
 $queryes += $clienteQuerys;
 $queryes += $sucursalQuerys;
 
