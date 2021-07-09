@@ -91,6 +91,17 @@ session_start();
                     <div class="carousel-inner" role="listbox">
 
                         <div class="carousel-item active">
+                            <div class="carousel-background"><img src="img/intro-carousel/11.jpg" alt=""></div>
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    <h2>Rastreo de Envios</h2>
+                                    <p>Realiza un seguimiento del estado de tus envios desde nuestro portal web.</p>
+                                    <a href="rastreo_envio.php" class="btn-get-started scrollto">Rastreo de Envios</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
                             <div class="carousel-background"><img src="img/intro-carousel/16.jpg" alt=""></div>
                             <div class="carousel-container">
                                 <div class="carousel-content">
@@ -145,18 +156,7 @@ session_start();
                                     <p>Tus clientes pueden pagar su compra al momento de recibir el envío. Nosotros recaudamos el dinero.</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="carousel-item">
-                            <div class="carousel-background"><img src="img/intro-carousel/11.jpg" alt=""></div>
-                            <div class="carousel-container">
-                                <div class="carousel-content">
-                                    <h2>Rastreo de Envios</h2>
-                                    <p>Realiza un seguimiento del estado de tus envios desde nuestro portal web.</p>
-                                    <a href="rastreo_envio.php" class="btn-get-started scrollto">Rastreo de Envios</a>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
 
                     </div>
 
@@ -182,29 +182,18 @@ session_start();
             <section id="featured-services">
                 <div class="container">
 
-                    <header class="section-header">
-                        <h3 class="text-light">SERVICIOS</h3>
-                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-                    </header>
-
                     <div class="row">
 
-                        <div class="col-lg-4 box">
+                        <div class="col-lg-6 box">
                             <i class="ion-android-mail"></i>
-                            <h4 class="title"><a href="img/services/Mensajero.png" data-lightbox="portfolio" data-title="LOGI YA!" class="link-preview" title="Preview">LOGI YA!</a></h4>
+                            <h4 class="title"><a href="img/services/LogiYA.jpg" data-lightbox="portfolio" data-title="LOGI YA!" class="link-preview" title="Preview">LOGI YA!</a></h4>
                             <p class="description">Recogemos tus envíos y los entregamos el mismo día. Servicio disponible únicamente en Bogotá, sujeto a restricciones.</p>
                         </div>
 
-                        <div class="col-lg-4 box box-bg">
+                        <div class="col-lg-6 box">
                             <i class="ion-ios-email"></i>
-                            <h4 class="title"><a href="" data-lightbox="portfolio" data-title="MENSAJERIA NORMAL" class="link-preview" title="Preview">MENSAJERIA NORMAL</a></h4>
+                            <h4 class="title"><a href="img/services/normal.jpg" data-lightbox="portfolio" data-title="MENSAJERIA NORMAL" class="link-preview" title="Preview">NORMAL</a></h4>
                             <p class="description">Recogemos tus envíos y los entregamos entre 1 o 2 días hábiles </p>
-                        </div>
-
-                        <div class="col-lg-4 box">
-                            <i class="ion-ios-albums"></i>
-                            <h4 class="title"><a href="" data-lightbox="portfolio" data-title="MENSAJERIA MASIVA" class="link-preview" title="Preview">MENSAJERÍA MASIVA</a></h4>
-                            <p class="description"> Servicio de alistamiento y distribución de grandes volúmenes de envíos, con un peso máximo de hasta 350 gr por unidad. </p>
                         </div>
 
                     </div>
@@ -220,7 +209,7 @@ session_start();
                     <div class="container">
 
                         <header class="section-header">
-                            <h3>OTROS SERVICIOS</h3>
+                            <h3>SERVICIOS</h3>
                             <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
                         </header>
 
@@ -232,9 +221,9 @@ session_start();
                                         <img src="img/services/recaudo.png" alt="" class="img-fluid"/>
                                         <div class="icon"><i class="ion-ios-email-outline"></i></div>
                                     </div>
-                                    <h2 class="title"><a style="cursor: pointer;">Recaudos contra entrega</a></h2>
+                                    <h2 class="title"><a style="cursor: pointer;">Mensajería</a></h2>
                                     <p>
-                                        Tus clientes pueden pagar su compra al momento de recibir el envío. Nosotros recaudamos el dinero.
+                                        Servicio de envio de documentos o paquetes hasta 10 Kg de peso físico o volumen.
                                     </p>
                                 </div>
                             </div>
@@ -247,7 +236,7 @@ session_start();
                                     </div>
                                     <h2 class="title"><a style="cursor: pointer;">Mercancías</a></h2>
                                     <p>
-                                        Servicio ideal para envío de paquetes y mercancías con pesos de 11 hasta 200 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts
+                                        Servicio ideal para envío de paquetes y mercancías con pesos de 11 hasta 40 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts
                                     </p>
                                 </div>
                             </div>
@@ -260,7 +249,7 @@ session_start();
                                     </div>
                                     <h2 class="title"><a style="cursor: pointer;">Almacenamiento</a></h2>
                                     <p>
-                                        Almacenamos y manejamos tu inventario. 
+                                        Servicio de almacenamiento de mercancías no abierto al público, dedicado al procesamiento de ventas online. 
                                     </p>
                                 </div>
                             </div>
@@ -268,12 +257,12 @@ session_start();
                             <div class="col-md-3 wow fadeInUp" data-wow-delay="0.3s">
                                 <div class="about-col">
                                     <div class="img">
-                                        <img src="img/services/Alistamiento.png" alt="" class="img-fluid"/>
+                                        <img src="img/services/fulfillment.jpg" alt="" class="img-fluid"/>
                                         <div class="icon"><i class="ion-ios-filing-outline"></i></div>
                                     </div>
-                                    <h2 class="title"><a href="#">Procesamiento</a></h2>
+                                    <h2 class="title"><a style="cursor: pointer;">Fulfillment</a></h2>
                                     <p>
-                                        Procesamos y alistamos tus ventas con diferentes modalidades de embalaje y empaques
+                                        Procesamos y alistamos tus ventas con diferentes modalidades de embalaje ó empaque, etiquetado y entrega a operador. 
                                     </p>
                                 </div>
                             </div>
@@ -405,7 +394,81 @@ session_start();
 
 
             </section><!-- #call-to-action -->
+            <!--==========================
+              Clients Section
+            ============================-->
+            <section id="testimonials" class="section-bg wow fadeInUp">
+                <div class="container">
 
+                    <header class="section-header">
+                        <h3>MAS SERVICIOS</h3>
+                        <!--                        <div class="testimonial-item">
+                                                    <h4>conoce nuestros portafolio</h4>
+                                                </div>-->
+
+                    </header>
+
+                    <div class="owl-carousel testimonials-carousel">
+
+                        <div class="testimonial-item">
+                            <img src="img/services/recaudo.png" class="testimonial-img" alt="">
+                            <h3>Recaudos contra entrega</h3>
+                            <!--<h4>Ceo &amp; Founder</h4>-->
+                            <p>
+                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
+                                Tus clientes pueden pagar su compra al momento de recibir el envío. Nosotros recaudamos el dinero.
+                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
+                            </p>
+                        </div>
+
+                        <div class="testimonial-item">
+                            <img src="img/services/service2.jpg" class="testimonial-img" alt="">
+                            <h3>Mensajería masiva</h3>
+                            <!--<h4>Designer</h4>-->
+                            <p>
+                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
+                                Servicio de alistamiento y distribución de grandes volúmenes de envíos, con un peso máximo de hasta 350 gr por unidad.
+                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
+                            </p>
+                        </div>
+
+                        <div class="testimonial-item">
+                            <img src="img/services/procesamiento.jpg" class="testimonial-img" alt="">
+                            <h3>Procesamiento</h3>
+                            <!--<h4>Store Owner</h4>-->
+                            <p>
+                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
+                                Servicio de alistamiento y distribución de grandes volúmenes de envíos, con un peso máximo de hasta 350 gr por unidad y admitidos en una misma orden de servicio.
+                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
+                            </p>
+                        </div>
+
+                        <!--                        <div class="testimonial-item">
+                                                    <img src="img/testimonial-4.jpg" class="testimonial-img" alt="">
+                                                    <h3>Matt Brandon</h3>
+                                                    <h4>Freelancer</h4>
+                                                    <p>
+                                                        <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
+                                                        Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                                                        <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
+                                                    </p>
+                                                </div>
+                        
+                                                <div class="testimonial-item">
+                                                    <img src="img/testimonial-5.jpg" class="testimonial-img" alt="">
+                                                    <h3>John Larson</h3>
+                                                    <h4>Entrepreneur</h4>
+                                                    <p>
+                                                        <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
+                                                        Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                                                        <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
+                                                    </p>
+                                                </div>-->
+
+                    </div>
+
+                </div>
+            </section>
             <!--==========================
               Skills Section
             ============================-->
@@ -664,7 +727,7 @@ session_start();
                 <div class="container">
 
                     <header class="section-header">
-                        <h3>YA SON MAS DE 10.000 ENVIOS MOVILIZADOS</h3>
+                        <h3>YA SON MAS DE 15.000 ENVIOS MOVILIZADOS</h3>
                         <h4><p>Gracias a nuestros clientes por confiar en nosotros!</p></h4>
                     </header>
 
@@ -674,86 +737,11 @@ session_start();
                         <img src="img/clients/900873298.png" alt=""/>
                         <img src="img/clients/900456987.png" alt=""/>
                         <img src="img/clients/900987412.png" alt=""/>
+                        <img src="img/clients/8110286501.png" alt=""/>
                     </div>
 
                 </div>
             </section>
-
-            <!--==========================
-              Clients Section
-            ============================-->
-<!--            <section id="testimonials" class="section-bg wow fadeInUp">
-                <div class="container">
-
-                    <header class="section-header">
-                        <h3>SERVICIOS</h3>
-                        <div class="testimonial-item">
-                            <h4>conoce nuestros portafolio</h4>
-                        </div>
-
-                    </header>
-
-                    <div class="owl-carousel testimonials-carousel">
-
-                        <div class="testimonial-item">
-                            <img src="img/services/service1.jpg" class="testimonial-img" alt="">
-                            <h3>MENSAJERÍA</h3>
-                            <h4>Ceo &amp; Founder</h4>
-                            <p>
-                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                                Servicio ideal para el envío de documentos o paquetes de 1 hasta 5 kilogramos de peso físico o peso volumen y con dimensiones máximas por arista de 50 cm
-                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-                            </p>
-                        </div>
-
-                        <div class="testimonial-item">
-                            <img src="img/services/service2.jpg" class="testimonial-img" alt="">
-                            <h3>MERCANCÍAS</h3>
-                            <h4>Designer</h4>
-                            <p>
-                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                                Servicio ideal para envío de paquetes y mercancías con pesos de 6 hasta 200 kilogramos por unidad de empaque y con dimensiones máximas por arista de 4mts x 2mts x 2mts.
-                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-                            </p>
-                        </div>
-
-                        <div class="testimonial-item">
-                            <img src="img/testimonial-3.jpg" class="testimonial-img" alt="">
-                            <h3>MENSAJERÍA MASIVA</h3>
-                            <h4>Store Owner</h4>
-                            <p>
-                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                                Servicio de alistamiento y distribución de grandes volúmenes de envíos, con un peso máximo de hasta 350 gr por unidad y admitidos en una misma orden de servicio.
-                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-                            </p>
-                        </div>
-
-                        <div class="testimonial-item">
-                            <img src="img/testimonial-4.jpg" class="testimonial-img" alt="">
-                            <h3>Matt Brandon</h3>
-                            <h4>Freelancer</h4>
-                            <p>
-                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-                            </p>
-                        </div>
-
-                        <div class="testimonial-item">
-                            <img src="img/testimonial-5.jpg" class="testimonial-img" alt="">
-                            <h3>John Larson</h3>
-                            <h4>Entrepreneur</h4>
-                            <p>
-                                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-            </section>-->
 
             <!--==========================
               Team Section

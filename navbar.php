@@ -3,7 +3,7 @@
         <a class="nav-link" href="index.php" id="volver">INICIO <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link ancla" href="index.php#featured-services" data-ancla="featured-services">SERVICIOS</a>
+        <a class="nav-link ancla" href="index.php#logistica" data-ancla="logistica">SERVICIOS</a>
     </li>
     <li class="nav-item">
         <a class="nav-link ancla" href="index.php#call-to-action" data-ancla="call-to-action">NOSOTROS</a>
@@ -18,38 +18,39 @@
     if (isset($_SESSION["adminlogi"]) || isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"]) || isset($_SESSION["mensajero_logi"]) || isset($_SESSION["sucursal"])) {
         if (isset($_SESSION["adminlogi"])) {
             ?>  
-            <li class = "nav-item">
-                <a class = "nav-link" href = "admin_logi.php">ADMINISTRADOR</a>
+            <li class="nav-item">
+                <a class="nav-link" href="admin_logi.php">ADMINISTRADOR</a>
             </li>
             <?php
         } elseif (isset($_SESSION["cliente_a"]) || isset($_SESSION["cliente_b"])) {
             ?>
-            <li class = "nav-item">
-                <a class = "nav-link" href = "cliente_logi.php">AREA CLIENTE</a>
+            <li class="nav-item">
+                <a class="nav-link" href="cliente_logi.php">AREA CLIENTE</a>
             </li>
             <?php
         } elseif (isset($_SESSION["sucursal"])) {
             ?>
-            <li class = "nav-item">
-                <a class = "nav-link" href = "area_control_clientes.php">AREA CLIENTE</a>
+            <li class="nav-item">
+                <a class="nav-link" href="area_control_clientes.php">AREA CLIENTE</a>
             </li>
             <?php
         } elseif (isset($_SESSION["mensajero_logi"])) {
             ?>
-            <li class = "nav-item">
-                <a class = "nav-link" href = "mensajero_logi.php">MENSAJERO</a>
+            <li class="nav-item">
+                <a class="nav-link" href="mensajero_logi.php">MENSAJERO</a>
             </li>
             <?php
         }
         ?>
-        <li class = "nav-item">
-            <a class = "nav-link" href = "Controller/Login_General/log_aut_control.php">CERRAR SESION</a>
+        <li class="nav-item">
+            <a class="nav-link" href="Controller/Login_General/log_aut_control.php">CERRAR SESIÓN</a>
         </li>
         <?php
     } else {
         ?>
-        <li class = "nav-item">
-            <a class = "nav-link" href = "inicio_sesion.php">ACCESO CLIENTES</a>
+        <li class="nav-item">
+
+            <button class="btn btn-primary btn-sm my-2 my-sm-0" type="button"><a class="nav-link text-light" href="inicio_sesion.php"><b>INICIAR SESIÓN</b></a></button>
         </li>
         <?php
     }

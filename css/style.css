@@ -1096,16 +1096,16 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #testimonials .testimonial-item .testimonial-img {
-    width: 170px;
+    width: 300px;
     border-radius: 50%;
-    border: 9px solid #a991d4;
+    border: 9px solid #550055;
     margin: 0 auto;
 }
 
 #testimonials .testimonial-item .testimonial-img:hover {
-    width: 170px;
+    width: 300px;
     border-radius: 50%;
-    border: 9px solid #670366;
+    border: 9px solid #593196;
     margin: 0 auto;
 }
 
