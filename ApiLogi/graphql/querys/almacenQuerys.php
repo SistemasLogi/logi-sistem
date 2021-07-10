@@ -16,7 +16,7 @@ $almacenQuerys = [
     'productos' => [
         'type' => Type::listOf($productosType),
         'resolve' => function ($root, $args) {
-            $productos_list = Productos::get()->toArray();
+            $productos_list = Productos::where('suc_num_id', "=", $_SESSION['id_role'])->get()->toArray();
             return $productos_list;
         }
     ],
