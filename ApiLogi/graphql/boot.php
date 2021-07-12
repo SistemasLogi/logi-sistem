@@ -59,7 +59,7 @@ try {
                     $query = $input['query'];
 
                     switch ($datos->role) {
-                        case 'sucursal':
+                        case 'sucursal'://sucursal
                             $result = GraphQL::executeQuery($schemaSuc, $query);
                             $output = $result->toArray();
                             break;

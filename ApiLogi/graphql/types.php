@@ -88,7 +88,7 @@ $stockType = new ObjectType([
             'salidas' => [
                 'type' => Type::listOf($salida_productoType),
                 'resolve' => function ($root, $args) {
-                    $stock_prod = Salida_producto::selectRaw('*, (' . $root['stk_cantidad'] . ' - sum(sal_cantidad)) as total_stock')->where('suc_num_id', "=", $root['suc_num_id'])
+                    $stock_prod = Salida_producto::selectRaw('*, (' . $root['stk_cantidad'] . ' - IFNULL(sum(sal_cantidad),0)) as total_stock')->where('suc_num_id', "=", $root['suc_num_id'])
                                     ->where('pro_cod', "=", $root['pro_cod'])
                                     ->where('sal_fecha', ">", $root['stk_fecha'])
                                     ->get()->toArray();
@@ -110,7 +110,15 @@ $salida_productoType = new ObjectType([
         'sal_num_guia' => Type::string(),
         'sal_cantidad' => Type::int(),
         'sal_observaciones' => Type::string(),
-        'total_stock' => Type::int()
+        'total_stock' => Type::int(),
+        'stock' => [
+            'type' => Type::listOf($stockType),
+            'resolve' => function ($root, $args) {
+                $stock_prod = Stock::where('pro_cod', "=", $root['pro_cod'])
+                                ->get()->toArray();
+                return $stock_prod;
+            }
+        ]
     ]
         ]);
 
