@@ -45,11 +45,14 @@ $almacenQuerys = [
     ],
     'hist_entradas' => [
         'type' => Type::listOf($entrada_productoType),
-//        'args' => [
-//            'suc_num_id' => Type::int()
-//        ],
+        'args' => [
+            'fecha_inicio' => Type::string(),
+            'fecha_fin' => Type::string()
+        ],
         'resolve' => function ($root, $args) {
-            $entradas_list = Entrada_producto::where('suc_num_id', "=", $_SESSION['id_role'])->get()->toArray();
+            $entradas_list = Entrada_producto::where('suc_num_id', "=", $_SESSION['id_role'])
+                            ->whereBetween('ent_fecha', [$args['fecha_inicio'], $args['fecha_fin']])
+                            ->get()->toArray();
             return $entradas_list;
         }
     ]
