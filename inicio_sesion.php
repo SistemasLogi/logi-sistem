@@ -85,7 +85,7 @@
             <div class="container margen">
 
                 <header class="section-header">
-                    <h3>ACCESO CLIENTES</h3>
+                    <h3>INICIAR SESIÓN</h3>
                     <!--<h4><p>Gracias a nuestros clientes por confiar en nosotros!</p></h4>-->
                 </header>
 
