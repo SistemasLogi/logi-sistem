@@ -20,7 +20,13 @@ class Estado_env extends Model {
     //put your code here
     protected $table = "estado_env";
     public $timestamp = false;
-    protected $fillable = ['ee_desc'];
+    protected $fillable = [
+        'exe_ee_id',
+        'exe_fec_hora',
+        'exe_novedad',
+        'td_id_men',
+        'num_doc_men'
+    ];
 
     public function est_x_envio() {
         return $this->hasMany(Est_x_envio::class);

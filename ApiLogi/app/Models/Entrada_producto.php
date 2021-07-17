@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,7 +20,13 @@ class Entrada_producto extends Model {
     //put your code here
     protected $table = "entrada_prod";
     public $timestamp = false;
-    protected $fillable = ['ent_fecha', 'suc_num_id', 'pro_cod', 'ent_cantidad', 'ent_detalle'];
+    protected $fillable = [
+        'ent_fecha',
+        'suc_num_id',
+        'pro_cod',
+        'ent_cantidad',
+        'ent_detalle'
+    ];
     protected $primary_key = ['ent_fecha', 'suc_num_id', 'pro_cod'];
     public $incrementing = false;
 

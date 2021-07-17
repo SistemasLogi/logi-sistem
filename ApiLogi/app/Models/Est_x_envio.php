@@ -20,7 +20,14 @@ class Est_x_envio extends Model {
     //put your code here
     protected $table = "est_x_envio";
     public $timestamp = false;
-    protected $fillable = ['exe_en_id', 'exe_ee_id', 'exe_fec_hora', 'exe_novedad', 'td_id_men', 'num_doc_men'];
+    protected $fillable = [
+        'exe_en_id',
+        'exe_ee_id',
+        'exe_fec_hora',
+        'exe_novedad',
+        'td_id_men',
+        'num_doc_men'
+    ];
     protected $primary_key = ['exe_en_id', 'exe_ee_id', 'exe_fec_hora'];
     public $incrementing = false;
 

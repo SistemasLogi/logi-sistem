@@ -10,6 +10,7 @@ use App\Models\Est_x_envio;
 use App\Models\Stock;
 use App\Models\Productos;
 use App\Models\Salida_producto;
+use App\Models\Ciudad;
 use Illuminate\Support\Facades\DB;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
@@ -53,6 +54,43 @@ $empleadoType = new ObjectType([
             ]
         ];
     }
+        ]);
+
+$osType = new ObjectType([
+    'name' => 'orden_serv',
+    'description' => 'tipo de dato orden de servicio',
+    'fields' => function ()use(&$ciudadType) {
+        return[
+            'os_id' => Type::string(),
+            'cli_td_id' => Type::int(),
+            'cli_num_doc' => Type::string(),
+            'ciu_id' => Type::int(),
+            'ciu_nombre' => [
+                "type" => Type::listOf($ciudadType),
+                "resolve" => function ($root, $args) {
+//                $empleadoId = [$root['emp_td_id'],$root['emp_num_doc']];
+                    $ciudad_nombre = Ciudad::where('ciu_id', "=", $root['ciu_id'])->get()->toArray();
+                    return $ciudad_nombre;
+                }
+            ],
+            'os_direccion' => Type::string(),
+            'os_per_cont' => Type::string(),
+            'os_tel_cont' => Type::string(),
+            'ts_id' => Type::int(),
+            'te_id' => Type::int(),
+            'os_observacion' => Type::string()
+        ];
+    }
+        ]);
+
+$ciudadType = new ObjectType([
+    'name' => 'ciudad',
+    'description' => 'tipo de dato ciudad',
+    'fields' => [
+        'ciu_id' => Type::int(),
+        'dep_id' => Type::int(),
+        'ciu_nombre' => Type::string()
+    ]
         ]);
 
 $est_x_envioType = new ObjectType([
@@ -165,6 +203,26 @@ $productosType = new ObjectType([
     }
         ]);
 
+$aenvioType = new ObjectType([
+    'name' => 'a_envio',
+    'description' => 'tipo de dato envio para alistamiento',
+    'fields' => [
+        'aen_id' => Type::string(),
+        'aen_guia_op' => Type::string(),
+        'aen_venta' => Type::string(),
+        'os_id' => Type::string(),
+        'ope_id' => Type::int(),
+        'aen_cantidad' => Type::int(),
+        'aen_nombre' => Type::string(),
+        'aen_direccion' => Type::string(),
+        'aen_telefono' => Type::string(),
+        'aen_ciudad' => Type::string(),
+        'aen_departamento' => Type::string(),
+        'aen_observ' => Type::string(),
+        'aen_valor_flete_op' => Type::int()
+    ]
+        ]);
+
 $sucursalType = new ObjectType([
     'name' => 'sucursales',
     'description' => 'tipo de dato sucursales cliente',
@@ -182,7 +240,6 @@ $sucursalType = new ObjectType([
     ]
         ]);
 
-
 $clienteType = new ObjectType([
     'name' => 'clientes',
     'description' => 'tipo de dato cliente',
@@ -196,7 +253,6 @@ $clienteType = new ObjectType([
         'cli_per_cont' => Type::string()
     ]
         ]);
-
 
 $empleado_passType = new ObjectType([
     'name' => 'usuario_emp_pass',

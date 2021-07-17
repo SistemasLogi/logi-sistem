@@ -21,7 +21,15 @@ class Cliente extends Model {
     //put your code here
     protected $table = "clientes";
     public $timestamp = false;
-    protected $fillable = ['cli_td_id', 'cli_num_doc', 'cli_nombre', 'cli_tel', 'cli_cel', 'cli_direccion', 'cli_per_cont'];
+    protected $fillable = [
+        'cli_td_id',
+        'cli_num_doc',
+        'cli_nombre',
+        'cli_tel',
+        'cli_cel',
+        'cli_direccion',
+        'cli_per_cont'
+    ];
     protected $primary_key = ['cli_td_id', 'cli_num_doc'];
     public $incrementing = false;
 

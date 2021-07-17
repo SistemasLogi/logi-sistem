@@ -20,7 +20,13 @@ class Stock extends Model {
     //put your code here
     protected $table = "stock";
     public $timestamp = false;
-    protected $fillable = ['suc_num_id', 'pro_cod', 'stk_fecha', 'stk_cantidad', 'stk_observaciones'];
+    protected $fillable = [
+        'suc_num_id',
+        'pro_cod',
+        'stk_fecha',
+        'stk_cantidad',
+        'stk_observaciones'
+    ];
     protected $primary_key = ['suc_num_id', 'pro_cod'];
     public $incrementing = false;
 

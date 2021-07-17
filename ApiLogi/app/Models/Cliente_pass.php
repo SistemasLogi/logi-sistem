@@ -21,7 +21,13 @@ class Cliente_pass extends Model {
     //put your code here
     protected $table = "usuario_pass";
     public $timestamp = false;
-    protected $fillable = ['us_td_id', 'us_num_doc', 'tu_id', 'us_usuario', 'us_password'];
+    protected $fillable = [
+        'us_td_id',
+        'us_num_doc',
+        'tu_id',
+        'us_usuario',
+        'us_password'
+    ];
     protected $primary_key = ['us_td_id', 'us_num_doc'];
     public $incrementing = false;
 

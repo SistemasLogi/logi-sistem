@@ -10,6 +10,8 @@ use App\Models\Productos;
 use App\Models\Stock;
 use App\Models\Salida_producto;
 use App\Models\Entrada_producto;
+use App\Models\Aenvio;
+use App\Models\Orden_servicio;
 use GraphQL\Type\Definition\Type;
 
 $adminQuerys = [
@@ -48,6 +50,20 @@ $adminQuerys = [
         'resolve' => function ($root, $args) {
             $entradas_list = Entrada_producto::where('suc_num_id', "=", $args['suc_num_id'])->get()->toArray();
             return $entradas_list;
+        }
+    ],
+    'alist_envios' => [
+        'type' => Type::listOf($aenvioType),
+        'resolve' => function ($root, $args) {
+            $aenvio_list = Aenvio::get()->toArray();
+            return $aenvio_list;
+        }
+    ],
+    'ordenes_servicio' => [
+        'type' => Type::listOf($osType),
+        'resolve' => function ($root, $args) {
+            $aenvio_list = Orden_servicio::get()->toArray();
+            return $aenvio_list;
         }
     ]
 ];

@@ -21,7 +21,13 @@ class Empleado_pass extends Model {
     //put your code here
     protected $table = "usuario_emp_pass";
     public $timestamp = false;
-    protected $fillable = ['ue_td_id', 'ue_num_doc', 'car_id', 'ue_usuario', 'ue_password'];
+    protected $fillable = [
+        'ue_td_id',
+        'ue_num_doc',
+        'car_id',
+        'ue_usuario',
+        'ue_password'
+    ];
     protected $primary_key = ['ue_td_id', 'ue_num_doc'];
     public $incrementing = false;
 
